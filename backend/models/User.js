@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'A tour must have a name'],
+      required: [true, 'Inter the user name'],
       unique: true,
       trim: true,
     },
@@ -45,7 +45,7 @@ const UserSchema = new mongoose.Schema(
     passwordResetToken: String,
     passwordResetExpires: Date,
   },
-  { timeseries: true },
+  { timestamps: true },
 );
 
 UserSchema.pre('save', function (next) {
