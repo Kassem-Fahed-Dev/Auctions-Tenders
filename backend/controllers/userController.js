@@ -1,7 +1,7 @@
 const User = require('./../models/User');
-const Auctios = require('./../models/Auctions');
 const catchAsync = require('./../utils/catchAsync');
 const Auctions = require('./../models/Auctions');
+const AppError = require('../utils/appError');
 
 exports.getAllUsers = catchAsync(async (req, res) => {
   const users = await User.find();
@@ -16,22 +16,13 @@ exports.getAllUsers = catchAsync(async (req, res) => {
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ name: req.params.name });
-  if (user) {
-    await user.remove(); // to enable pre('remove')
-    User.deleteOne({ name: req.params.name })
-      .exec()
-      .then((result) => {
-        res.status(200).json({ message: 'User deleted' });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: err });
-      });
-  } else {
-    console.log('User not exist');
-    res.status(500).json({ message: 'User not exist' });
+  if (!user) {
+    return next(new AppError('User not found', 404));
   }
+  await user.remove(); // to enable pre('remove') and delete all auctions for the user deleted
+  res.status(200).json({ message: 'user and all auctions deleted' });
 });
+
 exports.updateInfo = async (req, res, next) => {
   const userId = req.params.id;
   const updateData = req.body;
