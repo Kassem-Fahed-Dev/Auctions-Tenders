@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const Auctions = require('../models/Auctions');
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -17,7 +18,10 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, 'the email not valid'],
     },
-    phone: String,
+    phone: {
+      type: String,
+      required: [true, 'phone required'],
+    },
     country: String,
     profileImg: String,
     password: {
@@ -47,6 +51,16 @@ const UserSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+UserSchema.pre('remove', async function (next) {
+  try {
+    await Auctions.deleteMany({ userId: this._id });
+    console.log(`Deleted all auctions for user ${this._id}`);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 UserSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
