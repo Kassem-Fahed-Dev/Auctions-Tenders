@@ -11,6 +11,5 @@ router
   .put('/:id', userController.updateInfo);
 router.post('/forgotPassword', authController.forgetPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
-router.post('/auction', userController.addAuction);
 
 module.exports = router;
