@@ -20,7 +20,6 @@ const UserSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, 'phone required'],
     },
     country: String,
     profileImg: String,
@@ -45,7 +44,12 @@ const UserSchema = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user',
     },
-    passwordChangeAt: Date,
+    active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
+    passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
   },
@@ -64,8 +68,7 @@ UserSchema.pre('remove', async function (next) {
 
 UserSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
-
-  this.passwordChangeAt = Date.now() - 1000;
+  this.passwordChangedAt = Date.now() - 1000;
   next();
 });
 
@@ -79,11 +82,30 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-UserSchema.methods.currectPassword = async function (
+UserSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+  next();
+});
+
+UserSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword,
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+UserSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10,
+    );
+    console.log(JWTTimestamp, changedTimestamp);
+    return JWTTimestamp < changedTimestamp;
+  }
+
+  // False means NOT changed
+  return false;
 };
 
 UserSchema.methods.createPasswordResetToken = function () {
