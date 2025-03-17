@@ -1,4 +1,4 @@
 backend/node_modules/
-/config.env
+backend/config.env
 /public/
 backend/package-lock.json
