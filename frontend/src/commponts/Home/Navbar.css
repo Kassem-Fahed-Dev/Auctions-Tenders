@@ -1,0 +1,83 @@
+/* الناف الاساسي */
+.Nav , .Navul{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.Nav{
+    width: 1312px;
+    height: 80px;
+    background-color: #f2f2f2;
+    border-radius: 28px;
+    margin: 5px auto;
+    padding: 5px 20px;
+    padding-right: 50px;
+    position: sticky;
+    top: 32px;
+    z-index: 5;
+ 
+}
+
+/* القائمة الاولى */
+.ul1{
+    width: 40%;
+    padding: 4px;
+    gap: 30px;
+}
+/* القاىمة الثانية */
+.ul2{
+    width: 20%;
+    font-size: 14px;
+    padding: 4px;
+    margin-top: 15px;
+ 
+}
+.ul1 li{
+    /* padding-right: 7px;
+    padding-left: 7px;
+    margin: 0px 15px; */
+    width: 50px;
+}
+/* ال hover على الكلمات */
+.Navul li a:hover{
+    font-weight:bold ;
+    font-size: 36px;
+}
+/* الايقونات ضمن الناف */
+.fas{
+    color: #cccccc;
+}
+.icon{
+    text-align: center;
+    font-size: 30px;
+}
+.account ,.users{
+    font-size: 14px;
+ }
+ .users:hover,.account:hover{
+    font-weight: bold;
+
+ }
+  .bold1{
+    font-weight: bold;
+  }
+
+/* الروابط بكل قائمة */
+.Navul li a{
+    text-decoration: none;
+    color: #003366;
+    font-size: 32px;
+}
+/* ال لوغو */
+.logo1{
+    width:85px;
+    height: 66px;
+}
+/* مشان تصير غامقة */
+.bold{
+    font-weight: bold;
+    font-size: 36px;
+}

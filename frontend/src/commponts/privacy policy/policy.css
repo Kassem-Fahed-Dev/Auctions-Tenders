@@ -1,0 +1,84 @@
+.box-up {
+  height: 200px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: linear-gradient(white, #cccccc);
+  position: relative;
+}
+.circle {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #cccccc;
+}
+/* التعداد */
+.title-ul {
+  font-family: IBM Plex Sans Arabic;
+  color: #003366;
+  font-size: 36px;
+  margin-bottom: 19px;
+  margin-top: 19px;
+  margin: 20px;
+}
+ul {
+  list-style-type: disc;
+}
+
+/* icon */
+.fas.fa-chevron-left {
+  position: absolute;
+  top: 28%;
+  left: 90px;
+  font-size: 38px;
+  color: #cccccc;
+}
+.far.fa-edit {
+  text-align: center;
+  font-size: 70px;
+  color: #cccccc;
+  padding: 23px;
+}
+.fas.fa-lock {
+  text-align: center;
+  font-size: 60px;
+  color: #cccccc;
+}
+.title {
+  font-family: IBM Plex Sans Arabic;
+  text-align: center;
+  font-weight: 400;
+  font-size: 36px;
+  color: #000000;
+}
+.name {
+  font-weight: 500;
+}
+/* المقدمة */
+.phar {
+  font-family: IBM Plex Sans Arabic;
+  color: #000000;
+  font-size: 30px;
+  margin: 40px;
+}
+/* هون للتطبيق عكل السباسة */
+.p1 {
+  direction: rtl;
+  padding: 12px;
+  line-height: 44px;
+  font-size: 24px;
+  color: #000000;
+  font-family: IBM Plex Sans Arabic;
+}
+.div_ol {
+  margin-top: 44px;
+}
+.date {
+  /* padding: 30px; */
+  margin: 40px;
+}

@@ -1,0 +1,127 @@
+
+/* الحاوي تبع ال footer كامل */
+.footer {
+    background-color: #cccccc;
+    direction: rtl;
+    display: flex;
+   justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   }
+/* اللوغو في ال footer */
+.footer-logo {
+    width: 187px;
+  height: 133px;
+ } 
+/* الكلمة تبع منصة */
+ .footer h1{
+    font-size: 30px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+ }
+ /* الجملة تبع منصة رائدة */
+ 
+ .footer h6 {
+    width: 350px;
+    text-align: center;
+    font-size: 20px;
+    word-spacing: 10px;
+    margin-bottom: 32px;
+    color: #000;
+    line-height: 30px;
+   }
+   /* التعدادات تبع الروابط (تواصل -سياسة - احكام) */
+   .footer-list {
+    width: 1312px;
+   display: flex;
+   align-items: start;
+   direction: rtl;
+   margin-right: 85px;
+   }
+   /* تنسيق الرقم */
+   .footer-button-tell{
+    background-color: #cccccc;
+    border: none;
+    margin-bottom: 2px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    height: 40px;
+    width: 175px;
+    justify-content: space-between;
+    padding-right: 0px;
+    margin-left: -5px;
+    margin-right: 80px;
+}
+.footer-phone{
+    margin-bottom: 16px;
+}
+/* تنسيق الايقونات مع الايميل و الرقم */
+.tell-email , .footer-phone{
+    color: #000000;
+    font-size: 20px;
+}
+/* تنسيق الايميل */
+.footer-email{
+   display: flex;
+   align-items: center;
+   flex-direction: row-reverse;
+   text-decoration: none;
+   gap: 10px;
+   width: 300px;
+}
+/* تنسيق تواصل سياسة احكام */
+.footer-list a , .footer h1{
+    text-decoration: none;
+    color: #000;
+    font-size: 32px;
+}
+.hov{
+    width: 300px;
+}
+.hov2{
+    width: 100px;
+}
+.hov1:hover{
+    font-size: 36px;
+    font-weight: bold;
+}
+.hov3:hover{
+    font-size: 20px;
+    font-weight: bold;
+}
+/* جميع الحقوق محفوظة */
+.copy{
+    color: #000;
+    font-size: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 3px solid #ffffff80;
+    margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+.copy p{
+    color: #000000;
+    font-size: 30px;
+}
+.copy .num{
+    margin-top: 5px;
+}
+
+.email-phone{
+    margin-top: 40px;
+    margin-right: 25px;
+}
+.privacy{
+    margin-left: 150px;
+    margin-right: 150px;
+}
+.bold1{
+    font-weight: bold;
+    font-size: 36px;
+}
