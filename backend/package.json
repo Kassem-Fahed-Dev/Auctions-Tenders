@@ -1,5 +1,5 @@
 {
-  "name":"auctions&tenders",
+  "name": "auctions&tenders",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "env": "^0.0.2",
     "express": "^4.21.2",

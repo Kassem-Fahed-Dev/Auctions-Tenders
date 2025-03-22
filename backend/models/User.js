@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const Auctions = require('../models/Auctions');
-const UserSchema = new mongoose.Schema(
+const Auctions = require('./Auction');
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -56,7 +56,14 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-UserSchema.pre('remove', async function (next) {
+userSchema.virtual("auctions", {
+  ref: "Auction",       // Referencing the "Auction" model
+  localField: "_id",    // Field in "User" that matches "foreignField"
+  foreignField: "user", // Field in "Auction" that stores the user's ID
+  justOne: false        // false = One user can have many auctions
+});
+
+userSchema.pre('remove', async function (next) {
   try {
     await Auctions.deleteMany({ userId: this._id });
     console.log(`Deleted all auctions for user ${this._id}`);
@@ -66,13 +73,13 @@ UserSchema.pre('remove', async function (next) {
   }
 });
 
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
   this.passwordChangedAt = Date.now() - 1000;
   next();
 });
 
-UserSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
   // Only run this fun if password was actually modified
   if (!this.isModified('password')) return next();
   // Hash the password with cost of 12
@@ -82,19 +89,19 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-UserSchema.pre(/^find/, function (next) {
+userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
 
-UserSchema.methods.correctPassword = async function (
+userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword,
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-UserSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
@@ -108,7 +115,7 @@ UserSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   return false;
 };
 
-UserSchema.methods.createPasswordResetToken = function () {
+userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
   this.passwordResetToken = crypto
@@ -122,5 +129,5 @@ UserSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;
