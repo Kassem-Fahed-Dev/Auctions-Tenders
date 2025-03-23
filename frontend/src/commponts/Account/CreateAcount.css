@@ -16,7 +16,7 @@
     flex-direction: column;
     align-items: center;
 }
-.sing-in1{
+.log-in1{
     width: 873px;
     height: 542px;
     display: flex; 
@@ -68,11 +68,9 @@
    text-align: center;
    margin: 40px 0px 70px 80px;
 }
-.name,.pass{
-    direction: rtl;
-    margin-bottom: 12px;
-}
-.fa-user,.fas.fa-lock ,.email1{
+
+/* الايقونات */
+.fa-user,.pass .fas.fa-lock ,.email1{
     font-size: 20px;
     position: relative;
     right: 23px;
@@ -82,6 +80,12 @@
     height: 20px;
     
 }
+.name,.pass{
+    direction: rtl;
+    margin-bottom: 12px;
+    width: fit-content;
+}
+/* مشان حركة الكلمة */
 .name2 ,.pass2{
     animation-name: name-pass2;
     animation-duration: 3ms;
@@ -102,12 +106,13 @@
     height: 30px;
     border: none;
     border-bottom: 2px solid #000000;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     padding: 0px;
     outline: none;
     padding-right: 30px;
    caret-color: transparent;
 }
+/* مشان حركة الايقونة */
  .pass1 ,.name1 {
     animation-name: name-pass;
     animation-duration: 3ms;
@@ -139,7 +144,7 @@ label{
 label span{
     color: red;
 }
-.button-sing-in{
+.button-log-in{
     width: 272px;
     background-color: #003366;
     color: #fff;
@@ -153,11 +158,11 @@ label span{
     margin-left: 100px;
     font-size: 18px;
 }
-.button-sing-in0{
+.button-log-in0{
     height: 44px;
 
 }
-.button-sing-in:hover{
+.button-log-in:hover{
    animation-name: button;
    animation-fill-mode: forwards;
    animation-duration: 500ms;
@@ -178,9 +183,9 @@ label span{
     align-items: center;
     margin-left: 90px;
     height: 30px;
-    margin-top: 150px;
+    margin-top: 110px;
 
-}
+} 
 .create-account0 button{
     font-weight: bold;
     text-decoration: none;
@@ -194,6 +199,7 @@ label span{
     font-size: 16px;
     padding-top: 22px;
 }
+/* تحتوي كرتين تسجيل الدخول و انشاء الحساب */
 .flip-card{
     position: relative;
     width: 873px;
@@ -202,16 +208,15 @@ label span{
      left: 80px;
 
 }
-
-.sing-in{
+.log-in{
     position: absolute;
     backface-visibility: hidden;
     transition: transform 2s;
 }
-.sing-in2{
+.log-in2{
     transform: rotateY(-180deg);
 }
-
+/* انشاء الحساب */
       .creat-account-back{
         transition: transform 2s;
         display: flex;
@@ -227,6 +232,7 @@ label span{
       .creat-account-back1{
         transform: rotateY(0deg);
     }
+    /* كلمات ترحيب في انشاء الحساب */
       .hello1{
         position: absolute;
         top: 0px;
@@ -252,15 +258,18 @@ label span{
         top: 210px;
       right: 120px;
     }
+    /* قائمة انشاء لحساب مربعات الادخال */
     .form{
         position: absolute;
         right: 100px;
         top: 90px;
     }
+    /* مربعات ادخال انشاء حساب */
     .form form input{
-        margin-bottom: 38px;
+        margin-bottom: 42px;
        
     }
+    /* كلمة انشاء حساب */
     .in1{
         position: absolute;
         top: -70px;
@@ -278,13 +287,14 @@ label span{
         height: 20px;
         font-size: 11px;
     }
+    /* تنسيق المثلث في قائمة الموقع */
     .triangle{
         transform: rotate(180deg);
         width: 18px;
         height: 18px;
         background-color: #ccc;
         position: absolute;
-        top: 20px;
+        top: 18px;
         left: 130px;
         z-index: 100;
         border: #000000 solid 3px;
@@ -308,7 +318,9 @@ label span{
         height: 18px;
        transform: rotate(29deg);
     }
-   
+    .triangle1{
+        transform: rotate(360deg);
+       }
      
     .base {
         width: 100px; 
@@ -318,10 +330,7 @@ label span{
         top: 100px; 
         left: -50px; 
     }
-    .triangle1{
     
-      transform: rotate(360deg);
-     }
    
     .location{
         position: relative;
@@ -332,7 +341,7 @@ label span{
         position: absolute;
         color: #000;
         left: 350px;
-        top: 12px;
+        top: 5px;
     }
     .location2{
         padding-right: 20px;
@@ -342,16 +351,20 @@ label span{
         height: 31px;
         border-radius: 8px;
         position: absolute;
-        top: 13px;
         left: 120px;
+        top: 10px;
         caret-color: transparent;
+        font-weight: 500;
+    }
+    .location2:hover,.location-hover:hover,.triangle:hover+.location2{
+     background-color: #ccc;
     }
     .list{
         direction: rtl;
         border: #000 solid 2px;
         width: 187px;
         position: absolute;
-        top: 60px;
+        top: 50px;
         left: 120px;
         border-radius: 8px;
         display: none;
@@ -361,9 +374,28 @@ label span{
         background-color: #000;
 
     }
-    .list p{
-        margin-right: 20px;
-        margin-top: 2px;
+    .list .p1,.list .p2,.list .p3{
+        padding-right: 20px;
+        padding-top: 2px;
+        padding-bottom: 10px;
+        margin-bottom: 0px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        font-size: 16px;
+        height: 40px;
+        font-weight: 700;
+    }
+    .list .p2{
+        padding-top: 2px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+    .list .p3{
+        padding-top: 5px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
     }
     .list1{
         display: block;
@@ -371,7 +403,7 @@ label span{
   
    .check{
         position: absolute;
-        top: 210px;
+        top: 185px;
         right: 12px;
       
     }
@@ -390,7 +422,7 @@ label span{
     }
     .check1{
         position: absolute;
-        top: 260px;
+        top: 215px;
         right: 12px;
         display: flex;
         align-items: center;
@@ -406,13 +438,14 @@ label span{
         border: #00000050 solid 1px;
         border-radius: 5px;
     }
-     
+     /* مربع تشك */
     .check input{
         position: absolute;
         top: 3px;
         right: 2px;
         
     }
+    /* جماة حد مربع تشك تاني */
     .labal-check1{
         width: 465px;
         padding-top: 7px;
@@ -421,7 +454,7 @@ label span{
     /* زر إنشاء الحساب */
     .creat{
         position: absolute;
-        top: 310px;
+        top: 300px;
         right: 12px;
         font-size: 20px;
         background-color: #003366;
@@ -458,10 +491,11 @@ label span{
         font-size: 12px;
         font-weight: bold;
     }
-    
+    /* ارجام الوضع الافتراضي لمرع التشك */
     input[type="checkbox"]:checked{
         appearance: auto;
     }
+    /* الاخطاء */
     .error0{
         color: red;
         font-size: 12px;
@@ -481,21 +515,21 @@ label span{
     right: 20px;
    } 
    .error3{
-    top: 280px;
+    top: 284px;
     right: 20px;
    } 
    
    .error4{
-    top: 363px;
+    top: 369px;
     right: 20px;
    } 
    .error5{
-    top: 23px;
-    left: 134px;
+    top: 3px;
+    left: 247px;
    } 
    .error6{
-    top: 22px;
-    left: 350px;
+    top: 3px;
+    left: 463px;
    } 
    .error7{
     top:20px;
@@ -503,5 +537,25 @@ label span{
    }
    .fa-warning{
     padding-left: 5px;
+   }
+   .error-log-in-password{
+    position: absolute;
+    top:275px;
+    right: 470px;
+   }
+   .error-log-in-name{
+    position: absolute;
+    top:190px;
+    right: 470px;
+   }
+   .reject{
+    font-weight: 800;
+    font-size: 14px;
+    top:330px;
+    left: 148px;
+   }
+   .errorBackend{
+    top:260px;
+    right: -40px;
    }
    

@@ -16,6 +16,7 @@ function App() {
          <Route path='/privacy1' element={<Privacy1/>}/>
          <Route path='/acount' element={<CreateAcount/>}/>
          <Route path='/confirm' element={<Confirm message={"تم إنشاء حساب بنجاح"}/>}/>
+         <Route path='/confirm1' element={<Confirm message={"تم تسجيل الدخول بنجاح"}/>}/>
         </Routes>
         
     </div>

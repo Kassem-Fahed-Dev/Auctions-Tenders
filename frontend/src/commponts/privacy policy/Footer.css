@@ -77,9 +77,15 @@
     color: #000;
     font-size: 32px;
 }
+/* تنسيق الكلمات سياسة و أحكام */
 .hov{
     width: 300px;
 }
+.privacy{
+    margin-left: 150px;
+    margin-right: 150px;
+}
+/* تنسق التواصل */
 .hov2{
     width: 100px;
 }
@@ -87,9 +93,14 @@
     font-size: 36px;
     font-weight: bold;
 }
+/* تنسيق الايميل و الرقم */
 .hov3:hover{
     font-size: 20px;
     font-weight: bold;
+}
+.email-phone{
+    margin-top: 40px;
+    margin-right: 25px;
 }
 /* جميع الحقوق محفوظة */
 .copy{
@@ -105,22 +116,18 @@
     padding-bottom: 10px;
     justify-content: center;
 }
+/* تنسق الجملة و التاريخ و رمز حقوق النشر */
 .copy p{
     color: #000000;
     font-size: 30px;
 }
+/* تاريخ و رمز حقوق النشر */
 .copy .num{
     margin-top: 5px;
 }
 
-.email-phone{
-    margin-top: 40px;
-    margin-right: 25px;
-}
-.privacy{
-    margin-left: 150px;
-    margin-right: 150px;
-}
+
+/* من أجل تغميق الكلمات */
 .bold1{
     font-weight: bold;
     font-size: 36px;
