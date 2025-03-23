@@ -1,18 +1,14 @@
 const mongoose = require('mongoose');
 const auctionSchema = new mongoose.Schema(
   {
-    auction_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      auto: true,
-    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'userSchema',
     },
-    itemId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'item',
-    },
+    // itemId: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'item',
+    // },
     auctionTtile: {
       type: String,
       required: [true, 'Inter auction title'],
@@ -45,8 +41,8 @@ const auctionSchema = new mongoose.Schema(
     },
     activeStatus: {
       type: String,
-      enum: ['active', 'close'],
-      default: 'active',
+      enum: ['active', 'close', 'soon'],
+      default: 'soon',
     },
   },
   { timestamps: true },
@@ -54,8 +50,10 @@ const auctionSchema = new mongoose.Schema(
 // To set the value of activeStatus based on startTime and endTime
 auctionSchema.pre('save', function (next) {
   const now = new Date();
-  if (now < this.startTime || now > this.endTime) {
+  if (now > this.endTime) {
     this.activeStatus = 'close';
+  } else if (now < this.startTime) {
+    this.activeStatus = 'soon';
   } else {
     this.activeStatus = 'active';
     console.log(this.activeStatus);

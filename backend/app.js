@@ -2,16 +2,24 @@ const express = require('express');
 const morgan = require('morgan');
 const globalErrorHandler = require('./controllers/errorController');
 const app = express();
-//const tourRouter = require('./routes/tourRouter');
+const cors = require('cors');
 
 const userRouter = require('./routs/userRoutes');
 const auctionRouter = require('./routs/auctionRoutes');
 
-// Middellwares
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials:true,           
+  optionSuccessStatus:200
+}
+// Middellwares
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
 
