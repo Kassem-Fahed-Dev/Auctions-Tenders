@@ -2,7 +2,7 @@ import './CreateAcount.css';
 import { useState } from 'react';
 import imag from '../../image/logo.png';
 import { useNavigate } from 'react-router-dom';
-import axios, { Axios, formToJSON } from 'axios';
+import axios from 'axios';
 export default function CreateAcount() {
   const navegate = useNavigate();
   //   usestate
@@ -114,6 +114,7 @@ export default function CreateAcount() {
           {
             headers: {
               'Content-Type': 'application/json',
+              'Accept-Language':'ar',
             },
           }
         )
@@ -402,7 +403,7 @@ export default function CreateAcount() {
                   onClick={() => hoverItems1('list1')}
                 >
                   <div className="tri tri1"></div>
-                  <div className="tri tri2"></div>
+                  <div className="tri"></div>
                 </div>
 
                 <input

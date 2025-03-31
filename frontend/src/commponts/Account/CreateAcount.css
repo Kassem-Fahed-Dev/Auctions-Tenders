@@ -343,6 +343,7 @@ label span{
         left: 350px;
         top: 5px;
     }
+   
     .location2{
         padding-right: 20px;
         border: #000000 solid 3px;
@@ -356,7 +357,7 @@ label span{
         caret-color: transparent;
         font-weight: 500;
     }
-    .location2:hover,.location-hover:hover,.triangle:hover+.location2{
+    .location2:hover,.group2:hover,.location-hover:hover,.group-hover:hover,.triangle:hover+.location2{
      background-color: #ccc;
     }
     .list{

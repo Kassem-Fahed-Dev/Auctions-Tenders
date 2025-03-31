@@ -1,0 +1,537 @@
+
+.createauction{
+    background-color:#ffd700;
+    display: flex;
+    border: none;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    height: 65px;
+    width: 250px;
+    margin-left: 100px;
+    margin-top: 20px;
+    padding: 15px;
+}
+.createauction p{
+    margin-bottom: 0px;
+    font-size: 28px;
+}
+.createauction i{
+    background-color: black;
+    padding: 5px;
+    color: #ffd700;
+    border-radius: 3px;
+}
+.createauction:hover{
+    background-color:#ffd70090 ;
+    font-weight: bold;
+
+ }
+.sort{
+    width: 250px;
+    background-color: #fff;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 50px;
+    justify-content: center;
+    text-align: end;
+    padding: 10px;
+    padding-left: 20px;
+    font-size: 24px;
+    position: absolute;
+    top: 230px;
+    right: 95px;
+    outline: none;
+    caret-color: transparent;
+}
+.sort p{
+    margin-bottom: 0px;
+}
+.fas1:hover+.sort{
+background-color: #003366;
+}
+.sort1.fas.fa-chevron-left{
+    transform: rotate(-90deg);
+    font-size: 22px;
+}
+.sort2.fas.fa-chevron-left{
+    transform: rotate(90deg);
+    color: black;
+    font-size: 22px;
+}
+.sort:hover , .sort1:hover+.sort{
+    background-color: #003366;
+    color: #fff;
+    cursor: pointer;
+}
+.fas.fa-chevron-left:hover{
+color: #fff;
+
+}
+.alotofAuction{
+    display: flex;
+    gap: 50px;
+    margin-left: 100px;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+}
+.listSort{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    display: none;
+}
+.listSort .buttonSort{
+    border-radius: 20px;
+ 
+}
+.visable{
+    display: block;
+}
+.hidden{
+    display: none;
+}
+.listSort .buttonSort button{
+    position: relative;
+    width: 250px;
+    background-color: #fff;
+    padding: 10px;
+    display: block;
+    font-size: 24px;
+    left: 1155px;
+}
+.listSort .buttonSort button:hover{
+    background-color: #003366;
+    color: #fff;
+}
+.listSort .buttonSort .button1{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.listSort .buttonSort .button2{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+/* ---------auction---------- */
+.oneAuction{
+    position: relative;
+    background-color: #f2f2f2;
+    margin-top: 30px;
+    width: 295px;
+    height: 580px;
+    border-radius: 12px;
+    box-shadow: 1px 1px 8px 2px#cccccc;
+    padding-top: 1px;
+}
+.imageAuction{
+    width: 295px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.oneAuction .nameCube{
+    width:  230px;
+
+    margin: auto;
+    position: relative;
+    background-color: #ccc;
+    text-align: center;
+    padding: 15px;
+    margin-top: -20px;
+    border-radius: 22px;
+}
+.oneAuction .userName,.product{
+    margin-top: 20px;
+    flex-direction: row-reverse;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+.userName{
+    margin-right: -10px;
+}
+.product{
+    margin-right: 10px;
+    flex-wrap: wrap;
+}
+.product1{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.product2{
+    margin-right: 22px;
+}
+.oneAuction .userName .userAuction , .oneAuction .product .tableAuction,.clockAuction{
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+    color: #000;
+    padding-top: 8px;
+    background-color: #ccc;
+    border-radius: 50%;
+    text-align: center;
+}
+.clockAuction img{
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+}
+.many{
+    direction: rtl;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+.many span{
+    color: #00cc66;
+}
+.ditales{
+    background-color: #003366;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    width: 100px;
+    height: 30px;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+.oneAuction .time{
+    position: absolute;
+    /* bottom: 210px;
+    right: -230px; */
+    right: 0px;
+    top: 15px;
+    padding: 2px;
+    color: #00cc66;
+    background-color: #fff;
+    width: 70px;
+    text-align: center;
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+}
+.white{
+    color: #fff;
+}
+.black{
+    color: #000;
+}
+
+
+.oneAuction .fa-heart{
+    background-color: #ccc;
+    position: absolute;
+  left: 8px;
+  top: 15px;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+/* ------createAuction----- */
+.create-auction-button .createp{
+    direction: rtl;
+    margin-top: 90px;
+    margin-right: 120px;
+    font-size: 38px;
+    font-weight: 500;
+    color: #66b2ff;
+}
+.auction2{
+    margin-top: 50px;
+    position: relative;
+    margin-right: -35px;
+    margin-bottom: 50px;
+}
+.create-auction-button .fas.fa-chevron-left{
+    position: absolute;
+  left: 150px;
+  top: 190px;
+  border: none;
+  font-size: 32px;
+  font-weight: bold;
+  background-color: #fff;
+  color: #ccc;
+}
+.create-auction-data{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 120px;
+    margin-bottom: 50px;
+    gap: 10px;
+}
+.create-auction-data1{
+    width: 680px;
+    /* height: 840px; */
+    margin-top: 20px;
+    padding-left: 20px;
+    background-color: #ccc
+}
+.create-auction-data2{
+    width: 610px;
+    /* height: 880px; */
+    background-color: #ccc
+}
+.create-auction-form{
+    direction: rtl;
+    display: flex;
+    gap: 20px;
+    flex-direction: row-reverse;
+}
+.tri2{
+    left: -5px;
+    bottom: 10px;
+    transform: rotate(248deg);
+    width: 30px;
+}
+.group-label,.product-name-label{
+    font-weight: 500;
+    font-size: 17px;
+        color: #000;
+    margin-right: 120px;
+    margin-left: 10px;
+    margin-top: 10px;
+    /* margin-top: 50px; */
+}
+.group1 input{
+ margin-right: -68px;   
+}
+.group2{
+    /* padding-right: 20px; */
+    border: #000000 solid 3px;
+    direction: rtl;
+    width: 150px;
+    height: 31px;
+    border-radius: 8px;
+    /* left: 120px;
+    top: 10px; */
+    caret-color: transparent;
+    font-weight: 500;
+    /* margin-right: -40px; */
+    margin-bottom: 45px;
+}
+.tri3{
+    top: 323px;
+    left: 755px;
+    z-index: 2;
+}
+.group1{
+    padding-top: 42px;
+    padding-left: 30px;
+    margin-bottom: 50px;
+}
+
+.product-name input{
+   width: 150px;
+   height: 30px;
+   padding: 5px;
+   font-size: 14px;
+   margin-right: -70px; 
+   /* margin-top: -9px; */
+  outline: none;
+  border: none;
+  background-color: #f2f2f2;
+}
+.triangle1{
+    transform: rotate(360deg);
+   }
+   .list-group-m{
+    direction: rtl;
+    border: #000 solid 2px;
+    width: 150px;
+    border-radius: 8px;
+    margin-right: 160px;
+    margin-top: -40px;
+    margin-bottom: 30px;
+    display: none;
+}
+.list-group-m div{
+    height: 2px;
+    background-color: #000;
+
+}
+.list-group-m .p1,.list-group-m .p2,.list-group-m .p3{
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-size: 16px;
+    height: 40px;
+    font-weight: 700;
+}
+.list-group-m .p2{
+    padding-top: 2px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.list-group-m .p3{
+    padding-top: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.list-group1{
+    display: flex;
+    flex-direction: column;
+}
+.product-name{
+margin-top: -7px;
+margin-bottom: 50px;
+display: flex;
+}
+.send-auction{
+    background-color: #003366;
+    color: #fff;
+    padding: 10px;
+    padding-top: 5px;
+    height: 50px;
+    width: 175px;
+    font-weight: 400;
+    font-size: 24px;
+    border: none;
+    border-radius: 8px;
+    /* margin-top: 50px; */
+    /* margin-right: 100px; */
+    position: absolute;
+    bottom: -30px;
+    right: 270px;
+}
+.list-data{
+    border-bottom: #000 solid 2px;
+    height: 70px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 90px;
+    padding-right: 50px;
+}
+.list-data button{
+    border: none;
+    background-color: transparent;
+    height: 50px;
+    margin-top: 10px;
+    width: 75px;
+    padding: 10px;
+    border-radius: 8px;
+}
+.list-data button:hover{
+    background-color: #003366;
+    color: #fff;
+    font-weight: bold;
+}
+.auction3{
+    display: flex;
+}
+.status{
+    margin-top: 7px;
+    margin-bottom: 50px;
+}
+.status label{
+    font-weight: 500;
+    font-size: 17px;
+        color: #000;
+        margin-bottom: 10px;
+        margin-left: -5px;
+    /* margin-right: 120px;
+    margin-top: 10px; */
+}
+.status input{
+    width: 20px;
+    height: 20px;
+    margin-top: 4px;
+    /* margin-right: -90px; */
+}
+input [type='date']{
+    background-color: transparent;
+}
+
+/* --------- */
+.bu{
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+/* --------- */
+.group-con{
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+    display: flex;
+    width: 1300px;
+    margin-left: 50px;
+    flex-wrap: wrap;
+    gap: 70px;
+}
+.group-div{
+    width: 350px;
+    height: 300px;
+    background-color: #003366;
+    border-radius: 25px;
+    background-repeat: no-repeat;
+    background-size: 350px 300px;
+    overflow: hidden;
+}
+.div1{
+    background-image: url('../../image/cargroup.jpeg');
+    
+}
+.div2{
+    background-image: url('../../image/bil.jpg');
+}
+.div3{
+    background-image: url('../../image/elctron.jpeg');
+}
+.div4{
+    background-image: url('../../image/furniture.jpeg');
+}
+.div5{
+    background-image: url('../../image/clothes.jpeg');
+}
+.div6{
+    background-image: url('../../image/jewelery.jpeg');
+}
+.div7{
+    background-image: url('../../image/question.jpeg');
+}
+.group-div .link{
+    background-color: #f2f2f298;
+    display: inline-block;
+    height: 75px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    color: #000;
+    text-decoration: none;
+    padding-top: 5px;
+    top: 225px;
+    border: none;
+    font-size: 32px;
+    font-weight: 500;
+}
+.create-auction-button .createp1{
+    font-size: 48px;
+   
+}
+/* ----- */
+.create-auction-button .fas1{
+   margin-top: 110px;
+   
+}
+/* .so{
+    margin-top: 150px;
+}
+.so+.fas{
+    margin-top: 150px;
+}
+.fas:hover+.so{
+    background-color: #003366;
+    color: #fff;
+}
+.fas2{
+    margin-top: 145px;
+} */
+.so{
+    top: 375px;
+}
