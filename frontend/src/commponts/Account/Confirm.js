@@ -1,8 +1,11 @@
 import './Confirm.css';
 import imag from '../../image/logo.png';
+import { useNavigate } from 'react-router-dom';
 export default function Confirm({ message }) {
+  const navegate=useNavigate()
   function goback() {
     window.history.go(-2);
+  
   }
   return (
     <>

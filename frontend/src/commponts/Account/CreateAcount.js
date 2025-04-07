@@ -9,6 +9,8 @@ export default function CreateAcount() {
   const [namePass, setNamePase] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
   const [errorMessage1, setErrorMessage1] = useState({});
+  const [hover,setHover]=useState('spinner')
+  const [hover1,setHover1]=useState('')
   //const [location, setLocation] = useState(' ');
  let messageBackend=""
   // انشاء حساب
@@ -106,6 +108,7 @@ export default function CreateAcount() {
     }
     setErrorMessage(valditionErrerors);
     if (Object.keys(valditionErrerors).length === 0) {
+      setHover('spinner-click-tow')
       //navegate('/confirm');
       axios
         .post(
@@ -118,8 +121,10 @@ export default function CreateAcount() {
             },
           }
         )
-        .then((res) => navegate('/confirm'))
+        .then((res) =>{setHover('spinner')
+           navegate('/confirm')})
         .catch((error) => {
+          setHover('spinner')
           valditionErrerors.messageBackend=error.response.data.message
           setErrorMessage(valditionErrerors);
         });
@@ -128,14 +133,19 @@ export default function CreateAcount() {
   //  دالة تسجيل الدخول تجريبية
   const handleSubmit = (e) => {
     e.preventDefault();
+   
     const valditionErrerors1 = {};
     if (!formData1.email.trim()) {
       valditionErrerors1.email = 'هذا الحقل مطلوب.';
+    
     }
     if (!formData1.password.trim()) {
       valditionErrerors1.password = 'هذا الحقل مطلوب.';
+    
     }
-
+    setErrorMessage1(valditionErrerors1);
+    if (Object.keys(valditionErrerors1).length === 0) {
+      setHover('spinner-click')
     axios
     .post(
       'https://testapi-gibt.onrender.com/api/v1/users/login',
@@ -143,15 +153,17 @@ export default function CreateAcount() {
       {
         headers: {
           'Content-Type': 'application/json',
+          'Accept-Language':'ar',
         },
       }
     )
-    .then((res) =>navegate('/confirm1'))
+    .then((res) =>{ setHover('spinner')
+    navegate('/confirm1')})
     .catch((error) => {
-      valditionErrerors1.messageBackend=".يوجد خطأ في الإيميل أو كلمة السر"
+      setHover('spinner')
+      valditionErrerors1.messageBackend=error.response.data.message
       setErrorMessage1(valditionErrerors1);
-      console.log(valditionErrerors1.messageBackend)
-    });
+    });}
   };
 
   // ----------------------
@@ -225,10 +237,13 @@ export default function CreateAcount() {
                       <span className="fa fa-warning"></span>
                     </span>
                   )}
+                    <button className='forget' onClick={()=>navegate('/Modify')}>هل نسيت كلمة المرور؟</button>
                   <div className="button-log-in0">
-                    <button className="button-log-in">تسجيل الدخول</button>
+                    <button className={`button-log-in ${hover.includes('spinner-click')?'hidden-send':''}`}>تسجيل الدخول</button>
+                    <div className={`spinn ${hover.includes('spinner-click')?'spinner-click':'spinner'}`}> <div className='spinner-border ' role='status'></div></div>
                   </div>
                 </form>
+              
                 <div className="create-account0">
                   <button onClick={() => hoverItems1('rou')}>
                     إنشاء حساب جديد
@@ -490,7 +505,8 @@ export default function CreateAcount() {
                 )}
                 <div>
                
-                  <button className="creat">إنشاء حساب جديد</button>
+                  <button className={`creat ${hover.includes('spinner-click-tow')?'hidden-send':''}`}>إنشاء حساب جديد</button>
+                  <div className={`spinn1 ${hover.includes('spinner-click-tow')?'spinner-click':'spinner'}`}> <div className='spinner-border ' role='status'></div></div>
                 </div>
               </div>
             </form>

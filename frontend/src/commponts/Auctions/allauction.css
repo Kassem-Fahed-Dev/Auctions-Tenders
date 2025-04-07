@@ -67,14 +67,14 @@ background-color: #003366;
     color: #fff;
     cursor: pointer;
 }
-.fas.fa-chevron-left:hover{
+.fas1:hover{
 color: #fff;
 
 }
 .alotofAuction{
     display: flex;
     gap: 50px;
-    margin-left: 100px;
+    margin-left: 180px;
     flex-wrap: wrap;
     margin-bottom: 100px;
 }
@@ -101,7 +101,8 @@ color: #fff;
     padding: 10px;
     display: block;
     font-size: 24px;
-    left: 1155px;
+    left: 1010px;
+    /* right: 95px; */
 }
 .listSort .buttonSort button:hover{
     background-color: #003366;
@@ -230,6 +231,29 @@ color: #fff;
     border-radius: 50%;
 }
 /* ------createAuction----- */
+.image-input{
+    color: transparent;
+    margin-top: 20px;
+    margin-left: 250px;
+}
+.img-choose{
+    width: 250px;
+    height: 250px;
+    margin-top: 30px;
+    margin-left: 30px;
+    border-radius: 8px;
+    
+}
+.choose{
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    position: relative;
+    bottom: 98px ;
+    left: -20px;
+}
 .create-auction-button .createp{
     direction: rtl;
     margin-top: 90px;
@@ -257,15 +281,17 @@ color: #fff;
 .create-auction-data{
     display: flex;
     flex-direction: row-reverse;
-    margin-right: 120px;
+    /* margin-right: 10px; */
     margin-bottom: 50px;
+    padding-right: 20px;
     gap: 10px;
 }
 .create-auction-data1{
     width: 680px;
     /* height: 840px; */
     margin-top: 20px;
-    padding-left: 20px;
+    margin-bottom: 20px;
+    /* padding-left: 50px; */
     background-color: #ccc
 }
 .create-auction-data2{
@@ -328,6 +354,7 @@ color: #fff;
    padding: 5px;
    font-size: 14px;
    margin-right: -70px; 
+   border-radius: 8px;
    /* margin-top: -9px; */
   outline: none;
   border: none;
@@ -410,18 +437,14 @@ display: flex;
 }
 .list-data button{
     border: none;
-    background-color: transparent;
+    background-color: #ccc;
     height: 50px;
     margin-top: 10px;
-    width: 75px;
+    width: 100px;
     padding: 10px;
     border-radius: 8px;
 }
-.list-data button:hover{
-    background-color: #003366;
-    color: #fff;
-    font-weight: bold;
-}
+
 .auction3{
     display: flex;
 }
@@ -442,12 +465,31 @@ display: flex;
     width: 20px;
     height: 20px;
     margin-top: 4px;
+    
     /* margin-right: -90px; */
 }
 input [type='date']{
     background-color: transparent;
+    border-radius: 8px;
 }
-
+.list-data button.back{
+    background-color: #003366;
+    color: #fff;
+    font-weight: bold;
+}
+.textarea{
+   width: 500px;
+    min-height: 300px;
+    max-height: fit-content;
+    background-color: #f2f2f2;
+    margin-left: 70px;
+    margin-top: 40px;
+    border: none;
+    border-radius: 8px;
+    text-align:right;
+   padding: 20px;
+   outline: none;
+}
 /* --------- */
 .bu{
     border-bottom-right-radius: 0px;
@@ -460,7 +502,7 @@ input [type='date']{
     padding-left: 100px;
     display: flex;
     width: 1300px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     flex-wrap: wrap;
     gap: 70px;
 }

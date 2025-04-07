@@ -14,6 +14,9 @@ import FavoriteAuction from './commponts/Auctions/FavoriteAuction';
 import AuctionNew from './commponts/Auctions/AuctionNew';
 import AuctionGroups from './commponts/Auctions/AuctionGroups';
 import AuctionGroup from './commponts/Auctions/AuctionGroup';
+import Modify from './commponts/Account/Modify';
+import ResetPassword from './commponts/Account/ResetPassword';
+
 function App() {
   return (
     <div className="App">
@@ -28,6 +31,7 @@ function App() {
          <Route path='/auctionsgroup' element={<AuctionGroups/>}/>
          <Route path='/CreateAuction' element={<CreateAuction/>}/>
          <Route path='/createAuctions' element={<AuctionNew/>}/>
+         <Route path='/Modify' element={<Modify/>}/>
          <Route path='/confirm' element={<Confirm message={"تم إنشاء حساب بنجاح"}/>}/>
          <Route path='/confirm1' element={<Confirm message={"تم تسجيل الدخول بنجاح"}/>}/>
          <Route path='/car' element={<AuctionGroup paragraph="سيارات"/>}/>
@@ -37,6 +41,8 @@ function App() {
          <Route path='/clothe' element={<AuctionGroup paragraph="ملابس"/>}/>
          <Route path='/jel' element={<AuctionGroup paragraph="إكسسوار"/>}/>
          <Route path='/other' element={<AuctionGroup paragraph="أخرى"/>}/>
+        
+              
         </Routes>
         
     </div>
