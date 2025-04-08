@@ -7,8 +7,8 @@
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
-    padding-left: 5px;
-    padding-right: 30px;
+    padding-left: 3%;
+    padding-right: 3%;
     /* width: 1312px; */
     margin: auto;
 }
@@ -134,10 +134,11 @@ width: 20px;
     display: flex;
     justify-content: space-between;
     /* width: 1312px; */
+    width: 95%;
     margin:  auto;
     margin-bottom: 60px;
     margin-top: 32px;
-    padding-right: 20px;
+    /* padding-right: 20px; */
 }
 .firsthome  .title1{
     direction: rtl;
@@ -151,8 +152,8 @@ width: 20px;
 }
 
 .homeimg{
-    width: 609px;
-    height: 456px;
+    width: 45%;
+    height: 60vh;
     border-radius: 82px;
     border: #cccccc solid 3px;
 }
@@ -162,6 +163,8 @@ width: 20px;
     justify-content: start;
     flex-direction: column;
     padding: 0px 10px;
+    width: 55%;
+    height: 80vh;
     
 
 }
@@ -182,7 +185,7 @@ width: 20px;
 /* فقرة يلي فيها موجة زرقة */
 .wave{
     /* width: 100%; */
-    height: 1000px;
+    /* height: 1000px; */
     background-color: #003366;
     direction: rtl;
     margin-bottom: 32px;
@@ -215,7 +218,7 @@ width: 20px;
     align-items: center;
     height: 460px;
     padding-top: 40px;
-    width: 840px;
+    width: 60%;
  }
  .auction1 h1{
     font-size: 48px;
@@ -259,15 +262,15 @@ width: 20px;
    .box-blue {
     background-color: #003366;
     color: #ffffff;
-    width: 1312px;
+    width: 96%;
     /* width: 1000px; */
     height: 290px;
     border-radius: 25px;
-    padding-right: 40px;
+    padding-right: 5%;
    direction: rtl;
     margin: 115px auto;
     display: flex;
-    gap: 120px;
+    gap:10%;
     align-items: center;
    }
    .box-blue h1{
@@ -281,7 +284,7 @@ width: 20px;
     line-height: 35px;
 }
 .box-blue1{
-    width: 600px;
+    width: 50%;
 }
 /* تنسيق الصور بالمربع الازرق بالترتيب بناء ثم سيارة ثم لابتوب */
   

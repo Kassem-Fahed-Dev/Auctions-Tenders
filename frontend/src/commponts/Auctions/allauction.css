@@ -9,7 +9,7 @@
     border-radius: 15px;
     height: 65px;
     width: 250px;
-    margin-left: 100px;
+    margin-left: 3%;
     margin-top: 20px;
     padding: 15px;
 }
@@ -43,7 +43,8 @@
     font-size: 24px;
     position: absolute;
     top: 230px;
-    right: 95px;
+    /* right: 25%; */
+    left: 75%;
     outline: none;
     caret-color: transparent;
 }
@@ -73,10 +74,13 @@ color: #fff;
 }
 .alotofAuction{
     display: flex;
-    gap: 50px;
-    margin-left: 180px;
+    gap: 3%;
+    /* margin-left: 12%;
+    margin-right: 13%; */
+    padding-right: 18%;
+    padding-left: 12%;
     flex-wrap: wrap;
-    margin-bottom: 100px;
+    margin-bottom: 20%;
 }
 .listSort{
     display: flex;
@@ -101,7 +105,7 @@ color: #fff;
     padding: 10px;
     display: block;
     font-size: 24px;
-    left: 1010px;
+    left: 75%;
     /* right: 95px; */
 }
 .listSort .buttonSort button:hover{
@@ -499,16 +503,17 @@ input [type='date']{
 .group-con{
     padding-top: 30px;
     padding-bottom: 50px;
-    padding-left: 100px;
+    padding-left: 10%;
     display: flex;
-    width: 1300px;
+    /* width: 90%; */
     /* margin-left: 50px; */
     flex-wrap: wrap;
-    gap: 70px;
+    gap: 5%;
 }
 .group-div{
     width: 350px;
     height: 300px;
+    margin-bottom: 5%;
     background-color: #003366;
     border-radius: 25px;
     background-repeat: no-repeat;
@@ -554,6 +559,7 @@ input [type='date']{
 }
 .create-auction-button .createp1{
     font-size: 48px;
+   margin-right: 8%;
    
 }
 /* ----- */

@@ -9,10 +9,13 @@
     height: 597px;
     width: 390px;
     background-color: #f2f2f2;
-    margin-top: 12px;
-    margin-bottom: 8px;
+     margin-top: 12px;
+    margin-bottom: 8px; 
     padding-top: 90px;
-    margin-right: 7px;
+    /* margin-right: 3%; */
+    position: relative;
+    right: 10px;
+    /* top: 10%; */
     /* padding-right: 2px; */
     display: flex;
     flex-direction: column;
@@ -88,13 +91,13 @@ p.forget{
 }
 .Modify{
     display: flex;
-    
+    gap: 3%;
 }
 .Modify1{
-    width: 1153px;
+    width: 70%;
     direction:rtl;
     padding-top: 80px;
-    padding-right: 80px;
+    /* padding-right: 80px; */
 }
 div.forget{
     font-size: 29px;
@@ -111,7 +114,7 @@ input.forget{
     background-color: #ccc;
     padding: 20px;
     border-radius: 8px;
-    width: 1000px;
+    width: 90%;
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -266,10 +269,10 @@ label span{
 /* تحتوي كرتين تسجيل الدخول و انشاء الحساب */
 .flip-card{
     position: relative;
-    width: 873px;
-    height: 542px;
-     top: 55px;
-     left: 80px;
+    width: 65%;
+    height: 40vh;
+     top: 7%;
+     left: 7%;
 
 }
 .log-in{

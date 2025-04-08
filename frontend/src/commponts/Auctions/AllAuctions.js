@@ -101,6 +101,7 @@ export default function AllAuctions(){
             <Auction/>
             <Auction/>
             <Auction/>
+       
             <Auction/>
             <Auction/>
             <Auction/>
