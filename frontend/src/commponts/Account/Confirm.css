@@ -1,3 +1,11 @@
+/* المحتوى كامل */
+.con-msg {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 200px;
+}
+/* الرسائل  */
 .message {
   position: relative;
   width: 800px;
@@ -10,39 +18,30 @@
   margin-top: 100px;
   margin-left: 150px;
 }
+/* ايقونة الصح */
 .far.fa-check-circle {
   font-size: 55px;
   padding: 23px;
 }
-.box-2 {
-  background-color: #cccccc;
-  width: 340px;
-  height: 562px;
-  text-align: center;
-  font-family: IBM Plex Sans Arab;
-}
-.con-msg {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 200px;
-}
+/* رسالة التأكيد */
 .title {
   color: #48752c;
   font-size: 64px;
-  font-family: IBM Plex Sans Arabic;
   margin-top: 60px;
 }
-.fas.fa-chevron-left {
+/* سهم الرجوع */
+.message .fa-chevron-left {
   position: absolute;
   left: -5px;
   top: 20px;
   border: none;
+  font-size: 32px;
+  font-weight: bold;
   background-color: #fff;
   color: #000000;
 }
+/* جملة الشكر */
 .title2 {
   color: #000000;
-  font-family: IBM Plex Sans Arabic;
   font-size: 34px;
 }

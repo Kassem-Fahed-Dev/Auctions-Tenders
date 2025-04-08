@@ -1,0 +1,24 @@
+.auctionNav{
+    margin-top: 40px;
+}
+.auctionNav .navul1 {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.auctionNav .navul1 p{
+    margin-bottom: 0px;
+}
+.auctionNav .navul1 li{
+    width: 7%;
+}
+.auctionNav .navul1 li.p1{
+    width: 350px;
+}
+.auctionNav .navul1 li.p2{
+    width: 240px;
+}
+.auctionNav .navul1 li.group{
+    width: 10%;
+}

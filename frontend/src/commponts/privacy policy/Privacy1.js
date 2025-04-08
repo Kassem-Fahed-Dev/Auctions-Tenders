@@ -1,18 +1,18 @@
-import Navbar from "../Home/Navbar";
-import Footer from "./Footer";
-import "./policy.css"
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import Navbar from '../Home/Navbar';
+import Footer from './Footer';
+import './policy.css';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 export default function Privacy() {
-   const scroll1=useEffect(()=>window.scrollTo(0,0))
+  const scroll1 = useEffect(() => window.scrollTo(0, 0));
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="p1">
         <div className="box-up">
-           <Link to="/">
-                      <span className="	fas fa-chevron-left"></span>
-                    </Link>
+          <Link to="/">
+            <span className="	fas fa-chevron-left"></span>
+          </Link>
           <span className="	far fa-edit"></span>
           <p clasclassNames="title">شروط الاستخدام وإخلاء المسؤولية</p>
         </div>
@@ -50,7 +50,7 @@ export default function Privacy() {
           <li className="title-ul">استخدام الموقع:</li>
           <ul>
             <li>
-              {" "}
+              {' '}
               يلتزم المستخدمون باستخدام الموقع فقط للأغراض القانونية والمسموح
               بها.
             </li>
@@ -119,7 +119,6 @@ export default function Privacy() {
           <ul>
             إذا كانت لديك أي استفسارات حول هذه الشروط، يُرجى التواصل معنا عبر:
             <ul>
-  
               123-456-789
               <span className="fas fa-phone"></span>
             </ul>
@@ -131,7 +130,7 @@ export default function Privacy() {
           </ul>
         </ol>
       </div>
-      <Footer black="privacy1"/>
+      <Footer black="privacy1" />
     </>
   );
 }

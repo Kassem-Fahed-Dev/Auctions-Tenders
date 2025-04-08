@@ -8,6 +8,7 @@
   background-image: linear-gradient(white, #cccccc);
   position: relative;
 }
+/* الدائرة حول الايقونة */
 .circle {
   border-radius: 50%;
   width: 100px;
@@ -19,49 +20,50 @@
 }
 /* التعداد */
 .title-ul {
-  font-family: IBM Plex Sans Arabic;
   color: #003366;
   font-size: 36px;
   margin-bottom: 19px;
   margin-top: 19px;
   margin: 20px;
 }
-ul {
+ ul {
   list-style-type: disc;
 }
 
-/* icon */
-.fas.fa-chevron-left {
+/* ايقونة السهم */
+.box-up .fa-chevron-left {
   position: absolute;
   top: 28%;
   left: 90px;
   font-size: 38px;
   color: #cccccc;
 }
-.far.fa-edit {
+/* ايقونة القلم */
+ .box-up .far.fa-edit {
   text-align: center;
   font-size: 70px;
   color: #cccccc;
   padding: 23px;
 }
-.fas.fa-lock {
+/* ايقونة القفل */
+.circle .fa-lock {
   text-align: center;
   font-size: 60px;
   color: #cccccc;
 }
-.title {
-  font-family: IBM Plex Sans Arabic;
+/* العنوان */
+.box-up .title {
   text-align: center;
   font-weight: 400;
   font-size: 36px;
   color: #000000;
 }
-.name {
+/* كلمة smart بالنص */
+span.name {
   font-weight: 500;
 }
 /* المقدمة */
 .phar {
-  font-family: IBM Plex Sans Arabic;
   color: #000000;
   font-size: 30px;
   margin: 40px;
@@ -73,12 +75,10 @@ ul {
   line-height: 44px;
   font-size: 24px;
   color: #000000;
-  font-family: IBM Plex Sans Arabic;
 }
 .div_ol {
   margin-top: 44px;
 }
 .date {
-  /* padding: 30px; */
   margin: 40px;
 }

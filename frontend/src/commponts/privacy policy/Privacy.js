@@ -1,20 +1,20 @@
-import { Link } from "react-router-dom";
-import "./policy.css"
-import Navbar from "../Home/Navbar";
-import Footer from "./Footer";
-import { useEffect } from "react";
+import { Link } from 'react-router-dom';
+import './policy.css';
+import Navbar from '../Home/Navbar';
+import Footer from './Footer';
+import { useEffect } from 'react';
 export default function Privacy1() {
-  const scroll1=useEffect(()=>window.scrollTo(0,0))
+  const scroll1 = useEffect(() => window.scrollTo(0, 0));
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="p1">
         <div className="box-up">
           <Link to="/">
             <span className="	fas fa-chevron-left"></span>
           </Link>
           <span className="circle">
-            <span className="fas fa-lock"></span>
+            <i className="fas fa-lock"></i>
           </span>
 
           <p className="title">سياسة الخصوصية وسرية المعلومات</p>
@@ -92,7 +92,7 @@ export default function Privacy1() {
                 نقل معلوماتك إلى الجهة الخلف
               </li>
             </ul>
-          </div>{" "}
+          </div>{' '}
           <div className="div_ol">
             <li className="title-ul">الاحتفاظ بالبيانات:</li>
             <ul>
@@ -100,7 +100,7 @@ export default function Privacy1() {
               سياسة الخصوصية هذه ما لم يكن مطلوبًا أو مسموحًا بفترة احتفاظ أطول
               بموجب القانون.
             </ul>
-          </div>{" "}
+          </div>{' '}
           <div className="div_ol">
             <li className="title-ul">أمان معلوماتك:</li>
             <ul>
@@ -108,7 +108,7 @@ export default function Privacy1() {
               لا توجد طريقة نقل أو تخزين آمنة تمامًا، ولا يمكننا ضمان الأمان
               المطلق.
             </ul>
-          </div>{" "}
+          </div>{' '}
           <div className="div_ol">
             <li className="title-ul">حقوقك واختياراتك:</li>
             <ul>
@@ -118,12 +118,12 @@ export default function Privacy1() {
               <li>الانسحاب من تلقي الاتصالات التسويقية.</li>
               <li>تقييد أو الاعتراض على معالجة بياناتك.</li>
             </ul>
-          </div>{" "}
+          </div>{' '}
           لممارسة هذه الحقوق، يرجى التواصل معنا عبر البريد الإلكتروني [البريد
           الإلكتروني للتواصل].
           <div className="div_ol">
             <li className="title-ul">
-              {" "}
+              {' '}
               ملفات تعريف الارتباط والتقنيات المماثلة:
             </li>
             <ul>
@@ -131,7 +131,7 @@ export default function Privacy1() {
               تفضيلات ملفات تعريف الارتباط من خلال إعدادات المتصفح الخاص بك.
               لمزيد من التفاصيل، يرجى مراجعة [سياسة ملفات تعريف الارتباط].
             </ul>
-          </div>{" "}
+          </div>{' '}
           <div className="div_ol">
             <li className="title-ul">الروابط الخارجية:</li>
             <ul>
@@ -140,7 +140,7 @@ export default function Privacy1() {
               الخصوصية الخاصة بهم قبل تقديم أي معلومات. ملاحظة: هذا البند ليس
               ضرورياَ
             </ul>
-          </div>{" "}
+          </div>
           <div className="div_ol">
             <li className="title-ul">تغييرات على سياسة الخصوصية هذه:</li>
             <ul>
@@ -148,7 +148,7 @@ export default function Privacy1() {
               سارية المفعول فور نشر السياسة المعدلة. نشجعك على مراجعة سياسة
               الخصوصية هذه بشكل دوري للبقاء على اطلاع.
             </ul>
-          </div>{" "}
+          </div>
           <div className="div_ol">
             <li className="title-ul">تواصل معنا:</li>
             <ul>
@@ -157,10 +157,9 @@ export default function Privacy1() {
             </ul>
             <ul>
               smart_world@gmail.com
-              <span className="		fas fa-envelope-open"></span>{" "}
+              <span className="fas fa-envelope-open"></span>{' '}
             </ul>
             <ul>
-              {" "}
               123-456-789
               <span className="fas fa-phone"></span>
             </ul>
@@ -168,7 +167,7 @@ export default function Privacy1() {
           باستخدامك للموقع، فإنك توافق على شروط سياسة الخصوصية هذه.
         </ol>
       </div>
-      <Footer black="privacy"/>
+      <Footer black="privacy" />
     </>
   );
 }

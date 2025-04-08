@@ -42,7 +42,7 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
-			<Navbar />
+			<Navbar wordBlod={'home'}/>
 			<div className="firsthome">
 				<img className="homeimg" src={image} alt="no photo" />
 				<div className="title-text">
