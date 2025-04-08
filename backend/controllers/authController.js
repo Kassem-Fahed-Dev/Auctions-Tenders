@@ -171,7 +171,7 @@ exports.checkResetCode = catchAsync(async (req, res, next) => {
   ) {
     return next(new AppError('Code is invalid or has expired', 400));
   }
-
+  const userName= user.name;
   console.log(user);
   const resetToken = user.createPasswordResetToken();
   user.passwordResetCode = undefined;
@@ -182,6 +182,7 @@ exports.checkResetCode = catchAsync(async (req, res, next) => {
     message: 'Code verified',
     resetToken, // Pass token to the next step
     email,
+    userName
   });
 });
 exports.resetPassword = catchAsync(async (req, res, next) => {
