@@ -1,11 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
+const i18next = require('./utils/i18n');
+const i18nextMiddleware = require('i18next-http-middleware');
+
 const globalErrorHandler = require('./controllers/errorController');
 const app = express();
 const cors = require('cors');
 
 const userRouter = require('./routs/userRoutes');
 const auctionRouter = require('./routs/auctionRoutes');
+const categoryRouter = require('./routs/categoryRoutes');
 
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
@@ -35,8 +39,10 @@ app.use(express.static('public'));
 //app.use('/api/v1/users',userRouter)
 
 //app.use('/api/v1/tours', tourRouter);
+app.use(i18nextMiddleware.handle(i18next));
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/auctions', auctionRouter);
+app.use('/api/v1/categories', categoryRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

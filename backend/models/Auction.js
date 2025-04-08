@@ -5,10 +5,11 @@ const auctionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'userSchema',
     },
-    // itemId: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'item',
-    // },
+    item: { 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Item",
+      unique: true // Ensure one item per auction
+    },
     auctionTtile: {
       type: String,
       required: [true, 'Inter auction title'],
@@ -36,13 +37,13 @@ const auctionSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['accept', 'regect', 'pinding'],
-      default: 'pinding',
+      enum: ['مقبول', 'مرفوض', 'انتظار'],
+      default: 'انتظار',
     },
     activeStatus: {
       type: String,
-      enum: ['active', 'close', 'soon'],
-      default: 'soon',
+      enum: ['جاري', 'انتهى', 'قريبا'],
+      default: 'قريبا',
     },
   },
   { timestamps: true },
@@ -61,4 +62,11 @@ auctionSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('Auctions', auctionSchema);
+auctionSchema.virtual("linkedItem", {
+  ref: "Item",
+  localField: "item",
+  foreignField: "_id",
+  justOne: true // Returns a single document
+});
+
+module.exports = mongoose.model('Auction', auctionSchema);

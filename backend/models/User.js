@@ -50,6 +50,7 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     passwordChangedAt: Date,
+    passwordResetCode: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
   },
@@ -94,7 +95,7 @@ userSchema.pre(/^find/, function (next) {
   next();
 });
 
-userSchema.methods.correctPassword = async function (
+userSchema.methods.correctCompare = async function (
   candidatePassword,
   userPassword,
 ) {
@@ -107,7 +108,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
       this.passwordChangedAt.getTime() / 1000,
       10,
     );
-    console.log(JWTTimestamp, changedTimestamp);
+    //console.log(JWTTimestamp, changedTimestamp);
     return JWTTimestamp < changedTimestamp;
   }
 
@@ -115,18 +116,30 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   return false;
 };
 
+
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
-
+  console.log(resetToken)
   this.passwordResetToken = crypto
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
 
   // 10 munits
-  //console.log({token:this.passwordResetToken})
+  console.log({token:this.passwordResetToken})
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
+};
+userSchema.methods.createPasswordResetCode = async function () {
+  
+  const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+  console.log(resetCode)
+  
+  this.passwordResetCode = await bcrypt.hash(resetCode, 12);
+  // 10 munits
+  console.log({token:this.passwordResetCode})
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  return resetCode;
 };
 
 const User = mongoose.model('User', userSchema);
