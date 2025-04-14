@@ -1,693 +1,866 @@
-.account1{
-    display: flex;
-    perspective: 1000px; 
-    gap:270px;
-    height: 1150px;
+.account1 {
+  display: flex;
+  perspective: 1000px;
+  gap: 240px;
+  height: 1150px;
+  justify-content: space-between;
 }
 
-.side-right{
-    height: 597px;
-    width: 390px;
-    background-color: #f2f2f2;
-     margin-top: 12px;
-    margin-bottom: 8px; 
-    padding-top: 90px;
-    /* margin-right: 3%; */
-    position: relative;
-    right: 10px;
-    /* top: 10%; */
-    /* padding-right: 2px; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.side-right {
+  height: 597px;
+  width: 390px;
+  background-color: #f2f2f2;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  padding-top: 90px;
+  position: relative;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.log-in1{
-    width: 873px;
-    height: 542px;
-    display: flex; 
-    overflow: hidden;
-    position: relative;
-    justify-content: space-between; 
-    width: 872px;
-    box-shadow: 0px 0px 8px #003366;
+.log-in1 {
+  width: 873px;
+  height: 542px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  justify-content: space-between;
+  width: 872px;
+  box-shadow: 0px 0px 8px #003366;
 }
-.side-right-h1{
-    font-size: 22px;
-    font-weight: bold;
+.side-right-h1 {
+  font-size: 22px;
+  font-weight: bold;
 }
-.side-right-h6{
-    font-size: 14px;
-
+.side-right-h6 {
+  font-size: 14px;
 }
 
 /* جمل ضمن المثلث */
-.hello{
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 425px;
-    height: 600px;
-    background: linear-gradient(to top right,#fff 50% ,#003366 50%);
+.hello {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 425px;
+  height: 600px;
+  background: linear-gradient(to top right, #fff 50%, #003366 50%);
 }
 
-.hellop1{
-    direction: rtl;
-    font-size: 44px;
-    color: #fff;
-    position: absolute;
-    top: 90px;
-    right: 70px;
+.hellop1 {
+  direction: rtl;
+  font-size: 44px;
+  color: #fff;
+  position: absolute;
+  top: 90px;
+  right: 70px;
 }
-.hellop2{
-    direction: rtl;
-    font-size: 30px;
-    color: #fff;
-    position: absolute;
-    top: 150px;
-    right: 30px;
+.hellop2 {
+  direction: rtl;
+  font-size: 30px;
+  color: #fff;
+  position: absolute;
+  top: 150px;
+  right: 30px;
 }
 /* كلمة دخول */
-.in{
-    font-size: 30px;
-    font-weight: bold;
-    width: 300px;
-   text-align: center;
-   margin: 40px 0px 70px 80px;
+.in {
+  font-size: 30px;
+  font-weight: bold;
+  width: 300px;
+  text-align: center;
+  margin: 40px 0px 70px 80px;
 }
 /* نسيت كلمة المرور */
-button.forget{
-    color: #003366;
-    position: absolute;
-    top: 290px;
-    left: 150px;
-    background-color: transparent;
-    border: none;
+button.forget {
+  color: #003366;
+  position: absolute;
+  top: 290px;
+  left: 150px;
+  background-color: transparent;
+  border: none;
 }
 /* نسيت كلمة المرور  */
-p.forget{
-    font-size: 50px;
-    color: #000;
-    margin-bottom: 20px;
+p.forget {
+  font-size: 50px;
+  color: #000;
+  margin-bottom: 20px;
 }
-.Modify{
-    display: flex;
-    gap: 3%;
+/* واجهة اخال الايميل */
+.Modify {
+  display: flex;
+  gap: 3%;
+  display: none;
+  width: 120%;
+  position: relative;
+  right: 10px;
 }
-.Modify1{
-    width: 70%;
-    direction:rtl;
-    padding-top: 80px;
-    /* padding-right: 80px; */
+.Modify1 {
+  direction: rtl;
+  padding-right: 80px;
 }
-div.forget{
-    font-size: 29px;
-    font-weight: 300;
+/* الجمل ضمن واجهة ادخال الايميل */
+div.forget {
+  font-size: 27px;
+  font-weight: 300;
 }
-p.forget1{
-    margin-bottom: 50px;
-    margin-top: 30px;
-    color: #00000090;
+p.forget1 {
+  margin-bottom: 50px;
+  margin-top: 30px;
+  color: #00000090;
 }
-input.forget{
-    border: none;
-    outline: none;
-    background-color: #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    margin-top: 50px;
-    margin-bottom: 50px;
+/* مربع الادخال ضمن واجهة ادخال الايميل */
+input.forget {
+  border: none;
+  outline: none;
+  background-color: #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  width: 95%;
+  position: relative;
+  top: 60px;
+  margin-bottom: 50px;
 }
-.forget-button{
-    width: 500px;
-    margin: auto;
-    display: flex;
-    gap: 100px;
+/* الازرار ضمن واجهة ادخال الايميل */
+.forget-button {
+  width: 500px;
+  margin: auto;
+  display: flex;
+  position: relative;
+  top: 50px;
+  gap: 100px;
 }
-.forget-button button{
-    border: none;
-    border-radius: 8px;
-    background-color: #003366;
-    color: #fff;
-    padding:2px 10px;
-    width: 180px;
+.forget-button button {
+  border: none;
+  border-radius: 8px;
+  background-color: #003366;
+  color: #fff;
+  padding: 2px 10px;
+  width: 180px;
 }
-.forget-button button.button2{
-    background-color: #00000099;
+.forget-button button.button2 {
+  background-color: #00000099;
 }
 /* الايقونات */
-.fa-user,.pass .fas.fa-lock ,.email1{
-    font-size: 20px;
-    position: relative;
-    right: 23px;
-    top: -4px;
-    color: #ccc;
-    width: 20px;
-    height: 20px;
-    
+.fa-user,
+.pass .fas.fa-lock,
+.email1 {
+  font-size: 20px;
+  position: relative;
+  right: 23px;
+  top: -4px;
+  color: #ccc;
+  width: 20px;
+  height: 20px;
 }
-.name,.pass{
-    direction: rtl;
-    margin-bottom: 12px;
-    width: fit-content;
+.name,
+.pass {
+  direction: rtl;
+  margin-bottom: 12px;
+  width: fit-content;
 }
 /* مشان حركة الكلمة */
-.name2 ,.pass2{
-    animation-name: name-pass2;
-    animation-duration: 3ms;
-    animation-fill-mode: forwards;
+.name2,
+.pass2 {
+  animation-name: name-pass2;
+  animation-duration: 3ms;
+  animation-fill-mode: forwards;
 }
 
-@keyframes name-pass2{
-    from{
-     top: -4px;
-    }
-    to{
-        top: 3px;
-    } 
-
+@keyframes name-pass2 {
+  from {
+    top: -4px;
+  }
+  to {
+    top: 3px;
+  }
 }
-.name input, .pass input{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-bottom: 2px solid #000000;
-    margin-bottom: 40px;
-    padding: 0px;
-    outline: none;
-    padding-right: 30px;
-   caret-color: transparent;
+.name input,
+.pass input {
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-bottom: 2px solid #000000;
+  margin-bottom: 40px;
+  padding: 0px;
+  outline: none;
+  padding-right: 30px;
+  caret-color: transparent;
 }
 /* مشان حركة الايقونة */
- .pass1 ,.name1 {
-    animation-name: name-pass;
-    animation-duration: 3ms;
-    animation-fill-mode: forwards;
-
-}  
-
- @keyframes name-pass{
-    from{
-      bottom: 5px;
-    }
-    to{
-        bottom: 27px;
-    } 
-
+.pass1,
+.name1 {
+  animation-name: name-pass;
+  animation-duration: 3ms;
+  animation-fill-mode: forwards;
 }
 
-label{
-    position:relative;
-    left: 70px;
+@keyframes name-pass {
+  from {
     bottom: 5px;
-    width: 100px;
-    height: 20px;
-    font-size: 11px;
+  }
+  to {
+    bottom: 27px;
+  }
 }
-.pass label{
-    left: 55px;
-}
-label span{
-    color: red;
-}
-.button-log-in{
-    width: 272px;
-    background-color: #003366;
-    color: #fff;
-    text-align: center;
-    border: none;
-    outline: none;
-    border-radius: 30px;
-    height:44px;
-    margin-top: 70px;
-    font-weight: bold;
-    margin-left: 100px;
-    font-size: 18px;
-}
-.button-log-in0{
-    height: 44px;
 
+label {
+  position: relative;
+  left: 70px;
+  bottom: 5px;
+  width: 100px;
+  height: 20px;
+  font-size: 11px;
 }
-.button-log-in:hover{
-   animation-name: button;
-   animation-fill-mode: forwards;
-   animation-duration: 500ms;
-   box-shadow: 0px 2px 7px #00336698;
+.pass label {
+  left: 55px;
+}
+label span {
+  color: red;
+}
+.button-log-in {
+  width: 272px;
+  background-color: #003366;
+  color: #fff;
+  text-align: center;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  height: 44px;
+  margin-top: 70px;
+  font-weight: bold;
+  margin-left: 100px;
+  font-size: 18px;
+}
+.button-log-in0 {
+  height: 44px;
+}
+.button-log-in:hover {
+  animation-name: button;
+  animation-fill-mode: forwards;
+  animation-duration: 500ms;
+  box-shadow: 0px 2px 7px #00336698;
 }
 @keyframes button {
-    from{
+  from {
     width: 272px;
     height: 44px;
-    }
-    to{
-        width: 300px;
-        height: 55px;
-    }
+  }
+  to {
+    width: 300px;
+    height: 55px;
+  }
 }
-.create-account0{
-    display: flex;
-    margin-top: 70px;
-    align-items: center;
-    margin-left: 90px;
-    height: 30px;
-    margin-top: 110px;
-
-} 
-.create-account0 button{
-    font-weight: bold;
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
-    margin-right: 10px;
-    border: none;
-    background-color: #fff;
+.create-account0 {
+  display: flex;
+  margin-top: 70px;
+  align-items: center;
+  margin-left: 90px;
+  height: 30px;
+  margin-top: 110px;
 }
-.create-account0 p{
-    font-size: 16px;
-    padding-top: 22px;
+.create-account0 button {
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  margin-right: 10px;
+  border: none;
+  background-color: #fff;
+}
+.create-account0 p {
+  font-size: 16px;
+  padding-top: 22px;
 }
 /* تحتوي كرتين تسجيل الدخول و انشاء الحساب */
-.flip-card{
-    position: relative;
-    width: 65%;
-    height: 40vh;
-     top: 7%;
-     left: 7%;
-
+.flip-card {
+  position: relative;
+  width: 65%;
+  height: 40vh;
+  top: 7%;
+  left: 7%;
 }
-.log-in{
-    position: absolute;
-    backface-visibility: hidden;
-    transition: transform 2s;
+/* تسجيل الدخول */
+.log-in {
+  position: absolute;
+  backface-visibility: hidden;
+  transition: transform 2s;
 }
-.log-in2{
-    transform: rotateY(-180deg);
+.log-in2 {
+  transform: rotateY(-180deg);
 }
 /* انشاء الحساب */
-      .creat-account-back{
-        transition: transform 2s;
-        display: flex;
-        width: 873px;
-        height: 870px;
-        backface-visibility: hidden;
-        overflow: hidden;
-        margin-bottom: 30px;
-    transform: rotatey(180deg);
-    position: absolute;
-    box-shadow: 0px 0px 8px #003366;
-      }
-      .creat-account-back1{
-        transform: rotateY(0deg);
-    }
-    /* كلمات ترحيب في انشاء الحساب */
-      .hello1{
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 400px;
-        height: 990px;
-        background: linear-gradient(to top left,#fff 50% ,#003366 50%);
-    }
-    
-    .hello1 .hellop1{
-        direction: rtl;
-        font-size: 44px;
-        color: #fff;
-        position: absolute;
-        top: 120px;
-        right: 170px;
-    }
-    .hello1 .hellop2{
-        direction: rtl;
-        font-size: 30px;
-        color: #fff;
-        position: absolute;
-        top: 210px;
-      right: 120px;
-    }
-    /* قائمة انشاء لحساب مربعات الادخال */
-    .form{
-        position: absolute;
-        right: 100px;
-        top: 90px;
-    }
-    /* مربعات ادخال انشاء حساب */
-    .form form input{
-        margin-bottom: 42px;
-       
-    }
-    /* كلمة انشاء حساب */
-    .in1{
-        position: absolute;
-        top: -70px;
-        font-size: 30px;
-        font-weight: bold;
-        width: 300px;
-        left: 150px;
-        margin-bottom: 20px;
-       
-    }
-    .password1{
-        position:relative;
-        right: -70px;
-        width: 100px;
-        height: 20px;
-        font-size: 11px;
-    }
-    /* تنسيق المثلث في قائمة الموقع */
-    .triangle{
-        transform: rotate(180deg);
-        width: 18px;
-        height: 18px;
-        background-color: #ccc;
-        position: absolute;
-        top: 18px;
-        left: 130px;
-        z-index: 100;
-        border: #000000 solid 3px;
-        box-sizing: border-box;
-        transform: rotate(180deg);
-        clip-path: polygon(50% 0%, 0% 100%,100% 100%);
-    }
-    .tri{
-        width: 20px;
-        height: 6px;
-        position: absolute;
-        top: 1px;
-        background-color: #000000;
-        transform: rotate(65deg);
-    }
-    .tri1{
-        position: absolute;
-        top: -3px;
-        left: -13px;
-        width: 18px;
-        height: 18px;
-       transform: rotate(29deg);
-    }
-    .triangle1{
-        transform: rotate(360deg);
-       }
-     
-    .base {
-        width: 100px; 
-        height: 3px; 
-        background-color: black; 
-        position: absolute;
-        top: 100px; 
-        left: -50px; 
-    }
-    
-   
-    .location{
-        position: relative;
-    }
-    .location1{
-        font-size: 20px;
-        font-weight: bold;
-        position: absolute;
-        color: #000;
-        left: 350px;
-        top: 5px;
-    }
-   
-    .location2{
-        padding-right: 20px;
-        border: #000000 solid 3px;
-        direction: rtl;
-        width: 187px;
-        height: 31px;
-        border-radius: 8px;
-        position: absolute;
-        left: 120px;
-        top: 10px;
-        caret-color: transparent;
-        font-weight: 500;
-    }
-    .location2:hover,.group2:hover,.location-hover:hover,.group-hover:hover,.triangle:hover+.location2{
-     background-color: #ccc;
-    }
-    .list{
-        direction: rtl;
-        border: #000 solid 2px;
-        width: 187px;
-        position: absolute;
-        top: 50px;
-        left: 120px;
-        border-radius: 8px;
-        display: none;
-    }
-    .list div{
-        height: 2px;
-        background-color: #000;
+.creat-account-back {
+  transition: transform 2s;
+  display: flex;
+  width: 873px;
+  height: 870px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  margin-bottom: 30px;
+  transform: rotatey(180deg);
+  position: absolute;
+  box-shadow: 0px 0px 8px #003366;
+}
+.creat-account-back1 {
+  transform: rotateY(0deg);
+}
+/* كلمات ترحيب في انشاء الحساب */
+.hello1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 400px;
+  height: 990px;
+  background: linear-gradient(to top left, #fff 50%, #003366 50%);
+}
 
-    }
-    .list .p1,.list .p2,.list .p3{
-        padding-right: 20px;
-        padding-top: 2px;
-        padding-bottom: 10px;
-        margin-bottom: 0px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        font-size: 16px;
-        height: 40px;
-        font-weight: 700;
-    }
-    .list .p2{
-        padding-top: 2px;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-    }
-    .list .p3{
-        padding-top: 5px;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-    }
-    .list1{
-        display: block;
-    }
-  
-   .check{
-        position: absolute;
-        top: 185px;
-        right: 12px;
-      
-    }
-    .check input{
-        appearance: none;
-        padding: 7px;
-        width: 18px;
-        height: 18px;
-        border: #00000050 solid 1px;
-        border-radius: 5px;
-    }
-    .labal-check{
-        width: 250px;
-        font-size: 14px;
-        padding-top: 7px;
-    }
-    .check1{
-        position: absolute;
-        top: 215px;
-        right: 12px;
-        display: flex;
-        align-items: center;
-    }
-    .check1 input{
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        appearance: none;
-        padding: 7px;
-        width: 18px;
-        height: 18px;
-        border: #00000050 solid 1px;
-        border-radius: 5px;
-    }
-     /* مربع تشك */
-    .check input{
-        position: absolute;
-        top: 3px;
-        right: 2px;
-        
-    }
-    /* جماة حد مربع تشك تاني */
-    .labal-check1{
-        width: 465px;
-        padding-top: 7px;
-        font-size: 14px;
-    }
-    /* زر إنشاء الحساب */
-    .creat{
-        position: absolute;
-        top: 300px;
-        right: 12px;
-        font-size: 20px;
-        background-color: #003366;
-        color: #fff;
-        border: none;
-        border-radius: 22px;
-        height: 44px;
-        width: 363px;
-        font-weight: bold;
-    }
-    /* وضع الماوس على زر الإنشاء */
-    .creat:hover{
-        animation-name: button1;
-        animation-fill-mode: forwards;
-        animation-duration: 500ms;
-        box-shadow: 0px 2px 7px #00336698;
-        
-    }
-    @keyframes button1 {
-        from{
-            height: 44px;
-            width: 363px;
-        }
-        to{
-            width: 375px;
-        height: 50px;
-        }
-    }
-    /* إشارة الصحّّ */
-    .fa-check{
-        position: absolute;
-        color: #ccc; 
-        right: 6px;
-        top: 5px;
-        font-size: 12px;
-        font-weight: bold;
-    }
-    /* ارجام الوضع الافتراضي لمرع التشك */
-    input[type="checkbox"]:checked{
-        appearance: auto;
-    }
-    /* الاخطاء */
-    .error0{
-        color: red;
-        font-size: 12px;
-        width: 400px;
-        position: absolute;
-    }
-   .error{
-    top: 35px;
-    right: 20px;
-   } 
-   .error1{
-    top: 120px;
-    right: 20px;
-   } 
-   .error2{
-    top: 200px;
-    right: 20px;
-   } 
-   .error3{
-    top: 284px;
-    right: 20px;
-   } 
-   
-   .error4{
-    top: 369px;
-    right: 20px;
-   } 
-   .error5{
-    top: 3px;
-    left: 247px;
-   } 
-   .error6{
-    top: 3px;
-    left: 463px;
-   } 
-   .error7{
-    top:20px;
-    right: -290px;
-   }
-   .fa-warning{
-    padding-left: 5px;
-   }
-   .error-log-in-password{
-    position: absolute;
-    top:275px;
-    right: 470px;
-   }
-   .error-log-in-name{
-    position: absolute;
-    top:190px;
-    right: 470px;
-   }
-   .reject{
-    font-weight: 800;
-    font-size: 14px;
-    top:330px;
-    left: 120px;
-   }
-   .errorBackend{
-    top:260px;
-    right: -40px;
-   }
-   .error-forget{
-    top: 390px;
-    right: 450px;
-    font-size: 22px;
-    font-weight: 400px;
-   }
-   .spinner{
-    display: none;
+.hello1 .hellop1 {
+  direction: rtl;
+  font-size: 44px;
+  color: #fff;
+  position: absolute;
+  top: 120px;
+  right: 170px;
+}
+.hello1 .hellop2 {
+  direction: rtl;
+  font-size: 30px;
+  color: #fff;
+  position: absolute;
+  top: 210px;
+  right: 120px;
+}
+/* قائمة انشاء لحساب مربعات الادخال */
+.form {
+  position: absolute;
+  right: 100px;
+  top: 90px;
+}
+/* مربعات ادخال انشاء حساب */
+.form form input {
+  margin-bottom: 42px;
+}
+/* كلمة انشاء حساب */
+.in1 {
+  position: absolute;
+  top: -70px;
+  font-size: 30px;
+  font-weight: bold;
+  width: 300px;
+  left: 150px;
+  margin-bottom: 20px;
+}
+.password1 {
+  position: relative;
+  right: -70px;
+  width: 100px;
+  height: 20px;
+  font-size: 11px;
+}
+/* تنسيق المثلث في قائمة الموقع */
+.triangle {
+  transform: rotate(180deg);
+  width: 18px;
+  height: 18px;
+  background-color: #ccc;
+  position: absolute;
+  top: 18px;
+  left: 130px;
+  z-index: 100;
+  border: #000000 solid 3px;
+  box-sizing: border-box;
+  transform: rotate(180deg);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.tri {
+  width: 20px;
+  height: 6px;
+  position: absolute;
+  top: 1px;
+  background-color: #000000;
+  transform: rotate(65deg);
+}
+.tri1 {
+  position: absolute;
+  top: -3px;
+  left: -13px;
+  width: 18px;
+  height: 18px;
+  transform: rotate(29deg);
+}
+.triangle1 {
+  transform: rotate(360deg);
+}
 
-    
-   }
-   .spinner-click{
-    background-color: #00000050;
-    color: #000;
-    display: auto;
-    border-radius: 8px;
-    position: relative;
-    /* padding:2px 10px; */
-    padding-right: 75px;
-    padding-top: 5px;
-    width: 180px;
-   }
-   .spinner-border{
-    color: #00000096;
-   }
-   .forget-button button.green{
-    background-color: #00ccff;
- 
-   }
-   .forget-button button:hover{
-    box-shadow: 0px 2px 7px #00336698;
-   }
-   .forget-button i.fa-check{
-    position: inherit;
-    color: #fff;
-    font-size: 25px;
-    /* font-weight: 500; */
-    padding-right: 10px;
-    display: none;
-   }
-   .forget-button i.fa-check.block1{
-    display: inline-block;
-   }
-   .hidden-send{
-    display: none;
-   }
-   .spinn{
-    position: relative;
-    top: 70px;
-   left: 100px;
-padding-left: 120px;
-width: 272px;
-height: 44px;
-border-radius: 22px;
-   }
-   .spinn1{
-    position: relative;
-    top: 300px;
-   right: -50px;
-padding-left: 165px;
-border-radius: 22px;
-        height: 44px;
-        width: 363px;
-   }
+.base {
+  width: 100px;
+  height: 3px;
+  background-color: black;
+  position: absolute;
+  top: 100px;
+  left: -50px;
+}
+/* قائمة الاماكن */
+
+.location {
+  position: relative;
+}
+.location1 {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  color: #000;
+  left: 350px;
+  top: 5px;
+}
+
+.location2 {
+  padding-right: 20px;
+  border: #000000 solid 3px;
+  direction: rtl;
+  width: 187px;
+  height: 31px;
+  border-radius: 8px;
+  position: absolute;
+  left: 120px;
+  top: 10px;
+  caret-color: transparent;
+  font-weight: 500;
+}
+.location2:hover,
+.group2:hover,
+.location-hover:hover,
+.group-hover:hover,
+.triangle:hover + .location2 {
+  background-color: #ccc;
+}
+.list {
+  direction: rtl;
+  border: #000 solid 2px;
+  width: 187px;
+  position: absolute;
+  top: 50px;
+  left: 120px;
+  border-radius: 8px;
+  display: none;
+}
+.list div {
+  height: 2px;
+  background-color: #000;
+}
+.list .p1,
+.list .p2,
+.list .p3 {
+  padding-right: 20px;
+  padding-top: 2px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-size: 16px;
+  height: 40px;
+  font-weight: 700;
+}
+.list .p2 {
+  padding-top: 2px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.list .p3 {
+  padding-top: 5px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.list1 {
+  display: block;
+}
+/* مربعات ال checkbox */
+.check {
+  position: absolute;
+  top: 185px;
+  right: 12px;
+}
+.check input {
+  appearance: none;
+  padding: 7px;
+  width: 18px;
+  height: 18px;
+  border: #00000050 solid 1px;
+  border-radius: 5px;
+}
+.labal-check {
+  width: 250px;
+  font-size: 14px;
+  padding-top: 7px;
+}
+.check1 {
+  position: absolute;
+  top: 215px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+}
+.check1 input {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  appearance: none;
+  padding: 7px;
+  width: 18px;
+  height: 18px;
+  border: #00000050 solid 1px;
+  border-radius: 5px;
+}
+/* مربع تشك */
+.check input {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+}
+/* جماة حد مربع تشك تاني */
+.labal-check1 {
+  width: 465px;
+  padding-top: 7px;
+  font-size: 14px;
+}
+/* زر إنشاء الحساب */
+.creat {
+  position: absolute;
+  top: 300px;
+  right: 12px;
+  font-size: 20px;
+  background-color: #003366;
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  height: 44px;
+  width: 363px;
+  font-weight: bold;
+}
+/* وضع الماوس على زر الإنشاء */
+.creat:hover {
+  animation-name: button1;
+  animation-fill-mode: forwards;
+  animation-duration: 500ms;
+  box-shadow: 0px 2px 7px #00336698;
+}
+@keyframes button1 {
+  from {
+    height: 44px;
+    width: 363px;
+  }
+  to {
+    width: 375px;
+    height: 50px;
+  }
+}
+/* إشارة الصحّّ */
+.fa-check {
+  position: absolute;
+  color: #ccc;
+  right: 6px;
+  top: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+/* ارجام الوضع الافتراضي لمرع التشك */
+input[type='checkbox']:checked {
+  appearance: auto;
+}
+/* الاخطاء */
+.error0 {
+  color: red;
+  font-size: 12px;
+  width: 400px;
+  position: absolute;
+}
+.error {
+  top: 35px;
+  right: 20px;
+}
+.error1 {
+  top: 120px;
+  right: 20px;
+}
+.error2 {
+  top: 200px;
+  right: 20px;
+}
+.error3 {
+  top: 284px;
+  right: 20px;
+}
+
+.error4 {
+  top: 369px;
+  right: 20px;
+}
+.error5 {
+  top: 3px;
+  left: 247px;
+}
+.error6 {
+  top: 3px;
+  left: 463px;
+}
+.error7 {
+  top: 20px;
+  right: -290px;
+}
+.fa-warning {
+  padding-left: 5px;
+}
+.error-log-in-password {
+  position: absolute;
+  top: 275px;
+  right: 470px;
+}
+.error-log-in-name {
+  position: absolute;
+  top: 190px;
+  right: 470px;
+}
+.reject {
+  font-weight: 800;
+  font-size: 14px;
+  top: 330px;
+  left: 120px;
+}
+.errorBackend {
+  top: 260px;
+  right: -40px;
+}
+/* مشان اشارة التحميل */
+.spinner {
+  display: none;
+}
+.spinner-click {
+  background-color: #00000050;
+  color: #000;
+  display: auto;
+  border-radius: 8px;
+  position: relative;
+  padding-right: 75px;
+  padding-top: 5px;
+  width: 180px;
+}
+.spinner-border {
+  color: #00000096;
+}
+/* لاعمل هوفر للازرار */
+.forget-button button:hover {
+  box-shadow: 0px 2px 7px #00336698;
+}
+/* رسالة الخطأ بواجهة ارسال الايميل */
+.error-forget {
+  top: 30px;
+  bottom: 10px;
+  right: 8%;
+  top: 65%;
+  position: absolute;
+  font-size: 18px;
+  font-weight: 400px;
+}
+/* اخفاء الزر */
+.hidden-send {
+  display: none;
+}
+/* مواقع الازرار المختلفة بعد ال spinner */
+.spinn {
+  position: relative;
+  top: 70px;
+  left: 100px;
+  padding-left: 120px;
+  width: 272px;
+  height: 44px;
+  border-radius: 22px;
+}
+.spinn1 {
+  position: relative;
+  top: 300px;
+  right: -50px;
+  padding-left: 165px;
+  border-radius: 22px;
+  height: 44px;
+  width: 363px;
+}
+/* مربعات ادخال الكود */
+.input-box {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 8px;
+  margin: 5px;
+  background-color: #ccc;
+  border: none;
+}
+/* واجهة ادخال الكود */
+.container {
+  display: flex;
+  direction: rtl;
+  width: 125%;
+  position: relative;
+  right: 10%;
+  padding-right: 80px;
+}
+/* واجهة كلمة مرور جديدة */
+.container1 {
+  display: flex;
+  direction: rtl;
+  width: 125%;
+  position: relative;
+  right: 10%;
+  padding-right: 80px;
+}
+/* مربعات الكود معاً */
+.codeInput {
+  position: relative;
+  width: 350px;
+  right: 230px;
+  top: 25px;
+}
+/* جملة تحديد مدة الانتهاء */
+.finish {
+  position: relative;
+  top: 50px;
+  right: 250px;
+}
+.finish1 {
+  position: relative;
+  top: 70px;
+  right: 250px;
+}
+.finish span {
+  font-weight: bold;
+}
+/* إعادة ارسال الكود */
+.rebet {
+  position: relative;
+  right: 350px;
+  top: 21px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-weight: bold;
+}
+/* زر ارسال الكود */
+.code-confirm {
+  background-color: #003366;
+  color: #fff;
+  border-radius: 22px;
+  outline: none;
+  position: relative;
+  right: 90px;
+  top: 100px;
+  height: 44px;
+  width: 272px;
+  border: none;
+}
+.code-confirm:hover {
+  box-shadow: 0px 2px 7px #00336698;
+}
+.spinn4 {
+  position: relative;
+  top: 70px;
+  right: 200px;
+  padding-right: 90px;
+  width: 250px;
+  height: 44px;
+  border-radius: 22px;
+}
+/* زر التحقق بعد ال spinner */
+.spinn5 {
+  height: 44px;
+  width: 272px;
+  border: none;
+  outline: none;
+  position: relative;
+  border-radius: 22px;
+  right: 200px;
+  top: 70px;
+  padding-right: 130px;
+}
+/* اخفاء الواجهات */
+.hidden-forget {
+  display: none;
+}
+/* اظهار الواجهات */
+.visibly-forget {
+  display: block;
+}
+/* جمل واجهة كلمة مرور جديدة */
+.reset-password {
+  font-size: 24px;
+  direction: rtl;
+  font-weight: 400;
+}
+.reset-password .hi {
+  font-size: 55px;
+}
+/* الاسم ضمن واجهة كلمة مرور جديدة */
+.reset-password .name {
+  font-size: 64px;
+  font-weight: bold;
+}
+p.forget1 {
+  margin-bottom: 50px;
+  margin-top: 30px;
+  color: #00000090;
+}
+/* مربعات الادخال تبع كلمة مرور جديدة */
+.reset-password-form {
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+}
+.reset-password-form input {
+  width: 475px;
+  background-color: #cccccc;
+  border: none;
+  padding: 18px;
+  border-radius: 8px;
+  margin-bottom: 50px;
+  outline: none;
+}
+.reset-password-form label {
+  padding-right: 80px;
+  width: 300px;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+/* زر ارسال كلمة المرور الجديدة */
+.reset-password-form button {
+  width: 100px;
+  background-color: #00cc66;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  border-radius: 8px;
+}
+/* رسالة الخطأ تبع الكود */
+.error-code {
+  position: absolute;
+  right: 50px;
+}
+/* رسالة الخطأ تبع كلمة المرور و تأكيد */
+.error-passwocon {
+  position: absolute;
+  top: 85%;
+  right: 9%;
+}
+.error-passwo {
+  position: absolute;
+  top: 57%;
+  right: 9%;
+}
+/* زر ارسال الكلمة ال spinner */
+.spinn-pass {
+  width: 100px;
+  padding-right: 30px;
+  position: relative;
+  bottom: 9px;
+}

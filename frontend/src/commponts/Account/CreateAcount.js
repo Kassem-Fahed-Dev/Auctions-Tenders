@@ -1,18 +1,58 @@
 import './CreateAcount.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import imag from '../../image/logo.png';
 import { useNavigate } from 'react-router-dom';
+import React, { useRef } from 'react';
 import axios from 'axios';
 export default function CreateAcount() {
   const navegate = useNavigate();
+  const navegate1 = useNavigate();
   //   usestate
   const [namePass, setNamePase] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
   const [errorMessage1, setErrorMessage1] = useState({});
-  const [hover,setHover]=useState('spinner')
-  const [hover1,setHover1]=useState('')
-  //const [location, setLocation] = useState(' ');
- let messageBackend=""
+  const [hover, setHover] = useState('spinner');
+  const [hover1, setHover1] = useState('');
+  const [value2, setValue2] = useState('');
+  const [hidden3, setHidden3] = useState(false);
+  const [hover2, setHover2] = useState('spinner');
+  const [hover4, setHover4] = useState('spinner');
+  const [hover3, setHover3] = useState('');
+  const [hover5, setHover5] = useState('');
+  const [value, setValue] = useState('');
+  const [errorMessage2, setErrorMessage2] = useState({});
+  const [errorMessage4, setErrorMessage4] = useState({});
+  const [token, setResetToken] = useState('');
+  const [name, setName] = useState('');
+  const [message5, setErrorMessage5] = useState('');
+  const [hover6, setHover6] = useState('spinner');
+  const [hover7, setHover7] = useState('');
+  const [value1, setValue1] = useState('');
+
+  // لاعمل فوكس على اول مربع ادخال للكود
+  useEffect(() => {
+    if (input6Ref.current) input6Ref.current.focus();
+  });
+  // واجهة كلمة المرور الجديدة
+  const [formData4, setFormData4] = useState({
+    password: '',
+    passwordConfirm: '',
+    resetToken: '',
+  });
+  const dataToSubmit2 = {
+    ...formData4,
+    resetToken: token,
+  };
+
+  // واجهة الايميل
+  const [formData2, setFormData2] = useState({
+    email: '',
+  });
+  // واجهة الايميل و الكود
+  const [formData3, setFormData3] = useState({
+    email: '',
+    resetCode: '',
+  });
   // انشاء حساب
   const [formData, setFormData] = useState({
     name: '',
@@ -20,7 +60,7 @@ export default function CreateAcount() {
     email: '',
     phone: '',
     passwordConfirm: '',
-    country: ''
+    country: '',
   });
   //   تسجيل الدخول
   const [formData1, setFormData1] = useState({
@@ -68,12 +108,15 @@ export default function CreateAcount() {
     const valditionErrerors = {};
     if (!formData.name.trim()) {
       valditionErrerors.name = 'هذا الحقل مطلوب.';
+      setHover('spinner');
     } else if (!/^[A-Za-zأ-ي]{6,}$/.test(formData.name)) {
       valditionErrerors.name =
         'الاسم يجب أن يتكون من ستة محارف على الأقل(أحرف عربية و إنجيليزية فقط).';
+      setHover('spinner');
     }
     if (!formData.password.trim()) {
       valditionErrerors.password = 'هذا الحقل مطلوب.';
+      setHover('spinner');
     } else if (
       !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{9,}$/.test(
         formData.password
@@ -81,97 +124,339 @@ export default function CreateAcount() {
     ) {
       valditionErrerors.password =
         'كلمة المرور يجب أن تتكون من تسعة محارف على الأقل و يبن أن تكون معقدة(أي تحتوي على : أحرف كبيرة-أحرف صغيرة-رموز-أرقام).';
+      setHover('spinner');
     }
     if (!formData.email.trim()) {
       valditionErrerors.email = 'هذا الحقل مطلوب.';
+      setHover('spinner');
     } else if (!/^[a-zA-Z0-9._%+-]+@gmail.com$/.test(formData.email)) {
       valditionErrerors.email = 'الأيميل غير صالح.';
+      setHover('spinner');
     }
     if (!formData.phone.trim()) {
       valditionErrerors.phone = 'هذا الحقل مطلوب.';
+      setHover('spinner');
     } else if (!/^\d{10}$/.test(formData.phone)) {
       valditionErrerors.phone = 'الرقم يجب أن يتكون من عشرة أرقام.';
+      setHover('spinner');
     }
     if (!formData.passwordConfirm.trim()) {
       valditionErrerors.passwordConfirm = 'هذا الحقل مطلوب.';
+      setHover('spinner');
     } else if (formData.passwordConfirm !== formData.password) {
       valditionErrerors.passwordConfirm = 'لا يوجد تطابق مع كلمة المرور.';
+      setHover('spinner');
     }
     if (!formCheck.check1) {
       valditionErrerors.check1 = '.هذا الحقل مطلوب';
+      setHover('spinner');
     }
     if (!formCheck.check2) {
       valditionErrerors.check2 = '.هذا الحقل مطلوب';
+      setHover('spinner');
     }
     if (!formData.country.trim()) {
       valditionErrerors.country = 'خطأ';
+      setHover('spinner');
     }
     setErrorMessage(valditionErrerors);
     if (Object.keys(valditionErrerors).length === 0) {
-      setHover('spinner-click-tow')
-      //navegate('/confirm');
+      setHover('spinner-click-tow');
       axios
         .post(
           'https://testapi-gibt.onrender.com/api/v1/users/signup',
-        JSON.stringify(formData),
+          JSON.stringify(formData),
           {
             headers: {
               'Content-Type': 'application/json',
-              'Accept-Language':'ar',
+              'Accept-Language': 'ar',
             },
           }
         )
-        .then((res) =>{setHover('spinner')
-           navegate('/confirm')})
+        .then((res) => {
+          setHover('spinner');
+          navegate('/confirm');
+        })
         .catch((error) => {
-          setHover('spinner')
-          valditionErrerors.messageBackend=error.response.data.message
-          setErrorMessage(valditionErrerors);
+          setHover('spinner');
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
         });
     }
   };
   //  دالة تسجيل الدخول تجريبية
   const handleSubmit = (e) => {
     e.preventDefault();
-   
     const valditionErrerors1 = {};
     if (!formData1.email.trim()) {
       valditionErrerors1.email = 'هذا الحقل مطلوب.';
-    
+      setHover('spinner');
+    } else if (!/^[a-zA-Z0-9._%+-]+@gmail.com$/.test(formData1.email)) {
+      valditionErrerors1.email = 'الأيميل غير صالح.';
+      setHover('spinner');
     }
     if (!formData1.password.trim()) {
       valditionErrerors1.password = 'هذا الحقل مطلوب.';
-    
+      setHover('spinner');
+    } else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{9,}$/.test(
+        formData1.password
+      )
+    ) {
+      valditionErrerors1.password =
+        'كلمة المرور يجب أن تتكون من تسعة محارف على الأقل و يبن أن تكون معقدة(أي تحتوي على : أحرف كبيرة-أحرف صغيرة-رموز-أرقام).';
+      setHover('spinner');
     }
     setErrorMessage1(valditionErrerors1);
     if (Object.keys(valditionErrerors1).length === 0) {
-      setHover('spinner-click')
-    axios
-    .post(
-      'https://testapi-gibt.onrender.com/api/v1/users/login',
-    JSON.stringify(formData1),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept-Language':'ar',
-        },
+      setHover('spinner-click');
+      axios
+        .post(
+          'https://testapi-gibt.onrender.com/api/v1/users/login',
+          JSON.stringify(formData1),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+            },
+          }
+        )
+        .then((res) => {
+          setHover('spinner');
+          navegate('/confirm1');
+        })
+        .catch((error) => {
+          setHover('spinner');
+          if (error.response) {
+            const validationErrors1 = {};
+            validationErrors1.messageBackend = error.response.data.message;
+            setErrorMessage1(validationErrors1);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage1({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    }
+  };
+  // مشان ادخل الايميل و احفظه  لواجهة يلي بعد
+  const handleChange3 = (e) => {
+    const { name, value } = e.target;
+    setFormData2({ [name]: value });
+    setFormData3({ ...formData3, email: value });
+  };
+  // واجهة الايميل
+  const handleSubmit3 = (e) => {
+    e.preventDefault();
+    setHover2('spinner-click2');
+    const valditionErrerors2 = {};
+    if (!formData2.email.trim()) {
+      valditionErrerors2.email = 'هذا الحقل مطلوب.';
+      setHover2('spinner');
+    } else if (!/^[a-zA-Z0-9._%+-]+@gmail.com$/.test(formData2.email)) {
+      valditionErrerors2.email = 'الأيميل غير صالح.';
+      setHover2('spinner');
+    }
+    setErrorMessage2(valditionErrerors2);
+    if (Object.keys(valditionErrerors2).length === 0) {
+      axios
+        .post(
+          'https://auctions-tenders-38sx.onrender.com/api/v1/users/forgotPassword',
+          JSON.stringify(formData2),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+            },
+          }
+        )
+        .then((res) => {
+          setHover2('spinner');
+          setHover3('no');
+          setValue('code');
+          setValue2('');
+        })
+        .catch((error) => {
+          setHover2('spinner');
+          if (error.response) {
+            const validationErrors2 = {};
+            validationErrors2.messageBackend = error.response.data.message;
+            setErrorMessage2(validationErrors2);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage2({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    }
+  };
+  // اخفاء اول واجهة تبع تسجيل الدخول
+  const hidden = () => {
+    setHidden3(true);
+    setValue2('code');
+  };
+  // مشان ارجع بزر تراجع
+  const goback = () => {
+    setHidden3(false);
+    setValue2('');
+    setHover2('spinner');
+    setFormData2({ ...formData2, email: '' });
+    setErrorMessage2('');
+  };
+  // مشان خلي مؤش الكتابة ينتقل لحاله بادخال الكود
+  const input1Ref = useRef(null);
+  const input2Ref = useRef(null);
+  const input3Ref = useRef(null);
+  const input4Ref = useRef(null);
+  const input5Ref = useRef(null);
+  const input6Ref = useRef(null);
+
+  const handleChange5 = (index, event) => {
+    const { value } = event.target;
+    if (value.length === 1) {
+      if (index > 0) {
+        const nextRef = [
+          input1Ref,
+          input2Ref,
+          input3Ref,
+          input4Ref,
+          input5Ref,
+          input6Ref,
+        ][index - 1];
+        nextRef.current.focus();
       }
-    )
-    .then((res) =>{ setHover('spinner')
-    navegate('/confirm1')})
-    .catch((error) => {
-      setHover('spinner')
-      valditionErrerors1.messageBackend=error.response.data.message
-      setErrorMessage1(valditionErrerors1);
-    });}
+    }
   };
 
-  // ----------------------
+  // واجهة الكود
+  const submitCode = (e) => {
+    e.preventDefault();
+    setHover4('spinner-click3');
+    const inputs = document.querySelectorAll('.input-box');
+    let code = '';
+    inputs.forEach((input) => {
+      code += input.value;
+    });
+    code = code.split('').reverse().join('');
+    const dataToSubmit = {
+      ...formData2,
+      resetCode: code,
+    };
+    const valditionErrerors4 = {};
+    axios
+      .post(
+        'https://auctions-tenders-38sx.onrender.com/api/v1/users/checkResetCode',
+        JSON.stringify(dataToSubmit),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+          },
+        }
+      )
+      .then((res) => {
+        setHover4('spinner');
+        setHover5('no1');
+        setValue('');
+        setValue1('code');
+        setResetToken(res.data.resetToken);
+        setName(res.data.userName);
+      })
+      .catch((error) => {
+        setHover4('spinner');
+
+        if (error.response) {
+          console.log(error.response.data.message);
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage4(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage4({ messageBackend: 'An unexpected error occurred.' });
+        }
+      });
+  };
+  // كلمة المرور الجديدة
+  const handleChange4 = (e) => {
+    const { name, value } = e.target;
+    setFormData4({ ...formData4, [name]: value });
+  };
+
+  // ارسال كلمة المرور الجديدة
+  const handleSubmit4 = (e) => {
+    e.preventDefault();
+    const valditionErrerors4 = {};
+    if (!formData4.password.trim()) {
+      valditionErrerors4.password = 'هذا الحقل مطلوب.';
+    } else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{9,}$/.test(
+        formData4.password
+      )
+    ) {
+      valditionErrerors4.password =
+        'كلمة المرور يجب أن تتكون من تسعة محارف على الأقل و يبن أن تكون معقدة(أي تحتوي على : أحرف كبيرة-أحرف صغيرة-رموز-أرقام).';
+    }
+    if (!formData4.passwordConfirm.trim()) {
+      valditionErrerors4.passwordConfirm = 'هذا الحقل مطلوب.';
+      setHover6('spinner');
+    } else if (formData4.passwordConfirm !== formData4.password) {
+      valditionErrerors4.passwordConfirm = 'لا يوجد تطابق مع كلمة المرور.';
+      setHover6('spinner');
+    }
+    setErrorMessage5(valditionErrerors4);
+    if (Object.keys(valditionErrerors4).length === 0) {
+      setHover6('spinner-click5');
+      axios
+        .patch(
+          'https://auctions-tenders-38sx.onrender.com/api/v1/users/resetPassword',
+          JSON.stringify(dataToSubmit2),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+            },
+          }
+        )
+        .then((res) => {
+          setHover6('spinner');
+          setHover7('no');
+          navegate1('/');
+        })
+        .catch((error) => {
+          setHover6('spinner');
+          if (error.response) {
+            const validationErrors4 = {};
+            validationErrors4.messageBackend = error.response.data.message;
+            setErrorMessage5(validationErrors4);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage5({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    }
+  };
+
   return (
     <div className="account1">
-      <div class="flip-card">
+      <div className="flip-card">
         {/* تسجيل دخول */}
-        <div className={`log-in ${namePass.includes('rou') ? 'log-in2' : ''}`}>
+        <div
+          className={`log-in ${namePass.includes('rou') ? 'log-in2' : ''} ${
+            hidden3 == true ? 'hidden-forget' : 'visibly-forget'
+          }`}
+        >
           <div className="log-in1">
             <div>
               <div>
@@ -237,13 +522,31 @@ export default function CreateAcount() {
                       <span className="fa fa-warning"></span>
                     </span>
                   )}
-                    <button className='forget' onClick={()=>navegate('/Modify')}>هل نسيت كلمة المرور؟</button>
+
+                  <div></div>
                   <div className="button-log-in0">
-                    <button className={`button-log-in ${hover.includes('spinner-click')?'hidden-send':''}`}>تسجيل الدخول</button>
-                    <div className={`spinn ${hover.includes('spinner-click')?'spinner-click':'spinner'}`}> <div className='spinner-border ' role='status'></div></div>
+                    <button
+                      className={`button-log-in ${
+                        hover.includes('spinner-click') ? 'hidden-send' : ''
+                      }`}
+                    >
+                      تسجيل الدخول
+                    </button>
+                    <div
+                      className={`spinn ${
+                        hover.includes('spinner-click')
+                          ? 'spinner-click'
+                          : 'spinner'
+                      }`}
+                    >
+                      {' '}
+                      <div className="spinner-border " role="status"></div>
+                    </div>
                   </div>
                 </form>
-              
+                <button className="forget" onClick={hidden}>
+                  هل نسيت كلمة المرور؟
+                </button>
                 <div className="create-account0">
                   <button onClick={() => hoverItems1('rou')}>
                     إنشاء حساب جديد
@@ -259,12 +562,232 @@ export default function CreateAcount() {
             </div>
           </div>
         </div>
+        {/* ================================واجهة ارسال الايميل================================== */}
+        <div
+          className={`Modify ${
+            value2.includes('code') ? 'visibly-forget' : 'hidden-forget'
+          }`}
+        >
+          <div className={`Modify1`}>
+            <p className="forget">هل نسيت كلمة المرور؟</p>
+            <div className="forget">
+              <p className="forget1">
+                لا تقلق على حسابك اتبع الخطوات لاستعادته
+              </p>
+              <p>
+                أدخل عنوان البريد الخاص بك سوف نقوم بإرسال رسالة إليك تحوي على
+                رابط يمكنك من تغير كلمة المرور القديمة
+              </p>
+              {errorMessage2.email && (
+                <span className="error0 error-forget">
+                  <span className="fa fa-warning"></span>
+                  {errorMessage2.email}
+                </span>
+              )}
+              {errorMessage2.messageBackend && (
+                <span className="error0 error-forget">
+                  <span className="fa fa-warning"></span>
+                  {errorMessage2.messageBackend}
+                </span>
+              )}
+              <input
+                type="text"
+                value={formData2.email}
+                id="email"
+                name="email"
+                onChange={handleChange3}
+                className="forget"
+                placeholder="أدخل عنوانك البريد هنا"
+              />
+              <div className="forget-button">
+                <button
+                  onClick={handleSubmit3}
+                  className={`${hover3.includes('no') ? 'hidden-send' : ''} ${
+                    hover2.includes('spinner-click2') ? 'hidden-send' : ''
+                  }`}
+                >
+                  إرسال
+                </button>
+                <div
+                  className={`${
+                    hover2.includes('spinner-click2')
+                      ? 'spinner-click'
+                      : 'spinner'
+                  }`}
+                >
+                  {' '}
+                  <div className="spinner-border " role="status"></div>
+                </div>
+                <button className="button2" onClick={goback}>
+                  تراجع
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* ============================واجهة ادخال الكود================================ */}
+        <div
+          className={`container ${
+            value.includes('code') ? 'visibly-forget' : 'hidden-forget'
+          }`}
+        >
+          <p className="forget">هل نسيت كلمة المرور؟</p>
+          <div className="forget">
+            <p className="forget1">لا تقلق على حسابك اتبع الخطوات لاستعادته</p>
+            <p>
+              قم بإدخال الكود المكون من 6 خانات الذي تم إرساله إلى بريدك
+              الإلكتروني
+            </p>
+          </div>
+          {errorMessage4.messageBackend && (
+            <span className="error0 error-code">
+              <span className="fa fa-warning"></span>
+              {errorMessage4.messageBackend}
+            </span>
+          )}
+
+          <div className="codeInput">
+            <input
+              type="text"
+              maxlength="1"
+              className="input-box"
+              pattern="[0-9]"
+              ref={input1Ref}
+              onChange={(e) => handleChange5(0, e)}
+            />
+            <input
+              type="text"
+              maxlength="1"
+              className="input-box"
+              pattern="[0-9]"
+              ref={input2Ref}
+              onChange={(e) => handleChange5(1, e)}
+            />
+            <input
+              type="text"
+              maxlength="1"
+              className="input-box"
+              pattern="[0-9]"
+              ref={input3Ref}
+              onChange={(e) => handleChange5(2, e)}
+            />
+            <input
+              type="text"
+              maxlength="1"
+              className="input-box"
+              pattern="[0-9]"
+              ref={input4Ref}
+              onChange={(e) => handleChange5(3, e)}
+            />
+            <input
+              type="text"
+              maxlength="1"
+              className="input-box"
+              pattern="[0-9]"
+              ref={input5Ref}
+              onChange={(e) => handleChange5(4, e)}
+            />
+            <input
+              type="text"
+              maxlength="1"
+              className="input-box"
+              pattern="[0-9]"
+              ref={input6Ref}
+              onChange={(e) => handleChange5(5, e)}
+            />
+          </div>
+          <p className="finish">
+            تنتهي مدة صلاحية الكود بعد <span>10 دقائق</span>
+          </p>
+          <p className="finish1">لم تتلقى الكود؟</p>
+          <button onClick={handleSubmit3} className={`rebet`}>
+            إعادة إرسال الكود
+          </button>
+          <button
+            onClick={submitCode}
+            className={`code-confirm ${
+              hover5.includes('no1') ? 'hidden-send' : ''
+            } ${hover4.includes('spinner-click3') ? 'hidden-send' : ''}`}
+          >
+            التحقق من الكود
+          </button>
+          <div
+            className={`spinn5 ${
+              hover4.includes('spinner-click3') ? 'spinner-click' : 'spinner'
+            }`}
+          >
+            {' '}
+            <div className="spinner-border " role="status"></div>
+          </div>
+        </div>
+        {/* ==============================واجهة كلمة مرور الجديدة============================= */}
+        <div
+          className={`container1 ${
+            value1.includes('code') ? 'visibly-forget' : 'hidden-forget'
+          }`}
+        >
+          <div className="reset-password">
+            <p className="hi">
+              أهلاً بك <span className="name">{name}</span>
+            </p>
+            <div className="forget">
+              <p className="forget1">
+                يمكنك الآن تعديل كلمة المرور و كتابة كلمة مرور جديدة
+              </p>
+            </div>
+          </div>
+          <form className="reset-password-form" onSubmit={handleSubmit4}>
+            <label>كلمة المرور الجديدة</label>
+            <input
+              type="password"
+              placeholder="أدخل كلمة المرور هنا"
+              name="password"
+              value={formData4.password}
+              onChange={handleChange4}
+            />
+            {message5.password && (
+              <span className="error0 error-passwo">
+                <span className="fa fa-warning"></span>
+                {message5.password}
+              </span>
+            )}
+            <label>تأكيد كلمة المرور الجديدة</label>
+            <input
+              type="password"
+              placeholder="أدخل كلمة المرور هنا"
+              name="passwordConfirm"
+              value={formData4.passwordConfirm}
+              onChange={handleChange4}
+            />
+            {message5.passwordConfirm && (
+              <span className="error0 error-passwocon">
+                <span className="fa fa-warning"></span>
+                {message5.passwordConfirm}
+              </span>
+            )}
+            <button
+              className={`${hover7.includes('no') ? 'hidden-send' : ''} ${
+                hover6.includes('spinner-click5') ? 'hidden-send' : ''
+              }`}
+            >
+              موافق
+            </button>
+            <div
+              className={`spinn-pass ${
+                hover6.includes('spinner-click5') ? 'spinner-click' : 'spinner'
+              }`}
+            >
+              {' '}
+              <div className="spinner-border " role="status"></div>
+            </div>
+          </form>
+        </div>
         {/* /------انشاء حساب----------/ */}
 
         <div
           className={`creat-account-back ${
             namePass.includes('rou') ? 'creat-account-back1' : ''
-          }`}
+          }  ${hidden3 == true ? '.hidden-forget' : 'visibly-forget'}`}
         >
           <div className="hello1">
             <p className="hellop1">أهلاً بك!</p>
@@ -504,9 +1027,23 @@ export default function CreateAcount() {
                   </span>
                 )}
                 <div>
-               
-                  <button className={`creat ${hover.includes('spinner-click-tow')?'hidden-send':''}`}>إنشاء حساب جديد</button>
-                  <div className={`spinn1 ${hover.includes('spinner-click-tow')?'spinner-click':'spinner'}`}> <div className='spinner-border ' role='status'></div></div>
+                  <button
+                    className={`creat ${
+                      hover.includes('spinner-click-tow') ? 'hidden-send' : ''
+                    }`}
+                  >
+                    إنشاء حساب جديد
+                  </button>
+                  <div
+                    className={`spinn1 ${
+                      hover.includes('spinner-click-tow')
+                        ? 'spinner-click'
+                        : 'spinner'
+                    }`}
+                  >
+                    {' '}
+                    <div className="spinner-border " role="status"></div>
+                  </div>
                 </div>
               </div>
             </form>
