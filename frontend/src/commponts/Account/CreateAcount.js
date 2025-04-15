@@ -7,6 +7,7 @@ import axios from 'axios';
 export default function CreateAcount() {
   const navegate = useNavigate();
   const navegate1 = useNavigate();
+  const navegate2 = useNavigate();
   //   usestate
   const [namePass, setNamePase] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
@@ -72,7 +73,10 @@ export default function CreateAcount() {
     check1: false,
     check2: false,
   });
-
+  // الانتقال من لوغو
+  const goToHome=()=>{
+    navegate2('/')
+  }
   //   تطبيق الحركة على مربع الادخال
   const hoverItems1 = (items) => {
     if (namePass.includes(items) == false) {
@@ -1051,9 +1055,9 @@ export default function CreateAcount() {
         </div>
       </div>
       <div className="side-right">
-        <div>
+        <button onClick={goToHome}>
           <img className="footer-logo" src={imag} alt="error" />
-        </div>
+        </button>
         <h1 className="side-right-h1">smart world منصة</h1>
         <h6 className="side-right-h6">
           منصة تفاعلية رائدة في تقديم المزادات والمناقصات الالكترونية

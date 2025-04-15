@@ -19,6 +19,10 @@
   flex-direction: column;
   align-items: center;
 }
+.side-right button{
+  border: none;
+  outline: none;
+}
 .log-in1 {
   width: 873px;
   height: 542px;
