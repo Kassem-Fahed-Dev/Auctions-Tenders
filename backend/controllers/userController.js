@@ -44,7 +44,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 
   res.status(200).json({
-    status: 'success',
+    status: req.t(`fields:success`),
     data: {
       user: updatedUser,
     },

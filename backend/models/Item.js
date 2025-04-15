@@ -8,7 +8,6 @@ const itemSchema = new mongoose.Schema(
       auction: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: "Auction",
-        unique: true
       },
     name: String,
     description: String,

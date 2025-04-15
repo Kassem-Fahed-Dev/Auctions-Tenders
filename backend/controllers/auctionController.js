@@ -1,20 +1,23 @@
 const Auction = require('../models/Auction');
 const Item = require('../models/Item');
+const Category = require('../models/Category');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
-const factory = require('./handlerFactory');
 
 exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
-  const categoryId = req.query.categoryId; // Assuming categoryId is passed as a query parameter
-
-  if (!categoryId) {
+  const categoryName = req.query.categoryName; 
+  req.query = (({ categoryName, ...rest }) => rest)(req.query);
+  if (!categoryName) {
     return next();
   }
-  const itemsInCategory = await Item.find({ category: categoryId });
-
+  const category = await Category.findOne({ type: 'auction', name: categoryName });
+  const itemsInCategory = await Item.find({ category:category._id});
+  
   const itemIds = itemsInCategory.map((item) => item._id);
-  req.query.item = { $in: itemIds };
+
+  req.itemAuction = { item:{$in: itemIds}};
+  //console.log(req.query.item)
   next();
 });
 
@@ -35,7 +38,7 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
   // Create Auction with Item reference
   const newAuction = await Auction.create({
     ...req.body.auction,
-    user:req.user.id,
+    user: req.user.id,
     item: newItem._id,
   });
 
@@ -47,9 +50,10 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
     'item',
   );
   res.status(201).json({
-    status: 'success',
+    status: req.t(`fields:success`),
+    message: req.t(`successes:createAuction`),
     data: {
-      populatedAuction
+      populatedAuction,
     },
   });
 });
@@ -63,7 +67,7 @@ exports.getAuctionWithItem = catchAsync(async (req, res, next) => {
   }
 
   res.status(200).json({
-    status: 'success',
+    status: req.t(`fields:success`),
     data: {
       data: auction,
     },
@@ -88,10 +92,11 @@ exports.updateAuctionWithItem = catchAsync(async (req, res, next) => {
       runValidators: true,
     });
   }
-  
+
   const auctionAndItem = await Auction.findById(req.params.id).populate('item');
   res.status(200).json({
-    status: 'success',
+    status: req.t(`fields:success`),
+    message: req.t(`successes:updateAuction`),
     data: {
       data: auctionAndItem,
     },
@@ -110,24 +115,28 @@ exports.deleteAuctionWithItem = catchAsync(async (req, res, next) => {
   await Auction.findByIdAndDelete(req.params.id);
 
   res.status(204).json({
-    status: 'success',
+    status: req.t(`fields:success`),
+    message: req.t(`successes:deleteAuction`),
     data: null,
   });
 });
 
 // Get All Auctions + Items
 exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
-  const query = Auction.find().populate('item');
-
+  let filterAuctionsByCategory = {};
+  if (req.itemAuction)
+    filterAuctionsByCategory = req.itemAuction;
+  
+  const query = Auction.find(filterAuctionsByCategory).populate('item');
   const features = new APIFeatures(query, req.query)
-        .filter()
-        .sort()
-        .limitFields()
-        .paginate();
-      // const doc = await features.query.explain();
-      const auctions = await features.query;
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const auctions = await features.query;
   res.status(200).json({
-    status: 'success',
+    status: req.t(`fields:success`),
     result: auctions.length,
     data: {
       data: auctions,

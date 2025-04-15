@@ -13,11 +13,12 @@ const router = express.Router();
 // ); // get all my auctions
 
 router
-  .get('/', auctionController.getAllAuctionsWithItems)
+  .get('/', auctionController.filterAuctionsByCategory,auctionController.getAllAuctionsWithItems)
   .post('/',  authController.protect, auctionController.createAuctionWithItem);
 router.get(
   '/myAuctions',
   authController.protect,
+  auctionController.filterAuctionsByCategory,
   auctionController.getUserId,
   auctionController.getAllAuctionsWithItems,
 );

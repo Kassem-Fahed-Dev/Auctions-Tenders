@@ -8,7 +8,7 @@ i18next
   .init({
     fallbackLng: 'en',
     supportedLngs: ['en', 'ar'],
-    ns: ['errors', 'fields'],
+    ns: ['errors', 'fields','successes'],
     defaultNS: 'errors',
     backend: {
       loadPath: `${__dirname}/../locales/{{lng}}/{{ns}}.json`,

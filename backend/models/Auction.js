@@ -3,12 +3,11 @@ const auctionSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'userSchema',
+      ref: 'User',
     },
     item: { 
       type: mongoose.Schema.Types.ObjectId,
       ref: "Item",
-      unique: true // Ensure one item per auction
     },
     auctionTtile: {
       type: String,
@@ -37,13 +36,13 @@ const auctionSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['مقبول', 'مرفوض', 'انتظار'],
-      default: 'انتظار',
+      enum: ['accept', 'reject', 'pindding'],
+      default:  'pindding',
     },
     activeStatus: {
       type: String,
-      enum: ['جاري', 'انتهى', 'قريبا'],
-      default: 'قريبا',
+      enum: ['active', 'colse', 'soon'],
+      default: 'soon',
     },
   },
   { timestamps: true },
@@ -52,7 +51,7 @@ const auctionSchema = new mongoose.Schema(
 auctionSchema.pre('save', function (next) {
   const now = new Date();
   if (now > this.endTime) {
-    this.activeStatus = 'close';
+    this.activeStatus = 'colse';
   } else if (now < this.startTime) {
     this.activeStatus = 'soon';
   } else {
