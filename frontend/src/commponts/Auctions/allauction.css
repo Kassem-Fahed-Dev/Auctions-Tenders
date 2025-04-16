@@ -248,28 +248,76 @@
   color: transparent;
   margin-top: 20px;
   margin-left: 250px;
+  display: none;
+}
+i.upload{
+  display: inline-block;
+  font-size: 46px;
+ margin-top: 30px;
+ /* margin-bottom: 30px; */
+ /* padding-left: 50px; */
+ margin-left: 370px;
+}
+.replace{
+  display: none;
+}
+.rep{
+  display: inline-block;
+  font-size: 17px;
+  background-color: #00cc66;
+  position: relative;
+  bottom: 245px;
+  left: 149px;
+  padding:4px 2px;
+  padding-bottom: 5px;
+}
+p.upload{
+  font-size: 28px;
+  width: 280px;
+  margin-left: 270px;
+  margin-bottom: 30px;
+
+}
+.video{
+  width: 590px;
+  height: 400px;
+
+  display: block;
+  margin: auto;
+  margin-top: 30px;
+  background-color: #fff;
+  border-radius: 8px;
 }
 .img-choose {
   width: 250px;
   height: 250px;
   margin-top: 30px;
-  margin-left: 30px;
+  margin-left: 28px;
   border-radius: 8px;
+}
+.div-choose{
+  width: 295px;
 }
 .choose {
   background: red;
   color: white;
   border: none;
+  /* padding-top: 1px; */
   cursor: pointer;
-  border-radius: 8px;
+  border-top-right-radius: 8px;
   position: relative;
-  bottom: 98px;
-  left: -20px;
+  bottom: 251px;
+  left: 259px;
+}
+.choose1{
+  bottom: 400px;
+  left: 580px;
 }
 .create-auction-button .createp {
   direction: rtl;
+ 
   margin-top: 90px;
-  margin-right: 120px;
+  margin-right: 10%;
   font-size: 38px;
   font-weight: 500;
   color: #66b2ff;
@@ -282,7 +330,7 @@
 }
 .create-auction-button .fas.fa-chevron-left {
   position: absolute;
-  left: 150px;
+  left: 10%;
   top: 190px;
   border: none;
   font-size: 32px;
@@ -295,7 +343,9 @@
   flex-direction: row-reverse;
   /* margin-right: 10px; */
   margin-bottom: 50px;
-  padding-right: 20px;
+  /* padding-right: 2%; */
+  width: fit-content;
+  margin: auto;
   gap: 10px;
 }
 .create-auction-data1 {
@@ -336,6 +386,9 @@
 .group1 input {
   margin-right: -68px;
 }
+.create-auction-button{
+  padding-bottom: 100px;
+}
 .group2 {
   /* padding-right: 20px; */
   border: #000000 solid 3px;
@@ -345,14 +398,20 @@
   border-radius: 8px;
   /* left: 120px;
     top: 10px; */
+    position: relative;
+    right: 225px;
+    bottom: 50px;
   caret-color: transparent;
   font-weight: 500;
   /* margin-right: -40px; */
-  margin-bottom: 45px;
+  margin-bottom: 6px;
 }
 .tri3 {
-  top: 323px;
-  left: 755px;
+  position: relative;
+  right: 280px;
+  top: -25px;
+  /* top: 323px;
+  left: 755px; */
   z-index: 2;
 }
 .group1 {
@@ -461,6 +520,7 @@
 
 .auction3 {
   display: flex;
+  margin-top: -20px;
 }
 .status {
   margin-top: 7px;

@@ -90,16 +90,50 @@ export default function CreateAuction() {
     }
   };
 // ==============
+// const [videoSrc, setVideoSrc] = useState(null);
+
+// const handleVideoChange = (event) => {
+//   const file = event.target.files[0];
+//   if (file) {
+//     const videoUrl = URL.createObjectURL(file);
+//     setVideoSrc(videoUrl);
+//   }
+// };
+// const [videoSrc, setVideoSrc] = useState(null);
+
+//   const handleVideoChange = (event) => {
+  
+//     const files = event.target.files; 
+//     if (files.length === 0) {
+//       setVideoSrc(null); 
+//       return;
+//     }
+
+//     if (files.length > 1) {
+//       alert('يرجى اختيار فيديو واحد فقط.'); 
+//       setVideoSrc(null);
+//     } else
+//      {
+//       const file = files[0];
+//       const videoUrl = URL.createObjectURL(file);
+//       setVideoSrc(videoUrl);
+//     }
+//   };
+
+  const handleDeleteVideo = () => {
+    setVideoSrc(null); 
+  };
 const [videoSrc, setVideoSrc] = useState(null);
-
-const handleVideoChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    const videoUrl = URL.createObjectURL(file);
-    setVideoSrc(videoUrl);
-  }
-};
-
+  const handleVideoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setVideoSrc(null);
+      const vid1 = URL.createObjectURL(file);
+      setTimeout(() => {
+        setVideoSrc(vid1);
+      }, 0);
+    }
+  };
   return (
     <div className="create-auction-button">
       <Navbar wordBlod={'auctions'} />
@@ -249,36 +283,12 @@ const handleVideoChange = (event) => {
           </div>
           {hover=='بيانات'&&<div>
             <textarea className='textarea' placeholder='اكتب ما تود إضافتهُ من معلومات توضيحية اكثر هنا'/></div>}
-            {/* {hover=='الصور'&&<div>
-              <input type="file" id="fileInput" accept="image/*"/>
-    <br/>
-    <img id="image" src="" alt="الصورة المعروضة" style="display:none; margin-top: 20px;"/></div>}
-              {hover=='الفيديو'&&<div>
-                <input type='file'/>
-               </div>} */}
-               {/* {hover=='الصور'&& <div> <input type="file" accept="image/*"  multiple  onChange={handleChange4} /></div>}
-                  {images.map((image, index) => (
-                    <img 
-                        key={index}
-                        src={image} 
-                        alt={`الصورة ${index + 1}`} 
-                        style={{ margin: '10px', maxWidth: '200px', height: 'auto' }} 
-                    />
-                ))} */}
-                {/* ----------- */}
-                {/* {hover=='الفيديو'&& <div> <input type="file" accept="video/*"  multiple  onChange={handleChange5} /></div>}
-                  {dis1.map((image, index) => (
-                    <video
-                        controls 
-                        style={{ margin: '10px', maxWidth: '200px', height: 'auto' }} 
-                    >
-                      <source src={image} type='video/mp4'/>
-                    </video>
-                ))} */
-                }
                 <div>
  
-      {hover=='الصور'&&<div><input
+      {hover=='الصور'&&<div>
+        <label for='file'><i className='upload fa fa-upload'></i><p className='upload'>تحميل صور من جهازك</p></label>
+        <input
+        id='file'
         type="file"
         className='image-input'
         placeholder=' '
@@ -290,7 +300,7 @@ const handleVideoChange = (event) => {
       <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '30px' }}>
         {images.map((image, index) => (
           
-          <div>
+          <div className='div-choose'>
             <img
             key={index}
             src={image}
@@ -305,26 +315,32 @@ const handleVideoChange = (event) => {
             >
               x
             </button>
+            <label for='replace'><i className='rep fa fa-exchange-alt'></i></label>
+            <input type='file' accept='image/*' id='replace' className='replace' onChange={(e)=>handleReplaceImage(index,e)}/>
           </div>
           
         ))}   
       </div></div>}
     </div>
     <div>
-      <h2>اختر فيديو لرفعه</h2>
+    {hover=='الفيديو'&&<div>
+      <label for='file'><i className='upload fa fa-upload'></i><p className='upload'>تحميل فيديو من جهازك</p></label>
       <input
         type="file"
+        id='file'
+         className='image-input'
         onChange={handleVideoChange}
         accept="video/*"
       />
       {videoSrc && (
-        <div style={{ marginTop: '10px' }}>
-          <video width="600" controls>
+        <div >
+          <video className='video' controls>
             <source src={videoSrc} type="video/mp4" />
             متصفحك لا يدعم تشغيل الفيديو.
           </video>
+          <button onClick={handleDeleteVideo} className='choose choose1'>x</button>
         </div>
-      )}
+      )}</div>}
     </div>  
 
 

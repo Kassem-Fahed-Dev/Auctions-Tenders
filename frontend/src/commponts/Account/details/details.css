@@ -109,21 +109,21 @@
   height: 427px;
 }
 /* for the scroll  */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   height: 400px;
   width: 3px;
 }
 ::-webkit-scrollbar-track {
   background: #ffffff;
-}
+} */
 
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background: #888888;
-}
+} */
 
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
   background: #ffffff;
-}
+} */
 .con-title {
   display: flex;
   justify-content: space-between;
