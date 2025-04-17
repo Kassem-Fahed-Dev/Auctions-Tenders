@@ -17,7 +17,13 @@ import AuctionGroup from './commponts/Auctions/AuctionGroup';
 import Modify from './commponts/Account/Modify';
 import ResetPassword from './commponts/Account/ResetPassword';
 import Details from './commponts/Account/details/Details';
-
+// tenders
+import AllTenders from './commponts/Tenders/AllTenders';
+import ShareTenders from './commponts/Tenders/ShareTenders';
+import FavoriteTenders from './commponts/Tenders/FavoriteTenders';
+import CreateTender from './commponts/Tenders/CreateTender';
+import TenderGroups from './commponts/Tenders/TenderGroups';
+import Details_Tender from './commponts/Tenders/details/Details_Tender';
 function App() {
   return (
     <div className="App">
@@ -52,6 +58,14 @@ function App() {
         <Route path="/jel" element={<AuctionGroup paragraph="إكسسوار" />} />
         <Route path="/other" element={<AuctionGroup paragraph="أخرى" />} />
         <Route path="/det" element={<Details />} />
+        {/* tenders */}
+
+        <Route path="/tenders" element={<AllTenders />} />
+        <Route path="/share-tenders" element={<ShareTenders />} />
+        <Route path="/favorite-tender" element={<FavoriteTenders />} />
+        <Route path="/createTender" element={<CreateTender />} />
+        <Route path="/tendersgroup" element={<TenderGroups />} />
+        <Route path="/det-tender" element={<Details_Tender />} />
       </Routes>
     </div>
   );

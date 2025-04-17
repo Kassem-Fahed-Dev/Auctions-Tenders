@@ -136,8 +136,7 @@
   border-top-right-radius: 12px;
 }
 .oneAuction .nameCube {
-  width: 230px;
-
+  width: 270px;
   margin: auto;
   position: relative;
   background-color: #ccc;
@@ -533,17 +532,32 @@ input [type='date'] {
 .div1 {
   background-image: url('../../image/cargroup.jpeg');
 }
+.div11 {
+  background-image: url('../Tenders/image-Tenders/Pica-enhance-20250224115339.png');
+}
 .div2 {
   background-image: url('../../image/bil.jpg');
+}
+.div22 {
+  background-image: url('../Tenders/image-Tenders/Pica-enhance-20250224115515.png');
 }
 .div3 {
   background-image: url('../../image/elctron.jpeg');
 }
+.div33 {
+  background-image: url('../Tenders/image-Tenders/Pica-enhance-20250224115610.png');
+}
 .div4 {
   background-image: url('../../image/furniture.jpeg');
 }
+.div44 {
+  background-image: url('../Tenders/image-Tenders/Pica-enhance-20250224121712.png');
+}
 .div5 {
   background-image: url('../../image/clothes.jpeg');
+}
+.div55 {
+  background-image: url('../../image/question.jpeg');
 }
 .div6 {
   background-image: url('../../image/jewelery.jpeg');
@@ -553,6 +567,7 @@ input [type='date'] {
 }
 .group-div .link {
   background-color: #f2f2f298;
+
   display: inline-block;
   height: 75px;
   width: 100%;
