@@ -35,6 +35,15 @@ export default function AuctionNew(){
         const handleClick2=(item)=>{
             setValue(item)
             setTest(item)
+            // if(value==' مقبول'){
+            //   setTest(' مقبول')
+            // }
+            if(item==' جاري'||item==' منتهي'||item==' قادم')
+              {
+                  setValue1(' مقبول')
+                  setValue2('فرز حسب')
+              
+              }
             if(value==' مقبول'||value==' مرفوض'||value==' قيد الانتظار'){
                 setValue2('فرز حسب')
             }
@@ -51,18 +60,27 @@ export default function AuctionNew(){
            
             <button className="sort sort-share"  onMouseEnter={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}} onClick={handleClick} >
               <div>{value}</div>
-            <i className={`fas fa-chevron-left ${hover==true?'white':'black'} ${value.includes('فرز حسب')?'sort1':'sort2'}`}></i>
+            <i className={`fas fa-chevron-left ${hover==true?'white':'black'} ${value.includes('فرز حسب')||value.includes(' مقبول')?'sort1':'sort2'}`}></i>
             </button>
             
             
           <div className={`listSort  ${test.includes('فرز حسب')?'visable':''}`}>
             <div className="buttonSort" >
                 <button className="button1" onClick={()=>{handleClick2(' مقبول')}}>مقبول</button>
+               
                 <button onClick={()=>{handleClick2(' مرفوض')}}>مرفوض</button>
                 <button className="button2" onClick={()=>{handleClick2(' قيد الانتظار')}}>قيد الانتظار</button>
                
             </div>
+          
             </div>
+            <div className={`listSort  ${test.includes(' مقبول')?'visable':''}`}>
+            <div  className="buttonSort" >
+                <button className="button1" onClick={()=>{handleClick2(' جاري')}}>جاري</button>
+                <button onClick={()=>{handleClick2(' قادم')}}>قادم</button>
+                <button className="button2" onClick={()=>{handleClick2(' منتهي')}}>منتهي</button>
+            </div>
+          </div>
              <div className="alotofAuction">
                         <Auction/>
                         <Auction/>

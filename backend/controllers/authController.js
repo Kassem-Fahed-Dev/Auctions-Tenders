@@ -66,6 +66,20 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res, next) => {
+  const cookieOptions = {
+    httpOnly: true,
+  };
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  res.clearCookie('jwt', cookieOptions);
+
+  res.status(200).json({
+    status:  req.t(`fields:success`),
+    message: req.t('successes:logout'),
+  });
+};
+
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
   let token;
@@ -120,6 +134,11 @@ exports.restrictTo = (...roles) => {
   };
 };
 
+exports.checkLogin = (req,res,next)=>{
+  res.status(200).json({
+    status: req.t('fields:success'),
+  })
+}
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
   const user = await User.findOne({ email: req.body.email });
@@ -143,8 +162,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     });
 
     res.status(200).json({
-      status: 'success',
-      message: 'Code sent to email!',
+      status: req.t(`fields:success`),
+      message: req.t('successes:sendCode'),
     });
   } catch (err) {
     user.passwordResetCode = undefined;
@@ -171,18 +190,17 @@ exports.checkResetCode = catchAsync(async (req, res, next) => {
   ) {
     return next(new AppError('Code is invalid or has expired', 400));
   }
-  const userName= user.name;
-  console.log(user);
+  const name = user.name;
   const resetToken = user.createPasswordResetToken();
   user.passwordResetCode = undefined;
   await user.save({ validateBeforeSave: false });
 
   res.status(200).json({
-    status: 'success',
-    message: 'Code verified',
+    status: req.t(`fields:success`),
+    message: req.t(`successes:codeVerified`),
     resetToken, // Pass token to the next step
     email,
-    userName
+    name,
   });
 });
 exports.resetPassword = catchAsync(async (req, res, next) => {

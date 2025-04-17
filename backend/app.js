@@ -10,18 +10,20 @@ const cors = require('cors');
 const userRouter = require('./routs/userRoutes');
 const auctionRouter = require('./routs/auctionRoutes');
 const categoryRouter = require('./routs/categoryRoutes');
-
+if (process.env.ENABLE_CRON == 'true') {
+  require('./utils/scheduler');
+}
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-const corsOptions ={
-  origin:'http://localhost:3000', 
+const corsOptions = {
+  origin: 'http://localhost:3000',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials:true,           
-  optionSuccessStatus:200
-}
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 // Middellwares
 app.use(cors(corsOptions));
 app.use(express.json());

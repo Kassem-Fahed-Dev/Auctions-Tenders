@@ -19,6 +19,10 @@
   flex-direction: column;
   align-items: center;
 }
+.side-right button{
+  border: none;
+  outline: none;
+}
 .log-in1 {
   width: 873px;
   height: 542px;
@@ -75,8 +79,8 @@
 button.forget {
   color: #003366;
   position: absolute;
-  top: 290px;
-  left: 150px;
+  top: 310px;
+  left: 155px;
   background-color: transparent;
   border: none;
 }
@@ -626,7 +630,7 @@ input[type='checkbox']:checked {
 .reject {
   font-weight: 800;
   font-size: 14px;
-  top: 330px;
+  top: 355px;
   left: 120px;
 }
 .errorBackend {

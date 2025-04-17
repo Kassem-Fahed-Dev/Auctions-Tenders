@@ -1,0 +1,8 @@
+{
+  "sendCode": "Code sent to email!",
+  "createAuction": "Auction created successfully",
+  "updateAuction":"Auction updated successfully",
+  "deleteAuction":"Auction deleted successfully",
+  "codeVerified":"Code verified",
+  "logout":"logged out successfully"
+}

@@ -3,5 +3,7 @@
     "name": "name",
     "auction":"auction",
     "category":"category",
-    "user":"user"
+    "user":"user",
+    "success":"success",
+    "fail":"fail"
 }
