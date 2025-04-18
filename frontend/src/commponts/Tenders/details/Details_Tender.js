@@ -1,10 +1,11 @@
 import './details.css';
-import Navdata from './Navdata';
+import Navdata from './Navdata_Tender';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Navbar from '../../Home/Navbar';
 import AuctionsNavbar from '../../Auctions/AuctionsNavbar';
 import Footer from '../../privacy policy/Footer';
+import TendersNavbar from '../TendersNavbar';
 function handel_Fav(e) {
   let hh = e.target;
   if (hh.style.color === 'red') {
@@ -13,7 +14,7 @@ function handel_Fav(e) {
     hh.style.cssText = 'color: red;';
   }
 }
-export default function Details_Tender() {
+export default function Details() {
   const [showParticipation, setShowParticipation] = useState(false);
 
   const [state, setState] = useState('قادم');
@@ -30,12 +31,12 @@ export default function Details_Tender() {
 
   return (
     <div className="All-con-det">
-      <Navbar wordBlod={'auctions'} />
-      <AuctionsNavbar wordBlod={'all'} />
+      <Navbar wordBlod={'tenders'} />
+      <TendersNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مزادات السيارات</h1>
-          <Link to="/share-auction">
+          <h1>مناقصة السيارات</h1>
+          <Link to="/share-tenders">
             <span className="	fas fa-chevron-left"></span>
           </Link>
         </div>
@@ -43,8 +44,8 @@ export default function Details_Tender() {
           <div className="container-card-details">
             <div className="con-title">
               <div className="div-title">
-                <p>اسم المزاد : </p>
-                <h4> سيارة افالون للبيع </h4>
+                <p>اسم المناقصة : </p>
+                <h5> مطلوب شركة مخصصة لبناء مسجد</h5>
               </div>
               <button
                 id="ptn-fav"
@@ -56,33 +57,22 @@ export default function Details_Tender() {
               </button>
             </div>
             <hr />
-            <div className="div-con">
-              <h6>تفاصيل المزاد </h6>
+            <div className="div-con1">
+              <h6 className="tit">تفاصيل المناقصة </h6>
 
-              <div>
-                حالة المزاد :
+              <div className="state_tender">
+                حالة المناقصة :
                 <span id="stateauction" style={getcolor()}>
                   {state}
                 </span>
               </div>
             </div>
             <div className="condivs">
-              <div>
+              <div className="dv1">
                 تاريخ البدء :<span>12/2/2025</span>
               </div>
-              <div>
+              <div className="dv2">
                 تاريخ الانتهاء :<span>12/2/2025</span>
-              </div>
-              <div>
-                السعر الابتدائي:
-                <span>150 مليون ليرة سورية</span>
-              </div>
-              <div>
-                السعر الحالي:
-                <span>250 مليون ليرة سورية</span>
-              </div>
-              <div>
-                خطوة المزايدة :<span> 50 مليون ليرة سورية</span>
               </div>
             </div>
             <hr />
@@ -108,16 +98,21 @@ export default function Details_Tender() {
                   onClick={() => setShowParticipation(true)}
                 >
                   <div className="fas fa-hand-point-up"></div>
-                  شارك بالمزاد
+                  شارك بالمناقصة
                 </button>
               </div>
             </div>
             {showParticipation && (
-              <div className="model-particip">
+              <div className="model-particip2">
                 <div className="con-poop">
-                  <div className="gg">
-                    <h3> أدخل الرقم الذي تود المشاركة به</h3>
+                  <div className="gg1">
+                    <h3>
+                      {' '}
+                      أدخل ما تود اضافته من تفاصيل تملكها لتقديمها بالمناقصة
+                    </h3>
 
+                    <textarea type="text"></textarea>
+                    <h3>ادخل المبلغ الذي تود المشاركة به</h3>
                     <input type="number " />
 
                     <button onClick={() => setShowParticipation(false)}>
