@@ -64,6 +64,12 @@ userSchema.virtual("auctions", {
   justOne: false        // false = One user can have many auctions
 });
 
+userSchema.virtual('auctionBids', {
+  ref: 'AuctionBid',
+  localField: '_id',
+  foreignField: 'user',
+});
+
 userSchema.pre('remove', async function (next) {
   try {
     await Auctions.deleteMany({ userId: this._id });
