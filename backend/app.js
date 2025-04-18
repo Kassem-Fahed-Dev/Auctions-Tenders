@@ -22,7 +22,6 @@ const corsOptions = {
   origin: 'http://localhost:3000',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
-  allowedHeaders:'*',
   optionSuccessStatus: 200,
 };
 // Middellwares
@@ -31,7 +30,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // app.use((req, res, next) => {
-//   console.log('welcome');
+//   console.log(req.headers);
 //   next();
 // });
 // app.use((req, res, next) => {
