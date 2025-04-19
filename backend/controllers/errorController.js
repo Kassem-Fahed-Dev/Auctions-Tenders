@@ -134,7 +134,7 @@ const sendErrorProd = (err, req, res) => {
   if (err.isOperational) {
     const translatedMessage = translateErrorMessage(err.message, req);
     res.status(err.statusCode).json({
-      status: err.status,
+      status: req.t(`fields:${err.status}`),
       message: translatedMessage,
     });
   } else {

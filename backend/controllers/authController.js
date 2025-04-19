@@ -23,12 +23,10 @@ const createSendToken = (user, statusCode, res) => {
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
-  res.cookie('jwt', token, cookieOptions);
-
   // Remove password from output
   user.password = undefined;
 
-  res.status(statusCode).json({
+  res.cookie('jwt', token, cookieOptions).status(statusCode).json({
     status: 'success',
     token,
     data: {
@@ -75,7 +73,7 @@ exports.logout = (req, res, next) => {
   res.clearCookie('jwt', cookieOptions);
 
   res.status(200).json({
-    status:  req.t(`fields:success`),
+    status: req.t(`fields:success`),
     message: req.t('successes:logout'),
   });
 };
@@ -134,11 +132,11 @@ exports.restrictTo = (...roles) => {
   };
 };
 
-exports.checkLogin = (req,res,next)=>{
+exports.checkLogin = (req, res, next) => {
   res.status(200).json({
     status: req.t('fields:success'),
-  })
-}
+  });
+};
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
   const user = await User.findOne({ email: req.body.email });

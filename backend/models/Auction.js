@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const auctionSchema = new mongoose.Schema(
   {
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
@@ -66,6 +66,12 @@ auctionSchema.virtual("linkedItem", {
   localField: "item",
   foreignField: "_id",
   justOne: true // Returns a single document
+});
+
+auctionSchema.virtual('auctionBids', {
+  ref: 'AuctionBid',
+  localField: '_id',
+  foreignField: 'auction',
 });
 
 module.exports = mongoose.model('Auction', auctionSchema);
