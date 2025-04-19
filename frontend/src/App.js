@@ -33,11 +33,16 @@ import Create_Tender from './commponts/Tenders/Create_Tender';
 
 // >>>>>>> Stashed changes
 function App() {
-  // const navigate = useNavigate();
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGJhZDAyYzc5NDU0MDA1YmQ0NmEwZiIsImlhdCI6MTc0NDk2ODA3OSwiZXhwIjoxNzUyNzQ0MDc5fQ.Y2jTAwwKl9aFmB56wX3CzluGi7E88T5Tsd8FIDMJRIU"
+<<<<<<< HEAD
+  const tok = localStorage.getItem('jwt'); 
+  // console.log(tok)
+=======
   // const tok = localStorage.getItem('jwt');
+>>>>>>> f84a1459e3c7971148b91fcd2fe9795a8b8ebddb
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
   //     try {

@@ -9,7 +9,7 @@ import im4 from '../../image/car.jpg';
 import Footer from '../privacy policy/Footer';
 
 export default function Home() {
-  
+  const tok = localStorage.getItem('jwt'); 
   return (
     <div>
       <div className="header">
