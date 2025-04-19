@@ -38,7 +38,7 @@ export default function AuctionNew(){
             // if(value==' مقبول'){
             //   setTest(' مقبول')
             // }
-            if(item==' جاري'||item==' منتهي'||item==' قادم')
+            if(item==' جاري'||item==' منتهي'||item==' قادم'||item=='الكل')
               {
                   setValue1(' مقبول')
                   setValue2('فرز حسب')
@@ -76,7 +76,8 @@ export default function AuctionNew(){
             </div>
             <div className={`listSort  ${test.includes(' مقبول')?'visable':''}`}>
             <div  className="buttonSort" >
-                <button className="button1" onClick={()=>{handleClick2(' جاري')}}>جاري</button>
+                <button className="button1" onClick={()=>{handleClick2('الكل')}}>الكل</button>
+                <button onClick={()=>{handleClick2(' جاري')}}>جاري</button>
                 <button onClick={()=>{handleClick2(' قادم')}}>قادم</button>
                 <button className="button2" onClick={()=>{handleClick2(' منتهي')}}>منتهي</button>
             </div>

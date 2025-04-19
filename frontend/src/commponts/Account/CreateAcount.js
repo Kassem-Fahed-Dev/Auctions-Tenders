@@ -168,7 +168,7 @@ export default function CreateAcount() {
       setHover('spinner-click-tow');
       axios
         .post(
-          'https://testapi-gibt.onrender.com/api/v1/users/signup',
+          'https://auctions-tenders-38sx.onrender.com/api/v1/users/signup',
           JSON.stringify(formData),
           {
             headers: {
@@ -180,6 +180,7 @@ export default function CreateAcount() {
         .then((res) => {
           setHover('spinner');
           navegate('/confirm');
+   
         })
         .catch((error) => {
           setHover('spinner');
@@ -224,17 +225,20 @@ export default function CreateAcount() {
       setHover('spinner-click');
       axios
         .post(
-          'https://testapi-gibt.onrender.com/api/v1/users/login',
+          'https://auctions-tenders-38sx.onrender.com/api/v1/users/login',
           JSON.stringify(formData1),
           {
             headers: {
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',
+                'credentials': 'include'
+             
             },
           }
         )
         .then((res) => {
           setHover('spinner');
+          console.log(res)
           navegate('/confirm1');
         })
         .catch((error) => {
@@ -451,6 +455,9 @@ export default function CreateAcount() {
         });
     }
   };
+  // =====================
+   
+  
 
   return (
     <div className="account1">

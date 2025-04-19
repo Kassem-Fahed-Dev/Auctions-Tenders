@@ -15,8 +15,8 @@ import AuctionNew from './commponts/Auctions/AuctionNew';
 import AuctionGroups from './commponts/Auctions/AuctionGroups';
 import AuctionGroup from './commponts/Auctions/AuctionGroup';
 import Modify from './commponts/Account/Modify';
-import ResetPassword from './commponts/Account/ResetPassword';
 import Details from './commponts/Account/details/Details';
+// <<<<<<< Updated upstream
 // tenders
 import AllTenders from './commponts/Tenders/AllTenders';
 import ShareTenders from './commponts/Tenders/ShareTenders';
@@ -24,21 +24,70 @@ import FavoriteTenders from './commponts/Tenders/FavoriteTenders';
 import CreateTender from './commponts/Tenders/CreateTender';
 import TenderGroups from './commponts/Tenders/TenderGroups';
 import Details_Tender from './commponts/Tenders/details/Details_Tender';
+// =======
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+// >>>>>>> Stashed changes
 function App() {
+  // const navigate = useNavigate();
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGJhZDAyYzc5NDU0MDA1YmQ0NmEwZiIsImlhdCI6MTc0NDk2ODA3OSwiZXhwIjoxNzUyNzQ0MDc5fQ.Y2jTAwwKl9aFmB56wX3CzluGi7E88T5Tsd8FIDMJRIU"
+  // const tok = localStorage.getItem('jwt'); 
+  // useEffect(() => {
+  //   const checkLoginStatus = async () => {
+  //     try {
+  //       const response = await axios.get('https://auctions-tenders-38sx.onrender.com/api/v1/users/checkLogin', {
+  //         withCredentials: true,  // تأكد من أن هذه هنا
+  //         headers: {
+  //             'Authorization': `Bearer ${tok}` // تأكد من وجود التوكن
+  //         }
+          // إضافة credentials إلى الكود
+           // هذه السطر هنا
+      // });
+
+        // افترض أن الخادم يعيد حالة تسجيل الدخول في data
+  //       if (response.data.loggedIn) {
+  //         setIsLoggedIn(true);
+  //         console.log('1')
+  //       } else {
+  //         navigate('/acount');
+  //         console.log('2')
+  //       }
+  //     } catch (error) {
+  //       console.error('Error checking login status:', error);
+  //       navigate('/acount');
+  //       console.log('3')
+  //     } finally {
+  //       setIsLoading(false);
+  //       console.log('4')
+  //     }
+  //   };
+
+  //   checkLoginStatus();
+  // }, [navigate]);
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>; // عرض شاشة تحميل أثناء التحقق من حالة تسجيل الدخول
+  // }
   return (
     <div className="App">
+    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/privacy1" element={<Privacy1 />} />
         <Route path="/acount" element={<CreateAcount />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/auctions" element={<AllAuctions />} />
         <Route path="/share-auction" element={<ShareAuctions />} />
         <Route path="/favorite" element={<FavoriteAuction />} />
         <Route path="/auctionsgroup" element={<AuctionGroups />} />
         <Route path="/CreateAuction" element={<CreateAuction />} />
         <Route path="/createAuctions" element={<AuctionNew />} />
-        <Route path="/Modify" element={<Modify />} />
+        {/* <Route path="/Modify" element={<Modify />} /> */}
         <Route
           path="/confirm"
           element={<Confirm message={'تم إنشاء حساب بنجاح'} />}
@@ -67,6 +116,8 @@ function App() {
         <Route path="/tendersgroup" element={<TenderGroups />} />
         <Route path="/det-tender" element={<Details_Tender />} />
       </Routes>
+    
+      
     </div>
   );
 }
