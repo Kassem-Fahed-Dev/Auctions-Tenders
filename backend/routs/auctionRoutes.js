@@ -1,20 +1,16 @@
 const express = require('express');
 const auctionController = require('../controllers/auctionController');
+const auctionBidController = require('../controllers/auctionBidController');
 const authController = require('../controllers/authController');
 const router = express.Router();
 
-//router.get('/', auctionController.filterAuctionsByCategory,auctionController.getAllAuctions); // get all auctions
-
-// router.get(
-//   '/myAuctions',
-//   authController.protect,
-//   auctionController.getUserId,
-//   auctionController.getAllAuctions,
-// ); // get all my auctions
-
 router
-  .get('/', auctionController.filterAuctionsByCategory,auctionController.getAllAuctionsWithItems)
-  .post('/',  authController.protect, auctionController.createAuctionWithItem);
+  .get(
+    '/',
+    auctionController.filterAuctionsByCategory,
+    auctionController.getAllAuctionsWithItems,
+  )
+  .post('/', authController.protect, auctionController.createAuctionWithItem);
 router.get(
   '/myAuctions',
   authController.protect,
@@ -24,6 +20,19 @@ router.get(
 );
 router
   .get('/:id', auctionController.getAuctionWithItem)
-  .patch('/:id', authController.protect,auctionController.updateAuctionWithItem)
-  .delete('/:id', authController.protect,auctionController.deleteAuctionWithItem);
+  .patch(
+    '/:id',
+    authController.protect,
+    auctionController.updateAuctionWithItem,
+  )
+  .delete(
+    '/:id',
+    authController.protect,
+    auctionController.deleteAuctionWithItem,
+  );
+
+router.post(
+  '/placeBid/:id',
+  auctionBidController.placeBid,
+);
 module.exports = router;
