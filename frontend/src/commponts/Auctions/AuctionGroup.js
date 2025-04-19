@@ -4,9 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Auction from './Auction';
 import Footer from '../privacy policy/Footer';
 import { useState } from 'react';
+
 export default function AuctionGroup({ paragraph }) {
+  const navegaet=useNavigate()
   function goback() {
-    window.history.go(-1);
+    // window.history.go(-1);
+    navegaet('/auctionsgroup')
   }
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
@@ -50,7 +53,7 @@ export default function AuctionGroup({ paragraph }) {
         <button className="fas fa-chevron-left fas1 " onClick={goback}></button>
       </div>
       <button
-        className="createauction"
+        className="createauction createauction-group "
         onClick={() => {
           navegate('/CreateAuction');
         }}

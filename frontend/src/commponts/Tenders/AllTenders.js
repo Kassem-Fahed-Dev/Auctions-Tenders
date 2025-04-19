@@ -42,13 +42,12 @@ export default function AllTenders() {
       setValue2('فرز حسب');
     }
     if (
-      item === ' عقارات' ||
-      item === ' إلكترونيات' ||
-      item === ' سيارات' ||
-      item === ' أثاث' ||
-      item === ' إكسسوار' ||
-      item === ' ملابس' ||
-      item === ' أخرى'
+      item === 'بناء و إعمار'||
+      item === ' خدمات لأماكن عامة ' ||
+      item === ' خدمات منوعة' ||
+      item === ' مركبات و آليات' ||
+      item === ' أخرى' 
+      
     ) {
       setValue1(' مجموعات');
       setValue2('فرز حسب');
@@ -68,7 +67,7 @@ export default function AllTenders() {
         <i className="fas fa-plus"></i>
       </button>
       <button
-        className="sort"
+        className="sort sort-ten"
         type="text"
         onMouseEnter={() => {
           setHover(true);
@@ -120,10 +119,10 @@ export default function AllTenders() {
           <button
             className="button1"
             onClick={() => {
-              handleClick2('بناء واعمار');
+              handleClick2('بناء و إعمار');
             }}
           >
-            بناء واعمار
+            بناء و إعمار
           </button>
           <button
             onClick={() => {
@@ -141,12 +140,13 @@ export default function AllTenders() {
           </button>
           <button
             onClick={() => {
-              handleClick2(' مركبات و اليات');
+              handleClick2(' مركبات و آليات');
             }}
           >
-            مركبات و اليات
+            مركبات و آليات
           </button>
           <button
+           className="button2"
             onClick={() => {
               handleClick2(' أخرى');
             }}
@@ -160,25 +160,25 @@ export default function AllTenders() {
           <button
             className="button1"
             onClick={() => {
-              handleClick2(' الجاري');
+              handleClick2(' جاري');
             }}
           >
-            الجاري
+           جاري
           </button>
           <button
             onClick={() => {
-              handleClick2(' القادم');
+              handleClick2(' قادم');
             }}
           >
-            القادم
+            قادم
           </button>
           <button
             className="button2"
             onClick={() => {
-              handleClick2(' المنتهي');
+              handleClick2(' منتهي');
             }}
           >
-            المنتهي
+            منتهي
           </button>
         </div>
       </div>

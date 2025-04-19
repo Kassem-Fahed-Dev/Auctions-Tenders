@@ -665,3 +665,12 @@ input [type='date'] {
 .so {
   top: 375px;
 }
+.createauction-group{
+  margin-top: -108px;
+}
+.sort-ten{
+  gap: 25px;
+}
+.Navul li.p-ten a:hover{
+  font-size: 35px;
+}

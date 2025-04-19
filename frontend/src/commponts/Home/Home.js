@@ -7,7 +7,9 @@ import im2 from '../../image/lab.png';
 import im3 from '../../image/bil.jpg';
 import im4 from '../../image/car.jpg';
 import Footer from '../privacy policy/Footer';
+
 export default function Home() {
+  
   return (
     <div>
       <div className="header">

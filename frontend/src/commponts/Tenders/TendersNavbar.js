@@ -22,14 +22,14 @@ export default function TendersNavbar({ wordBlod }) {
           <Link to="/tendersgroup">مجموعات</Link>
         </li>
         <li
-          className={`p1 ${wordBlod === 'Auctions1' ? 'bold' : ''}`}
+          className={`p1 p-ten ${wordBlod === 'Auctions1' ? 'bold' : ''}`}
           onClick={() => hoverItems('Auctions1')}
         >
           <Link to="/share-tenders">المناقصات المشارك بها</Link>
         </li>
 
         <li
-          className={`p2 ${wordBlod === 'Auctions2' ? 'bold' : ''}`}
+          className={`p2 p-ten ${wordBlod === 'Auctions2' ? 'bold' : ''}`}
           onClick={() => hoverItems('Auctions2')}
         >
           <Link to="/createTender">

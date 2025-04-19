@@ -1,14 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Home/Navbar';
 import { useState } from 'react';
+import axios from 'axios';
 export default function CreateAuction() {
   const [formData, setFormData] = useState('');
   const [hover, setHover] = useState('بيانات');
   const [namePass, setNamePase] = useState([]);
+   const [errorMessage, setErrorMessage] = useState({});
+   const [length,setLength]=('')
+   const [key,setKey]=([])
   const navegaet=useNavigate()
   function goback() {
-    // window.history.go(-1);
-    navegaet('/auctions')
+    // navegaet('/auctions')
+    window.history.go(-1);
   }
   
   //   تطبيق الحركة على مربع الادخال
@@ -17,13 +21,45 @@ export default function CreateAuction() {
       setNamePase([...namePass, items]);
     }
   };
-  //   اختيار الموقع
-
   const hoverItems2 = (items) => {
     setFormData( items );
     if (namePass.includes('list1')) {
       setNamePase(namePass.filter((i) => i !== 'list1'));
     }
+
+        axios
+            .get(
+             `https://auctions-tenders-38sx.onrender.com/api/v1/categories?name=${items}`,
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept-Language': 'ar',
+                },
+              }
+            )
+            .then((res) => {
+              // setHover('spinner');
+              console.log(res.data.data)
+              console.log(res.data.data.data[0].properties)
+              console.log(res.data.data.data[0].properties.length)
+              setLength(res.data.data.data[0].properties.length)
+              while(length>0){
+                // setKey([...key,res])
+              }
+            })
+            .catch((error) => {
+              // setHover('spinner');
+              if (error.response) {
+                const validationErrors = {};
+                validationErrors.messageBackend = error.response.data.message;
+                setErrorMessage(validationErrors);
+              } else {
+                console.log('An unexpected error occurred:', error.message);
+                setErrorMessage({
+                  messageBackend: 'An unexpected error occurred.',
+                });
+              }
+            });
   };
   const handleChange = (e) => {
     const {  value } = e.target;
@@ -35,33 +71,10 @@ export default function CreateAuction() {
   const handleHover=(item)=>{
     setHover(item)
   }
-  // const [images, setImages] = useState([]);
-  // const [video, setVideo] = useState([]);
-
-  // const handleChange4 = (event) => {
-  //     const files = Array.from(event.target.files);
-  //     if (files.length< 5) {
-  //       alert("يمكنك تحميل 5 صور كحد أقصى.");
-  //       return;
-  //   }
-  //     const objectURLs = files.map(file => URL.createObjectURL(file));
-  //     setImages(objectURLs);
-  // };
-//  const dis=images.slice(0,5)
-//  --------------
-// const handleChange5 = (event) => {
-//   const files = Array.from(event.target.files);
-
-//   const objectURLs = files.map(file => URL.createObjectURL(file));
-//   setImages(objectURLs);
-// };
-// const dis1=images.slice(0,1)
-
   const [images, setImages] = useState([]);
   const [fileInputKey, setFileInputKey] = useState(Date.now());
   const handleImageChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
-    // setImages([])
     if (selectedFiles.length > 5) {
       alert('يرجى اختيار 5 صور أو أقل.');
       setFileInputKey(Date.now());
@@ -84,41 +97,11 @@ export default function CreateAuction() {
       const newImage = URL.createObjectURL(file);
       setImages((prevImages) => {
         const updatedImages = [...prevImages];
-        updatedImages[index] = newImage; // استبدال الصورة في الفهرس المحدد
+        updatedImages[index] = newImage; 
         return updatedImages;
       });
     }
   };
-// ==============
-// const [videoSrc, setVideoSrc] = useState(null);
-
-// const handleVideoChange = (event) => {
-//   const file = event.target.files[0];
-//   if (file) {
-//     const videoUrl = URL.createObjectURL(file);
-//     setVideoSrc(videoUrl);
-//   }
-// };
-// const [videoSrc, setVideoSrc] = useState(null);
-
-//   const handleVideoChange = (event) => {
-  
-//     const files = event.target.files; 
-//     if (files.length === 0) {
-//       setVideoSrc(null); 
-//       return;
-//     }
-
-//     if (files.length > 1) {
-//       alert('يرجى اختيار فيديو واحد فقط.'); 
-//       setVideoSrc(null);
-//     } else
-//      {
-//       const file = files[0];
-//       const videoUrl = URL.createObjectURL(file);
-//       setVideoSrc(videoUrl);
-//     }
-//   };
 
   const handleDeleteVideo = () => {
     setVideoSrc(null); 

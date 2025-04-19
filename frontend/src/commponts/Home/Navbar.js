@@ -2,11 +2,14 @@ import img from "../../image/logo.png";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import React from 'react';
+
 export default function Navbar({wordBlod}) {
 	const [bold,setBold]=useState('home');
 	const hoverItems=(items)=>{
 		setBold(items);
 	}
+	
 	return (
 		<div className="Nav">
             {/* ال لوغو و الجملة تحته */}
