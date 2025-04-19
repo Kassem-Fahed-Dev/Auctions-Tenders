@@ -1,29 +1,62 @@
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Home/Navbar';
 import { useState } from 'react';
+import axios from 'axios';
 export default function Create_Tender() {
   const [formData, setFormData] = useState('');
   const [hover, setHover] = useState('بيانات');
   const [namePass, setNamePase] = useState([]);
+  const [errorMessage, setErrorMessage] = useState({});
+  const [length, setLength] = '';
+  const [key, setKey] = [];
   const navegaet = useNavigate();
   function goback() {
-    // window.history.go(-1);
-    navegaet('/auctions');
+    window.history.go(-1);
   }
-
-  //   تطبيق الحركة على مربع الادخال
   const hoverItems1 = (items) => {
     if (namePass.includes(items) == false) {
       setNamePase([...namePass, items]);
     }
   };
-  //   اختيار الموقع
-
   const hoverItems2 = (items) => {
     setFormData(items);
     if (namePass.includes('list1')) {
       setNamePase(namePass.filter((i) => i !== 'list1'));
     }
+
+    axios
+      .get(
+        `https://auctions-tenders-38sx.onrender.com/api/v1/categories?name=${items}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+          },
+        }
+      )
+      .then((res) => {
+        // setHover('spinner');
+        console.log(res.data.data);
+        console.log(res.data.data.data[0].properties);
+        console.log(res.data.data.data[0].properties.length);
+        setLength(res.data.data.data[0].properties.length);
+        while (length > 0) {
+          // setKey([...key,res])
+        }
+      })
+      .catch((error) => {
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
   };
   const handleChange = (e) => {
     const { value } = e.target;
@@ -35,33 +68,10 @@ export default function Create_Tender() {
   const handleHover = (item) => {
     setHover(item);
   };
-  // const [images, setImages] = useState([]);
-  // const [video, setVideo] = useState([]);
-
-  // const handleChange4 = (event) => {
-  //     const files = Array.from(event.target.files);
-  //     if (files.length< 5) {
-  //       alert("يمكنك تحميل 5 صور كحد أقصى.");
-  //       return;
-  //   }
-  //     const objectURLs = files.map(file => URL.createObjectURL(file));
-  //     setImages(objectURLs);
-  // };
-  //  const dis=images.slice(0,5)
-  //  --------------
-  // const handleChange5 = (event) => {
-  //   const files = Array.from(event.target.files);
-
-  //   const objectURLs = files.map(file => URL.createObjectURL(file));
-  //   setImages(objectURLs);
-  // };
-  // const dis1=images.slice(0,1)
-
   const [images, setImages] = useState([]);
   const [fileInputKey, setFileInputKey] = useState(Date.now());
   const handleImageChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
-    // setImages([])
     if (selectedFiles.length > 5) {
       alert('يرجى اختيار 5 صور أو أقل.');
       setFileInputKey(Date.now());
@@ -83,41 +93,42 @@ export default function Create_Tender() {
       const newImage = URL.createObjectURL(file);
       setImages((prevImages) => {
         const updatedImages = [...prevImages];
-        updatedImages[index] = newImage; // استبدال الصورة في الفهرس المحدد
+        updatedImages[index] = newImage;
         return updatedImages;
       });
     }
   };
-  // ==============
-  const [videoSrc, setVideoSrc] = useState(null);
 
+  const handleDeleteVideo = () => {
+    setVideoSrc(null);
+  };
+  const [videoSrc, setVideoSrc] = useState(null);
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const videoUrl = URL.createObjectURL(file);
-      setVideoSrc(videoUrl);
+      setVideoSrc(null);
+      const vid1 = URL.createObjectURL(file);
+      setTimeout(() => {
+        setVideoSrc(vid1);
+      }, 0);
     }
   };
-
   return (
     <div className="create-auction-button">
-      <Navbar wordBlod={'auctions'} />
-      <p className="createp">إنشاء مزاد</p>
+      <Navbar wordBlod={'tenders'} />
+      <p className="createp">إنشاء مناقصة</p>
       <button className="	fas fa-chevron-left" onClick={goback}></button>
       <div className="create-auction-data">
         <div className="create-auction-data1">
-          <form className="create-auction-form">
-            <div className="group1">
-              {/* <div>حدد المجموعة</div> */}
+          <form className="create-auction-form2">
+            <div className="auction22">
               <label className="group-label">حدد المجموعة</label>
               <div
-                className={`triangle tri3  ${
-                  formData === 'سيارات' ||
-                  formData === 'عقارات' ||
-                  formData === 'إلكترونيات' ||
-                  formData === 'أثاث' ||
-                  formData === 'إكسسوار' ||
-                  formData === 'ملابس' ||
+                className={`triangle tri33  ${
+                  formData === 'بناءواعمار' ||
+                  formData === 'خدمات لأماكن عامة' ||
+                  formData === 'خدمات منوعة' ||
+                  formData === 'مركبات واليات' ||
                   formData === 'أخرى'
                     ? 'triangle1'
                     : ''
@@ -127,61 +138,47 @@ export default function Create_Tender() {
                 <div className="tri tri1"></div>
                 <div className="tri tri2"></div>
               </div>
-
               <input
-                className="group2"
+                className="group22"
                 type="text"
                 name="group"
                 value={formData}
                 onChange={handleChange}
               />
               <div
-                className={`list-group-m  ${
+                className={`list-group-m2  ${
                   namePass == 'list1' ? 'list-group1 ' : ''
                 }`}
               >
                 <p
                   className="group-hover p1"
-                  onClick={() => hoverItems2('سيارات')}
+                  onClick={() => hoverItems2('بناءواعمار')}
                 >
-                  سيارات
+                  بناءواعمار
                 </p>
                 <div></div>
                 <p
                   className="group-hover p2"
-                  onClick={() => hoverItems2('عقارات')}
+                  onClick={() => hoverItems2('خدمات لأماكن عامة')}
                 >
-                  عقارات
+                  خدمات لأماكن عامة
                 </p>
                 <div></div>
                 <p
                   className="group-hover p2"
-                  onClick={() => hoverItems2('إلكترونيات')}
+                  onClick={() => hoverItems2('خدمات منوعة')}
                 >
-                  إلكترونيات
+                  خدمات منوعة
                 </p>
                 <div></div>
                 <p
                   className="group-hover p2"
-                  onClick={() => hoverItems2('أثاث')}
+                  onClick={() => hoverItems2('مركبات واليات')}
                 >
-                  أثاث
+                  مركبات واليات
                 </p>
                 <div></div>
-                <p
-                  className="group-hover p2"
-                  onClick={() => hoverItems2('إكسسوار')}
-                >
-                  إكسسوار
-                </p>
-                <div></div>
-                <p
-                  className="group-hover p2"
-                  onClick={() => hoverItems2('ملابس')}
-                >
-                  ملابس
-                </p>
-                <div></div>
+
                 <p
                   className="group-hover p3"
                   onClick={() => hoverItems2('أخرى')}
@@ -189,33 +186,10 @@ export default function Create_Tender() {
                   أخرى
                 </p>
               </div>
-
               <div className="product-name">
                 <label className="product-name-label">اسم المنتج</label>
                 <input type="text" />
               </div>
-
-              <div className="auction3">
-                <label className="product-name-label">حالة المنتج: </label>
-                <div className="status">
-                  <div>
-                    <label>مستعمل </label>
-                    <input type="radio" name="status" />
-                  </div>
-                  <div>
-                    <label>جديد </label>
-                    <input type="radio" name="status" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* ------ */}
-            <div className="auction2">
-              <div className="product-name">
-                <label className="product-name-label">اسم المزاد</label>
-                <input type="text" />
-              </div>
-
               <div className="product-name">
                 <label className="product-name-label"> تاريخ البدء</label>
                 <input
@@ -228,15 +202,11 @@ export default function Create_Tender() {
                 <label className="product-name-label"> تاريخ الانتهاء</label>
                 <input type="date" placeholder="" onKeyDown={handleKeyDown} />
               </div>
+              <div className="product-name">
+                <label className="product-name-label">عدد المنتجات</label>
+                <input type="text" />
+              </div>
 
-              <div className="product-name">
-                <label className="product-name-label">سعر الافتتاح </label>
-                <input type="text" />
-              </div>
-              <div className="product-name">
-                <label className="product-name-label"> مقدار الزيادة </label>
-                <input type="text" />
-              </div>
               <button className="send-auction">إرسال</button>
             </div>
           </form>
@@ -270,36 +240,15 @@ export default function Create_Tender() {
               />
             </div>
           )}
-          {/* {hover=='الصور'&&<div>
-              <input type="file" id="fileInput" accept="image/*"/>
-    <br/>
-    <img id="image" src="" alt="الصورة المعروضة" style="display:none; margin-top: 20px;"/></div>}
-              {hover=='الفيديو'&&<div>
-                <input type='file'/>
-               </div>} */}
-          {/* {hover=='الصور'&& <div> <input type="file" accept="image/*"  multiple  onChange={handleChange4} /></div>}
-                  {images.map((image, index) => (
-                    <img 
-                        key={index}
-                        src={image} 
-                        alt={`الصورة ${index + 1}`} 
-                        style={{ margin: '10px', maxWidth: '200px', height: 'auto' }} 
-                    />
-                ))} */}
-          {/* ----------- */}
-          {/* {hover=='الفيديو'&& <div> <input type="file" accept="video/*"  multiple  onChange={handleChange5} /></div>}
-                  {dis1.map((image, index) => (
-                    <video
-                        controls 
-                        style={{ margin: '10px', maxWidth: '200px', height: 'auto' }} 
-                    >
-                      <source src={image} type='video/mp4'/>
-                    </video>
-                ))} */}
           <div>
             {hover == 'الصور' && (
               <div>
+                <label for="file">
+                  <i className="upload fa fa-upload"></i>
+                  <p className="upload">تحميل صور من جهازك</p>
+                </label>
                 <input
+                  id="file"
                   type="file"
                   className="image-input"
                   placeholder=" "
@@ -316,7 +265,7 @@ export default function Create_Tender() {
                   }}
                 >
                   {images.map((image, index) => (
-                    <div>
+                    <div className="div-choose">
                       <img
                         key={index}
                         src={image}
@@ -329,6 +278,16 @@ export default function Create_Tender() {
                       >
                         x
                       </button>
+                      <label for="replace">
+                        <i className="rep fa fa-exchange-alt"></i>
+                      </label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        id="replace"
+                        className="replace"
+                        onChange={(e) => handleReplaceImage(index, e)}
+                      />
                     </div>
                   ))}
                 </div>
@@ -336,14 +295,33 @@ export default function Create_Tender() {
             )}
           </div>
           <div>
-            <h2>اختر فيديو لرفعه</h2>
-            <input type="file" onChange={handleVideoChange} accept="video/*" />
-            {videoSrc && (
-              <div style={{ marginTop: '10px' }}>
-                <video width="600" controls>
-                  <source src={videoSrc} type="video/mp4" />
-                  متصفحك لا يدعم تشغيل الفيديو.
-                </video>
+            {hover == 'الفيديو' && (
+              <div>
+                <label for="file">
+                  <i className="upload fa fa-upload"></i>
+                  <p className="upload">تحميل فيديو من جهازك</p>
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  className="image-input"
+                  onChange={handleVideoChange}
+                  accept="video/*"
+                />
+                {videoSrc && (
+                  <div>
+                    <video className="video" controls>
+                      <source src={videoSrc} type="video/mp4" />
+                      متصفحك لا يدعم تشغيل الفيديو.
+                    </video>
+                    <button
+                      onClick={handleDeleteVideo}
+                      className="choose choose1"
+                    >
+                      x
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>

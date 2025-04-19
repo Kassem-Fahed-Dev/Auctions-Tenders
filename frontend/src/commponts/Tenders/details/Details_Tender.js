@@ -6,6 +6,8 @@ import Navbar from '../../Home/Navbar';
 import AuctionsNavbar from '../../Auctions/AuctionsNavbar';
 import Footer from '../../privacy policy/Footer';
 import TendersNavbar from '../TendersNavbar';
+import { useEffect } from 'react';
+
 function handel_Fav(e) {
   let hh = e.target;
   if (hh.style.color === 'red') {
@@ -14,10 +16,53 @@ function handel_Fav(e) {
     hh.style.cssText = 'color: red;';
   }
 }
-export default function Details() {
+function back() {
+  window.history.go(-1);
+}
+
+export default function Details_Tender() {
+  const scroll1 = useEffect(() => window.scrollTo(0, 0));
+
+  const [amount, setAmount] = useState('');
+
+  function handleInputChange(e) {
+    const value = e.target.value;
+
+    if (!/^\d+$/.test(value)) {
+      return;
+    }
+
+    setAmount(value);
+  }
+  let Allow;
+  let TimeRun = false;
+  function handelTesting() {
+    if (state === 'قادم' && !TimeRun) {
+      TimeRun = true;
+      const neew = document.createElement('p');
+      const icon = document.createElement('span');
+      icon.classList.add('fas', 'fa-exclamation-circle');
+      neew.textContent =
+        'للمشاركة بالمناقصة يتوجب عليك الانتظار الى ان تصبح جاري وسوف نقوم بارسال اشعار لك ان كنت مهتم';
+      neew.classList.add('neew-class');
+      const hh = document.querySelector('.kk');
+      hh.appendChild(icon);
+      hh.appendChild(neew);
+      Allow = setTimeout(() => {
+        neew.remove();
+        icon.remove();
+        TimeRun = false;
+      }, 1500);
+    } else if (state === 'جاري') {
+      if (!TimeRun) {
+        setShowParticipation(true);
+      }
+    } else if (state === 'منتهي') {
+    }
+  }
   const [showParticipation, setShowParticipation] = useState(false);
 
-  const [state, setState] = useState('قادم');
+  const [state, setState] = useState('منتهي');
   function getcolor() {
     if (state === 'جاري') {
       return { color: 'green', paddingRight: '6px', fontSize: '19px' };
@@ -36,9 +81,15 @@ export default function Details() {
       <div className="all">
         <div className="title-1">
           <h1>مناقصة السيارات</h1>
-          <Link to="/share-tenders">
+          <button
+            className="back"
+            onClick={() => {
+              back();
+            }}
+          >
+            {' '}
             <span className="	fas fa-chevron-left"></span>
-          </Link>
+          </button>
         </div>
         <div className="con-nav-auction">
           <div className="container-card-details">
@@ -92,14 +143,19 @@ export default function Details() {
                   المدينة : <span> حمص</span>
                 </div>
               </div>
-              <div>
-                <button
-                  className="ptn-particip"
-                  onClick={() => setShowParticipation(true)}
-                >
-                  <div className="fas fa-hand-point-up"></div>
-                  شارك بالمناقصة
-                </button>
+              <div className="kk">
+                <div>
+                  <button
+                    className="ptn-particip"
+                    onClick={() => {
+                      // setShowParticipation(true);
+                      handelTesting();
+                    }}
+                  >
+                    <div className="fas fa-hand-point-up"></div>
+                    شارك بالمناقصة
+                  </button>
+                </div>
               </div>
             </div>
             {showParticipation && (
@@ -113,10 +169,27 @@ export default function Details() {
 
                     <textarea type="text"></textarea>
                     <h3>ادخل المبلغ الذي تود المشاركة به</h3>
-                    <input type="number " />
+                    <input
+                      type="number "
+                      onChange={handleInputChange}
+                      value={amount}
+                      placeholder="أدخل أرقام فقط"
+                    />
 
-                    <button onClick={() => setShowParticipation(false)}>
+                    <button
+                      onClick={() => {
+                        setAmount('');
+                        setShowParticipation(false);
+                      }}
+                      disabled={!amount}
+                    >
                       إرسال
+                    </button>
+                    <button
+                      id="exit_model"
+                      onClick={() => setShowParticipation(false)}
+                    >
+                      X
                     </button>
                   </div>
                   <svg
