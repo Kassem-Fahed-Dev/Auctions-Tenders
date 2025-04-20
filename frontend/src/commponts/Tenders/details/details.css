@@ -183,7 +183,6 @@
 }
 .dv1,
 .dv2 {
-  /* margin-right: 10px; */
   line-height: 45px;
   font-size: 18px;
   padding-top: 7px;
@@ -204,13 +203,26 @@
   font-size: 25px;
   font-weight: 500;
   border-radius: 12px;
-  width: 220px;
-  height: 60px;
+  /* width: 220px; */
+  width: 270px;
+
+  height: 70px;
   background-color: #ffd700;
   color: #000000;
   border: none;
   margin-left: 20px;
 }
+/* .ptn-particip2 {
+  font-size: 25px;
+  font-weight: 500;
+  border-radius: 12px;
+  width: 270px;
+  height: 60px;
+  background-color: #ffd700;
+  color: #000000;
+  border: none;
+  margin-left: 20px;
+} */
 /* for slider  */
 .carousel-indicators button {
   width: 18px !important;
@@ -322,4 +334,53 @@
   border-radius: 6px;
   border: none;
   z-index: 555;
+}
+#exit_model {
+  color: red;
+  width: 35px;
+  position: absolute;
+  top: -5px;
+  right: 0px;
+  height: 35px;
+  font-size: 32px;
+  font-weight: 600;
+  background-color: transparent;
+  border-radius: 6px;
+  border: none;
+  z-index: 555;
+}
+#exit_model:hover {
+  font-weight: 800;
+  font-size: 33px;
+}
+.back {
+  border: none;
+  background-color: transparent;
+}
+.kk {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  position: relative;
+}
+.neew-class {
+  width: 215px;
+  height: 36px;
+  background-color: #ffffff;
+  font-size: 8px;
+  margin-top: 8px;
+  margin-left: 25px;
+  color: #000;
+  padding: 2px;
+  border: 1px solid red;
+  text-align: center;
+  border-radius: 5px;
+}
+.fas.fa-exclamation-circle {
+  color: red;
+  position: absolute;
+  bottom: 20px;
+  left: 36px;
 }

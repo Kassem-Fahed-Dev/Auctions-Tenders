@@ -5,7 +5,7 @@ const auctionBidSchema = new mongoose.Schema({
     ref: 'User',
   },
   auction: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Auction',
   },
   amount: {

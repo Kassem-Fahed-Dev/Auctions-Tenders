@@ -12,7 +12,7 @@ export default function TenderGroups() {
       <button
         className="createauction"
         onClick={() => {
-          // navegate('/CreateTender');
+          navegate('/Create_Tender');
         }}
       >
         <p>إنشاء مناقصة</p>
@@ -20,27 +20,27 @@ export default function TenderGroups() {
       </button>
       <div className="group-con">
         <div className="group-div div11">
-          <Link className="link" to="">
+          <Link className="link" to="/bild">
             بناءواعمار
           </Link>
         </div>
         <div className="group-div div22">
-          <Link className="link" to="">
+          <Link className="link" to="/public">
             خدمات لأماكن عامة
           </Link>
         </div>
         <div className="group-div div33">
-          <Link className="link" to="">
+          <Link className="link" to="/varios">
             خدمات منوعة
           </Link>
         </div>
         <div className="group-div div44">
-          <Link className="link" to="">
+          <Link className="link" to="/cars">
             مركبات واليات
           </Link>
         </div>
         <div className="group-div div55">
-          <Link className="link" to="">
+          <Link className="link" to="/other_tender">
             أخرى
           </Link>
         </div>

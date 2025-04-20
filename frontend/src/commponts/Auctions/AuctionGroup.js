@@ -6,29 +6,26 @@ import Footer from '../privacy policy/Footer';
 import { useState } from 'react';
 
 export default function AuctionGroup({ paragraph }) {
-  const navegaet=useNavigate()
+  const navegaet = useNavigate();
   function goback() {
     // window.history.go(-1);
-    navegaet('/auctionsgroup')
+    navegaet('/auctionsgroup');
   }
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
   const [value2, setValue2] = useState('');
   const [test, setTest] = useState('');
-  const [hover,setHover]=useState(false)
+  const [hover, setHover] = useState(false);
   const navegate = useNavigate();
   const handleClick = () => {
-    if(value2=='فرز حسب'&&value=='فرز حسب'){
-      setTest(' ')
-      setValue2('')
-      }
-      else if(value=='فرز حسب'&&test=='فرز حسب'){
-        setTest(' ')
-        setValue1('فرز حسب')
-        setValue(value1)
-      }
-      else
-    if (value2 == 'فرز حسب') {
+    if (value2 == 'فرز حسب' && value == 'فرز حسب') {
+      setTest(' ');
+      setValue2('');
+    } else if (value == 'فرز حسب' && test == 'فرز حسب') {
+      setTest(' ');
+      setValue1('فرز حسب');
+      setValue(value1);
+    } else if (value2 == 'فرز حسب') {
       setValue1('فرز حسب');
       setTest(value1);
       setValue(value1);
@@ -61,11 +58,22 @@ export default function AuctionGroup({ paragraph }) {
         <p>إنشاء مزاد</p>
         <i className="fas fa-plus"></i>
       </button>
-      
-        <button className="sort so"  onMouseEnter={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}} onClick={handleClick} >
+
+      <button
+        className="sort so"
+        onMouseEnter={() => {
+          setHover(true);
+        }}
+        onMouseLeave={() => {
+          setHover(false);
+        }}
+        onClick={handleClick}
+      >
         <div>{value}</div>
         <i
-          className={`fas fa-chevron-left fas2 ${hover==true?'white':'black'} ${
+          className={`fas fa-chevron-left fas2 ${
+            hover == true ? 'white' : 'black'
+          } ${
             value.includes(' جاري') ||
             value.includes(' قادم') ||
             value.includes(' منتهي') ||
@@ -74,9 +82,8 @@ export default function AuctionGroup({ paragraph }) {
               : 'sort2'
           }`}
         ></i>
-        </button>
-      
-  
+      </button>
+
       <div className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}>
         <div className="buttonSort">
           <button
