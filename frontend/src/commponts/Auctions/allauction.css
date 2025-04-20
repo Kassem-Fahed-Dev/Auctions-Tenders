@@ -379,7 +379,7 @@ p.upload{
   color: #000;
   margin-right: 120px;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   /* margin-top: 50px; */
 }
 .group1 input {
@@ -574,8 +574,7 @@ input [type='date'] {
   padding-bottom: 50px;
   padding-left: 10%;
   display: flex;
-  /* width: 90%; */
-  /* margin-left: 50px; */
+ 
   flex-wrap: wrap;
   gap: 5%;
 }
@@ -649,19 +648,7 @@ input [type='date'] {
 .create-auction-button .fas1 {
   margin-top: 110px;
 }
-/* .so{
-    margin-top: 150px;
-}
-.so+.fas{
-    margin-top: 150px;
-}
-.fas:hover+.so{
-    background-color: #003366;
-    color: #fff;
-}
-.fas2{
-    margin-top: 145px;
-} */
+
 .so {
   top: 375px;
 }

@@ -31,11 +31,12 @@ import axios from 'axios';
 
 // >>>>>>> Stashed changes
 function App() {
-  // const navigate = useNavigate();
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGJhZDAyYzc5NDU0MDA1YmQ0NmEwZiIsImlhdCI6MTc0NDk2ODA3OSwiZXhwIjoxNzUyNzQ0MDc5fQ.Y2jTAwwKl9aFmB56wX3CzluGi7E88T5Tsd8FIDMJRIU"
-  // const tok = localStorage.getItem('jwt'); 
+  const tok = localStorage.getItem('jwt'); 
+  // console.log(tok)
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
   //     try {

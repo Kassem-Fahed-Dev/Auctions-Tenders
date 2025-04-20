@@ -73,6 +73,10 @@
     width:85px;
     height: 66px;
 }
+.logo{
+    border: none;
+    outline: none;
+}
 /* مشان تصير غامقة */
 .bold{
     font-weight: bold;
