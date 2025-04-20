@@ -4,25 +4,25 @@ import axios from 'axios';
 export default function CreateAuction() {
   const [formData, setFormData] = useState('');
   const [hover, setHover] = useState('بيانات');
-  const [namePass, setNamePase] = useState(["list1"]);
+  const [namePass, setNamePase] = useState(['list1']);
   const [namePass1, setNamePase1] = useState('');
   const [errorMessage, setErrorMessage] = useState({});
-  const [formData1, setFormData1]=useState({
- auction:{
-  auctionTtile:"",
-  startTime:"",
-  endTime:"",
-  minimumIncrement:"",
-  startingPrice:""
- },
- item:{
-  category:"",
-  name:"",
-  description:"",
-  status:"",
-  properties:[{}]
- }
-  })
+  const [formData1, setFormData1] = useState({
+    auction: {
+      auctionTtile: '',
+      startTime: '',
+      endTime: '',
+      minimumIncrement: '',
+      startingPrice: '',
+    },
+    item: {
+      category: '',
+      name: '',
+      description: '',
+      status: '',
+      properties: [{}],
+    },
+  });
   function goback() {
     window.history.go(-1);
   }
@@ -33,7 +33,7 @@ export default function CreateAuction() {
       setNamePase1(items);
     }
   };
-  
+
   const handleChange = (e) => {
     const { value } = e.target;
     setFormData(value);
@@ -67,15 +67,15 @@ export default function CreateAuction() {
   const handleReplaceImage = (index, event) => {
     const file = event.target.files[0];
     if (file) {
-        const newImage = URL.createObjectURL(file);
-        setImages((prevImages) => {
-            const updatedImages = [...prevImages]; // إنشاء نسخة من القائمة الأصلية
-            updatedImages[index] = newImage; // استبدال الصورة في موقع الـ index المحدد
-            return updatedImages; // إرجاع القائمة المحدثة
-        });
+      const newImage = URL.createObjectURL(file);
+      setImages((prevImages) => {
+        const updatedImages = [...prevImages]; // إنشاء نسخة من القائمة الأصلية
+        updatedImages[index] = newImage; // استبدال الصورة في موقع الـ index المحدد
+        return updatedImages; // إرجاع القائمة المحدثة
+      });
     }
-};
-//الفيديو
+  };
+  //الفيديو
   const handleDeleteVideo = () => {
     setVideoSrc(null);
   };
@@ -93,22 +93,25 @@ export default function CreateAuction() {
   // المجموعة
   const [keyList, setKeyList] = useState([]);
   const hoverItems2 = (items) => {
-    setNamePase1(' ')
+    setNamePase1(' ');
     setFormData(items);
     if (namePass.includes('list1')) {
       setNamePase(namePass.filter((i) => i !== 'list1'));
     }
 
     axios
-      .get(`https://auctions-tenders-38sx.onrender.com/api/v1/categories?name=${items}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept-Language': 'ar',
-        },
-      })
+      .get(
+        `https://auctions-tenders-38sx.onrender.com/api/v1/categories?name=${items}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+          },
+        }
+      )
       .then((res) => {
         const properties = res.data.data.data[0].properties;
-        console.log(res)
+        console.log(res);
         setKeyList(properties.map((property) => property.key)); // إضافة المفتاح إلى القائمة
       })
       .catch((error) => {
@@ -124,6 +127,11 @@ export default function CreateAuction() {
         }
       });
   };
+  const handleSubmit = () => {};
+  const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setFormData1({ ...formData1, [name]: value });
+  };
   return (
     <div className="create-auction-button">
       <Navbar wordBlod={'auctions'} />
@@ -131,7 +139,7 @@ export default function CreateAuction() {
       <button className="	fas fa-chevron-left" onClick={goback}></button>
       <div className="create-auction-data">
         <div className="create-auction-data1">
-          <form className="create-auction-form">
+          <form className="create-auction-form" onSubmit={handleSubmit}>
             <div className="group1">
               {/* <div>حدد المجموعة</div> */}
               <label className="group-label">حدد المجموعة</label>
@@ -220,14 +228,15 @@ export default function CreateAuction() {
                 <input type="text" />
               </div>
               <div>
-              {keyList.length > 0 && keyList.map((key) => (
-        <div className="product-name" key={key}>
-          <label className="product-name-label">{key}</label>
-          <input type="text" />
-        </div>
-      ))}
-      {/* {errorMessage && <p>{errorMessage.messageBackend}</p>} */}
-    </div>
+                {keyList.length > 0 &&
+                  keyList.map((key) => (
+                    <div className="product-name" key={key}>
+                      <label className="product-name-label">{key}</label>
+                      <input type="text" />
+                    </div>
+                  ))}
+                {/* {errorMessage && <p>{errorMessage.messageBackend}</p>} */}
+              </div>
               <div className="auction3">
                 <label className="product-name-label">حالة المنتج: </label>
                 <div className="status">
@@ -246,25 +255,43 @@ export default function CreateAuction() {
             <div className="auction2">
               <div className="product-name">
                 <label className="product-name-label">اسم المزاد</label>
-                <input type="text" />
+                <input
+                  type="text"
+                  name="auctionTtile"
+                  value={formData1.auction.auctionTtile}
+                  onChange={handleChange1}
+                />
               </div>
 
               <div className="product-name">
                 <label className="product-name-label"> تاريخ البدء</label>
                 <input
                   type="date"
-                  placeholder="kkkk"
                   onKeyDown={handleKeyDown}
+                  name="startTime"
+                  value={formData1.auction.startTime}
+                  onChange={handleChange1}
                 />
               </div>
               <div className="product-name">
                 <label className="product-name-label"> تاريخ الانتهاء</label>
-                <input type="date" placeholder="" onKeyDown={handleKeyDown} />
+                <input
+                  type="date"
+                  onKeyDown={handleKeyDown}
+                  name="endTime"
+                  value={formData1.auction.endTime}
+                  onChange={handleChange1}
+                />
               </div>
 
               <div className="product-name">
                 <label className="product-name-label">سعر الافتتاح </label>
-                <input type="text" />
+                <input
+                  type="text"
+                  name="startingPrice"
+                  value={formData1.auction.startingPrice}
+                  onChange={handleChange1}
+                />
               </div>
               <div className="product-name">
                 <label className="product-name-label"> مقدار الزيادة </label>
@@ -351,16 +378,16 @@ export default function CreateAuction() {
                         className="replace"
                         onChange={(e) => handleReplaceImage(index, e)}
                       /> */}
-                       <label htmlFor={`replace-${index}`}>
-        <i className="rep fa fa-exchange-alt"></i>
-    </label>
-    <input
-        type="file"
-        accept="image/*"
-        id={`replace-${index}`} // تأكد من استخدام معرف فريد لكل عنصر
-        className="replace"
-        onChange={(e) => handleReplaceImage(index, e)}
-    />
+                      <label htmlFor={`replace-${index}`}>
+                        <i className="rep fa fa-exchange-alt"></i>
+                      </label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        id={`replace-${index}`} // تأكد من استخدام معرف فريد لكل عنصر
+                        className="replace"
+                        onChange={(e) => handleReplaceImage(index, e)}
+                      />
                     </div>
                   ))}
                 </div>

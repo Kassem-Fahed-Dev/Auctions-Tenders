@@ -180,6 +180,7 @@ export default function CreateAcount() {
         )
         .then((res) => {
           setHover('spinner');
+          localStorage.setItem('name',res.data.data.user.name)
           navegate('/confirm');
    
         })
