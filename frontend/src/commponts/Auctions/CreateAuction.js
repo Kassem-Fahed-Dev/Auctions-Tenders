@@ -137,12 +137,13 @@ export default function CreateAuction() {
       <Navbar wordBlod={'auctions'} />
       <p className="createp">إنشاء مزاد</p>
       <button className="	fas fa-chevron-left" onClick={goback}></button>
+      <form  onSubmit={handleSubmit}>
       <div className="create-auction-data">
         <div className="create-auction-data1">
-          <form className="create-auction-form" onSubmit={handleSubmit}>
+          <div className="create-auction-form">
             <div className="group1">
               {/* <div>حدد المجموعة</div> */}
-              <label className="group-label">حدد المجموعة</label>
+              <label className="group-label"  title='بعد اختيار المجموعة ستظهر معلومات أخرى تحتاج إلى ملأها'>حدد المجموعة</label>
               <div
                 className={`triangle tri3  ${
                   formData === 'سيارات' ||
@@ -167,6 +168,7 @@ export default function CreateAuction() {
                 name="group"
                 value={formData}
                 onChange={handleChange}
+                title='بعد اختيار المجموعة ستظهر معلومات أخرى تحتاج إلى ملأها'
               />
               <div
                 className={`list-group-m  ${
@@ -225,7 +227,10 @@ export default function CreateAuction() {
 
               <div className="product-name">
                 <label className="product-name-label">اسم المنتج</label>
-                <input type="text" />
+                <input type="text"     
+                name="name"
+                  value={formData1.item.name}
+                  onChange={handleChange1} />
               </div>
               <div>
                 {keyList.length > 0 &&
@@ -299,7 +304,7 @@ export default function CreateAuction() {
               </div>
               <button className="send-auction">إرسال</button>
             </div>
-          </form>
+          </div>
         </div>
         <div className="create-auction-data2">
           <div className="list-data">
@@ -427,6 +432,7 @@ export default function CreateAuction() {
           </div>
         </div>
       </div>
+      </form>
     </div>
   );
 }
