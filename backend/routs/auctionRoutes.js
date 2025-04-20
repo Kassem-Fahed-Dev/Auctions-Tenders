@@ -33,6 +33,7 @@ router
 
 router.post(
   '/placeBid/:id',
+  authController.protect,
   auctionBidController.placeBid,
 );
 module.exports = router;
