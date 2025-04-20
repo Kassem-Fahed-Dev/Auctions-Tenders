@@ -13,7 +13,20 @@ function handel_Fav(e) {
     hh.style.cssText = 'color: red;';
   }
 }
-export default function Details_Tender() {
+export default function Details() {
+  const [amount, setAmount] = useState('');
+  function back() {
+    window.history.go(-1);
+  }
+  function handleInputChange(e) {
+    const value = e.target.value;
+
+    if (!/^\d+$/.test(value)) {
+      return;
+    }
+
+    setAmount(value);
+  }
   const [showParticipation, setShowParticipation] = useState(false);
 
   const [state, setState] = useState('قادم');
@@ -31,13 +44,19 @@ export default function Details_Tender() {
   return (
     <div className="All-con-det">
       <Navbar wordBlod={'auctions'} />
-      <AuctionsNavbar wordBlod={'all'} />
+      <AuctionsNavbar />
       <div className="all">
         <div className="title-1">
           <h1>مزادات السيارات</h1>
-          <Link to="/share-auction">
+          <button
+            className="back"
+            onClick={() => {
+              back();
+            }}
+          >
+            {' '}
             <span className="	fas fa-chevron-left"></span>
-          </Link>
+          </button>
         </div>
         <div className="con-nav-auction">
           <div className="container-card-details">
@@ -118,10 +137,26 @@ export default function Details_Tender() {
                   <div className="gg">
                     <h3> أدخل الرقم الذي تود المشاركة به</h3>
 
-                    <input type="number " />
-
-                    <button onClick={() => setShowParticipation(false)}>
+                    <input
+                      type="number "
+                      onChange={handleInputChange}
+                      value={amount}
+                      placeholder="أدخل أرقام فقط"
+                    />
+                    <button
+                      onClick={() => {
+                        setAmount('');
+                        setShowParticipation(false);
+                      }}
+                      disabled={!amount}
+                    >
                       إرسال
+                    </button>
+                    <button
+                      id="exit_model"
+                      onClick={() => setShowParticipation(false)}
+                    >
+                      X
                     </button>
                   </div>
                   <svg

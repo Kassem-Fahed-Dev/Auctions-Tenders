@@ -28,14 +28,21 @@ import Details_Tender from './commponts/Tenders/details/Details_Tender';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import TenderGroup from './commponts/Tenders/TenderGroup';
+import Create_Tender from './commponts/Tenders/Create_Tender';
 
 // >>>>>>> Stashed changes
 function App() {
-  // const navigate = useNavigate();
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGJhZDAyYzc5NDU0MDA1YmQ0NmEwZiIsImlhdCI6MTc0NDk2ODA3OSwiZXhwIjoxNzUyNzQ0MDc5fQ.Y2jTAwwKl9aFmB56wX3CzluGi7E88T5Tsd8FIDMJRIU"
-  // const tok = localStorage.getItem('jwt'); 
+// <<<<<<< HEAD
+  const tok = localStorage.getItem('jwt'); 
+  // console.log(tok)
+// =======
+  // const tok = localStorage.getItem('jwt');
+// >>>>>>> f84a1459e3c7971148b91fcd2fe9795a8b8ebddb
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
   //     try {
@@ -44,11 +51,11 @@ function App() {
   //         headers: {
   //             'Authorization': `Bearer ${tok}` // تأكد من وجود التوكن
   //         }
-          // إضافة credentials إلى الكود
-           // هذه السطر هنا
-      // });
+  // إضافة credentials إلى الكود
+  // هذه السطر هنا
+  // });
 
-        // افترض أن الخادم يعيد حالة تسجيل الدخول في data
+  // افترض أن الخادم يعيد حالة تسجيل الدخول في data
   //       if (response.data.loggedIn) {
   //         setIsLoggedIn(true);
   //         console.log('1')
@@ -74,7 +81,6 @@ function App() {
   // }
   return (
     <div className="App">
-    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/privacy" element={<Privacy />} />
@@ -108,16 +114,31 @@ function App() {
         <Route path="/other" element={<AuctionGroup paragraph="أخرى" />} />
         <Route path="/det" element={<Details />} />
         {/* tenders */}
-
+        <Route path="/bild" element={<TenderGroup paragraph="بناءواعمار" />} />
+        <Route
+          path="/public"
+          element={<TenderGroup paragraph="خدمات لأماكن عامة" />}
+        />
+        <Route
+          path="/varios"
+          element={<TenderGroup paragraph="خدمات منوعة" />}
+        />
+        <Route
+          path="/cars"
+          element={<TenderGroup paragraph="مركبات واليات" />}
+        />
+        <Route
+          path="/other_tender"
+          element={<TenderGroup paragraph="أخرى" />}
+        />
         <Route path="/tenders" element={<AllTenders />} />
         <Route path="/share-tenders" element={<ShareTenders />} />
         <Route path="/favorite-tender" element={<FavoriteTenders />} />
         <Route path="/createTender" element={<CreateTender />} />
+        <Route path="/Create_Tender" element={<Create_Tender />} />
         <Route path="/tendersgroup" element={<TenderGroups />} />
         <Route path="/det-tender" element={<Details_Tender />} />
       </Routes>
-    
-      
     </div>
   );
 }

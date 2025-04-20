@@ -249,35 +249,34 @@
   margin-left: 250px;
   display: none;
 }
-i.upload{
+i.upload {
   display: inline-block;
   font-size: 46px;
- margin-top: 30px;
- /* margin-bottom: 30px; */
- /* padding-left: 50px; */
- margin-left: 370px;
+  margin-top: 30px;
+  /* margin-bottom: 30px; */
+  /* padding-left: 50px; */
+  margin-left: 370px;
 }
-.replace{
+.replace {
   display: none;
 }
-.rep{
+.rep {
   display: inline-block;
   font-size: 17px;
   background-color: #00cc66;
   position: relative;
   bottom: 245px;
   left: 149px;
-  padding:4px 2px;
+  padding: 4px 2px;
   padding-bottom: 5px;
 }
-p.upload{
+p.upload {
   font-size: 28px;
   width: 280px;
   margin-left: 270px;
   margin-bottom: 30px;
-
 }
-.video{
+.video {
   width: 590px;
   height: 400px;
 
@@ -294,7 +293,7 @@ p.upload{
   margin-left: 28px;
   border-radius: 8px;
 }
-.div-choose{
+.div-choose {
   width: 295px;
 }
 .choose {
@@ -308,14 +307,14 @@ p.upload{
   bottom: 251px;
   left: 259px;
 }
-.choose1{
+.choose1 {
   bottom: 400px;
   left: 580px;
 }
 .create-auction-button .createp {
   direction: rtl;
- 
   margin-top: 90px;
+  /* margin-top: 60px; */
   margin-right: 10%;
   font-size: 38px;
   font-weight: 500;
@@ -327,10 +326,17 @@ p.upload{
   margin-right: -35px;
   margin-bottom: 50px;
 }
+.auction22 {
+  position: relative;
+  top: 0px;
+  right: 0px;
+}
 .create-auction-button .fas.fa-chevron-left {
   position: absolute;
   left: 10%;
   top: 190px;
+  /* top: 170px; */
+
   border: none;
   font-size: 32px;
   font-weight: bold;
@@ -349,6 +355,7 @@ p.upload{
 }
 .create-auction-data1 {
   width: 680px;
+  min-height: 500px;
   /* height: 840px; */
   margin-top: 20px;
   margin-bottom: 20px;
@@ -366,6 +373,13 @@ p.upload{
   gap: 20px;
   flex-direction: row-reverse;
 }
+.create-auction-form2 {
+  padding-top: 18px;
+  direction: rtl;
+  display: flex;
+  gap: 20px;
+  /* background-color: #1100ff; */
+}
 .tri2 {
   left: -5px;
   bottom: 10px;
@@ -380,12 +394,14 @@ p.upload{
   margin-right: 120px;
   margin-left: 10px;
   margin-top: 10px;
+
   /* margin-top: 50px; */
 }
+
 .group1 input {
   margin-right: -68px;
 }
-.create-auction-button{
+.create-auction-button {
   padding-bottom: 100px;
 }
 .group2 {
@@ -397,12 +413,27 @@ p.upload{
   border-radius: 8px;
   /* left: 120px;
     top: 10px; */
-    position: relative;
-    right: 225px;
-    bottom: 50px;
+  position: relative;
+  right: 225px;
+  bottom: 50px;
   caret-color: transparent;
   font-weight: 500;
   /* margin-right: -40px; */
+  margin-bottom: 6px;
+}
+.group22 {
+  border: none;
+  direction: rtl;
+  width: 175px;
+  height: 31px;
+  padding-right: 12px;
+  border-radius: 8px;
+  outline: 1px solid #000000;
+  position: relative;
+  right: 155px;
+  bottom: 50px;
+  caret-color: transparent;
+  font-weight: 500;
   margin-bottom: 6px;
 }
 .tri3 {
@@ -411,6 +442,16 @@ p.upload{
   top: -25px;
   /* top: 323px;
   left: 755px; */
+  z-index: 2;
+}
+.tri33 {
+  position: relative;
+  right: 300px;
+  width: 15px;
+  height: 16px;
+  top: -25px;
+
+  background-color: #000000;
   z-index: 2;
 }
 .group1 {
@@ -444,13 +485,28 @@ p.upload{
   margin-bottom: 30px;
   display: none;
 }
-.list-group-m div {
+.list-group-m2 {
+  direction: rtl;
+  border: #000 solid 2px;
+  /* outline: 1px solid #000000; */
+  width: 156px;
+  border-radius: 8px;
+  margin-right: 160px;
+  margin-top: -40px;
+  margin-bottom: 30px;
+  display: none;
+}
+.list-group-m div,
+.list-group-m2 div {
   height: 2px;
   background-color: #000;
 }
 .list-group-m .p1,
 .list-group-m .p2,
-.list-group-m .p3 {
+.list-group-m .p3,
+.list-group-m2 .p1,
+.list-group-m2 .p2,
+.list-group-m2 .p3 {
   padding-right: 20px;
   padding-top: 2px;
   padding-bottom: 10px;
@@ -461,6 +517,7 @@ p.upload{
   height: 40px;
   font-weight: 700;
 }
+
 .list-group-m .p2 {
   padding-top: 2px;
   border-top-left-radius: 0px;
@@ -574,8 +631,7 @@ input [type='date'] {
   padding-bottom: 50px;
   padding-left: 10%;
   display: flex;
-  /* width: 90%; */
-  /* margin-left: 50px; */
+ 
   flex-wrap: wrap;
   gap: 5%;
 }
@@ -649,28 +705,16 @@ input [type='date'] {
 .create-auction-button .fas1 {
   margin-top: 110px;
 }
-/* .so{
-    margin-top: 150px;
-}
-.so+.fas{
-    margin-top: 150px;
-}
-.fas:hover+.so{
-    background-color: #003366;
-    color: #fff;
-}
-.fas2{
-    margin-top: 145px;
-} */
+
 .so {
   top: 375px;
 }
-.createauction-group{
+.createauction-group {
   margin-top: -108px;
 }
-.sort-ten{
+.sort-ten {
   gap: 25px;
 }
-.Navul li.p-ten a:hover{
+.Navul li.p-ten a:hover {
   font-size: 35px;
 }

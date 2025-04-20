@@ -174,11 +174,13 @@ export default function CreateAcount() {
             headers: {
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',
+                'credentials': 'include'
             },
           }
         )
         .then((res) => {
           setHover('spinner');
+          localStorage.setItem('name',res.data.data.user.name)
           navegate('/confirm');
    
         })
@@ -239,6 +241,7 @@ export default function CreateAcount() {
         .then((res) => {
           setHover('spinner');
           console.log(res)
+          localStorage.setItem('name',res.data.data.user.name)
           navegate('/confirm1');
         })
         .catch((error) => {

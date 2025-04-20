@@ -3,19 +3,25 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar({wordBlod}) {
 	const [bold,setBold]=useState('home');
 	const hoverItems=(items)=>{
 		setBold(items);
 	}
-	
+	 const navegate2 = useNavigate();
+	const goToHome=()=>{
+		navegate2('/')
+	  }
+	  const tok = localStorage.getItem('jwt'); 
+	  const name = localStorage.getItem('name'); 
 	return (
 		<div className="Nav">
             {/* ال لوغو و الجملة تحته */}
-			<div className="logo">
+			<button onClick={goToHome} className="logo">
 				<img src={img} alt="No image" className="logo1" />
-			</div>
+			</button>
             {/* القاىمة الاولى تحوي الرئيسية و المزادات و المناقصات */}
 			<ul className="Navul ul1">
 				<li className={wordBlod==='home'?'bold':''} onClick={()=>hoverItems('home')} >
@@ -30,7 +36,14 @@ export default function Navbar({wordBlod}) {
                 {/* القاىمة الثانية الحساب و الكل */}
 			</ul>
 			<ul className="Navul ul2">
-				<li   onClick={()=>hoverItems('user')}>
+				{tok?<li   onClick={()=>hoverItems('user')}>
+					<Link to="/acount">
+						<div className="icon">
+							<i className="fas fa-user-circle"></i>
+						</div>
+						<p className="account">{name}</p>
+					</Link>
+				</li>:<li   onClick={()=>hoverItems('user')}>
 					<Link to="/acount">
 						<div className="icon">
 							<i className="fas fa-user-circle"></i>
@@ -38,6 +51,7 @@ export default function Navbar({wordBlod}) {
 						<p className="account">حساب الدخول</p>
 					</Link>
 				</li>
+				}
 				<li onClick={()=>hoverItems('alluser')}>
 					<Link to="users">
 						<div className="icon">
