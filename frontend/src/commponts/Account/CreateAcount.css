@@ -68,7 +68,7 @@
   right: 30px;
 }
 /* كلمة دخول */
-.in {
+p.in {
   font-size: 30px;
   font-weight: bold;
   width: 300px;

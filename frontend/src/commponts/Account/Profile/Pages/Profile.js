@@ -1,5 +1,5 @@
 import "../profile.css";
-import "../../Auc-Folder/Auc.css";
+// import "../../Auc-Folder/Auc.css";
 import Side from "../componants/Side";
 import Alert from "./Alert";
 import ll from "../lab.png";

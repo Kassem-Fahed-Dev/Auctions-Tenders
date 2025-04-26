@@ -93,12 +93,11 @@ export default function Create_Tender() {
       const newImage = URL.createObjectURL(file);
       setImages((prevImages) => {
         const updatedImages = [...prevImages];
-        updatedImages[index] = newImage;
-        return updatedImages;
+        updatedImages[index] = newImage; 
+        return updatedImages; 
       });
     }
   };
-
   const handleDeleteVideo = () => {
     setVideoSrc(null);
   };
@@ -278,13 +277,13 @@ export default function Create_Tender() {
                       >
                         x
                       </button>
-                      <label for="replace">
+                      <label htmlFor={`replace-${index}`}>
                         <i className="rep fa fa-exchange-alt"></i>
                       </label>
                       <input
                         type="file"
                         accept="image/*"
-                        id="replace"
+                        id={`replace-${index}`} // تأكد من استخدام معرف فريد لكل عنصر
                         className="replace"
                         onChange={(e) => handleReplaceImage(index, e)}
                       />
