@@ -4,5 +4,6 @@
   "updateAuction":"Auction updated successfully",
   "deleteAuction":"Auction deleted successfully",
   "codeVerified":"Code verified",
-  "logout":"logged out successfully"
+  "logout":"logged out successfully",
+  "bid":"Bid placed successfully"
 }
