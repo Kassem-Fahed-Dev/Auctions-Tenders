@@ -20,7 +20,6 @@ const itemSchema = new mongoose.Schema(
     properties: [
         {key:String , value:mongoose.Schema.Types.Mixed}
     ],
-    numberOfItems:Number
   },
   { timestamps: true },
 );

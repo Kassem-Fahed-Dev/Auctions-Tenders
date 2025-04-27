@@ -4,12 +4,12 @@ const auctionSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required:true
+      required: true,
     },
-    item: { 
+    item: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Item",
-      required:true
+      ref: 'Item',
+      required: true,
     },
     auctionTtile: {
       type: String,
@@ -39,13 +39,15 @@ const auctionSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ['accept', 'reject', 'pindding'],
-      default:  'pindding',
+      default: 'pindding',
     },
     activeStatus: {
       type: String,
       enum: ['active', 'colse', 'soon'],
       default: 'soon',
     },
+    numberOfItems: Number,
+    city: String,
   },
   { timestamps: true },
 );
@@ -63,11 +65,11 @@ auctionSchema.pre('save', function (next) {
   next();
 });
 
-auctionSchema.virtual("linkedItem", {
-  ref: "Item",
-  localField: "item",
-  foreignField: "_id",
-  justOne: true // Returns a single document
+auctionSchema.virtual('linkedItem', {
+  ref: 'Item',
+  localField: 'item',
+  foreignField: '_id',
+  justOne: true, // Returns a single document
 });
 
 auctionSchema.virtual('auctionBids', {

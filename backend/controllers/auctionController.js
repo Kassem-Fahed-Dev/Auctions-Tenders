@@ -15,12 +15,13 @@ exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
     type: 'auction',
     name: categoryName,
   });
+  //console.log(category)
   const itemsInCategory = await Item.find({ category: category._id });
 
   const itemIds = itemsInCategory.map((item) => item._id);
 
   req.itemAuction = { item: { $in: itemIds } };
-  //console.log(req.query.item)
+  // console.log(req.itemAuction)
   next();
 });
 
@@ -49,9 +50,9 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
   newItem.auction = newAuction._id;
   await Promise.all([newItem.save(), newAuction.save()]);
 
-  const populatedAuction = await Auction.findById(newAuction._id).populate(
-    'item',
-  );
+  const populatedAuction = await Auction.findById(newAuction._id)
+    .populate('item')
+    .populate('user');
   res.status(201).json({
     status: req.t(`fields:success`),
     message: req.t(`successes:createAuction`),
@@ -63,7 +64,9 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
 
 // 2. GET Auction + Item
 exports.getAuctionWithItem = catchAsync(async (req, res, next) => {
-  const auction = await Auction.findById(req.params.id).populate('item');
+  const auction = await Auction.findById(req.params.id)
+    .populate('item')
+    .populate('user');
 
   if (!auction) {
     return next(
@@ -145,7 +148,9 @@ exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
   let filterAuctionsByCategory = {};
   if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
 
-  const query = Auction.find(filterAuctionsByCategory).populate('item');
+  const query = Auction.find(filterAuctionsByCategory)
+    .populate('item')
+    .populate('user');
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()
