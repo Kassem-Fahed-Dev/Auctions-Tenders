@@ -38,13 +38,13 @@ const auctionSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['accept', 'reject', 'pindding'],
-      default: 'pindding',
+      enum: ['مقبول', 'مرفوض', 'قيد الانتظار'],
+      default: 'قيد الانتظار',
     },
     activeStatus: {
       type: String,
-      enum: ['active', 'colse', 'soon'],
-      default: 'soon',
+      enum: ['جاري', 'منتهي', 'قادم'],
+      default: 'قادم',
     },
     numberOfItems: Number,
     city: String,
@@ -55,11 +55,11 @@ const auctionSchema = new mongoose.Schema(
 auctionSchema.pre('save', function (next) {
   const now = new Date();
   if (now > this.endTime) {
-    this.activeStatus = 'colse';
+    this.activeStatus = 'منتهي';
   } else if (now < this.startTime) {
-    this.activeStatus = 'soon';
+    this.activeStatus = 'قادم';
   } else {
-    this.activeStatus = 'active';
+    this.activeStatus = 'جاري';
     console.log(this.activeStatus);
   }
   next();
