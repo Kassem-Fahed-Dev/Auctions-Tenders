@@ -19,7 +19,9 @@ export default function CreateAuction() {
       startTime: '',
       endTime: '',
       minimumIncrement: '',
-      startingPrice: ''
+      startingPrice: '',
+      number0fItems:'',
+      city:''
     },
     item: {
       category: '',
@@ -178,6 +180,16 @@ export default function CreateAuction() {
       setHoverAuction('spinner');
    
     }
+    if (!formData1.auction.number0fItems?.trim()) {
+      valditionErrerorsAuction.auction.number0fItems = 'هذا الحقل مطلوب.';
+      setHoverAuction('spinner');
+   
+    }
+    if (!formData1.auction.city?.trim()) {
+      valditionErrerorsAuction.auction.city = 'هذا الحقل مطلوب.';
+      setHoverAuction('spinner');
+   
+    }
     if (!formData1.auction.minimumIncrement?.trim()) {
       valditionErrerorsAuction.auction.minimumIncrement = 'هذا الحقل مطلوب.';
       setHoverAuction('spinner');
@@ -319,6 +331,17 @@ const handleChange2 = (k) => (e) => {
                   autoComplete="off"/>
                    {errorMessageAuc.item?.name && <span className="error0 error-name">    <span className="fa fa-warning"></span>{errorMessageAuc.item.name}</span>}
               </div>
+              <div className="product-name">
+                <label className="product-name-label">عدد المنتجات</label>
+                <input
+                  type="number"
+                  name="auction.number0fItems"
+                  value={formData1.auction.number0fItems}
+                  onChange={handleChange1}
+                  autoComplete="off"
+                />
+                 {errorMessageAuc.auction?.number0fItems && <span className="error0 error-name">    <span className="fa fa-warning"></span>{errorMessageAuc.auction.number0fItems}</span>}
+              </div>
               <div className='gr'>
               <p>بيانات خاصة بمجموعة {formData}:</p>
                 <div className={`${border==='true'?'bor' :''}`}>
@@ -454,7 +477,17 @@ const handleChange2 = (k) => (e) => {
                   أخرى
                 </p>
               </div>
-
+              <div className="product-name">
+                <label className="product-name-label">الموقع</label>
+                <input
+                  type="text"
+                  name="auction.city"
+                  value={formData1.auction.city}
+                  onChange={handleChange1}
+                   autoComplete="off"
+                />
+                 {errorMessageAuc.auction?.city && <span className="error0 error-title">    <span className="fa fa-warning"></span>{errorMessageAuc.auction.city}</span>}
+              </div>
               <div className="product-name">
                 <label className="product-name-label"> تاريخ البدء</label>
                 <input

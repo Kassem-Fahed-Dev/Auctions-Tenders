@@ -14,7 +14,7 @@ export default function CreateAcount() {
   const [errorMessage, setErrorMessage] = useState({});
   const [errorMessage1, setErrorMessage1] = useState({});
   const [hover, setHover] = useState('spinner');
-  const [hover1, setHover1] = useState('');
+  // const [hover1, setHover1] = useState('');
   const [value2, setValue2] = useState('');
   const [hidden3, setHidden3] = useState(false);
   const [hover2, setHover2] = useState('spinner');
@@ -62,7 +62,7 @@ export default function CreateAcount() {
     email: '',
     phone: '',
     passwordConfirm: '',
-    country: '',
+    
   });
   //   تسجيل الدخول
   const [formData1, setFormData1] = useState({
@@ -86,12 +86,12 @@ export default function CreateAcount() {
   };
   //   اختيار الموقع
 
-  const hoverItems2 = (items) => {
-    setFormData({ ...formData, country: items });
-    if (namePass.includes('list1')) {
-      setNamePase(namePass.filter((i) => i !== 'list1'));
-    }
-  };
+  // const hoverItems2 = (items) => {
+  //   setFormData({ ...formData, country: items });
+  //   if (namePass.includes('list1')) {
+  //     setNamePase(namePass.filter((i) => i !== 'list1'));
+  //   }
+  // };
   // دالة تنفذ عند onchange لانشاء الحساب
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -111,7 +111,8 @@ export default function CreateAcount() {
   
   // console.log(tok)
   const handleSubmit1 = (e) => {
-  
+    setHover('spinner-click-tow')
+    console.log('rr')
     e.preventDefault();
     const valditionErrerors = {};
     if (!formData.name.trim()) {
@@ -163,18 +164,19 @@ export default function CreateAcount() {
       valditionErrerors.check2 = '.هذا الحقل مطلوب';
       setHover('spinner');
     }
-    if (!formData.country.trim()) {
-      valditionErrerors.country = 'خطأ';
-      setHover('spinner');
-    }
+    // if (!formData.country.trim()) {
+    //   valditionErrerors.country = 'خطأ';
+    //   setHover('spinner');
+    // }
     setErrorMessage(valditionErrerors);
+    console.log(formData)
     // const tok=''
     if (Object.keys(valditionErrerors).length === 0) {
       setHover('spinner-click-tow');
+      console.log(formData)
       axiosInstance .post(
          '/api/v1/users/signup',
           JSON.stringify(formData),
-          {withCredentials: true},
           {
             headers: {
               
@@ -187,6 +189,7 @@ export default function CreateAcount() {
         )
         .then((res) => {
           setHover('spinner');
+          console.log(res)
           localStorage.setItem('name',res.data.data.user.name)
           localStorage.setItem('jwt',res.data.token)
           //  tok = localStorage.getItem('jwt');
@@ -194,6 +197,7 @@ export default function CreateAcount() {
    
         })
         .catch((error) => {
+          console.log('error')
           setHover('spinner');
           if (error.response) {
             const validationErrors = {};
@@ -965,7 +969,7 @@ export default function CreateAcount() {
                 </label>
               </div>
               <div className="location">
-                <label className="location1">الموقع</label>
+                {/* <label className="location1">الموقع</label>
                 <div
                   className={`triangle  ${
                     formData.country.includes('دمشق') ||
@@ -1019,7 +1023,7 @@ export default function CreateAcount() {
                   >
                     حلب
                   </p>
-                </div>
+                </div> */}
                 <div className="check">
                   <label className="labal-check">
                     <span>*</span>أوافق على الشروط و الأحكام

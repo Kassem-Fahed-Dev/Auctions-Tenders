@@ -1,20 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 const ptn = createSlice({
-  name: "show_edite",
+  name: 'show_edite',
   initialState: {
     show: false,
     picture: false,
-    oldpass: "",
-    userInput: "",
-    Input_confirm: "",
-    submit1: "فادي_66",
-    fullname: "فادي أحمد قاسم",
-    email: "fadi66@gmail.com",
-    number: "123456789",
-    location: "سوريا حمص",
-    pass: "fadi123",
-    error: "",
-    label: "الاسم الكامل",
+    oldpass: '',
+    userInput: '',
+    Input_confirm: '',
+    submit1: 'فادي_66',
+    fullname: 'فادي أحمد قاسم',
+    email: 'fadi66@gmail.com',
+    number: '123456789',
+    location: 'سوريا حمص',
+    pass: 'fadi123',
+    error: '',
+    // label: "الاسم الكامل",
+    label: 'الاسم المستخدم',
   },
   reducers: {
     toggleShow: (state) => {

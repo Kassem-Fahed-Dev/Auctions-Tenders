@@ -11,6 +11,7 @@ export default function AllAuctions(){
     const [value1,setValue1]=useState('فرز حسب');
     const [value2,setValue2]=useState('');
     const [test,setTest]=useState('')
+    // const [all,setAll]=useState([])
     const [hover,setHover]=useState(false)
      const [errorMessage, setErrorMessage] = useState({});
     const navegate=useNavigate()
@@ -21,7 +22,7 @@ export default function AllAuctions(){
           'Accept-Language': 'ar',
   
         },
-      }).then((res)=>{console.log(res)}).catch((error) => {
+      }).then((res)=>{console.log(res.data.data.data)}).catch((error) => {
         if (error.response) {
           const validationErrors = {};
           validationErrors.messageBackend = error.response.data.message;
@@ -115,6 +116,9 @@ export default function AllAuctions(){
           </div>
          
             <div className="alotofAuction">
+              {/* {
+               all.map((auc)=>{console.log(<Auction/>)})
+              } */}
             <Auction/>
             <Auction/>
             <Auction/>
