@@ -24,7 +24,7 @@ import FavoriteTenders from './commponts/Tenders/FavoriteTenders';
 import CreateTender from './commponts/Tenders/CreateTender';
 import TenderGroups from './commponts/Tenders/TenderGroups';
 import Details_Tender from './commponts/Tenders/details/Details_Tender';
-import Profile from './commponts/Account/Profile/Pages/Profile'
+// import Profile from './commponts/Account/Profile/Pages/Profile'
 // =======
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -139,7 +139,7 @@ function App() {
         <Route path="/Create_Tender" element={<Create_Tender />} />
         <Route path="/tendersgroup" element={<TenderGroups />} />
         <Route path="/det-tender" element={<Details_Tender />} />
-        <Route path='/profile' element={<Profile/>}/>
+        {/* <Route path='/profile' element={<Profile/>}/> */}
       </Routes>
     </div>
   );
