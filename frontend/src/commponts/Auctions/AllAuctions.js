@@ -3,15 +3,37 @@ import AuctionsNavbar from "./AuctionsNavbar";
 import './allauction.css';
 import Footer from "../privacy policy/Footer";
 import Auction from "./Auction";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from "../AxiosInterceptors";
 export default function AllAuctions(){
     const [value,setValue]=useState('فرز حسب');
     const [value1,setValue1]=useState('فرز حسب');
     const [value2,setValue2]=useState('');
     const [test,setTest]=useState('')
     const [hover,setHover]=useState(false)
+     const [errorMessage, setErrorMessage] = useState({});
     const navegate=useNavigate()
+    useEffect(()=>{
+      axiosInstance.get('/api/v1/auctions', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+  
+        },
+      }).then((res)=>{console.log(res)}).catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+    },[])
     const handleClick=()=>{
         if(value2=='فرز حسب'&&value=='فرز حسب'){
         setTest(' ')

@@ -1,8 +1,8 @@
 import Star from "../star.jpg";
 import "../profile.css";
-import "../../Auc-Folder/Auc.css";
+// import "../../Auc-Folder/Auc.css";
 import Side from "../componants/Side";
-import Card from "../../Auc-Folder/Card";
+// import Card from "../../Auc-Folder/Card";
 export default function TenderParticiped() {
   function handel_Fav(e) {
     let hh = e.target;
@@ -28,7 +28,7 @@ export default function TenderParticiped() {
           المناقصات التي شاركت بها
         </h3>
         <div className="container-card">
-          <Card width={"220px"} center={"34px"} font={"12px"}>
+          {/* <Card width={"220px"} center={"34px"} font={"12px"}>
             <div className="con-div-card">
               <p className="state">جاري</p>
               <button
@@ -49,7 +49,7 @@ export default function TenderParticiped() {
                 className="fas fa-heart"
               ></button>
             </div>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </div>

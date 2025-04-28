@@ -4,6 +4,7 @@ import imag from '../../image/logo.png';
 import { useNavigate } from 'react-router-dom';
 import React, { useRef } from 'react';
 import axios from 'axios';
+import axiosInstance from '../AxiosInterceptors';
 export default function CreateAcount() {
   const navegate = useNavigate();
   const navegate1 = useNavigate();
@@ -107,7 +108,10 @@ export default function CreateAcount() {
     setFormData1({ ...formData1, [name]: value });
   };
   //   دالة الارسال و اظهار الاخطاء في انشاء الحساب
+  
+  // console.log(tok)
   const handleSubmit1 = (e) => {
+  
     e.preventDefault();
     const valditionErrerors = {};
     if (!formData.name.trim()) {
@@ -164,23 +168,28 @@ export default function CreateAcount() {
       setHover('spinner');
     }
     setErrorMessage(valditionErrerors);
+    // const tok=''
     if (Object.keys(valditionErrerors).length === 0) {
       setHover('spinner-click-tow');
-      axios
-        .post(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/signup',
+      axiosInstance .post(
+         '/api/v1/users/signup',
           JSON.stringify(formData),
+          {withCredentials: true},
           {
             headers: {
+              
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',
-                'credentials': 'include'
+                'credentials': 'include',
+                //  'Authorization': `Bearer ${tok}`
             },
           }
         )
         .then((res) => {
           setHover('spinner');
           localStorage.setItem('name',res.data.data.user.name)
+          localStorage.setItem('jwt',res.data.token)
+          //  tok = localStorage.getItem('jwt');
           navegate('/confirm');
    
         })
@@ -223,17 +232,20 @@ export default function CreateAcount() {
       setHover('spinner');
     }
     setErrorMessage1(valditionErrerors1);
+      // const tok1=''
     if (Object.keys(valditionErrerors1).length === 0) {
       setHover('spinner-click');
-      axios
+      axiosInstance
         .post(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/login',
+          '/api/v1/users/login',
           JSON.stringify(formData1),
           {
             headers: {
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',
-                'credentials': 'include'
+                'credentials': 'include',
+                // 'credentials': 'include',
+                //  'Authorization': `Bearer ${tok1}`
              
             },
           }
@@ -242,6 +254,8 @@ export default function CreateAcount() {
           setHover('spinner');
           console.log(res)
           localStorage.setItem('name',res.data.data.user.name)
+          localStorage.setItem('jwt',res.data.token)
+          // tok1 = localStorage.getItem('jwt');
           navegate('/confirm1');
         })
         .catch((error) => {
@@ -279,9 +293,9 @@ export default function CreateAcount() {
     }
     setErrorMessage2(valditionErrerors2);
     if (Object.keys(valditionErrerors2).length === 0) {
-      axios
+      axiosInstance
         .post(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/forgotPassword',
+          '/api/v1/users/forgotPassword',
           JSON.stringify(formData2),
           {
             headers: {
@@ -364,9 +378,9 @@ export default function CreateAcount() {
       resetCode: code,
     };
     const valditionErrerors4 = {};
-    axios
+    axiosInstance
       .post(
-        'https://auctions-tenders-38sx.onrender.com/api/v1/users/checkResetCode',
+        '/api/v1/users/checkResetCode',
         JSON.stringify(dataToSubmit),
         {
           headers: {
@@ -427,9 +441,9 @@ export default function CreateAcount() {
     setErrorMessage5(valditionErrerors4);
     if (Object.keys(valditionErrerors4).length === 0) {
       setHover6('spinner-click5');
-      axios
+      axiosInstance
         .patch(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/resetPassword',
+          '/api/v1/users/resetPassword',
           JSON.stringify(dataToSubmit2),
           {
             headers: {
@@ -489,6 +503,7 @@ export default function CreateAcount() {
                       name="email"
                       value={formData1.email}
                       onChange={handleChange2}
+                      autoComplete="off"
                     />
                     {errorMessage1.email && (
                       <span className="error0 error-log-in-name">
@@ -515,6 +530,7 @@ export default function CreateAcount() {
                       name="password"
                       value={formData1.password}
                       onChange={handleChange2}
+                      autoComplete="off"
                     />
                     {errorMessage1.password && (
                       <span className="error0 error-log-in-password">
@@ -612,6 +628,7 @@ export default function CreateAcount() {
                 onChange={handleChange3}
                 className="forget"
                 placeholder="أدخل عنوانك البريد هنا"
+                autoComplete="off"
               />
               <div className="forget-button">
                 <button
@@ -824,6 +841,7 @@ export default function CreateAcount() {
                   id="username"
                   name="name"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.name && (
                   <span className="error0 error">
@@ -850,6 +868,7 @@ export default function CreateAcount() {
                   id="password"
                   name="password"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.password && (
                   <span className="error0 error1">
@@ -875,6 +894,7 @@ export default function CreateAcount() {
                   id="confirmPassword"
                   name="passwordConfirm"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.passwordConfirm && (
                   <span className="error0 error2">
@@ -902,6 +922,7 @@ export default function CreateAcount() {
                   id="email"
                   name="email"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.email && (
                   <span className="error0 error3">
@@ -929,6 +950,7 @@ export default function CreateAcount() {
                   id="tel"
                   name="phone"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.phone && (
                   <span className="error0 error4">
@@ -965,6 +987,7 @@ export default function CreateAcount() {
                   name="country"
                   value={formData.country}
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.country && (
                   <span className="error0 error7">
