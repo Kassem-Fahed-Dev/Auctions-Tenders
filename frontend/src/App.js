@@ -16,6 +16,14 @@ import AuctionGroups from './commponts/Auctions/AuctionGroups';
 import AuctionGroup from './commponts/Auctions/AuctionGroup';
 import Modify from './commponts/Account/Modify';
 import Details from './commponts/Account/details/Details';
+
+import Create from './commponts/Account/Profile/Pages/Create';
+import AucParticiped from './commponts/Account/Profile/Pages/AucParticiped';
+import TenderCreate from './commponts/Account/Profile/Pages/TenderCreate';
+import TenderParticiped from './commponts/Account/Profile/Pages/TenderParticiped';
+import FavAuction from './commponts/Account/Profile/Pages/FavAuction';
+import FavTender from './commponts/Account/Profile/Pages/FavTender';
+import Profile from './commponts/Account/Profile/Pages/Profile';
 // <<<<<<< Updated upstream
 // tenders
 import AllTenders from './commponts/Tenders/AllTenders';
@@ -140,6 +148,14 @@ function App() {
         <Route path="/tendersgroup" element={<TenderGroups />} />
         <Route path="/det-tender" element={<Details_Tender />} />
         {/* <Route path='/profile' element={<Profile/>}/> */}
+        <Route path="/create" element={<Create />} />
+        <Route path="/Aucparticep" element={<AucParticiped />} />
+        <Route path="/TenderCreate" element={<TenderCreate />} />
+        <Route path="/TenderParticiped" element={<TenderParticiped />} />
+        <Route path="/FavAuction" element={<FavAuction />} />
+        <Route path="/FavTender" element={<FavTender />} />
+       
+        <Route path="/profile" element={<Profile/>} />
       </Routes>
     </div>
   );

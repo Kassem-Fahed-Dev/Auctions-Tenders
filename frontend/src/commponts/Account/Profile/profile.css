@@ -1,0 +1,648 @@
+.al {
+  direction: rtl;
+  /* background-color: red; */
+}
+
+/* the container of links */
+.con-info {
+  margin: 10px;
+  width: 260px;
+  height: 389px;
+  /* background-color: aquamarine; */
+}
+/* this for the name of links */
+.con-info .info {
+  height: 35px;
+  text-decoration: none;
+  margin-right: 10px;
+  padding: 3px;
+  padding-right: 10px;
+  display: block;
+  font-size: 17px;
+  color: #000000;
+  font-family: IBM Plex Sans Arabic;
+  width: 100%;
+  transition: 0.3s ease;
+}
+.con-info .info:hover {
+  font-family: IBM Plex Sans Arabic;
+  background-color: #003366;
+  border-radius: 4px;
+  height: 35px;
+  padding: 3px;
+  padding-right: 12px;
+  font-size: 18px;
+  color: #ffffff;
+}
+/* the line between the information */
+.line-info {
+  margin: 10px;
+  margin-top: 12px;
+  background-color: #003366;
+  width: 100%;
+  height: 2px;
+  position: relative;
+}
+/* the square in the start line */
+.line-info .fas.fa-stop {
+  color: #003366;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  font-size: 13px;
+  transform: rotate(40deg);
+}
+/* container for the image and info 2 */
+.con-img-info {
+  width: 840px;
+  height: 500px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative;
+  /* background-color: aqua; */
+  box-shadow: 1px 2px 10px 1px #003366;
+}
+/* container for the image and button عرض  */
+.con-img-ptn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  width: 230px;
+  height: 230px;
+  /* background-color: aqua; */
+  position: relative;
+}
+
+/* contener for the button عرض و تغيير */
+.container-ptn {
+  width: 170px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img-profile {
+  color: #000000;
+  width: 150px;
+  position: absolute;
+  top: 25px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #cccccc;
+  position: relative;
+  overflow: hidden;
+}
+.ptn-show {
+  border: none;
+  width: 50px;
+  height: 30px;
+  font-size: 14px;
+  background-color: #ffffff;
+  font-family: IBM Plex Sans Arabic;
+}
+.ptn-show:hover {
+  font-size: 16px;
+  font-weight: bolder;
+  transition: 0.5s ease;
+  color: #000000;
+  font-family: IBM Plex Sans Arabic;
+}
+.con-img-info .img-profile p {
+  position: absolute;
+  bottom: -45px;
+  left: 38px;
+  color: #003366;
+  font-family: IBM Plex Sans Arabic;
+}
+/* the icon in the circlie */
+.img-profile .fas.fa-user-tie {
+  font-size: 149px;
+  position: absolute;
+  left: 10px;
+
+  top: 1px;
+}
+/* for the edit button  */
+.ptn-1,
+.ptn-2,
+.ptn-3,
+.ptn-4,
+.ptn-5,
+.ptn-6 {
+  position: absolute;
+  top: 165px;
+  left: 330px;
+  border: none;
+  border-radius: 50%;
+  font-size: 9px;
+  color: #cccccc;
+}
+.ptn-2 {
+  position: absolute;
+  top: 235px;
+  left: 325px;
+}
+.ptn-3 {
+  position: absolute;
+  top: 300px;
+  left: 322px;
+}
+.ptn-4 {
+  position: absolute;
+  top: 368px;
+  left: 322px;
+}
+/* .ptn-5 {
+  position: absolute;
+  top: 394px;
+  left: 356px;
+} */
+.ptn-6 {
+  position: absolute;
+  top: 438px;
+  left: 322px;
+}
+
+.ptn-1:hover {
+  color: #535353;
+  font-size: 9px;
+  background-color: #ffffff;
+}
+.ptn-2:hover {
+  color: #535353;
+  background-color: #ffffff;
+  font-size: 9px;
+}
+.ptn-3:hover {
+  color: #535353;
+  font-size: 9px;
+  background-color: #ffffff;
+}
+.ptn-4:hover {
+  color: #535353;
+  font-size: 9px;
+  background-color: #ffffff;
+}
+.ptn-5:hover {
+  color: #535353;
+  font-size: 9px;
+  background-color: #ffffff;
+}
+.ptn-6:hover {
+  color: #535353;
+  font-size: 9px;
+  background-color: #ffffff;
+}
+/* container for informatioin 2 "welcome" */
+.con-info2 {
+  width: 300px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  /* background-color: red; */
+}
+.con-info2 .name {
+  padding-right: 23px;
+}
+.con-info2 .full-name {
+  padding-right: 39px;
+}
+.con-info2 .email {
+  padding-right: 25px;
+}
+.con-info2 .number {
+  padding-right: 53px;
+}
+.con-info2 .location {
+  padding-right: 76px;
+}
+.con-info2 .pass {
+  padding-right: 58px;
+}
+/* this for title  */
+.con-info2 h3 {
+  display: block;
+  margin-top: 72px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 60px;
+}
+.con-info2 div {
+  display: inline-block;
+  padding-right: 30px;
+}
+/* icon of edite */
+.con-info2 div span {
+  padding-right: 10px;
+  font-size: 9px;
+  color: #cccccc;
+}
+
+/* the line of info2 */
+.con-info2 hr {
+  width: 350px;
+  height: 2px;
+  color: #000000;
+}
+
+.par-info {
+  /* background-color: red; */
+  height: 60px;
+  font-family: IBM Plex Sans Arabic;
+  font-size: 16px;
+  font-weight: 400;
+  border-bottom: 1px solid#cccccc;
+}
+
+.svg1 {
+  position: absolute;
+  top: -135px;
+  left: -33px;
+  width: 490px;
+  display: inline-block;
+}
+.welcome {
+  position: absolute;
+  left: 45px;
+  top: 25px;
+  /* background-color: red; */
+  width: 200px;
+}
+.welcome h2 {
+  font-family: IBM Plex Sans Arabic;
+  text-align: center;
+  color: #ffffff;
+  font-size: 18px;
+}
+.data1 {
+  margin-top: 40px;
+  font-family: IBM Plex Sans Arabic;
+  border: none;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+/* this for page  المزادات التي شاركت بها  */
+/* container for title and cards */
+.con-Auc-create {
+  width: 840px;
+  height: 500px;
+  /* background-color: rgb(4, 103, 103); */
+}
+.con-Auc-create h3 {
+  font-family: IBM Plex Sans Arabic;
+  color: #000000;
+}
+
+/* for the flex the side and other componant such as create */
+.con-flex {
+  padding-top: 60px;
+  gap: 40px;
+  margin: 10px;
+
+  display: flex;
+  justify-content: space-evenly;
+  direction: rtl;
+}
+/* container for the card  */
+.container-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 30px;
+  direction: ltr;
+}
+/* container to div add the icon favourite and state to the card */
+.con-div-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.con-div-card button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 15px;
+  text-align: center;
+  height: 14px;
+  background-color: #cccccc;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* this for the icon favourite */
+.con-div-card .fas.fa-heart {
+  color: #000000;
+  font-size: 10px;
+}
+.con-div-card .far.fa-heart {
+  color: #000000;
+  font-size: 10px;
+}
+/* this for the حاري/منتهي */
+.state {
+  font-family: IBM Plex Sans Arabic;
+  background-color: #ffffff;
+  color: green;
+  width: 50px;
+  height: 15px;
+  font-size: 9px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 10px;
+  right: -1px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+/* this for the clicked option */
+.info.active {
+  font-family: IBM Plex Sans Arabic;
+  background-color: #003366;
+  border-radius: 4px;
+  height: 35px;
+  padding: 3px;
+  padding-right: 12px;
+  font-size: 21px;
+  color: #ffffff;
+}
+
+/* for the image icon */
+.img-icon {
+  margin-left: 10px;
+}
+
+/* this for the alert componant$$$$$$$$$$$$$$$$$$$$$$$$ */
+.alert1 {
+  direction: rtl;
+  width: 400px;
+  height: 175px;
+  background-color: #ffffff;
+  position: relative;
+  margin: 180px;
+  margin-right: 380px;
+  position: absolute;
+  top: 0px;
+  right: -389px;
+  border-radius: 2px;
+  border: 2px solid #ffffff;
+}
+.alert12 {
+  direction: rtl;
+  font-family: IBM Plex Sans Arabic;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+/* for the ptn exit */
+.exit {
+  width: 30px;
+  height: 25px;
+  border-radius: 2px;
+  text-align: center;
+  color: red;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: -3px;
+  right: -34px;
+}
+.picture1 {
+  background-size: 'cover';
+  border-radius: 50%;
+}
+.exit:hover {
+  color: #ffffff;
+  background-color: red;
+}
+/* for the star in the name */
+#sstar,
+#sstar2 {
+  color: red;
+  font-size: 18px;
+  position: absolute;
+  top: 4px;
+  left: -10px;
+}
+/* for the label in the new name  */
+.lab-new {
+  position: absolute;
+  top: 30px;
+  width: 140px;
+  left: 34px;
+  display: block;
+  font-size: 18px;
+}
+#ert {
+  top: -52px;
+  left: 12px;
+  /* left: 10px; */
+  position: absolute;
+}
+.lap-newpass {
+  position: absolute;
+  top: 7px;
+  left: 27px;
+  display: block;
+  font-size: 16px;
+}
+.inp-newpass {
+  position: absolute;
+  width: 250px;
+  height: 23px;
+  display: block;
+  top: 32px;
+  left: 27px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #003366;
+}
+.inp-new {
+  position: absolute;
+  width: 250px;
+  height: 23px;
+  display: block;
+  top: 65px;
+  left: 27px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #003366;
+}
+.lab2-new {
+  position: absolute;
+  width: 140px;
+  top: 64px;
+  left: 27px;
+  display: block;
+  font-size: 16px;
+}
+.lab3-new {
+  width: 170px;
+  position: absolute;
+  top: 115px;
+  left: 27px;
+  display: block;
+  font-size: 16px;
+}
+.inp2-new {
+  position: absolute;
+  /* background-color: #ffffff; */
+  background-color: transparent;
+  width: 250px;
+  height: 23px;
+  display: block;
+  top: 89px;
+  left: 27px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #003366;
+}
+.inp3-new {
+  position: absolute;
+  background-color: transparent;
+  width: 250px;
+  height: 23px;
+  display: block;
+  top: 142px;
+  left: 27px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #003366;
+}
+.ptn-submit2 {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: #003366;
+  width: 90px;
+  height: 35px;
+  border-radius: 14px;
+  font-size: 20px;
+  position: absolute;
+  right: -4px;
+  bottom: 5px;
+}
+.exit2 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  text-align: center;
+  font-size: 18px;
+  position: absolute;
+  border: 1px solid #003366;
+  bottom: 0px;
+  opacity: 0;
+  transform: translateY(104px);
+  animation: hasan 1s ease forwards;
+}
+@keyframes hasan {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-190);
+  }
+}
+.exit2:hover {
+  color: red;
+}
+/* container for the name  and label */
+
+#focus {
+  background-color: rgba(5, 5, 5, 0.348);
+}
+.error_message {
+  position: absolute;
+  top: 95px;
+  left: 79px;
+  color: red;
+  font-size: 10px;
+  font-family: IBM Plex Sans Arabic;
+}
+.error_message-pass {
+  position: absolute;
+  top: 175px;
+  left: 79px;
+  color: red;
+  font-size: 10px;
+  font-family: IBM Plex Sans Arabic;
+}
+/* test the animation */
+
+.img-profile {
+  transform: translateY(0) scale(1);
+  transition: transform 0.6s ease;
+}
+
+.img-profile.active {
+  transform: translateY(70px) scale(2);
+}
+/* editing */
+.flexible {
+  /* background-color: aqua; */
+  width: 95%;
+  min-height: 580px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  direction: ltr;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+/* this for the participed */
+.nn {
+  /* background-color: yellow; */
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  gap: 430px;
+  align-items: flex-start;
+}
+
+.test-con {
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.sort21 {
+  width: 250px;
+  background-color: #fff;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 50px;
+  justify-content: center;
+  text-align: end;
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 24px;
+  outline: none;
+  caret-color: transparent;
+}
+.listSort21 {
+  display: flex;
+  display: block;
+  gap: 10px;
+  display: none;
+}

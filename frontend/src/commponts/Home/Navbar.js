@@ -37,7 +37,7 @@ export default function Navbar({wordBlod}) {
 			</ul>
 			<ul className="Navul ul2">
 				{tok?<li   onClick={()=>hoverItems('user')}>
-					<Link to="/acount">
+					<Link to="/profile">
 						<div className="icon">
 							<i className="fas fa-user-circle"></i>
 						</div>

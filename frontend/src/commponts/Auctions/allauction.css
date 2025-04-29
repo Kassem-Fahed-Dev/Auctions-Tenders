@@ -806,3 +806,35 @@ input [type='date'] {
   font-weight: bold;
   font-size: 14px;
 }
+/* ============================================================================ */
+.group22 {
+  border: none;
+  direction: rtl;
+  width: 175px;
+  height: 31px;
+  padding-right: 12px;
+  border-radius: 8px;
+  outline: 1px solid #000000;
+  position: relative;
+  right: 155px;
+  bottom: 50px;
+  caret-color: transparent;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.visable21 {
+  display: block;
+  margin-top: 20px;
+  margin-left: -376px;
+}
+.visable2 {
+  display: block;
+  margin-top: 20px;
+  margin-left: -376px;
+}
+.sort21:hover,
+.sort2:hover + .sort {
+  background-color: #003366;
+  color: #fff;
+  cursor: pointer;
+}
