@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar({wordBlod}) {
 	const [bold,setBold]=useState('home');
 	const hoverItems=(items)=>{
+		//console.log("kk")
 		setBold(items);
 	}
 	 const navegate2 = useNavigate();
 	const goToHome=()=>{
 		navegate2('/')
 	  }
+	//   const tok = localStorage.getItem('jwt'); 
 	  const tok = localStorage.getItem('jwt'); 
 	  const name = localStorage.getItem('name'); 
 	return (
@@ -36,19 +38,20 @@ export default function Navbar({wordBlod}) {
                 {/* القاىمة الثانية الحساب و الكل */}
 			</ul>
 			<ul className="Navul ul2">
-				{tok?<li   onClick={()=>hoverItems('user')}>
-					<Link to="/profile">
-						<div className="icon">
-							<i className="fas fa-user-circle"></i>
-						</div>
-						<p className="account">{name}</p>
-					</Link>
-				</li>:<li   onClick={()=>hoverItems('user')}>
+				{console.log(typeof(tok))}
+				{tok=="null"?<li   onClick={()=>hoverItems('user')}>
 					<Link to="/acount">
 						<div className="icon">
 							<i className="fas fa-user-circle"></i>
 						</div>
 						<p className="account">حساب الدخول</p>
+					</Link>
+				</li>:<li   onClick={()=>hoverItems('user')}>
+					<Link to="/profile">
+						<div className="icon">
+							<i className="fas fa-user-circle"></i>
+						</div>
+						<p className="account">{name}</p>
 					</Link>
 				</li>
 				}

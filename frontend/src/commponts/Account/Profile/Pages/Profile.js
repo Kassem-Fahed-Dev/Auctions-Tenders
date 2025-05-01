@@ -14,11 +14,12 @@ export default function Account() {
   const [isActive, setIsActive] = useState(false);
   const [showXButton, setShowXButton] = useState(false);
   const [errorMessage,setErrorMessage]=useState({})
+  const [dataUser,setDataUser]=useState({})
+  const [editDataUser,setEditDataUser]=useState({})
+ 
   const token = localStorage.getItem('jwt'); 
   useEffect(()=>{
- axiosInstance.get('/api/v1/users/me',{
-  withCredentials:true
- },  {
+ axiosInstance.get('/api/v1/users/me',  {
   headers: {
     
     'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ export default function Account() {
     'credentials': 'include',
     'Authorization': `Bearer ${token}`,
   },
-}).then((res)=>{console.log(res)}).catch((error) => {
+}).then((res)=>{setDataUser(res.data.data.data);console.log(dataUser)}).catch((error) => {
   console.log('error')
   // setHover('spinner');
   if (error.response) {
@@ -40,7 +41,10 @@ export default function Account() {
     });
   }
 })
-  },[])
+  })
+//   const handleSubmit=()=>{
+    
+//   }
   const handleButtonClick = () => {
     setIsActive(!isActive);
     if (!isActive) {
@@ -51,6 +55,7 @@ export default function Account() {
       setShowXButton(false);
     }
   };
+  
   const nn = useSelector((state) => state.ptn_edit);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -163,10 +168,10 @@ export default function Account() {
                   <h2>أهلا بك !</h2>
                   <p className="data1">بياناتك محمية بكل صدق وشفافية</p>
                 </div>
-                <h3>فادي-66 </h3>
+                <h3>{nn.name}</h3>
 
                 <p className="par-info">
-                  اسم المستخدم :<div className="name">{nn.submit1}</div>{' '}
+                  اسم المستخدم :<div className="name">{nn.name}</div>{' '}
                 </p>
                 <button
                   className="ptn-1"
@@ -179,8 +184,8 @@ export default function Account() {
                   <span className="	fas fa-pen"></span>
                 </button>
 
-                <p className="par-info">
-                  الاسم الكامل :<div className="full-name">{nn.fullname}</div>{' '}
+                {/* <p className="par-info">
+                  الاسم الكامل :<div className="full-name">{dataUser.name}</div>{' '}
                 </p>
                 <button
                   className="ptn-2"
@@ -190,7 +195,7 @@ export default function Account() {
                   }}
                 >
                   <span className="	fas fa-pen"></span>
-                </button>
+                </button> */}
                 <p className="par-info">
                   البريد الالكتروني :<div className="email">{nn.email}</div>
                 </p>
@@ -205,7 +210,7 @@ export default function Account() {
                 </button>
                 <p className="par-info">
                   رقم الهاتف:
-                  <div className="number">{nn.number}</div>{' '}
+                  <div className="number">{nn.phone}</div>{' '}
                 </p>
                 <button
                   className="ptn-4"
