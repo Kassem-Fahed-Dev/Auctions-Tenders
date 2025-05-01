@@ -15,7 +15,7 @@ const itemSchema = new mongoose.Schema(
     video: String, // URL
     status: {
       type: String,
-      enum: ['new', 'used'],
+      enum: ['جديد', 'مستعمل'],
     }, // "new", "used"
     properties: [
         {key:String , value:mongoose.Schema.Types.Mixed}

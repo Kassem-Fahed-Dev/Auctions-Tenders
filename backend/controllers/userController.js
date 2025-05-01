@@ -34,7 +34,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     'email',
     'phone',
     'profileImg',
-    'country',
   );
 
   // 3) Update user document

@@ -41,8 +41,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    phone: req.body.phone,
+    profileImg: req.body.profileImg,
   });
-
   createSendToken(newUser, 201, res);
 });
 
@@ -89,9 +90,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(
-      new AppError(req.t(`errors:access`), 401),
-    );
+    return next(new AppError(req.t(`errors:access`), 401));
   }
 
   // 2) Verification token
@@ -100,19 +99,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
-    return next(
-      new AppError(
-        req.t(`errors:userNotFound`),
-        401,
-      ),
-    );
+    return next(new AppError(req.t(`errors:userNotFound`), 401));
   }
 
   // 4) Check if user changed password after the token was issued
   if (currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(
-      new AppError(req.t(`errors:changePassword`), 401),
-    );
+    return next(new AppError(req.t(`errors:changePassword`), 401));
   }
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
@@ -123,9 +115,7 @@ exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ['admin', 'lead-guide']. role='user'
     if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError(req.t(`errors:permission`), 403),
-      );
+      return next(new AppError(req.t(`errors:permission`), 403));
     }
 
     next();
@@ -168,10 +158,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
 
-    return next(
-      new AppError(req.t(`errors:sendingEmail`)),
-      500,
-    );
+    return next(new AppError(req.t(`errors:sendingEmail`)), 500);
   }
 });
 
@@ -233,7 +220,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id).select('+password');
 
   // 2) Check if POSTed current password is correct
-  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+  if (!(await user.correctCompare(req.body.passwordCurrent, user.password))) {
     return next(new AppError(req.t(`errors:currentPassword`), 401));
   }
 
