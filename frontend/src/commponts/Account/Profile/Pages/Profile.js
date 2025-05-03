@@ -8,43 +8,53 @@ import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../../../Home/Navbar';
 import '../profile.css';
 import axiosInstance from '../../../AxiosInterceptors';
+// 55555555555555555555555555
+import { fetchUserFromAPI } from '../store/Redux';
+
+// 55555555555555555555555555
 export default function Account() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [showXButton, setShowXButton] = useState(false);
-  const [errorMessage,setErrorMessage]=useState({})
-  const [dataUser,setDataUser]=useState({})
-  const [editDataUser,setEditDataUser]=useState({})
- 
-  const token = localStorage.getItem('jwt'); 
-  useEffect(()=>{
- axiosInstance.get('/api/v1/users/me',  {
-  headers: {
-    
-    'Content-Type': 'application/json',
-    'Accept-Language': 'ar',
-    'credentials': 'include',
-    'Authorization': `Bearer ${token}`,
-  },
-}).then((res)=>{setDataUser(res.data.data.data);console.log(dataUser)}).catch((error) => {
-  console.log('error')
-  // setHover('spinner');
-  if (error.response) {
-    const validationErrors = {};
-    validationErrors.messageBackend = error.response.data.message;
-    setErrorMessage(validationErrors);
-  } else {
-    console.log('An unexpected error occurred:', error.message);
-    setErrorMessage({
-      messageBackend: 'An unexpected error occurred.',
-    });
-  }
-})
-  })
-//   const handleSubmit=()=>{
-    
-//   }
+  const [errorMessage, setErrorMessage] = useState({});
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUserFromAPI());
+  }, [dispatch]);
+  const [DataUser, setDataUser] = useState('');
+  const token = localStorage.getItem('jwt');
+  useEffect(() => {
+    axiosInstance
+      .get('/api/v1/users/me', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setDataUser(res.data.data.data);
+        
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }, []);
+  // 4444444444444444444444444444444444444444444
+  // 55555555555555555555555555
   const handleButtonClick = () => {
     setIsActive(!isActive);
     if (!isActive) {
@@ -55,9 +65,7 @@ export default function Account() {
       setShowXButton(false);
     }
   };
-  
   const nn = useSelector((state) => state.ptn_edit);
-  const dispatch = useDispatch();
   useEffect(() => {
     const img = new Image();
     img.src = ll;

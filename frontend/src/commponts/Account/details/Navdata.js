@@ -4,19 +4,17 @@ import im from './Boxing.webp';
 import im2 from './boxing.jpg';
 import im3 from './im3.jpg';
 import vid from './ggg.mp4';
+import { useLocation } from 'react-router-dom';
 
-function Data() {
+function Data({state1}) {
+  // const location = useLocation();
+  // const { data } = location.state;
+  // console.log(state)
+  
   return (
     <div>
-      <pre className="information-auction">{`الشقة الدور الاول :
-  مساحتها تقريبا122 متر تحتوي على :
-  3غرف نوم واحدة منها ماستر
-  كل غرفة نوم حمام خارجي خاص
-  4 حمامات
-  المجلس مفتوح على الصالة
-  المطبخ راكب
-  المكيف راكب
-  دخول ذكي`}</pre>
+      <pre className="information-auction">{state1.item?.description
+      }</pre>
     </div>
   );
 }
@@ -108,13 +106,13 @@ function Vidio() {
     </div>
   );
 }
-export default function Navdata() {
+export default function Navdata({state}) {
   const [content, setContent] = useState('data');
   const [activeClick, setActiveClick] = useState('data');
 
   const renderContent = () => {
     if (content === 'data') {
-      return <Data />;
+      return <Data state1={state} />;
     } else if (content === 'image') {
       return <Image />;
     } else if (content === 'vidio') {

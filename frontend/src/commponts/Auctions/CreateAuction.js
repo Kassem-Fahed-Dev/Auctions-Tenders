@@ -20,14 +20,14 @@ export default function CreateAuction() {
       endTime: '',
       minimumIncrement: '',
       startingPrice: '',
-      number0fItems:'',
+      numberOfItems:'',
       city:''
     },
     item: {
       category: '',
       name: '',
+      status:'',
       description: '',
-      status: '',
       properties: []
     },
   });
@@ -180,7 +180,7 @@ export default function CreateAuction() {
       setHoverAuction('spinner');
    
     }
-    if (!formData1.auction.number0fItems?.trim()) {
+    if (!formData1.auction.numberOfItems?.trim()) {
       valditionErrerorsAuction.auction.number0fItems = 'هذا الحقل مطلوب.';
       setHoverAuction('spinner');
    
@@ -240,9 +240,7 @@ export default function CreateAuction() {
         )
         .then((res) => {
           setHoverAuction('spinner');
-       
           console.log(res);
-         
           navegate('/createAuctions')
         })
         .catch((error) => {
@@ -335,12 +333,12 @@ const handleChange2 = (k) => (e) => {
                 <label className="product-name-label">عدد المنتجات</label>
                 <input
                   type="number"
-                  name="auction.number0fItems"
-                  value={formData1.auction.number0fItems}
+                  name="auction.numberOfItems"
+                  value={formData1.auction.numberOfItems}
                   onChange={handleChange1}
                   autoComplete="off"
                 />
-                 {errorMessageAuc.auction?.number0fItems && <span className="error0 error-name">    <span className="fa fa-warning"></span>{errorMessageAuc.auction.number0fItems}</span>}
+                 {errorMessageAuc.auction?.numberOfItems && <span className="error0 error-name">    <span className="fa fa-warning"></span>{errorMessageAuc.auction.numberOfItems}</span>}
               </div>
               <div className='gr'>
               <p>بيانات خاصة بمجموعة {formData}:</p>
@@ -370,12 +368,12 @@ const handleChange2 = (k) => (e) => {
                 <div className="status">
                   <div>
                     <label>مستعمل </label>
-                    <input type="radio" name="status"  value='used'
+                    <input type="radio" name="status"  value='مستعمل'
                   onChange={handleChange1}/>
                   </div>
                   <div>
                     <label>جديد </label>
-                    <input type="radio" name="status"   value='new'
+                    <input type="radio" name="status"   value='جديد'
                   onChange={handleChange1}/>
                   </div>
                 </div>

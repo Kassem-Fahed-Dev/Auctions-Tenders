@@ -225,6 +225,43 @@
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
 }
+.timedet{
+  color: #00cc66; 
+}
+.oneAuction .time1 {
+  position: absolute;
+  /* bottom: 210px;
+    right: -230px; */
+  right: 0px;
+  top: 15px;
+  padding: 2px;
+  color: red;
+  background-color: #fff;
+  width: 70px;
+  text-align: center;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
+}
+.time1det{
+  color: red;
+}
+.oneAuction .time2 {
+  position: absolute;
+  /* bottom: 210px;
+    right: -230px; */
+  right: 0px;
+  top: 15px;
+  padding: 2px;
+  color: rgb(12, 166, 212);
+  background-color: #fff;
+  width: 70px;
+  text-align: center;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
+}
+.time2det{
+  color: rgb(12, 166, 212);
+}
 .white {
   color: #fff;
 }
@@ -366,6 +403,9 @@ p.upload {
   width: 610px;
   /* height: 880px; */
   background-color: #ccc;
+}
+.datadecor{
+  flex-direction: row;
 }
 .create-auction-form {
   direction: rtl;
