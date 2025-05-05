@@ -44,7 +44,7 @@ export default function CreateAuction() {
 
   const handleChange = (e) => {
     const { value } = e.target;
-    setFormData(value);
+    setFormData(value.trim());
   };
   const handleKeyDown = (e) => {
     e.preventDefault();
@@ -105,7 +105,7 @@ export default function CreateAuction() {
   const hoverItems2 = (items) => {
     setNamePase1(' ');
     const token = localStorage.getItem('jwt'); 
-    setFormData(items);
+    setFormData(items.trim());
     if (namePass.includes('list1')) {
       setNamePase(namePass.filter((i) => i !== 'list1'));
     }
@@ -264,7 +264,7 @@ export default function CreateAuction() {
       ...prevData,
       [name.includes('auction') ? 'auction' : 'item']: {
         ...prevData[name.includes('auction') ? 'auction' : 'item'],
-        [name.includes('auction') ? name.split('.')[1] : name]: value,
+        [name.includes('auction') ? name.split('.')[1] : name]: value.trim(),
       },
     }));
   };
@@ -281,13 +281,13 @@ const handleChange2 = (k) => (e) => {
             item: {
                 ...prevData.item,
                 properties: prevData.item.properties.map(item1 =>
-                    item1.key === k ? { ...item1, value:value } : item1 
+                    item1.key === k ? { ...item1, value:value.trim() } : item1.trim() 
                 ),
             },
         }));
     } else {
       
-        const newObject = { key: k, value: value };
+        const newObject = { key: k, value: value.trim() };
 
        
         setInputs((prevInputs) => {

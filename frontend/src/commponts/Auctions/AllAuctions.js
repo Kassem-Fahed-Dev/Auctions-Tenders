@@ -34,7 +34,7 @@ export default function AllAuctions(){
           });
         }
       });
-    })
+    },[])
     const handleClick=()=>{
         if(value2=='فرز حسب'&&value=='فرز حسب'){
         setTest(' ')
@@ -45,22 +45,96 @@ export default function AllAuctions(){
             setTest(' ')
             setValue1('فرز حسب')
             setValue(value1)
+             axiosInstance.get('/api/v1/auctions', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+  
+        },
+      }).then((res)=>{setAll(res.data.data.data);console.log(all)}).catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
           }
         else if(value2=='فرز حسب'){
           setValue1('فرز حسب')
            setTest(value1)
           setValue(value1)
+           axiosInstance.get('/api/v1/auctions', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+  
+        },
+      }).then((res)=>{setAll(res.data.data.data);console.log(all)}).catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
        }
        else{
           setTest(value1)
           setValue(value1)
+           axiosInstance.get('/api/v1/auctions', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+  
+        },
+      }).then((res)=>{setAll(res.data.data.data);console.log(all)}).catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
        }
     }
     const handleClick2=(item)=>{
         setValue(item)
         setTest(item)
+      
         if(item==' جاري'||item==' منتهي'||item==' قادم')
         {
+          axiosInstance.get(`/api/v1/auctions?activeStatus=${item.trim()}`,{
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+           
+            },
+          }
+        ).then((res)=>{setAll(res.data.data.data);console.log(all)}).catch((error) => {
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
             setValue1(' الوقت')
             setValue2('فرز حسب')
         
@@ -72,6 +146,25 @@ export default function AllAuctions(){
         if(item==' عقارات'||item==' إلكترونيات'||item==' سيارات'||item==' أثاث'||item==' إكسسوار'||item==' ملابس'||item==' أخرى'){
             setValue1(' مجموعات')
             setValue2('فرز حسب')
+            axiosInstance.get(`/api/v1/auctions?categoryName=${item.trim()}`,{
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept-Language': 'ar',
+             
+              },
+            }
+          ).then((res)=>{setAll(res.data.data.data);console.log(all)}).catch((error) => {
+            if (error.response) {
+              const validationErrors = {};
+              validationErrors.messageBackend = error.response.data.message;
+              setErrorMessage(validationErrors);
+            } else {
+              console.log('An unexpected error occurred:', error.message);
+              setErrorMessage({
+                messageBackend: 'An unexpected error occurred.',
+              });
+            }
+          });
             
         }
     }
