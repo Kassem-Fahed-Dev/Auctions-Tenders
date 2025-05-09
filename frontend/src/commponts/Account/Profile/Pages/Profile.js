@@ -165,12 +165,20 @@ export default function Account() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   {' '}
+                  
                   <path
-                    d="M 51 522 L 50 47 L 649 46 C 618 101 617 324 379 273 C 274 246 82 350 49 615    "
+                    d="M 51 592 C 38 38 25  44 200 47 L 649 46 C 618 101 617 324 379 273 C 274 246 82 350 49 615    "
                     fill="#003366"
                     stroke="none"
                     stroke-width="2"
+                  
                   ></path>
+{/* <path
+    d="M 51 522 Q 50 70 50 47 L 649 46 C 618 101 617 324 379 273 C 274 246 82 350 49 615"
+    fill="#003366"
+    stroke="none"
+    stroke-width="2"
+></path> */}
                 </svg>
                 <div className="welcome">
                   <h2>أهلا بك !</h2>
