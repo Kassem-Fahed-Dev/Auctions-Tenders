@@ -84,6 +84,7 @@ export default function CreateAcount() {
       setNamePase([...namePass, items.trim()]);
     }
   };
+    localStorage.setItem('status','فرز حسب');
   //   اختيار الموقع
 
   // const hoverItems2 = (items) => {

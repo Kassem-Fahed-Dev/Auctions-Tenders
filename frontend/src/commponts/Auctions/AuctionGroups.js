@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../privacy policy/Footer';
 export default function AuctionGroups() {
   const navegate = useNavigate();
+    localStorage.setItem('status','فرز حسب');
   function go1() {}
   return (
     <div>

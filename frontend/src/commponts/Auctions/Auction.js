@@ -28,7 +28,8 @@ export default function Auction({data}) {
     return { day, hours, minutes, ampm };
   };
 
-  const { day, hours, minutes, ampm } = extractDateTime(data?.startTime);
+  const { day, hours, minutes, ampm } = extractDateTime(data?.
+createdAt);
   return (
     <div className="oneAuction">
       <p className={data?.activeStatus === 'جاري' ? 'time' :data?.activeStatus === 'قادم'? 'time2':"time1"}>{data?.
@@ -59,7 +60,7 @@ activeStatus
         <div className="product1">
           <div>
             <div>بدأ {day}</div>
-            <div>{hours}:{minutes}:{ampm}</div>{' '}
+            <div>{hours}:{minutes}{ampm}</div>{' '}
           </div>
           <i className="far fa-clock clockAuction"></i>
         </div>

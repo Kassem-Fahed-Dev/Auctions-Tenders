@@ -14,6 +14,7 @@ export default function AllTenders() {
   const [test, setTest] = useState('');
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
+    localStorage.setItem('status','فرز حسب');
   const handleClick = () => {
     if (value2 == 'فرز حسب' && value == 'فرز حسب') {
       setTest(' ');
