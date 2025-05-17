@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Navbar from '../../Home/Navbar';
 import AuctionsNavbar from '../../Auctions/AuctionsNavbar';
 import Footer from '../../privacy policy/Footer';
+import { useLocation } from 'react-router-dom';
 function handel_Fav(e) {
   let hh = e.target;
   if (hh.style.color === 'red') {
@@ -29,17 +30,20 @@ export default function Details() {
   }
   const [showParticipation, setShowParticipation] = useState(false);
 
-  const [state, setState] = useState('قادم');
-  function getcolor() {
-    if (state === 'جاري') {
-      return { color: 'green', paddingRight: '6px', fontSize: '19px' };
-    } else if (state === 'قادم') {
-      return { color: 'blue', paddingRight: '6px', fontSize: '19px' };
-    } else if (state === 'منتهي') {
-      return { color: 'red', paddingRight: '6px', fontSize: '19px' };
-    }
-    return {};
-  }
+  // const [state, setState] = useState('قادم');
+  // function getcolor() {
+  //   if (state === 'جاري') {
+  //     return { color: 'green', paddingRight: '6px', fontSize: '19px' };
+  //   } else if (state === 'قادم') {
+  //     return { color: 'blue', paddingRight: '6px', fontSize: '19px' };
+  //   } else if (state === 'منتهي') {
+  //     return { color: 'red', paddingRight: '6px', fontSize: '19px' };
+  //   }
+  //   return {};
+  // }
+  const location = useLocation();
+  const { data } = location.state;
+  console.log(data)
 
   return (
     <div className="All-con-det">
@@ -58,12 +62,12 @@ export default function Details() {
             <span className="	fas fa-chevron-left"></span>
           </button>
         </div>
-        <div className="con-nav-auction">
-          <div className="container-card-details">
+        <div className="create-auction-data datadecor">
+          <div className="create-auction-data1">
             <div className="con-title">
               <div className="div-title">
                 <p>اسم المزاد : </p>
-                <h4> سيارة افالون للبيع </h4>
+                <h4>{data?.auctionTtile}</h4>
               </div>
               <button
                 id="ptn-fav"
@@ -78,30 +82,44 @@ export default function Details() {
             <div className="div-con">
               <h6>تفاصيل المزاد </h6>
 
-              <div>
+              <div >
                 حالة المزاد :
-                <span id="stateauction" style={getcolor()}>
-                  {state}
-                </span>
+                <span className={data?.activeStatus === 'جاري' ? 'timedet' :data?.activeStatus === 'قادم'? 'time2det':"time1det"}>{data?.
+activeStatus
+}</span>
               </div>
             </div>
             <div className="condivs">
               <div>
-                تاريخ البدء :<span>12/2/2025</span>
+                تاريخ البدء :<span>{data?.startTime?.slice(0,10).replaceAll('-','/')}</span>
               </div>
               <div>
-                تاريخ الانتهاء :<span>12/2/2025</span>
+                تاريخ الانتهاء :<span>{data?.endTime?.slice(0,10).replaceAll('-','/')}</span>
               </div>
               <div>
                 السعر الابتدائي:
-                <span>150 مليون ليرة سورية</span>
+                <span>{data.startingPrice}</span>
               </div>
               <div>
                 السعر الحالي:
-                <span>250 مليون ليرة سورية</span>
+                <span>{data?.startingPrice}</span>
               </div>
               <div>
-                خطوة المزايدة :<span> 50 مليون ليرة سورية</span>
+                خطوة المزايدة :<span>{data?.minimumIncrement}</span>
+              </div>
+              <div>
+                اسم المنتج:<span>{data?.item?.name}</span>
+              </div>
+              <div>
+              {data?.item?.properties.map((item) => (
+  <div key={item.key}>
+    {item.key}: <span>{item.value}</span>
+  </div>
+))}
+                
+              </div>
+              <div>
+                حالة المنتج:<span>{data?.item?.status}</span>
               </div>
             </div>
             <hr />
@@ -118,7 +136,7 @@ export default function Details() {
                   <span>سوريا </span>
                 </div>
                 <div>
-                  المدينة : <span> حمص</span>
+                  المدينة : <span> {data.city}</span>
                 </div>
               </div>
               <div>
@@ -197,8 +215,8 @@ export default function Details() {
               </div>
             )}
           </div>
-
-          <Navdata />
+         <div className='create-auction-data2'>  <Navdata state={data} /></div>
+         
         </div>
       </div>{' '}
       <div style={{ marginTop: '80px' }}>

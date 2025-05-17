@@ -10,6 +10,7 @@ import Footer from '../privacy policy/Footer';
 
 export default function Home() {
   const tok = localStorage.getItem('jwt'); 
+  localStorage.setItem('status','فرز حسب');
   return (
     <div>
       <div className="header">

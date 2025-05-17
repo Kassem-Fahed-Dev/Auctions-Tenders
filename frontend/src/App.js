@@ -39,6 +39,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TenderGroup from './commponts/Tenders/TenderGroup';
 import Create_Tender from './commponts/Tenders/Create_Tender';
+import Cards from './commponts/Auctions/Cards';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -88,7 +89,9 @@ function App() {
   // if (isLoading) {
   //   return <div>Loading...</div>; // عرض شاشة تحميل أثناء التحقق من حالة تسجيل الدخول
   // }
+   
   return (
+   
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
@@ -97,6 +100,8 @@ function App() {
         <Route path="/acount" element={<CreateAcount />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/auctions" element={<AllAuctions />} />
+        {/* <Route path="/auctions/a" element={<Cards />}/> */}
+        {/* <Route path="/auctions" element={<AllAuctions />} /> */}
         <Route path="/share-auction" element={<ShareAuctions />} />
         <Route path="/favorite" element={<FavoriteAuction />} />
         <Route path="/auctionsgroup" element={<AuctionGroups />} />

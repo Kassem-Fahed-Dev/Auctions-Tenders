@@ -55,13 +55,16 @@
 /* container for the image and info 2 */
 .con-img-info {
   width: 840px;
-  height: 500px;
+  height: 470px;
   display: flex;
+  text-overflow: hidden;
   justify-content: flex-start;
   align-items: flex-start;
   position: relative;
+  border-radius: 59px;
+  border: 1px solid #00000050;
   /* background-color: aqua; */
-  box-shadow: 1px 2px 10px 1px #003366;
+  /* box-shadow: 1px 2px 10px 1px #003366; */
 }
 /* container for the image and button عرض  */
 .con-img-ptn {
@@ -100,21 +103,21 @@
   height: 30px;
   font-size: 14px;
   background-color: #ffffff;
-  font-family: IBM Plex Sans Arabic;
+  
 }
 .ptn-show:hover {
   font-size: 16px;
   font-weight: bolder;
   transition: 0.5s ease;
   color: #000000;
-  font-family: IBM Plex Sans Arabic;
+
 }
 .con-img-info .img-profile p {
   position: absolute;
   bottom: -45px;
   left: 38px;
   color: #003366;
-  font-family: IBM Plex Sans Arabic;
+
 }
 /* the icon in the circlie */
 .img-profile .fas.fa-user-tie {
@@ -132,26 +135,26 @@
 .ptn-5,
 .ptn-6 {
   position: absolute;
-  top: 165px;
+  top: 185px;
   left: 330px;
   border: none;
   border-radius: 50%;
   font-size: 9px;
   color: #cccccc;
 }
-.ptn-2 {
+/* .ptn-2 {
   position: absolute;
   top: 235px;
   left: 325px;
-}
+} */
 .ptn-3 {
   position: absolute;
-  top: 300px;
+  top: 255px;
   left: 322px;
 }
 .ptn-4 {
   position: absolute;
-  top: 368px;
+  top: 335px;
   left: 322px;
 }
 /* .ptn-5 {
@@ -161,7 +164,7 @@
 } */
 .ptn-6 {
   position: absolute;
-  top: 438px;
+  top: 410px;
   left: 322px;
 }
 
@@ -262,14 +265,16 @@
 .svg1 {
   position: absolute;
   top: -135px;
-  left: -33px;
+  left: -34px;
   width: 490px;
   display: inline-block;
+  border-top-left-radius: 36px;
 }
 .welcome {
   position: absolute;
   left: 45px;
   top: 25px;
+ 
   /* background-color: red; */
   width: 200px;
 }

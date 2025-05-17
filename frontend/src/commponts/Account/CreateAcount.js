@@ -81,9 +81,10 @@ export default function CreateAcount() {
   //   تطبيق الحركة على مربع الادخال
   const hoverItems1 = (items) => {
     if (namePass.includes(items) == false) {
-      setNamePase([...namePass, items]);
+      setNamePase([...namePass, items.trim()]);
     }
   };
+    localStorage.setItem('status','فرز حسب');
   //   اختيار الموقع
 
   // const hoverItems2 = (items) => {
@@ -95,7 +96,7 @@ export default function CreateAcount() {
   // دالة تنفذ عند onchange لانشاء الحساب
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });
   };
   //   دالة checked
   const handleChange1 = (e) => {
@@ -105,7 +106,7 @@ export default function CreateAcount() {
   //   دالة تنفذ عند ال onchange في تسجيل الدخول
   const handleChange2 = (e) => {
     const { name, value } = e.target;
-    setFormData1({ ...formData1, [name]: value });
+    setFormData1({ ...formData1, [name]: value.trim() });
   };
   //   دالة الارسال و اظهار الاخطاء في انشاء الحساب
   
@@ -280,7 +281,7 @@ export default function CreateAcount() {
   // مشان ادخل الايميل و احفظه  لواجهة يلي بعد
   const handleChange3 = (e) => {
     const { name, value } = e.target;
-    setFormData2({ [name]: value });
+    setFormData2({ [name]: value.trim() });
     setFormData3({ ...formData3, email: value });
   };
   // واجهة الايميل

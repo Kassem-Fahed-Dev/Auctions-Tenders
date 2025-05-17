@@ -1,4 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axiosInstance from '../../../AxiosInterceptors';
+export const fetchUserFromAPI = createAsyncThunk(
+  'show_edite/fetchUser',
+  async (_, data) => {
+    try {
+      const token = localStorage.getItem('jwt');
+      const res = await axiosInstance.get('/api/v1/users/me', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data.data.data;
+    } catch (error) {
+      return data.rejectWithValue(
+        error.response?.data?.message || 'حدث خطأ في تحميل البيانات'
+      );
+    }
+  }
+);
 const ptn = createSlice({
   name: 'show_edite',
   initialState: {
@@ -7,14 +29,13 @@ const ptn = createSlice({
     oldpass: '',
     userInput: '',
     Input_confirm: '',
-    submit1: 'فادي_66',
+    name: 'يتم تحميل معلوماتك',
     fullname: 'فادي أحمد قاسم',
-    email: 'fadi66@gmail.com',
-    number: '123456789',
+    email:  'يتم تحميل معلوماتك',
+    phone:  'يتم تحميل معلوماتك',
     location: 'سوريا حمص',
     pass: 'fadi123',
     error: '',
-    // label: "الاسم الكامل",
     label: 'الاسم المستخدم',
   },
   reducers: {
@@ -30,7 +51,6 @@ const ptn = createSlice({
     exitShow: (state) => {
       state.show = false;
     },
-
     setInput: (state, action) => {
       state.userInput = action.payload;
     },
@@ -61,10 +81,24 @@ const ptn = createSlice({
     updatepass: (state) => {
       state.pass = state.userInput;
     },
-
     labelName: (state, action) => {
       state.label = action.payload;
     },
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserFromAPI.fulfilled, (state, action) => {
+        const user = action.payload;
+        state.name = user.name || state.name;
+        state.fullname = user.fullName || state.fullname;
+        state.email = user.email || state.email;
+        state.phone = user.phone || state.phone;
+        state.location = user.location || state.location;
+      })
+      .addCase(fetchUserFromAPI.rejected, (state, action) => {
+        state.error = action.payload;
+      });
   },
 });
 
@@ -85,4 +119,5 @@ export const {
   updatepass,
   labelName,
 } = ptn.actions;
+
 export default ptn.reducer;
