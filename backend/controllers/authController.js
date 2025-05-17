@@ -3,6 +3,7 @@ const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('./../models/User');
+const BlacklistToken = require('./../models/BlacklistToken');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const sendEmail = require('./../utils/email');
@@ -65,19 +66,22 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-exports.logout = (req, res, next) => {
-  const cookieOptions = {
-    httpOnly: true,
-  };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-
-  res.clearCookie('jwt', cookieOptions);
-
+exports.logout = catchAsync(async(req, res, next) => {
+  const newBlacklistToken = new BlacklistToken({token:req.token});
+  await newBlacklistToken.save();
   res.status(200).json({
     status: req.t(`fields:success`),
     message: req.t('successes:logout'),
   });
-};
+  
+  // const cookieOptions = {
+  //   httpOnly: true,
+  // };
+  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  // res.clearCookie('jwt', cookieOptions);
+
+});
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
@@ -88,10 +92,14 @@ exports.protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-
   if (!token) {
     return next(new AppError(req.t(`errors:access`), 401));
   }
+  // check if the token in Blacklist tokens or not
+  const checkIfBlacklisted = await BlacklistToken.findOne({token})
+  console.log(checkIfBlacklisted)
+  if(checkIfBlacklisted)
+    return next(new AppError(req.t(`errors:access`), 401));
 
   // 2) Verification token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -108,6 +116,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
+  req.token = token
   next();
 });
 

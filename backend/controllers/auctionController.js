@@ -33,33 +33,42 @@ exports.getUserId = (req, res, next) => {
 
 // 1. CREATE Auction + Item
 exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
-  // Create Item first
-  const newItem = new Item({
-    ...req.body.item,
-    auction: null, // Temporary placeholder
-  });
+  let newItem = null;
+  let newAuction = null;
+  try {
+    // Create Item first
+    newItem = new Item({
+      ...req.body.item,
+      auction: null, // Temporary placeholder
+    });
 
-  // Create Auction with Item reference
-  const newAuction = new Auction({
-    ...req.body.auction,
-    user: req.user.id,
-    item: newItem._id,
-  });
+    // Create Auction with Item reference
+    newAuction = new Auction({
+      ...req.body.auction,
+      user: req.user.id,
+      item: newItem._id,
+    });
 
-  // Update Item with Auction reference
-  newItem.auction = newAuction._id;
-  await Promise.all([newItem.save(), newAuction.save()]);
+    // Update Item with Auction reference
+    newItem.auction = newAuction._id;
+    await newItem.save();
+    await newAuction.save();
 
-  const populatedAuction = await Auction.findById(newAuction._id)
-    .populate('item')
-    .populate('user');
-  res.status(201).json({
-    status: req.t(`fields:success`),
-    message: req.t(`successes:createAuction`),
-    data: {
-      populatedAuction,
-    },
-  });
+    const populatedAuction = await Auction.findById(newAuction._id)
+      .populate('item')
+      .populate('user');
+    res.status(201).json({
+      status: req.t(`fields:success`),
+      message: req.t(`successes:createAuction`),
+      data: {
+        populatedAuction,
+      },
+    });
+  } catch (err) {
+    if (newAuction) await Auction.findByIdAndDelete({ _id: newAuction._id });
+    if (newItem) await Item.findByIdAndDelete({ _id: newItem._id });
+    return next(new AppError(err, 400));
+  }
 });
 
 // 2. GET Auction + Item

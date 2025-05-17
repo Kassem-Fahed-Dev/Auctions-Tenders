@@ -17,5 +17,6 @@
   "currentPassword": "Your current password is wrong.",
   "bidding":"You cannot bid on your own auction",
   "biddingClose":"Bidding is closed for this auction",
-   "biddingAmount":"Bid amount must be at least {{minimumValidBid}}"
+   "biddingAmount":"Bid amount must be at least {{minimumValidBid}}",
+   "createAuciton": "Auction dosn't created successfully"
 }

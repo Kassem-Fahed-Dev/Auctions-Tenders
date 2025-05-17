@@ -17,5 +17,6 @@
   "currentPassword": "كلمة المرور الحالية الخاصة بك خاطئة",
   "bidding":"لا يمكنك المزايدة على المزاد الخاص بك",
   "biddingClose":"انتهت فترة المزايدة على هذا المزاد",
-  "biddingAmount":"يجب أن يكون مبلغ العرض على الأقل  {{minimumValidBid}}"
+  "biddingAmount":"يجب أن يكون مبلغ العرض على الأقل  {{minimumValidBid}}",
+  "createAuction": "لم يتم إنشاء المزاد بنجاح"
 }

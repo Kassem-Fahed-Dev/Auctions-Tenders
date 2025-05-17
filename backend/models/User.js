@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
+      required: [true, 'phone required'],
     },
     profileImg: String,
     password: {

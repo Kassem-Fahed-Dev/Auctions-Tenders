@@ -17,15 +17,15 @@ const auctionSchema = new mongoose.Schema(
     },
     startTime: {
       type: Date,
-      require: [true, 'Please inter start time'],
+      required: [true, 'Please inter start time'],
     },
     endTime: {
       type: Date,
-      require: [true, 'Please inter end time'],
+      required: [true, 'Please inter end time'],
     },
     minimumIncrement: {
       type: Number,
-      require: [true, 'Enter the minimum increase'],
+      required: [true, 'Enter the minimum increase'],
     },
     startingPrice: {
       type: Number,
