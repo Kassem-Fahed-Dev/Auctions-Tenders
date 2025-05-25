@@ -7,6 +7,7 @@ const BlacklistToken = require('./../models/BlacklistToken');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const sendEmail = require('./../utils/email');
+const sendOTP = require('../utils/sendOtp');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -152,11 +153,16 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const message = `Forgot your password? Submit Your password reset code ${resetCode}.\nIf you didn't forget your password, please ignore this email!`;
 
   try {
-    await sendEmail({
-      email: user.email,
-      subject: 'Your password reset code (valid for 10 min)',
-      message,
-    });
+    //sending the code by whatsapp
+    await sendOTP(user.phone,resetCode);
+
+    //sending the code by email
+
+    // await sendEmail({
+    //   email: user.email,
+    //   subject: 'Your password reset code (valid for 10 min)',
+    //   message,
+    //});
 
     res.status(200).json({
       status: req.t(`fields:success`),
@@ -167,7 +173,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
 
-    return next(new AppError(req.t(`errors:sendingEmail`)), 500);
+    return next(new AppError(req.t(`errors:sendingCode`)), 500);
   }
 });
 
