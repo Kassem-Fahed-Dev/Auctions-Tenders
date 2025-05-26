@@ -150,7 +150,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   // 3) Send it to user's email
 
-  const message = `Forgot your password? Submit Your password reset code ${resetCode}.\nIf you didn't forget your password, please ignore this email!`;
+ // const message = `Forgot your password? Submit Your password reset code ${resetCode}.\nIf you didn't forget your password, please ignore this email!`;
 
   try {
     //sending the code by whatsapp
