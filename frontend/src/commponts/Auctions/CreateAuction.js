@@ -281,7 +281,7 @@ const handleChange2 = (k) => (e) => {
             item: {
                 ...prevData.item,
                 properties: prevData.item.properties.map(item1 =>
-                    item1.key === k ? { ...item1, value:value.trim() } : item1.trim() 
+                    item1.key === k ? { ...item1, value: typeof value=== 'string' ? value.trim() : value } :  typeof item1 === 'string' ? item1.trim() : item1
                 ),
             },
         }));
