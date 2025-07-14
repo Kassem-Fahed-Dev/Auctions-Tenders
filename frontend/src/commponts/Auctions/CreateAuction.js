@@ -281,7 +281,7 @@ const handleChange2 = (k) => (e) => {
             item: {
                 ...prevData.item,
                 properties: prevData.item.properties.map(item1 =>
-                    item1.key === k ? { ...item1, value: typeof value=== 'string' ? value.trim() : value } :  typeof item1 === 'string' ? item1.trim() : item1
+                    item1.key === k ? { ...item1, value:value.trim()} :  typeof item1 === 'string' ? item1.trim() : item1
                 ),
             },
         }));
@@ -576,7 +576,7 @@ const handleChange2 = (k) => (e) => {
                 className="textarea"
                 placeholder="اكتب ما تود إضافتهُ من معلومات توضيحية اكثر هنا"
                 name="description"
-                value={formData1.item.description}
+                value={formData1.item?.description}
                 onChange={handleChange1} 
               />
             </div>

@@ -47,8 +47,49 @@ export default function Cards({page}) {
     });
   }
   // /api/v1/auctions
-  else if(page=="create"){
+  else if(page=="all"){
     console.log('create')
+    console.log(sort)
+    axiosInstance
+    .get(
+      `${
+      sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
+          ? 
+          '/api/v1/auctions'
+          : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
+          ? `/api/v1/auctions?activeStatus=${sort.trim()}`
+          : `/api/v1/auctions?categoryName=${sort.trim()}`
+      }`
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+           'credentials': 'include',
+            'Authorization': `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      setAll(res.data.data.data);
+      console.log('all')
+      console.log(all);
+    })
+    .catch((error) => {
+      if (error.response) {
+        const validationErrors = {};
+        validationErrors.messageBackend = error.response.data.message;
+        setErrorMessage(validationErrors);
+      } else {
+        console.log('An unexpected error occurred:', error.message);
+        setErrorMessage({
+          messageBackend: 'An unexpected error occurred.',
+        });
+      }
+    });
+  }
+    else if(page=="create"){
+  
     console.log(sort)
     axiosInstance
     .get(
@@ -72,7 +113,8 @@ export default function Cards({page}) {
     )
     .then((res) => {
       setAll(res.data.data.data);
-      console.log(all);
+      console.log('create')
+      console.log(res.data.data.data);
     })
     .catch((error) => {
       if (error.response) {
@@ -87,6 +129,7 @@ export default function Cards({page}) {
       }
     });
   }
+
 },[sort])
 // }
   return (
