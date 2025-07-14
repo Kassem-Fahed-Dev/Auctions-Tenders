@@ -1,84 +1,103 @@
 /* الناف الاساسي */
-.Nav , .Navul{
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
+.Nav,
+.Navul {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
 }
 
-.Nav{
-    width: 95%;
-    height: 80px;
-    background-color: #f2f2f2;
-    border-radius: 28px;
-    margin: 5px auto;
-    padding: 5px 20px;
-    padding-right: 50px;
-    position: sticky;
-    top: 32px;
-    z-index: 5;
- 
+.Nav {
+  width: 95%;
+  height: 80px;
+  background-color: #f2f2f2;
+  border-radius: 28px;
+  margin: 5px auto;
+  padding: 5px 20px;
+  padding-right: 50px;
+  position: sticky;
+  top: 32px;
+
+  z-index: 5;
 }
 
 /* القائمة الاولى */
-.ul1{
-    width: 40%;
-    padding: 4px;
-    gap: 30px;
+.ul1 {
+  width: 40%;
+  padding: 4px;
+  gap: 30px;
 }
 /* القاىمة الثانية */
-.ul2{
-    width: 280px;
-    font-size: 14px;
-    padding: 4px;
-    margin-top: 15px;
- 
+.ul2 {
+  width: 280px;
+  font-size: 14px;
+  padding: 4px;
+  margin-top: 15px;
 }
-.ul1 li{
-    width: 50px;
+.ul1 li {
+  width: 50px;
 }
 /* ال hover على الكلمات */
-.Navul li a:hover{
-    font-weight:bold ;
-    font-size: 36px;
+.Navul li a:hover {
+  font-weight: bold;
+  font-size: 36px;
 }
 /* الايقونات ضمن الناف */
-.fas{
-    color: #cccccc;
+.fas {
+  color: #cccccc;
 }
-.icon{
-    text-align: center;
-    font-size: 30px;
+.icon {
+  text-align: center;
+  font-size: 30px;
 }
-.account ,.users{
-    font-size: 14px;
- }
- .users:hover,.account:hover{
-    font-weight: bold;
-
- }
-  .bold1{
-    font-weight: bold;
-  }
+/* .account, */
+.users {
+  font-size: 14px;
+}
+.users:hover,
+.account:hover,
+.logout:hover {
+  font-weight: bold;
+}
+.bold1 {
+  font-weight: bold;
+}
 
 /* الروابط بكل قائمة */
-.Navul li a{
-    text-decoration: none;
-    color: #003366;
-    font-size: 32px;
+.Navul li a {
+  text-decoration: none;
+  color: #003366;
+  font-size: 32px;
 }
 /* ال لوغو */
-.logo1{
-    width:85px;
-    height: 66px;
+.logo1 {
+  width: 85px;
+  height: 66px;
 }
-.logo{
-    border: none;
-    outline: none;
+.logo {
+  border: none;
+  outline: none;
 }
 /* مشان تصير غامقة */
-.bold{
-    font-weight: bold;
-    font-size: 36px;
+.bold {
+  font-weight: bold;
+  font-size: 36px;
+}
+#logout {
+  border: none;
+  background-color: transparent;
+  font-size: 10px;
+  width: 80px;
+  color: #003366;
+}
+.account {
+  font-size: 12px;
+  width: 80px;
+}
+.conLogOut {
+  position: absolute;
+  direction: rtl;
+  display: flex;
+  left: 210px;
 }

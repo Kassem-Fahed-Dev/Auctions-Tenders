@@ -3,18 +3,17 @@ import './details.css';
 import im from './Boxing.webp';
 import im2 from './boxing.jpg';
 import im3 from './im3.jpg';
-import vid from './ggg.mp4';
+// import vid from './ggg.mp4';
 import { useLocation } from 'react-router-dom';
 
-function Data({state1}) {
+function Data({ state1 }) {
   // const location = useLocation();
   // const { data } = location.state;
   // console.log(state)
-  
+
   return (
     <div>
-      <pre className="information-auction">{state1.item?.description
-      }</pre>
+      <pre className="information-auction">{state1.item?.description}</pre>
     </div>
   );
 }
@@ -101,12 +100,12 @@ function Vidio() {
   return (
     <div>
       <video width="600" height="390" controls>
-        <source src={vid} type="video/mp4" />
+        {/* <source src={vid} type="video/mp4" /> */}
       </video>
     </div>
   );
 }
-export default function Navdata({state}) {
+export default function Navdata({ state }) {
   const [content, setContent] = useState('data');
   const [activeClick, setActiveClick] = useState('data');
 
