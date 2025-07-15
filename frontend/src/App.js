@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Home from './commponts/Home/Home';
+import Favorite from './commponts/Home/Favorite';
 import { Routes, Route } from 'react-router-dom';
 import Privacy from './commponts/privacy policy/Privacy';
 import Privacy1 from './commponts/privacy policy/Privacy1';
@@ -95,6 +96,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+         <Route path="/fav" element={<Favorite />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/privacy1" element={<Privacy1 />} />
         <Route path="/acount" element={<CreateAcount />} />
