@@ -42,6 +42,7 @@ import TenderGroup from './commponts/Tenders/TenderGroup';
 import Create_Tender from './commponts/Tenders/Create_Tender';
 import Cards from './commponts/Auctions/Cards';
 import ConfirmLogout from './commponts/Account/ConfirmLogout';
+import AllUsers from './commponts/AllUser/AllUsers';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -96,7 +97,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-         <Route path="/fav" element={<Favorite />} />
+        <Route path="/fav" element={<Favorite />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/privacy1" element={<Privacy1 />} />
         <Route path="/acount" element={<CreateAcount />} />
@@ -165,6 +166,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         {/* logout */}
         <Route path="/logout1" element={<ConfirmLogout />} />
+        <Route path="/users" element={<AllUsers />} />
       </Routes>
     </div>
   );

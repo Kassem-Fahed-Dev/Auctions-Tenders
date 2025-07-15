@@ -70,21 +70,23 @@ export default function Navbar({ wordBlod }) {
             </li>
           ) : (
             <li onClick={() => hoverItems('user')}>
-              <div className="icon">
-                <i className="fas fa-user-circle"></i>
-              </div>
-              <div className="conLogOut">
-                <Link to="/profile">
-                  <p className="account">{name}</p>
-                </Link>
-                <Link to="/logout1" id="logout">
-                  تسجيل خروج
-                </Link>
+              <div className="c_2">
+                <div className="icon">
+                  <i className="fas fa-user-circle"></i>
+                </div>
+                <div className="conLogOut">
+                  <Link to="/profile">
+                    <p className="account">{name}</p>
+                  </Link>
+                  <Link to="/logout1" id="logout">
+                    تسجيل خروج
+                  </Link>
+                </div>
               </div>
             </li>
           )}
           <li onClick={() => hoverItems('alluser')}>
-            <Link to="users">
+            <Link to="/users">
               <div className="icon">
                 <i className="fas fa-users"></i>
               </div>

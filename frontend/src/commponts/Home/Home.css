@@ -305,17 +305,17 @@ ol {
   flex-direction: column;
 }
 /* ------------ */
-.side{
-direction: rtl;
-margin-top: 40px;
+.side {
+  direction: rtl;
+  margin-top: 40px;
 }
-.vis{
+.vis {
   display: block;
 }
-.hid{
+.hid {
   display: none;
 }
-.fav-act{
+.fav-act {
   background-color: #003366;
   color: #fff;
   width: 200px;
@@ -323,16 +323,15 @@ margin-top: 40px;
   border: none;
   border-radius: 8px;
   font-weight: 800;
-
 }
-.but{
+.but {
   display: flex;
   margin-top: 50px;
-  
+
   align-items: center;
- justify-content: space-evenly;
+  justify-content: space-evenly;
 }
-.par{
+.par {
   font-size: 30px;
   font-weight: bold;
   margin-right: 15px;
@@ -340,16 +339,17 @@ margin-top: 40px;
   top: 240px;
   right: 90px;
 }
-.pic{
+.pic {
   position: absolute;
   top: 240px;
   right: 40px;
 }
-.dec{
+.dec {
+  direction: ltr;
   margin-right: 100px;
   margin-top: 5px;
 }
-.but-sor{
+.but-sor {
   margin-top: 50px;
   margin-right: 1000px;
 }

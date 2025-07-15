@@ -10,7 +10,7 @@ import ButtonSort from './ButtonSort';
 export default function Favorite() {
   const location = useLocation();
   const currentPath = location.pathname;
-  const [change, setChange] = useState('');
+  const [change, setChange] = useState('fav-act');
   function handel_Fav(e) {
     let hh = e.target;
     if (hh.style.color === 'red') {
@@ -24,57 +24,57 @@ export default function Favorite() {
     <div>
       <Navbar />
       <div className="side">
-        <div >
-        <div className='but'>
+        <div>
+          <div className="but">
             <button
-          className='fav-act'
-            onClick={() => {
-              setChange('fav-act');
-            }}
-          >
-            المزادات المفضلة
-          </button>
-          <button
-          className='fav-act'
-            onClick={() => {
-              setChange('fav-ten');
-            }}
-          >
-            المناقصات المفضلة
-          </button>
-          
-        </div>
-         
+              className="fav-act"
+              onClick={() => {
+                setChange('fav-act');
+              }}
+            >
+              المزادات المفضلة
+            </button>
+            <button
+              className="fav-act"
+              onClick={() => {
+                setChange('fav-ten');
+              }}
+            >
+              المناقصات المفضلة
+            </button>
+          </div>
+
           {
             <div
-              className={`${change === 'fav-act' || change === 'fav-ten' ? 'vis' : 'hid'}`}
+              className={`${
+                change === 'fav-act' || change === 'fav-ten' ? 'vis' : 'hid'
+              }`}
             >
-             
-               <img
-                              className='pic'
-                              src={Pic}
-                              alt="Error"
-                              width={'50px'}
-                              height={'40px'}
-                            />
+              <img
+                className="pic"
+                src={Pic}
+                alt="Error"
+                width={'50px'}
+                height={'40px'}
+              />
               <div className={`${change === 'fav-act' ? 'vis' : 'hid'}`}>
                 <div>
-                  <div className='but-sor'>
-                  <ButtonSort/>
+                  <div className="but-sor">
+                    <ButtonSort />
+                  </div>
+                  <p className="par">المزادات المفضلة</p>
                 </div>
-                <p className='par'>المزادات المفضلة</p>
-                </div>
-                <div className='dec'>
+                <div className="dec">
                   <Cards page={'all'} />
                 </div>
               </div>
               <div className={`${change === 'fav-ten' ? 'vis' : 'hid'}`}>
-                <div className='but-sor'>
-                  <ButtonSort/>
+                <div className="but-sor">
+                  <ButtonSort />
                 </div>
-                <p className='par'>المناقصات المفضلة</p>
-              
-                <div className='dec'>
+                <p className="par">المناقصات المفضلة</p>
+
+                <div className="dec">
                   <Cards page={'all'} />
                 </div>
               </div>
