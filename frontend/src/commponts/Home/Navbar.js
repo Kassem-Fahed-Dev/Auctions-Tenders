@@ -90,7 +90,7 @@ export default function Navbar({ wordBlod }) {
               <div className="icon">
                 <i className="fas fa-users"></i>
               </div>
-              <p className="users">كل المستخدمين</p>
+              <p className="users"> المستخدمين</p>
             </Link>
           </li>
         </ul>
