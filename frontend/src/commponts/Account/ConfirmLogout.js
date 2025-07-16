@@ -1,14 +1,17 @@
 import './Confirm.css';
+import ll from '../../image/user2.jpg';
 import imag from '../../image/logo.png';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Home/Navbar';
 import Confirm from './Confirm';
 import { useState } from 'react';
 export default function ConfirmLogout({}) {
+
   const [show, setshow] = useState(false);
   function handelaccept() {
     localStorage.setItem('jwt', null);
     localStorage.setItem('name', 'حساب الدخول');
+    localStorage.setItem('img', ll);
     setshow(true);
   }
   function handereject() {

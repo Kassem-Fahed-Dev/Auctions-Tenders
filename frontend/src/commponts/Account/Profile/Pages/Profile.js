@@ -73,16 +73,25 @@ export default function Account() {
     img.onload = () => setImageLoaded(true);
     img.onerror = () => setImageLoaded(false);
   }, []);
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      localStorage.setItem('img', reader.result); // تخزين الصورة بصيغة Data URL
+      setSelectedImage(reader.result); // عرض الصورة بعد الاختيار
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+// لعرض الصورة عند تحميل الصفحة أو عند الحاجة
+useEffect(() => {
+  const imgDataUrl = localStorage.getItem('img');
+  if (imgDataUrl) {
+    setSelectedImage(imgDataUrl);
+  }
+}, []);
   return (
     <>
       <Navbar />
