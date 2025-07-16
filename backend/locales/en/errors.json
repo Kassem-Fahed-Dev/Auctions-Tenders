@@ -17,7 +17,9 @@
   "currentPassword": "Your current password is wrong.",
   "bidding":"You cannot bid on your own auction",
   "biddingClose":"Bidding is closed for this auction",
-   "biddingAmount":"Bid amount must be at least {{minimumValidBid}}",
-   "createAuciton": "Auction dosn't created successfully",
-   "sendingCode":"There was an error sending the code to your WhatsApp account. Try again later!"
+  "biddingAmount":"Bid amount must be at least {{minimumValidBid}}",
+  "createAuciton": "Auction dosn't created successfully",
+  "sendingCode":"There was an error sending the code to your WhatsApp account. Try again later!",
+  "favoriteExists": "This auction is already in your favorites",
+  "favoriteNotFound": "This auction is not in your favorites"
 }

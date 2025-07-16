@@ -5,5 +5,7 @@
   "deleteAuction":"Auction deleted successfully",
   "codeVerified":"Code verified",
   "logout":"logged out successfully",
-  "bid":"Bid placed successfully"
+  "bid":"Bid placed successfully",
+  "addFavorite":"Added to favorites successfully",
+  "removeFavorite":"Removed from favorites successfully"
 }

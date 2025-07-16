@@ -4,6 +4,7 @@ const sendOTP = async (phoneNumber, otpCode) => {
 
   const url = process.env.URL_SEND_OTP;
 
+  console.log(phoneNumber)
   const data = {
     phone: `963${phoneNumber}`, // Phone number in international format
     message: `Your OTP code is: ${otpCode}`

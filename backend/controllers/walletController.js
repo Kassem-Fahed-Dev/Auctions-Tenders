@@ -14,6 +14,7 @@ exports.getAllWalletActivities = catchAsync(async (req, res, next) => {
   const WalletActivities = await features.query;
   res.status(200).json({
     status: 'success',
+    results:WalletActivities.length,
     data: WalletActivities,
   });
 });
@@ -37,7 +38,7 @@ exports.depositRequest = catchAsync(async (req, res, next) => {
   await wallet.save();
 
   // log activity
-  await WalletActivity.create({
+  const w =await WalletActivity.create({
     partner,
     descriptionTransaction: 'Deposit requested',
     amount, // positive

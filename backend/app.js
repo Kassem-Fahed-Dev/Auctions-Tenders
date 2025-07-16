@@ -12,6 +12,8 @@ const paymentRouter = require('./routs/paymentRoutes');
 const userRouter = require('./routs/userRoutes');
 const auctionRouter = require('./routs/auctionRoutes');
 const categoryRouter = require('./routs/categoryRoutes');
+const favoriteRouter = require('./routs/favoriteRoutes');
+
 if (process.env.ENABLE_CRON == 'true') {
   require('./utils/scheduler');
 }
@@ -47,7 +49,8 @@ app.use(i18nextMiddleware.handle(i18next));
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/auctions', auctionRouter);
 app.use('/api/v1/categories', categoryRouter);
-app.use('/api/v1/payment', paymentRouter);
+app.use('/api/v1/payments', paymentRouter);
+app.use('/api/v1/favorites', favoriteRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

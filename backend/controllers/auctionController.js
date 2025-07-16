@@ -1,6 +1,7 @@
 const Auction = require('../models/Auction');
 const Item = require('../models/Item');
 const Category = require('../models/Category');
+const Favorite = require('../models/Favorite');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
@@ -17,9 +18,8 @@ exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
   });
   //console.log(category)
   const itemsInCategory = await Item.find({ category: category._id });
-
+  
   const itemIds = itemsInCategory.map((item) => item._id);
-
   req.itemAuction = { item: { $in: itemIds } };
   // console.log(req.itemAuction)
   next();
@@ -153,10 +153,12 @@ exports.deleteAuctionWithItem = catchAsync(async (req, res, next) => {
 });
 
 // Get All Auctions + Items
+
 exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
   let filterAuctionsByCategory = {};
   if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
-
+  req.itemAuction = undefined;
+  console.log(filterAuctionsByCategory)
   const query = Auction.find(filterAuctionsByCategory)
     .populate('item')
     .populate('user');
@@ -167,6 +169,78 @@ exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
     .paginate();
 
   const auctions = await features.query;
+  
+  // Check favorites
+  const auctionIds = auctions.map(auction => auction._id);
+  
+  // Get all favorites for this user and these auctions
+  const favorites = await Favorite.find({
+      user: req.user.id,
+      auction: { $in: auctionIds }
+    });
+    
+    
+    // Create a Set of favorited auction IDs for quick lookup
+    const favoritedAuctionIds = new Set(
+      favorites.map(fav => fav.auction.toString())
+    );
+    
+    // Add favorite field to each auction
+      auctions.forEach(auction => {
+      auction = auction.toObject();
+      auction.favorite = favoritedAuctionIds.has(auction._id.toString());
+      return auction;
+    });
+  //console.log(auctions)
+  res.status(200).json({
+    status: req.t(`fields:success`),
+    result: auctions.length,
+    data: {
+      data: auctions,
+    },
+  });
+});
+
+// Git my auctions
+exports.getMyAuctions = catchAsync(async (req, res, next) => {
+  let filterAuctionsByCategory = {};
+  if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
+  req.itemAuction=undefined
+  filterAuctionsByCategory.user = req.user.id
+  console.log(filterAuctionsByCategory)
+  const query = Auction.find(filterAuctionsByCategory)
+    .populate('item')
+    .populate('user');
+  const features = new APIFeatures(query, req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const auctions = await features.query;
+  
+  // Check favorites
+  const auctionIds = auctions.map(auction => auction._id);
+  
+  // Get all favorites for this user and these auctions
+  const favorites = await Favorite.find({
+      user: req.user.id,
+      auction: { $in: auctionIds }
+    });
+    
+    
+    // Create a Set of favorited auction IDs for quick lookup
+    const favoritedAuctionIds = new Set(
+      favorites.map(fav => fav.auction.toString())
+    );
+    
+    // Add favorite field to each auction
+      auctions.forEach(auction => {
+      auction = auction.toObject();
+      auction.favorite = favoritedAuctionIds.has(auction._id.toString());
+      return auction;
+    });
+  //console.log(auctions)
   res.status(200).json({
     status: req.t(`fields:success`),
     result: auctions.length,

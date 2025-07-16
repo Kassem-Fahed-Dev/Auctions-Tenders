@@ -9,9 +9,14 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
   // 1. Get the auction
   const auction = await Auction.findById(auctionId).populate('user');
-  console.log(auction)
+  console.log(auction);
   if (!auction) {
-    return next(new AppError(req.t(`errors:notFound`,{doc:req.t(`fields:auction`)}), 404));
+    return next(
+      new AppError(
+        req.t(`errors:notFound`, { doc: req.t(`fields:auction`) }),
+        404,
+      ),
+    );
   }
 
   // 2. Check if user is the auction creator
@@ -28,7 +33,10 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   const minimumValidBid = auction.highestPrice + auction.minimumIncrement;
   if (amount < minimumValidBid) {
     return next(
-      new AppError(req.t(`errors:biddingAmount`,{minimumValidBid:minimumValidBid+1}), 400),
+      new AppError(
+        req.t(`errors:biddingAmount`, { minimumValidBid: minimumValidBid + 1 }),
+        400,
+      ),
     );
   }
 
