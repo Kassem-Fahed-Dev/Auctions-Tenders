@@ -6,17 +6,20 @@ const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 
 exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
-  const categoryName = req.query.categoryName; 
+  const categoryName = req.query.categoryName;
   req.query = (({ categoryName, ...rest }) => rest)(req.query);
   if (!categoryName) {
     return next();
   }
-  const category = await Category.findOne({ type: 'auction', name: categoryName });
-  const itemsInCategory = await Item.find({ category:category._id});
-  
+  const category = await Category.findOne({
+    type: 'auction',
+    name: categoryName,
+  });
+  const itemsInCategory = await Item.find({ category: category._id });
+
   const itemIds = itemsInCategory.map((item) => item._id);
 
-  req.itemAuction = { item:{$in: itemIds}};
+  req.itemAuction = { item: { $in: itemIds } };
   //console.log(req.query.item)
   next();
 });
@@ -29,6 +32,11 @@ exports.getUserId = (req, res, next) => {
 
 // 1. CREATE Auction + Item
 exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
+  console.log('iam here');
+  console.log(req.user); // ✅ Check if user exists
+  if (!req.user || !req.user.id) {
+    return next(new Error('User not authenticated or missing ID.'));
+  }
   // Create Item first
   const newItem = await Item.create({
     ...req.body.item,
@@ -124,9 +132,8 @@ exports.deleteAuctionWithItem = catchAsync(async (req, res, next) => {
 // Get All Auctions + Items
 exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
   let filterAuctionsByCategory = {};
-  if (req.itemAuction)
-    filterAuctionsByCategory = req.itemAuction;
-  
+  if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
+
   const query = Auction.find(filterAuctionsByCategory).populate('item');
   const features = new APIFeatures(query, req.query)
     .filter()
