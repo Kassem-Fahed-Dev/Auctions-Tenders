@@ -552,7 +552,7 @@ export default function CreateAcount() {
                     </label>
                   </div>
                   {errorMessage1.messageBackend && (
-                    <span className="error0 reject">
+                    <span className="error0 Rigect">
                       {errorMessage1.messageBackend}
                       <span className="fa fa-warning"></span>
                     </span>

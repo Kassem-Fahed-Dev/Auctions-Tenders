@@ -104,7 +104,7 @@ export default function AllAuctions(){
                 <button className="button2" onClick={()=>{handleClick2(' منتهي')}}>منتهي</button>
             </div>
           </div>
-         <Cards />
+         <Cards page="all"/>
            
             <Footer/>
         </div>

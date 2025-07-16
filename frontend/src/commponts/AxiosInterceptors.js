@@ -10,7 +10,7 @@ axiosInstance.interceptors.response.use(
   response => response,
   error => {
     // افحص الحالة هنا
-    console.error('Error encountered:', error)
+    console.error('Error encountered:', error.response.data.message)
     if (error.response && error.response.status === 401) {
       // إذا كانت هناك حالة 401، قم بتسجيل الخروج
       console.error('Error encountered:', error)

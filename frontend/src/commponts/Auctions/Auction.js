@@ -12,11 +12,26 @@ export default function Auction({data}) {
     };
   
     const differenceInDays = calculateDateDifference(data?.startTime, data?.endTime);
-    const extractDateTime = (dateString) => {
+    const extractDateTime = (dateString,dateString1) => {
       const date = new Date(dateString);
-      
-      const day = date.toLocaleDateString('ar-EG', { weekday: 'long' }); // اليوم باللغة العربية
+      const date1 = new Date(dateString1);
+      let day = date1.toLocaleDateString('ar-EG', { weekday: 'long' }); // اليوم باللغة العربية
     // الحصول على الساعة
+    if(day=="السبت"){
+      day="الأحد"
+    }else if(day=="الجمعة"){
+      day="السبت"
+    }else if(day=="الأحد"){
+      day="الاثنين"
+    }else if(day=="الاثنين"){
+      day="الثلاثاء"
+    }else if(day=="الثلاثاء"){
+      day="الأربعاء"
+    }else if(day=="الأربعاء"){
+      day="الخميس"
+    }else if(day=="الخميس"){
+      day="الجمعة"
+    }
     let hours = date.getUTCHours();
     const minutes = date.getUTCMinutes().toString().padStart(2, '0'); // يمكن استخدام getMinutes() إذا كنت تريد التوقيت المحلي
 
@@ -29,7 +44,7 @@ export default function Auction({data}) {
   };
 
   const { day, hours, minutes, ampm } = extractDateTime(data?.
-createdAt);
+createdAt,data?.startTime );
   return (
     <div className="oneAuction">
       <p className={data?.activeStatus === 'جاري' ? 'time' :data?.activeStatus === 'قادم'? 'time2':"time1"}>{data?.

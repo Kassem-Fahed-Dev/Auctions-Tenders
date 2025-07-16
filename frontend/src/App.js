@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Home from './commponts/Home/Home';
+import Favorite from './commponts/Home/Favorite';
 import { Routes, Route } from 'react-router-dom';
 import Privacy from './commponts/privacy policy/Privacy';
 import Privacy1 from './commponts/privacy policy/Privacy1';
@@ -40,6 +41,8 @@ import axios from 'axios';
 import TenderGroup from './commponts/Tenders/TenderGroup';
 import Create_Tender from './commponts/Tenders/Create_Tender';
 import Cards from './commponts/Auctions/Cards';
+import ConfirmLogout from './commponts/Account/ConfirmLogout';
+import AllUsers from './commponts/AllUser/AllUsers';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -47,12 +50,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGJhZDAyYzc5NDU0MDA1YmQ0NmEwZiIsImlhdCI6MTc0NDk2ODA3OSwiZXhwIjoxNzUyNzQ0MDc5fQ.Y2jTAwwKl9aFmB56wX3CzluGi7E88T5Tsd8FIDMJRIU"
-// <<<<<<< HEAD
-  const tok = localStorage.getItem('jwt'); 
+  // <<<<<<< HEAD
+  const tok = localStorage.getItem('jwt');
   // console.log(tok)
-// =======
+  // =======
   // const tok = localStorage.getItem('jwt');
-// >>>>>>> f84a1459e3c7971148b91fcd2fe9795a8b8ebddb
+  // >>>>>>> f84a1459e3c7971148b91fcd2fe9795a8b8ebddb
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
   //     try {
@@ -89,12 +92,12 @@ function App() {
   // if (isLoading) {
   //   return <div>Loading...</div>; // عرض شاشة تحميل أثناء التحقق من حالة تسجيل الدخول
   // }
-   
+
   return (
-   
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/fav" element={<Favorite />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/privacy1" element={<Privacy1 />} />
         <Route path="/acount" element={<CreateAcount />} />
@@ -159,8 +162,11 @@ function App() {
         <Route path="/TenderParticiped" element={<TenderParticiped />} />
         <Route path="/FavAuction" element={<FavAuction />} />
         <Route path="/FavTender" element={<FavTender />} />
-       
-        <Route path="/profile" element={<Profile/>} />
+
+        <Route path="/profile" element={<Profile />} />
+        {/* logout */}
+        <Route path="/logout1" element={<ConfirmLogout />} />
+        <Route path="/users" element={<AllUsers />} />
       </Routes>
     </div>
   );

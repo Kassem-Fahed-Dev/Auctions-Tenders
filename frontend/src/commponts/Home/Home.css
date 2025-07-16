@@ -304,3 +304,52 @@ ol {
   display: flex;
   flex-direction: column;
 }
+/* ------------ */
+.side {
+  direction: rtl;
+  margin-top: 40px;
+}
+.vis {
+  display: block;
+}
+.hid {
+  display: none;
+}
+.fav-act {
+  background-color: #003366;
+  color: #fff;
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+}
+.but {
+  display: flex;
+  margin-top: 50px;
+
+  align-items: center;
+  justify-content: space-evenly;
+}
+.par {
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 15px;
+  position: absolute;
+  top: 240px;
+  right: 90px;
+}
+.pic {
+  position: absolute;
+  top: 240px;
+  right: 40px;
+}
+.dec {
+  direction: ltr;
+  margin-right: 100px;
+  margin-top: 5px;
+}
+.but-sor {
+  margin-top: 50px;
+  margin-right: 1000px;
+}
