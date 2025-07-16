@@ -6,7 +6,7 @@ export default function Cards({page}) {
   const [errorMessage, setErrorMessage] = useState({});
     const sort=localStorage.getItem('status')
      const token = localStorage.getItem('jwt'); 
-    // if(page=="all"){
+    // if(page=="all"){ 
   useEffect(()=>{
     if(page=="all"){
           console.log('all')
@@ -26,6 +26,7 @@ export default function Cards({page}) {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
            'credentials': 'include',
+            'Authorization': `Bearer ${token}`,
         },
       }
     )
