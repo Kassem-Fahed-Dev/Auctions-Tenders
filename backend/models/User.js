@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'password required'],
       minlength: [8, 'short password'],
-      select: false,
+      select: true,
     },
     passwordConfirm: {
       type: String,
@@ -57,11 +57,11 @@ const userSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-userSchema.virtual("auctions", {
-  ref: "Auction",       // Referencing the "Auction" model
-  localField: "_id",    // Field in "User" that matches "foreignField"
-  foreignField: "user", // Field in "Auction" that stores the user's ID
-  justOne: false        // false = One user can have many auctions
+userSchema.virtual('auctions', {
+  ref: 'Auction', // Referencing the "Auction" model
+  localField: '_id', // Field in "User" that matches "foreignField"
+  foreignField: 'user', // Field in "Auction" that stores the user's ID
+  justOne: false, // false = One user can have many auctions
 });
 
 userSchema.virtual('auctionBids', {
@@ -122,28 +122,26 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   return false;
 };
 
-
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
-  console.log(resetToken)
+  console.log(resetToken);
   this.passwordResetToken = crypto
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
 
   // 10 munits
-  console.log({token:this.passwordResetToken})
+  console.log({ token: this.passwordResetToken });
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
 userSchema.methods.createPasswordResetCode = async function () {
-  
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
-  console.log(resetCode)
-  
+  console.log(resetCode);
+
   this.passwordResetCode = await bcrypt.hash(resetCode, 12);
   // 10 munits
-  console.log({token:this.passwordResetCode})
+  console.log({ token: this.passwordResetCode });
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetCode;
 };

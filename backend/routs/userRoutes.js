@@ -12,13 +12,14 @@ router.get('/checkLogin', authController.protect, authController.checkLogin);
 router.post('/forgotPassword', authController.forgotPassword);
 router.post('/checkResetCode', authController.checkResetCode);
 router.patch('/resetPassword', authController.resetPassword);
+router.get('/:id', userController.getUser);
+
 router.get(
   '/me',
   authController.protect,
   userController.getMe,
   userController.getUser,
 );
-
 //router.use(authController.protect);
 
 router.patch(
@@ -26,6 +27,7 @@ router.patch(
   authController.protect,
   authController.updatePassword,
 );
+
 router.patch('/updateMe', authController.protect, userController.updateMe);
 router.delete('/deleteMe', authController.protect, userController.deleteMe);
 
