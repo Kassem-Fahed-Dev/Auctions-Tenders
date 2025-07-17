@@ -20,8 +20,8 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
+      required: [true, 'phone required'],
     },
-    country: String,
     profileImg: String,
     password: {
       type: String,

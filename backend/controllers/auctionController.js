@@ -1,6 +1,7 @@
 const Auction = require('../models/Auction');
 const Item = require('../models/Item');
 const Category = require('../models/Category');
+const Favorite = require('../models/Favorite');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
@@ -15,12 +16,13 @@ exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
     type: 'auction',
     name: categoryName,
   });
+
+  //console.log(category)
   const itemsInCategory = await Item.find({ category: category._id });
-
+  
   const itemIds = itemsInCategory.map((item) => item._id);
-
   req.itemAuction = { item: { $in: itemIds } };
-  //console.log(req.query.item)
+  // console.log(req.itemAuction)
   next();
 });
 
@@ -32,46 +34,64 @@ exports.getUserId = (req, res, next) => {
 
 // 1. CREATE Auction + Item
 exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
+
   console.log('iam here');
-  console.log(req.user); // ✅ Check if user exists
+  console.log(req.user); //  Check if user exists
   if (!req.user || !req.user.id) {
     return next(new Error('User not authenticated or missing ID.'));
   }
-  // Create Item first
-  const newItem = await Item.create({
-    ...req.body.item,
-    auction: null, // Temporary placeholder
-  });
+  let newItem = null;
+  let newAuction = null;
+  try {
+    // Create Item first
+    newItem = new Item({
+      ...req.body.item,
+      auction: null, // Temporary placeholder
+    });
 
-  // Create Auction with Item reference
-  const newAuction = await Auction.create({
-    ...req.body.auction,
-    user: req.user.id,
-    item: newItem._id,
-  });
 
-  // Update Item with Auction reference
-  newItem.auction = newAuction._id;
-  await newItem.save();
+    // Create Auction with Item reference
+    newAuction = new Auction({
+      ...req.body.auction,
+      user: req.user.id,
+      item: newItem._id,
+    });
 
-  const populatedAuction = await Auction.findById(newAuction._id).populate(
-    'item',
-  );
-  res.status(201).json({
-    status: req.t(`fields:success`),
-    message: req.t(`successes:createAuction`),
-    data: {
-      populatedAuction,
-    },
-  });
+    // Update Item with Auction reference
+    newItem.auction = newAuction._id;
+    await newItem.save();
+    await newAuction.save();
+
+    const populatedAuction = await Auction.findById(newAuction._id)
+      .populate('item')
+      .populate('user');
+    res.status(201).json({
+      status: req.t(`fields:success`),
+      message: req.t(`successes:createAuction`),
+      data: {
+        populatedAuction,
+      },
+    });
+  } catch (err) {
+    if (newAuction) await Auction.findByIdAndDelete({ _id: newAuction._id });
+    if (newItem) await Item.findByIdAndDelete({ _id: newItem._id });
+    return next(new AppError(err, 400));
+  }
 });
 
 // 2. GET Auction + Item
 exports.getAuctionWithItem = catchAsync(async (req, res, next) => {
-  const auction = await Auction.findById(req.params.id).populate('item');
+  const auction = await Auction.findById(req.params.id)
+    .populate('item')
+    .populate('user');
 
   if (!auction) {
-    return next(new AppError('No auction found with that ID', 404));
+    return next(
+      new AppError(
+        req.t(`errors:notFound`, { doc: req.t(`fields:auction`) }),
+        404,
+      ),
+    );
   }
 
   res.status(200).json({
@@ -91,7 +111,12 @@ exports.updateAuctionWithItem = catchAsync(async (req, res, next) => {
     { new: true, runValidators: true },
   );
   if (!auction) {
-    return next(new AppError('No auction found with that ID', 404));
+    return next(
+      new AppError(
+        req.t(`errors:notFound`, { doc: req.t(`fields:auction`) }),
+        404,
+      ),
+    );
   }
   // Update linked Item if provided
   if (req.body.item) {
@@ -114,7 +139,13 @@ exports.updateAuctionWithItem = catchAsync(async (req, res, next) => {
 // 4. DELETE Auction + Item
 exports.deleteAuctionWithItem = catchAsync(async (req, res, next) => {
   const auction = await Auction.findById(req.params.id);
-  if (!auction) return next(new AppError('No auction found with that ID', 404));
+  if (!auction)
+    return next(
+      new AppError(
+        req.t(`errors:notFound`, { doc: req.t(`fields:auction`) }),
+        404,
+      ),
+    );
 
   // Delete linked Item first
   await Item.findByIdAndDelete(auction.item);
@@ -130,11 +161,16 @@ exports.deleteAuctionWithItem = catchAsync(async (req, res, next) => {
 });
 
 // Get All Auctions + Items
+
 exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
   let filterAuctionsByCategory = {};
   if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
 
-  const query = Auction.find(filterAuctionsByCategory).populate('item');
+  req.itemAuction = undefined;
+  console.log(filterAuctionsByCategory)
+  const query = Auction.find(filterAuctionsByCategory)
+    .populate('item')
+    .populate('user');
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()
@@ -142,6 +178,79 @@ exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
     .paginate();
 
   const auctions = await features.query;
+  
+  // Check favorites
+  const auctionIds = auctions.map(auction => auction._id);
+  
+  // Get all favorites for this user and these auctions
+  const favorites = await Favorite.find({
+      user: req.user.id,
+      auction: { $in: auctionIds }
+    });
+    
+    
+    // Create a Set of favorited auction IDs for quick lookup
+    const favoritedAuctionIds = new Set(
+      favorites.map(fav => fav.auction.toString())
+    );
+    
+    // Add favorite field to each auction
+      auctions.forEach(auction => {
+      auction = auction.toObject();
+      auction.favorite = favoritedAuctionIds.has(auction._id.toString());
+      return auction;
+    });
+  //console.log(auctions)
+  res.status(200).json({
+    status: req.t(`fields:success`),
+    result: auctions.length,
+    data: {
+      data: auctions,
+    },
+  });
+});
+
+// Git my auctions
+exports.getMyAuctions = catchAsync(async (req, res, next) => {
+  let filterAuctionsByCategory = {};
+  if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
+  req.itemAuction=undefined
+  filterAuctionsByCategory.user = req.user.id
+  console.log(filterAuctionsByCategory)
+  const query = Auction.find(filterAuctionsByCategory)
+    .populate('item')
+    .populate('user');
+
+  const features = new APIFeatures(query, req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const auctions = await features.query;
+  
+  // Check favorites
+  const auctionIds = auctions.map(auction => auction._id);
+  
+  // Get all favorites for this user and these auctions
+  const favorites = await Favorite.find({
+      user: req.user.id,
+      auction: { $in: auctionIds }
+    });
+    
+    
+    // Create a Set of favorited auction IDs for quick lookup
+    const favoritedAuctionIds = new Set(
+      favorites.map(fav => fav.auction.toString())
+    );
+    
+    // Add favorite field to each auction
+      auctions.forEach(auction => {
+      auction = auction.toObject();
+      auction.favorite = favoritedAuctionIds.has(auction._id.toString());
+      return auction;
+    });
+  //console.log(auctions)
   res.status(200).json({
     status: req.t(`fields:success`),
     result: auctions.length,

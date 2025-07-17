@@ -4,23 +4,33 @@ const itemSchema = new mongoose.Schema(
     category: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category",
+        required: [true, 'category required'],
       },
       auction: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: "Auction",
       },
-    name: String,
-    description: String,
-    photo: [String], // Array of URLs
+    name: {
+      type:String,
+      required: [true, 'name required'],
+    },
+    description: {
+      type:String,
+      required: [true, 'description required'],
+    },
+    photo: {
+      type:[String],
+      required: [true, 'photo required'],
+
+    }, // Array of URLs
     video: String, // URL
     status: {
       type: String,
-      enum: ['new', 'used'],
+      enum: ['جديد', 'مستعمل'],
     }, // "new", "used"
     properties: [
         {key:String , value:mongoose.Schema.Types.Mixed}
     ],
-    numberOfItems:Number
   },
   { timestamps: true },
 );

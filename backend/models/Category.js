@@ -4,10 +4,12 @@ const categorySchema = new mongoose.Schema(
     type: {
       type: String,
       enum: ['auction', 'tender'],
+      required: [true, 'type required'],
     },
     name: {
       type: String,
       unique: true,
+      required: [true, 'name required'],
     },
     properties: [
       //here we can add dynamic fields that admins determine it

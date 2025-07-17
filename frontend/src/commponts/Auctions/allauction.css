@@ -225,6 +225,43 @@
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
 }
+.timedet{
+  color: #00cc66; 
+}
+.oneAuction .time1 {
+  position: absolute;
+  /* bottom: 210px;
+    right: -230px; */
+  right: 0px;
+  top: 15px;
+  padding: 2px;
+  color: red;
+  background-color: #fff;
+  width: 70px;
+  text-align: center;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
+}
+.time1det{
+  color: red;
+}
+.oneAuction .time2 {
+  position: absolute;
+  /* bottom: 210px;
+    right: -230px; */
+  right: 0px;
+  top: 15px;
+  padding: 2px;
+  color: rgb(12, 166, 212);
+  background-color: #fff;
+  width: 70px;
+  text-align: center;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
+}
+.time2det{
+  color: rgb(12, 166, 212);
+}
 .white {
   color: #fff;
 }
@@ -367,6 +404,9 @@ p.upload {
   /* height: 880px; */
   background-color: #ccc;
 }
+.datadecor{
+  flex-direction: row;
+}
 .create-auction-form {
   direction: rtl;
   display: flex;
@@ -391,7 +431,7 @@ p.upload {
   font-weight: 500;
   font-size: 17px;
   color: #000;
-  margin-right: 120px;
+  margin-right: 118px;
   margin-left: 10px;
   margin-top: 10px;
 
@@ -414,7 +454,7 @@ p.upload {
   /* left: 120px;
     top: 10px; */
   position: relative;
-  right: 225px;
+  right: 155px;
   bottom: 50px;
   caret-color: transparent;
   font-weight: 500;
@@ -460,7 +500,7 @@ p.upload {
   margin-bottom: 50px;
 }
 
-.product-name input {
+.product-name input, .product-name input.prod{
   width: 150px;
   height: 30px;
   padding: 5px;
@@ -538,6 +578,7 @@ p.upload {
   margin-top: -7px;
   margin-bottom: 50px;
   display: flex;
+  position: relative;
 }
 .send-auction {
   background-color: #003366;
@@ -552,6 +593,11 @@ p.upload {
   border-radius: 8px;
   /* margin-top: 50px; */
   /* margin-right: 100px; */
+  position: absolute;
+  bottom: -30px;
+  right: 270px;
+}
+.spinn-Auc {
   position: absolute;
   bottom: -30px;
   right: 270px;
@@ -576,6 +622,7 @@ p.upload {
 
 .auction3 {
   display: flex;
+  position: relative;
   margin-top: -20px;
 }
 .status {
@@ -717,4 +764,117 @@ input [type='date'] {
 }
 .Navul li.p-ten a:hover {
   font-size: 35px;
+}
+.error-title{
+  top: 30px;
+  right: 45px;
+}
+.error-category{
+  top: 81px;
+  right: 30px;
+  
+}
+.error-start-time,.error-starting-price,.error-end-time,.error-minimumIncrement{
+  top: 30px;
+  right: 43px;
+  position: absolute;
+}
+/* {
+  top: 30px;
+  right: 43px;
+} */
+/* {
+  top: 243px;
+  right: 45px;
+} */
+/* {
+  top: 320px;
+  right: 45px;
+} */
+.error-name{
+  top: 38px;
+  right: 48px;
+}
+.error-status{
+  position: absolute;
+  top: 10px;
+  width: 100px;
+ right: 30px;
+}
+.gr{
+  position: relative;
+  margin-top: -15px;
+  right: 50px;
+  width: 280px;
+}
+.gr p{
+  margin-right: -10px;
+  padding-top: 25px;
+  margin-bottom: 67px;
+  color: #000;
+  font-weight: bold;
+}
+.send-auction1{
+  background-color: #00000090;
+}
+.error-gr{
+  bottom: 5px;
+  right: 75px;
+}
+.bor{
+  border: #00000050 1px solid;
+  margin-bottom: 30px;
+  padding: 15px 0px 0px 0px;
+ border-radius: 8px;
+ margin-top: -55px;
+ 
+}
+.group1 .product-name input{
+  margin-top: 5px;
+}
+.group1 .product-name label{
+  padding-top: 5px;
+}
+.gr .product-name{
+  margin-right: -40px;
+}
+/* ============================ */
+.error-back{
+  position: absolute;
+  bottom: 30px;
+  right: 298px;
+  font-weight: bold;
+  font-size: 14px;
+}
+/* ============================================================================ */
+.group22 {
+  border: none;
+  direction: rtl;
+  width: 175px;
+  height: 31px;
+  padding-right: 12px;
+  border-radius: 8px;
+  outline: 1px solid #000000;
+  position: relative;
+  right: 155px;
+  bottom: 50px;
+  caret-color: transparent;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.visable21 {
+  display: block;
+  margin-top: 20px;
+  margin-left: -376px;
+}
+.visable2 {
+  display: block;
+  margin-top: 20px;
+  margin-left: -376px;
+}
+.sort21:hover,
+.sort2:hover + .sort {
+  background-color: #003366;
+  color: #fff;
+  cursor: pointer;
 }

@@ -4,12 +4,12 @@ const auctionSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required:true
+      required: true,
     },
-    item: { 
+    item: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Item",
-      required:true
+      ref: 'Item',
+      required: true,
     },
     auctionTtile: {
       type: String,
@@ -25,7 +25,7 @@ const auctionSchema = new mongoose.Schema(
     },
     minimumIncrement: {
       type: Number,
-      require: [true, 'Enter the minimum increase'],
+      required: [true, 'Enter the minimum increase'],
     },
     startingPrice: {
       type: Number,
@@ -38,14 +38,16 @@ const auctionSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['accept', 'reject', 'pindding'],
-      default:  'pindding',
+      enum: ['مقبول', 'مرفوض', 'قيد الانتظار'],
+      default: 'قيد الانتظار',
     },
     activeStatus: {
       type: String,
-      enum: ['active', 'colse', 'soon'],
-      default: 'soon',
+      enum: ['جاري', 'منتهي', 'قادم'],
+      default: 'قادم',
     },
+    numberOfItems: Number,
+    city: String,
   },
   { timestamps: true },
 );
@@ -53,21 +55,21 @@ const auctionSchema = new mongoose.Schema(
 auctionSchema.pre('save', function (next) {
   const now = new Date();
   if (now > this.endTime) {
-    this.activeStatus = 'colse';
+    this.activeStatus = 'منتهي';
   } else if (now < this.startTime) {
-    this.activeStatus = 'soon';
+    this.activeStatus = 'قادم';
   } else {
-    this.activeStatus = 'active';
+    this.activeStatus = 'جاري';
     console.log(this.activeStatus);
   }
   next();
 });
 
-auctionSchema.virtual("linkedItem", {
-  ref: "Item",
-  localField: "item",
-  foreignField: "_id",
-  justOne: true // Returns a single document
+auctionSchema.virtual('linkedItem', {
+  ref: 'Item',
+  localField: 'item',
+  foreignField: '_id',
+  justOne: true, // Returns a single document
 });
 
 auctionSchema.virtual('auctionBids', {

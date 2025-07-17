@@ -4,6 +4,7 @@ import Navbar from "../Home/Navbar";
 import AuctionsNavbar from "./AuctionsNavbar";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import Cards from "./Cards";
 export default function AuctionNew(){
        const [value,setValue]=useState('فرز حسب');
         const [value1,setValue1]=useState('فرز حسب');
@@ -11,6 +12,7 @@ export default function AuctionNew(){
         const [test,setTest]=useState('')
         const [hover,setHover]=useState(false)
         const navegate=useNavigate()
+          localStorage.setItem('status','فرز حسب');
         const handleClick=()=>{
             if (value2 == 'فرز حسب' && value == 'فرز حسب') {
                 setTest(' ');
@@ -82,13 +84,7 @@ export default function AuctionNew(){
                 <button className="button2" onClick={()=>{handleClick2(' منتهي')}}>منتهي</button>
             </div>
           </div>
-             <div className="alotofAuction">
-                        <Auction/>
-                        <Auction/>
-                        <Auction/>
-                        <Auction/>
-                        <Auction/>
-                        </div>
+           <Cards page="create" />
                         <Footer/>
         </div>
     )

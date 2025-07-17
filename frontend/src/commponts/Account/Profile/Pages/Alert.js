@@ -51,6 +51,7 @@ export default function Alert({ test }) {
                     </label>
                     <input
                       required
+                      
                       value={user.oldpass}
                       onChange={(e) => {
                         dispatch(thisPass(e.target.value));

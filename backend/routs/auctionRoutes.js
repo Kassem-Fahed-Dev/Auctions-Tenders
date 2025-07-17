@@ -7,6 +7,7 @@ const router = express.Router();
 router
   .get(
     '/',
+    authController.protect,
     auctionController.filterAuctionsByCategory,
     auctionController.getAllAuctionsWithItems,
   )
@@ -16,7 +17,7 @@ router.get(
   authController.protect,
   auctionController.filterAuctionsByCategory,
   auctionController.getUserId,
-  auctionController.getAllAuctionsWithItems,
+  auctionController.getMyAuctions,
 );
 router
   .get('/:id', auctionController.getAuctionWithItem)

@@ -1,5 +1,6 @@
-* {
+.al {
   direction: rtl;
+  /* background-color: red; */
 }
 
 /* the container of links */
@@ -30,7 +31,7 @@
   height: 35px;
   padding: 3px;
   padding-right: 12px;
-  font-size: 19px;
+  font-size: 18px;
   color: #ffffff;
 }
 /* the line between the information */
@@ -54,12 +55,16 @@
 /* container for the image and info 2 */
 .con-img-info {
   width: 840px;
-  height: 500px;
+  height: 470px;
   display: flex;
+  text-overflow: hidden;
   justify-content: flex-start;
   align-items: flex-start;
   position: relative;
+  border-radius: 59px;
+  border: 1px solid #00000050;
   /* background-color: aqua; */
+  /* box-shadow: 1px 2px 10px 1px #003366; */
 }
 /* container for the image and button عرض  */
 .con-img-ptn {
@@ -98,21 +103,21 @@
   height: 30px;
   font-size: 14px;
   background-color: #ffffff;
-  font-family: IBM Plex Sans Arabic;
+  
 }
 .ptn-show:hover {
   font-size: 16px;
   font-weight: bolder;
   transition: 0.5s ease;
   color: #000000;
-  font-family: IBM Plex Sans Arabic;
+
 }
 .con-img-info .img-profile p {
   position: absolute;
   bottom: -45px;
   left: 38px;
   color: #003366;
-  font-family: IBM Plex Sans Arabic;
+
 }
 /* the icon in the circlie */
 .img-profile .fas.fa-user-tie {
@@ -130,37 +135,37 @@
 .ptn-5,
 .ptn-6 {
   position: absolute;
-  top: 162px;
-  left: 335px;
+  top: 185px;
+  left: 330px;
   border: none;
   border-radius: 50%;
   font-size: 9px;
   color: #cccccc;
 }
-.ptn-2 {
+/* .ptn-2 {
   position: absolute;
-  top: 220px;
-  left: 335px;
-}
+  top: 235px;
+  left: 325px;
+} */
 .ptn-3 {
   position: absolute;
-  top: 275px;
-  left: 315px;
+  top: 255px;
+  left: 322px;
 }
 .ptn-4 {
   position: absolute;
-  top: 333px;
-  left: 355px;
+  top: 335px;
+  left: 322px;
 }
-.ptn-5 {
+/* .ptn-5 {
   position: absolute;
   top: 394px;
   left: 356px;
-}
+} */
 .ptn-6 {
   position: absolute;
-  top: 447px;
-  left: 380px;
+  top: 410px;
+  left: 322px;
 }
 
 .ptn-1:hover {
@@ -200,6 +205,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+
   /* background-color: red; */
 }
 .con-info2 .name {
@@ -259,14 +265,16 @@
 .svg1 {
   position: absolute;
   top: -135px;
-  left: -33px;
+  left: -34px;
   width: 490px;
   display: inline-block;
+  border-top-left-radius: 36px;
 }
 .welcome {
   position: absolute;
   left: 45px;
   top: 25px;
+ 
   /* background-color: red; */
   width: 200px;
 }
@@ -299,18 +307,21 @@
 
 /* for the flex the side and other componant such as create */
 .con-flex {
+  padding-top: 60px;
   gap: 40px;
   margin: 10px;
-  height: 100vh;
+
   display: flex;
   justify-content: space-evenly;
+  direction: rtl;
 }
 /* container for the card  */
 .container-card {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 30px;
+  direction: ltr;
 }
 /* container to div add the icon favourite and state to the card */
 .con-div-card {
@@ -357,11 +368,7 @@
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
 }
-/* this for the participed */
-.nn {
-  width: 840px;
-  min-height: 500px;
-}
+
 /* this for the clicked option */
 .info.active {
   font-family: IBM Plex Sans Arabic;
@@ -410,16 +417,15 @@
   height: 25px;
   border-radius: 2px;
   text-align: center;
-  color: #ffffff;
   color: red;
   border: none;
-  background-color: #003366;
+  background-color: transparent;
   position: absolute;
-  top: -2px;
-  right: -31px;
+  top: -3px;
+  right: -34px;
 }
 .picture1 {
-  background-size: "cover";
+  background-size: 'cover';
   border-radius: 50%;
 }
 .exit:hover {
@@ -432,20 +438,22 @@
   color: red;
   font-size: 18px;
   position: absolute;
-  top: 1px;
+  top: 4px;
   left: -10px;
 }
 /* for the label in the new name  */
 .lab-new {
   position: absolute;
   top: 30px;
+  width: 140px;
   left: 34px;
   display: block;
   font-size: 18px;
 }
 #ert {
   top: -52px;
-  left: 10px;
+  left: 12px;
+  /* left: 10px; */
   position: absolute;
 }
 .lap-newpass {
@@ -466,7 +474,6 @@
   border: none;
   border-bottom: 1px solid #003366;
 }
-
 .inp-new {
   position: absolute;
   width: 250px;
@@ -474,19 +481,21 @@
   display: block;
   top: 65px;
   left: 27px;
+  background-color: transparent;
   outline: none;
   border: none;
   border-bottom: 1px solid #003366;
 }
-
 .lab2-new {
   position: absolute;
+  width: 140px;
   top: 64px;
   left: 27px;
   display: block;
   font-size: 16px;
 }
 .lab3-new {
+  width: 170px;
   position: absolute;
   top: 115px;
   left: 27px;
@@ -496,6 +505,7 @@
 .inp2-new {
   position: absolute;
   /* background-color: #ffffff; */
+  background-color: transparent;
   width: 250px;
   height: 23px;
   display: block;
@@ -507,9 +517,9 @@
 }
 .inp3-new {
   position: absolute;
+  background-color: transparent;
   width: 250px;
   height: 23px;
-
   display: block;
   top: 142px;
   left: 27px;
@@ -529,7 +539,6 @@
   right: -4px;
   bottom: 5px;
 }
-
 .exit2 {
   width: 35px;
   height: 35px;
@@ -589,4 +598,56 @@
 
 .img-profile.active {
   transform: translateY(70px) scale(2);
+}
+/* editing */
+.flexible {
+  /* background-color: aqua; */
+  width: 95%;
+  min-height: 580px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  direction: ltr;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+/* this for the participed */
+.nn {
+  /* background-color: yellow; */
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  gap: 430px;
+  align-items: flex-start;
+}
+
+.test-con {
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.sort21 {
+  width: 250px;
+  background-color: #fff;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 50px;
+  justify-content: center;
+  text-align: end;
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 24px;
+  outline: none;
+  caret-color: transparent;
+}
+.listSort21 {
+  display: flex;
+  display: block;
+  gap: 10px;
+  display: none;
 }

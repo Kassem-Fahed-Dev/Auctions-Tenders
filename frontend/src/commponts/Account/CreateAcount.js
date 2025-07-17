@@ -4,6 +4,7 @@ import imag from '../../image/logo.png';
 import { useNavigate } from 'react-router-dom';
 import React, { useRef } from 'react';
 import axios from 'axios';
+import axiosInstance from '../AxiosInterceptors';
 export default function CreateAcount() {
   const navegate = useNavigate();
   const navegate1 = useNavigate();
@@ -13,7 +14,7 @@ export default function CreateAcount() {
   const [errorMessage, setErrorMessage] = useState({});
   const [errorMessage1, setErrorMessage1] = useState({});
   const [hover, setHover] = useState('spinner');
-  const [hover1, setHover1] = useState('');
+  // const [hover1, setHover1] = useState('');
   const [value2, setValue2] = useState('');
   const [hidden3, setHidden3] = useState(false);
   const [hover2, setHover2] = useState('spinner');
@@ -61,7 +62,7 @@ export default function CreateAcount() {
     email: '',
     phone: '',
     passwordConfirm: '',
-    country: '',
+    
   });
   //   تسجيل الدخول
   const [formData1, setFormData1] = useState({
@@ -80,21 +81,22 @@ export default function CreateAcount() {
   //   تطبيق الحركة على مربع الادخال
   const hoverItems1 = (items) => {
     if (namePass.includes(items) == false) {
-      setNamePase([...namePass, items]);
+      setNamePase([...namePass, items.trim()]);
     }
   };
+    localStorage.setItem('status','فرز حسب');
   //   اختيار الموقع
 
-  const hoverItems2 = (items) => {
-    setFormData({ ...formData, country: items });
-    if (namePass.includes('list1')) {
-      setNamePase(namePass.filter((i) => i !== 'list1'));
-    }
-  };
+  // const hoverItems2 = (items) => {
+  //   setFormData({ ...formData, country: items });
+  //   if (namePass.includes('list1')) {
+  //     setNamePase(namePass.filter((i) => i !== 'list1'));
+  //   }
+  // };
   // دالة تنفذ عند onchange لانشاء الحساب
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });
   };
   //   دالة checked
   const handleChange1 = (e) => {
@@ -104,10 +106,14 @@ export default function CreateAcount() {
   //   دالة تنفذ عند ال onchange في تسجيل الدخول
   const handleChange2 = (e) => {
     const { name, value } = e.target;
-    setFormData1({ ...formData1, [name]: value });
+    setFormData1({ ...formData1, [name]: value.trim() });
   };
   //   دالة الارسال و اظهار الاخطاء في انشاء الحساب
+  
+  // console.log(tok)
   const handleSubmit1 = (e) => {
+    setHover('spinner-click-tow')
+    console.log('rr')
     e.preventDefault();
     const valditionErrerors = {};
     if (!formData.name.trim()) {
@@ -159,32 +165,40 @@ export default function CreateAcount() {
       valditionErrerors.check2 = '.هذا الحقل مطلوب';
       setHover('spinner');
     }
-    if (!formData.country.trim()) {
-      valditionErrerors.country = 'خطأ';
-      setHover('spinner');
-    }
+    // if (!formData.country.trim()) {
+    //   valditionErrerors.country = 'خطأ';
+    //   setHover('spinner');
+    // }
     setErrorMessage(valditionErrerors);
+    console.log(formData)
+    // const tok=''
     if (Object.keys(valditionErrerors).length === 0) {
       setHover('spinner-click-tow');
-      axios
-        .post(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/signup',
+      console.log(formData)
+      axiosInstance .post(
+         '/api/v1/users/signup',
           JSON.stringify(formData),
           {
             headers: {
+              
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',
-                'credentials': 'include'
+                'credentials': 'include',
+                //  'Authorization': `Bearer ${tok}`
             },
           }
         )
         .then((res) => {
           setHover('spinner');
+          console.log(res)
           localStorage.setItem('name',res.data.data.user.name)
+          localStorage.setItem('jwt',res.data.token)
+          //  tok = localStorage.getItem('jwt');
           navegate('/confirm');
    
         })
         .catch((error) => {
+          console.log('error')
           setHover('spinner');
           if (error.response) {
             const validationErrors = {};
@@ -223,17 +237,20 @@ export default function CreateAcount() {
       setHover('spinner');
     }
     setErrorMessage1(valditionErrerors1);
+      // const tok1=''
     if (Object.keys(valditionErrerors1).length === 0) {
       setHover('spinner-click');
-      axios
+      axiosInstance
         .post(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/login',
+          '/api/v1/users/login',
           JSON.stringify(formData1),
           {
             headers: {
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',
-                'credentials': 'include'
+                'credentials': 'include',
+                // 'credentials': 'include',
+                //  'Authorization': `Bearer ${tok1}`
              
             },
           }
@@ -242,6 +259,8 @@ export default function CreateAcount() {
           setHover('spinner');
           console.log(res)
           localStorage.setItem('name',res.data.data.user.name)
+          localStorage.setItem('jwt',res.data.token)
+          // tok1 = localStorage.getItem('jwt');
           navegate('/confirm1');
         })
         .catch((error) => {
@@ -262,7 +281,7 @@ export default function CreateAcount() {
   // مشان ادخل الايميل و احفظه  لواجهة يلي بعد
   const handleChange3 = (e) => {
     const { name, value } = e.target;
-    setFormData2({ [name]: value });
+    setFormData2({ [name]: value.trim() });
     setFormData3({ ...formData3, email: value });
   };
   // واجهة الايميل
@@ -279,9 +298,9 @@ export default function CreateAcount() {
     }
     setErrorMessage2(valditionErrerors2);
     if (Object.keys(valditionErrerors2).length === 0) {
-      axios
+      axiosInstance
         .post(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/forgotPassword',
+          '/api/v1/users/forgotPassword',
           JSON.stringify(formData2),
           {
             headers: {
@@ -364,9 +383,9 @@ export default function CreateAcount() {
       resetCode: code,
     };
     const valditionErrerors4 = {};
-    axios
+    axiosInstance
       .post(
-        'https://auctions-tenders-38sx.onrender.com/api/v1/users/checkResetCode',
+        '/api/v1/users/checkResetCode',
         JSON.stringify(dataToSubmit),
         {
           headers: {
@@ -427,9 +446,9 @@ export default function CreateAcount() {
     setErrorMessage5(valditionErrerors4);
     if (Object.keys(valditionErrerors4).length === 0) {
       setHover6('spinner-click5');
-      axios
+      axiosInstance
         .patch(
-          'https://auctions-tenders-38sx.onrender.com/api/v1/users/resetPassword',
+          '/api/v1/users/resetPassword',
           JSON.stringify(dataToSubmit2),
           {
             headers: {
@@ -489,6 +508,7 @@ export default function CreateAcount() {
                       name="email"
                       value={formData1.email}
                       onChange={handleChange2}
+                      autoComplete="off"
                     />
                     {errorMessage1.email && (
                       <span className="error0 error-log-in-name">
@@ -515,6 +535,7 @@ export default function CreateAcount() {
                       name="password"
                       value={formData1.password}
                       onChange={handleChange2}
+                      autoComplete="off"
                     />
                     {errorMessage1.password && (
                       <span className="error0 error-log-in-password">
@@ -531,7 +552,7 @@ export default function CreateAcount() {
                     </label>
                   </div>
                   {errorMessage1.messageBackend && (
-                    <span className="error0 reject">
+                    <span className="error0 Rigect">
                       {errorMessage1.messageBackend}
                       <span className="fa fa-warning"></span>
                     </span>
@@ -612,6 +633,7 @@ export default function CreateAcount() {
                 onChange={handleChange3}
                 className="forget"
                 placeholder="أدخل عنوانك البريد هنا"
+                autoComplete="off"
               />
               <div className="forget-button">
                 <button
@@ -824,6 +846,7 @@ export default function CreateAcount() {
                   id="username"
                   name="name"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.name && (
                   <span className="error0 error">
@@ -850,6 +873,7 @@ export default function CreateAcount() {
                   id="password"
                   name="password"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.password && (
                   <span className="error0 error1">
@@ -875,6 +899,7 @@ export default function CreateAcount() {
                   id="confirmPassword"
                   name="passwordConfirm"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.passwordConfirm && (
                   <span className="error0 error2">
@@ -902,6 +927,7 @@ export default function CreateAcount() {
                   id="email"
                   name="email"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.email && (
                   <span className="error0 error3">
@@ -929,6 +955,7 @@ export default function CreateAcount() {
                   id="tel"
                   name="phone"
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.phone && (
                   <span className="error0 error4">
@@ -943,7 +970,7 @@ export default function CreateAcount() {
                 </label>
               </div>
               <div className="location">
-                <label className="location1">الموقع</label>
+                {/* <label className="location1">الموقع</label>
                 <div
                   className={`triangle  ${
                     formData.country.includes('دمشق') ||
@@ -965,6 +992,7 @@ export default function CreateAcount() {
                   name="country"
                   value={formData.country}
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 {errorMessage.country && (
                   <span className="error0 error7">
@@ -996,7 +1024,7 @@ export default function CreateAcount() {
                   >
                     حلب
                   </p>
-                </div>
+                </div> */}
                 <div className="check">
                   <label className="labal-check">
                     <span>*</span>أوافق على الشروط و الأحكام

@@ -1,3 +1,4 @@
+// hadollee  @123AAAaaa@
 import './Home.css';
 import Navbar from './Navbar';
 import image from '../../image/image1.png';
@@ -7,9 +8,10 @@ import im2 from '../../image/lab.png';
 import im3 from '../../image/bil.jpg';
 import im4 from '../../image/car.jpg';
 import Footer from '../privacy policy/Footer';
-
+import { Link } from 'react-router-dom';
 export default function Home() {
   const tok = localStorage.getItem('jwt'); 
+  localStorage.setItem('status','فرز حسب');
   return (
     <div>
       <div className="header">
@@ -28,9 +30,9 @@ export default function Home() {
         </div>
         <div className="side-left">
           {/*ايقونة الاشعارات و المفضلة و الرقم */}
-          <button className="heart">
+          <Link to="/fav" className="heart">
             <i className="fas fa-heart icon1"></i>
-          </button>
+          </Link>
           <button className="bell">
             <div className="num-message">
               <p>90</p>

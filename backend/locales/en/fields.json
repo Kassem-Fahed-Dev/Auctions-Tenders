@@ -6,5 +6,6 @@
     "user":"user",
     "success":"success",
     "fail":"fail",
-    "error":"error"
+    "error":"error",
+    "favorite":"favorite"
 }

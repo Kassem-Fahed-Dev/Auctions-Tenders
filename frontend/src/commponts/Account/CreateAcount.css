@@ -68,7 +68,7 @@
   right: 30px;
 }
 /* كلمة دخول */
-.in {
+p.in {
   font-size: 30px;
   font-weight: bold;
   width: 300px;
@@ -298,7 +298,7 @@ label span {
   transition: transform 2s;
   display: flex;
   width: 873px;
-  height: 870px;
+  height: 800px;
   backface-visibility: hidden;
   overflow: hidden;
   margin-bottom: 30px;
@@ -406,7 +406,7 @@ label span {
   left: -50px;
 }
 /* قائمة الاماكن */
-
+/* 
 .location {
   position: relative;
 }
@@ -480,11 +480,11 @@ label span {
 }
 .list1 {
   display: block;
-}
+} */
 /* مربعات ال checkbox */
 .check {
   position: absolute;
-  top: 185px;
+  top: 450px;
   right: 12px;
 }
 .check input {
@@ -502,7 +502,7 @@ label span {
 }
 .check1 {
   position: absolute;
-  top: 215px;
+  top: 500px;
   right: 12px;
   display: flex;
   align-items: center;
@@ -533,7 +533,7 @@ label span {
 /* زر إنشاء الحساب */
 .creat {
   position: absolute;
-  top: 300px;
+  top: 600px;
   right: 12px;
   font-size: 20px;
   background-color: #003366;
@@ -627,14 +627,14 @@ input[type='checkbox']:checked {
   top: 190px;
   right: 470px;
 }
-.reject {
+.Rigect {
   font-weight: 800;
   font-size: 14px;
   top: 355px;
   left: 120px;
 }
 .errorBackend {
-  top: 260px;
+  top: 560px;
   right: -40px;
 }
 /* مشان اشارة التحميل */
@@ -684,8 +684,8 @@ input[type='checkbox']:checked {
 }
 .spinn1 {
   position: relative;
-  top: 300px;
-  right: -50px;
+  top: 178px;
+  left: 26px;
   padding-left: 165px;
   border-radius: 22px;
   height: 44px;

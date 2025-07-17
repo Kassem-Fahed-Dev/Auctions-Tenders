@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 export default function AuctionGroup({ paragraph }) {
   const navegaet = useNavigate();
+  
   function goback() {
     // window.history.go(-1);
     navegaet('/auctionsgroup');

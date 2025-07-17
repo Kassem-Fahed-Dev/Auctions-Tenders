@@ -1,13 +1,22 @@
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
+const { modelName } = require('../models/Auction');
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
 
+    let modelName = Model.modelName;
+    modelName = modelName.toLowerCase()
+    
     if (!doc) {
-      return next(new AppError(`No ${Model.modelName} found with that ID`, 404));
+      return next(
+        new AppError(
+          req.t(`errors:notFound`, { doc: req.t(`fields:${modelName}`) }),
+          404,
+        ),
+      );
     }
 
     res.status(204).json({
@@ -31,8 +40,15 @@ exports.updateOne = (Model) =>
       runValidators: true,
     });
 
+    let modelName = Model.modelName;
+    modelName = modelName.toLowerCase()
     if (!doc) {
-      return next(new AppError(`No ${Model.modelName} found with that ID`, 404));
+      return next(
+        new AppError(
+          req.t(`errors:notFound`, { doc: req.t(`fields:${modelName}`) }),
+          404,
+        ),
+      );
     }
 
     res.status(200).json({
@@ -60,8 +76,15 @@ exports.getOne = (Model, popOptions) =>
     let query = Model.findById(req.params.id);
     if (popOptions) query = query.populate(popOptions);
     const doc = await query;
+    let modelName = Model.modelName;
+    modelName = modelName.toLowerCase()
     if (!doc) {
-      return next(new AppError(`No ${Model.modelName} found with that ID`, 404));
+      return next(
+        new AppError(
+          req.t(`errors:notFound`, { doc: req.t(`fields:${modelName}`) }),
+          404,
+        ),
+      );
     }
 
     res.status(200).json({

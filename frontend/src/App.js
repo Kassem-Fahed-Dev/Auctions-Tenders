@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Home from './commponts/Home/Home';
+import Favorite from './commponts/Home/Favorite';
 import { Routes, Route } from 'react-router-dom';
 import Privacy from './commponts/privacy policy/Privacy';
 import Privacy1 from './commponts/privacy policy/Privacy1';
@@ -16,6 +17,14 @@ import AuctionGroups from './commponts/Auctions/AuctionGroups';
 import AuctionGroup from './commponts/Auctions/AuctionGroup';
 import Modify from './commponts/Account/Modify';
 import Details from './commponts/Account/details/Details';
+
+import Create from './commponts/Account/Profile/Pages/Create';
+import AucParticiped from './commponts/Account/Profile/Pages/AucParticiped';
+import TenderCreate from './commponts/Account/Profile/Pages/TenderCreate';
+import TenderParticiped from './commponts/Account/Profile/Pages/TenderParticiped';
+import FavAuction from './commponts/Account/Profile/Pages/FavAuction';
+import FavTender from './commponts/Account/Profile/Pages/FavTender';
+import Profile from './commponts/Account/Profile/Pages/Profile';
 // <<<<<<< Updated upstream
 // tenders
 import AllTenders from './commponts/Tenders/AllTenders';
@@ -24,12 +33,17 @@ import FavoriteTenders from './commponts/Tenders/FavoriteTenders';
 import CreateTender from './commponts/Tenders/CreateTender';
 import TenderGroups from './commponts/Tenders/TenderGroups';
 import Details_Tender from './commponts/Tenders/details/Details_Tender';
+// import Profile from './commponts/Account/Profile/Pages/Profile'
 // =======
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TenderGroup from './commponts/Tenders/TenderGroup';
 import Create_Tender from './commponts/Tenders/Create_Tender';
+import Cards from './commponts/Auctions/Cards';
+import ConfirmLogout from './commponts/Account/ConfirmLogout';
+import AllUsers from './commponts/AllUser/AllUsers';
+import All from './commponts/AllUser/All';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -37,12 +51,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGJhZDAyYzc5NDU0MDA1YmQ0NmEwZiIsImlhdCI6MTc0NDk2ODA3OSwiZXhwIjoxNzUyNzQ0MDc5fQ.Y2jTAwwKl9aFmB56wX3CzluGi7E88T5Tsd8FIDMJRIU"
-// <<<<<<< HEAD
-  const tok = localStorage.getItem('jwt'); 
+  // <<<<<<< HEAD
+  const tok = localStorage.getItem('jwt');
   // console.log(tok)
-// =======
+  // =======
   // const tok = localStorage.getItem('jwt');
-// >>>>>>> f84a1459e3c7971148b91fcd2fe9795a8b8ebddb
+  // >>>>>>> f84a1459e3c7971148b91fcd2fe9795a8b8ebddb
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
   //     try {
@@ -79,15 +93,19 @@ function App() {
   // if (isLoading) {
   //   return <div>Loading...</div>; // عرض شاشة تحميل أثناء التحقق من حالة تسجيل الدخول
   // }
+
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/fav" element={<Favorite />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/privacy1" element={<Privacy1 />} />
         <Route path="/acount" element={<CreateAcount />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/auctions" element={<AllAuctions />} />
+        {/* <Route path="/auctions/a" element={<Cards />}/> */}
+        {/* <Route path="/auctions" element={<AllAuctions />} /> */}
         <Route path="/share-auction" element={<ShareAuctions />} />
         <Route path="/favorite" element={<FavoriteAuction />} />
         <Route path="/auctionsgroup" element={<AuctionGroups />} />
@@ -138,6 +156,18 @@ function App() {
         <Route path="/Create_Tender" element={<Create_Tender />} />
         <Route path="/tendersgroup" element={<TenderGroups />} />
         <Route path="/det-tender" element={<Details_Tender />} />
+        {/* <Route path='/profile' element={<Profile/>}/> */}
+        <Route path="/create" element={<Create />} />
+        <Route path="/Aucparticep" element={<AucParticiped />} />
+        <Route path="/TenderCreate" element={<TenderCreate />} />
+        <Route path="/TenderParticiped" element={<TenderParticiped />} />
+        <Route path="/FavAuction" element={<FavAuction />} />
+        <Route path="/FavTender" element={<FavTender />} />
+        <Route path="/profile" element={<Profile />} />
+        {/* logout */}
+        <Route path="/logout1" element={<ConfirmLogout />} />
+        <Route path="/users" element={<All />} />
+        <Route path="/usersdetails" element={<AllUsers />} />
       </Routes>
     </div>
   );

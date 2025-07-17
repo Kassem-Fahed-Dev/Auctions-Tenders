@@ -2,14 +2,14 @@ import './Confirm.css';
 import imag from '../../image/logo.png';
 import { useNavigate } from 'react-router-dom';
 export default function Confirm({ message }) {
-  const navegate=useNavigate()
+  const navegate = useNavigate();
+
   function goback() {
-    window.history.go(-2);
-  
+    navegate('/');
   }
   return (
     <>
-    {/* الجانب الايسر (رسالة التاكيد و سهم الرجوع) */}
+      {/* الجانب الايسر (رسالة التاكيد و سهم الرجوع) */}
       <div className="con-msg">
         <div className="message">
           <button className="	fas fa-chevron-left" onClick={goback}></button>

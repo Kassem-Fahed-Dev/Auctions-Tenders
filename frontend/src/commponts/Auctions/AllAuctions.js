@@ -3,15 +3,20 @@ import AuctionsNavbar from "./AuctionsNavbar";
 import './allauction.css';
 import Footer from "../privacy policy/Footer";
 import Auction from "./Auction";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from "../AxiosInterceptors";
+import Cards from "./Cards";
 export default function AllAuctions(){
     const [value,setValue]=useState('فرز حسب');
     const [value1,setValue1]=useState('فرز حسب');
     const [value2,setValue2]=useState('');
     const [test,setTest]=useState('')
+    const [test1,setTest1]=useState('')
     const [hover,setHover]=useState(false)
+     const sort=localStorage.getItem('status')
     const navegate=useNavigate()
+   
     const handleClick=()=>{
         if(value2=='فرز حسب'&&value=='فرز حسب'){
         setTest(' ')
@@ -36,22 +41,30 @@ export default function AllAuctions(){
     const handleClick2=(item)=>{
         setValue(item)
         setTest(item)
+      
         if(item==' جاري'||item==' منتهي'||item==' قادم')
         {
+          setTest1(item)
+          localStorage.setItem('status',item)
             setValue1(' الوقت')
             setValue2('فرز حسب')
         
         }
         if(value==' الوقت'||value==' مجموعات'){
-            setValue2('فرز حسب')
-         
+            setValue2('فرز حسب') 
+              
+        }
+        if(item==' الوقت'||item==' مجموعات'){
+            localStorage.setItem('status',item) 
         }
         if(item==' عقارات'||item==' إلكترونيات'||item==' سيارات'||item==' أثاث'||item==' إكسسوار'||item==' ملابس'||item==' أخرى'){
             setValue1(' مجموعات')
             setValue2('فرز حسب')
-            
+             setTest1(item)
+             localStorage.setItem('status',item)      
         }
     }
+        
     return(
         <div className="allauctions">
             <Navbar wordBlod={'auctions'}/>
@@ -61,8 +74,8 @@ export default function AllAuctions(){
              <i className="fas fa-plus"></i>
             </button>
            
-          <button className="sort" type="text" onMouseEnter={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}} onClick={handleClick} value={value} >
-            <div>{value}</div>
+          <button className="sort" type="text" onMouseEnter={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}} onClick={handleClick} value={sort} >
+            <div>{sort}</div>
           <i  className={`fas fa-chevron-left fas1 ${hover==true?'white':'black'} ${value.includes(' مجموعات')||value.includes(' الوقت')||value.includes('فرز حسب')?'sort1':'sort2'}`} onclick={handleClick} ></i>
           </button>
           
@@ -91,22 +104,8 @@ export default function AllAuctions(){
                 <button className="button2" onClick={()=>{handleClick2(' منتهي')}}>منتهي</button>
             </div>
           </div>
-         
-            <div className="alotofAuction">
-            <Auction/>
-            <Auction/>
-            <Auction/>
-            <Auction/>
-            <Auction/>
-            <Auction/>
-            <Auction/>
-            <Auction/>
-       
-            <Auction/>
-            <Auction/>
-            <Auction/>
-            <Auction/>
-            </div>
+         <Cards page="all"/>
+           
             <Footer/>
         </div>
     )
