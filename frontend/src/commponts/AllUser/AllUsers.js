@@ -54,7 +54,7 @@ export default function AllUsers() {
         <div>
           <div className="but">
             <button
-              className="fav-act"
+              className={`fav-act ${change === 'personal' ? 'active' : ''}`}
               onClick={() => {
                 setChange('personal');
               }}
@@ -62,7 +62,7 @@ export default function AllUsers() {
               البيانات الشخصية
             </button>
             <button
-              className="fav-act"
+              className={`fav-act ${change === 'creat_A' ? 'active' : ''}`}
               onClick={() => {
                 setChange('creat_A');
               }}
@@ -70,7 +70,8 @@ export default function AllUsers() {
               المزادات المنشأة
             </button>
             <button
-              className="fav-act"
+              className={`fav-act ${change === 'creat_T' ? 'active' : ''}`}
+              // className="fav-act"
               onClick={() => {
                 setChange('creat_T');
               }}

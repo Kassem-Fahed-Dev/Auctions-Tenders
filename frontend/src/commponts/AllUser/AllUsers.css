@@ -81,3 +81,8 @@
   width: 450px;
   border-top-left-radius: 437px;
 }
+.fav-act.active {
+  background-color: #003366; /* مثال: أزرق غامق */
+  color: white;
+  border-radius: 5px;
+}

@@ -77,8 +77,10 @@
     margin-right: 13%; */
   /* padding-right: 18%;
   padding-left: 12%; */
-  padding-right: 10%;
-  padding-left: 12%;
+  /* padding-right: 10%;
+  padding-left: 12%; */
+  padding-right: 8%;
+  padding-left: 15%;
   flex-wrap: wrap;
   margin-bottom: 20%;
 }
@@ -225,8 +227,8 @@
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
 }
-.timedet{
-  color: #00cc66; 
+.timedet {
+  color: #00cc66;
 }
 .oneAuction .time1 {
   position: absolute;
@@ -242,7 +244,7 @@
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
 }
-.time1det{
+.time1det {
   color: red;
 }
 .oneAuction .time2 {
@@ -259,7 +261,7 @@
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
 }
-.time2det{
+.time2det {
   color: rgb(12, 166, 212);
 }
 .white {
@@ -404,7 +406,7 @@ p.upload {
   /* height: 880px; */
   background-color: #ccc;
 }
-.datadecor{
+.datadecor {
   flex-direction: row;
 }
 .create-auction-form {
@@ -500,7 +502,8 @@ p.upload {
   margin-bottom: 50px;
 }
 
-.product-name input, .product-name input.prod{
+.product-name input,
+.product-name input.prod {
   width: 150px;
   height: 30px;
   padding: 5px;
@@ -678,7 +681,7 @@ input [type='date'] {
   padding-bottom: 50px;
   padding-left: 10%;
   display: flex;
- 
+
   flex-wrap: wrap;
   gap: 5%;
 }
@@ -765,16 +768,18 @@ input [type='date'] {
 .Navul li.p-ten a:hover {
   font-size: 35px;
 }
-.error-title{
+.error-title {
   top: 30px;
   right: 45px;
 }
-.error-category{
+.error-category {
   top: 81px;
   right: 30px;
-  
 }
-.error-start-time,.error-starting-price,.error-end-time,.error-minimumIncrement{
+.error-start-time,
+.error-starting-price,
+.error-end-time,
+.error-minimumIncrement {
   top: 30px;
   right: 43px;
   position: absolute;
@@ -791,55 +796,54 @@ input [type='date'] {
   top: 320px;
   right: 45px;
 } */
-.error-name{
+.error-name {
   top: 38px;
   right: 48px;
 }
-.error-status{
+.error-status {
   position: absolute;
   top: 10px;
   width: 100px;
- right: 30px;
+  right: 30px;
 }
-.gr{
+.gr {
   position: relative;
   margin-top: -15px;
   right: 50px;
   width: 280px;
 }
-.gr p{
+.gr p {
   margin-right: -10px;
   padding-top: 25px;
   margin-bottom: 67px;
   color: #000;
   font-weight: bold;
 }
-.send-auction1{
+.send-auction1 {
   background-color: #00000090;
 }
-.error-gr{
+.error-gr {
   bottom: 5px;
   right: 75px;
 }
-.bor{
+.bor {
   border: #00000050 1px solid;
   margin-bottom: 30px;
   padding: 15px 0px 0px 0px;
- border-radius: 8px;
- margin-top: -55px;
- 
+  border-radius: 8px;
+  margin-top: -55px;
 }
-.group1 .product-name input{
+.group1 .product-name input {
   margin-top: 5px;
 }
-.group1 .product-name label{
+.group1 .product-name label {
   padding-top: 5px;
 }
-.gr .product-name{
+.gr .product-name {
   margin-right: -40px;
 }
 /* ============================ */
-.error-back{
+.error-back {
   position: absolute;
   bottom: 30px;
   right: 298px;
