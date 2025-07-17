@@ -30,7 +30,7 @@
 }
 /* القاىمة الثانية */
 .ul2 {
-  width: 280px;
+  width: 300px;
   font-size: 14px;
   padding: 4px;
   margin-top: 15px;
@@ -57,7 +57,7 @@
 }
 .users:hover,
 .account:hover,
-.logout:hover {
+#logout:hover {
   font-weight: bold;
 }
 .bold1 {
@@ -87,22 +87,22 @@
 #logout {
   border: none;
   background-color: transparent;
-  font-size: 10px;
+  font-size: 14px;
   width: 80px;
   color: #003366;
 }
 .account {
-  font-size: 12px;
+  font-size: 14px;
   width: 80px;
 }
 .conLogOut {
-  position: absolute;
+  position: relative;
   direction: rtl;
   display: flex;
-  left: 210px;
+  left: 5px;
 }
 /* for the position logout */
-/* .c_2 {
-  position: absolute;
-  left: 0px;
-} */
+.c_2 {
+  position: relative;
+  bottom: 1px;
+}

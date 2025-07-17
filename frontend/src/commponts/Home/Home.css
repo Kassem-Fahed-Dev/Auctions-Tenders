@@ -323,6 +323,8 @@ ol {
   border: none;
   border-radius: 8px;
   font-weight: 800;
+  position: relative;
+  z-index: 5;
 }
 .but {
   display: flex;
