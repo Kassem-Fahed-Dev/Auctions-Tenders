@@ -22,7 +22,7 @@ const tendersSchema = new mongoose.Schema(
       required: [true, 'Please inter end time'],
       validate: {
         validator: function (val) {
-          return val > this.startTIme;
+          return val > this.startTime;
         },
         message: 'End time must be after start time',
       },

@@ -2,6 +2,8 @@ const express = require('express');
 const tendersController = require('../controllers/tendersController');
 const tenderBidController = require('../controllers/tenderBidController');
 const authController = require('../controllers/authController');
+const checkOwnerOrAdmin = require('../utils/checkOwnerOrAdmin');
+const Tenders = require('../models/Tenders');
 const router = express.Router();
 
 // فلترة حسب التصنيف + جلب الكل
@@ -18,10 +20,20 @@ router.post('/', authController.protect, tendersController.createTender);
 router.get('/:id', tendersController.getTender);
 
 // تحديث مناقصة
-router.patch('/:id', authController.protect, tendersController.updateTender);
+router.patch(
+  '/:id',
+  authController.protect,
+  checkOwnerOrAdmin(Tenders, 'user'),
+  tendersController.updateTender,
+);
 
 // حذف مناقصة
-router.delete('/:id', authController.protect, tendersController.deleteTender);
+router.delete(
+  '/:id',
+  authController.protect,
+  checkOwnerOrAdmin(Tenders, 'user'),
+  tendersController.deleteTender,
+);
 
 // المزايدة على مناقصة
 router.post(

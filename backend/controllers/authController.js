@@ -19,7 +19,8 @@ const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+      Date.now() +
+        parseInt(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
   };
@@ -67,21 +68,20 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-exports.logout = catchAsync(async(req, res, next) => {
-  const newBlacklistToken = new BlacklistToken({token:req.token});
+exports.logout = catchAsync(async (req, res, next) => {
+  const newBlacklistToken = new BlacklistToken({ token: req.token });
   await newBlacklistToken.save();
   res.status(200).json({
     status: req.t(`fields:success`),
     message: req.t('successes:logout'),
   });
-  
+
   // const cookieOptions = {
   //   httpOnly: true,
   // };
   // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
   // res.clearCookie('jwt', cookieOptions);
-
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -92,14 +92,16 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies && req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
   if (!token) {
     return next(new AppError(req.t(`errors:access`), 401));
   }
   // check if the token in Blacklist tokens or not
-  const checkIfBlacklisted = await BlacklistToken.findOne({token})
-  console.log(checkIfBlacklisted)
-  if(checkIfBlacklisted)
+  const checkIfBlacklisted = await BlacklistToken.findOne({ token });
+  console.log(checkIfBlacklisted);
+  if (checkIfBlacklisted)
     return next(new AppError(req.t(`errors:access`), 401));
 
   // 2) Verification token
@@ -117,7 +119,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
-  req.token = token
+  req.token = token;
   next();
 });
 
@@ -150,11 +152,11 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   // 3) Send it to user's email
 
- // const message = `Forgot your password? Submit Your password reset code ${resetCode}.\nIf you didn't forget your password, please ignore this email!`;
+  // const message = `Forgot your password? Submit Your password reset code ${resetCode}.\nIf you didn't forget your password, please ignore this email!`;
 
   try {
     //sending the code by whatsapp
-    await sendOTP(user.phone,resetCode);
+    await sendOTP(user.phone, resetCode);
 
     //sending the code by email
 
