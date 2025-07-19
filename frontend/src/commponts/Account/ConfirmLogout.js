@@ -5,15 +5,49 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../Home/Navbar';
 import Confirm from './Confirm';
 import { useState } from 'react';
+import axiosInstance from '../AxiosInterceptors';
 export default function ConfirmLogout({}) {
-
+  const navegate=useNavigate()
+   const token = localStorage.getItem('jwt'); 
+   const [errorMessage, setErrorMessage] = useState({});
   const [show, setshow] = useState(false);
   function handelaccept() {
     localStorage.setItem('jwt', null);
     localStorage.setItem('name', 'حساب الدخول');
     localStorage.setItem('img', ll);
     setshow(true);
-  }
+    axiosInstance
+          .get(
+            `/api/v1/users/logout`,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept-Language': 'ar',
+                'credentials': 'include',
+                'Authorization': `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+           navegate('/')
+            console.log(res)
+           console.log('lllogout')
+          })
+          .catch((error) => {
+            if (error.response) {
+              const validationErrors = {};
+              validationErrors.messageBackend = error.response.data.message;
+              setErrorMessage(validationErrors);
+            } else {
+              console.log('An unexpected error occurred:', error.message);
+              setErrorMessage({
+                messageBackend: 'An unexpected error occurred.',
+              });
+            }
+          });
+      };
+     
+ 
   function handereject() {
     window.history.go(-1);
   }

@@ -2,6 +2,8 @@ const express = require('express');
 const auctionController = require('../controllers/auctionController');
 const auctionBidController = require('../controllers/auctionBidController');
 const authController = require('../controllers/authController');
+const checkOwnerOrAdmin = require('../utils/checkOwnerOrAdmin');
+const Auction = require('../models/Auction');
 const router = express.Router();
 
 router
@@ -24,11 +26,13 @@ router
   .patch(
     '/:id',
     authController.protect,
+    checkOwnerOrAdmin(Auction, 'user'),
     auctionController.updateAuctionWithItem,
   )
   .delete(
     '/:id',
     authController.protect,
+    checkOwnerOrAdmin(Auction, 'user'),
     auctionController.deleteAuctionWithItem,
   );
 

@@ -24,7 +24,7 @@ export default function Account() {
   }, [dispatch]);
   const [DataUser, setDataUser] = useState('');
   const token = localStorage.getItem('jwt');
-    localStorage.setItem('status','فرز حسب');
+  localStorage.setItem('status', 'فرز حسب');
   useEffect(() => {
     axiosInstance
       .get('/api/v1/users/me', {
@@ -37,7 +37,6 @@ export default function Account() {
       })
       .then((res) => {
         setDataUser(res.data.data.data);
-        
       })
       .catch((error) => {
         console.log('error');
@@ -73,25 +72,25 @@ export default function Account() {
     img.onload = () => setImageLoaded(true);
     img.onerror = () => setImageLoaded(false);
   }, []);
-const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      localStorage.setItem('img', reader.result); // تخزين الصورة بصيغة Data URL
-      setSelectedImage(reader.result); // عرض الصورة بعد الاختيار
-    };
-    reader.readAsDataURL(file);
-  }
-};
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        localStorage.setItem('img', reader.result); // تخزين الصورة بصيغة Data URL
+        setSelectedImage(reader.result); // عرض الصورة بعد الاختيار
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-// لعرض الصورة عند تحميل الصفحة أو عند الحاجة
-useEffect(() => {
-  const imgDataUrl = localStorage.getItem('img');
-  if (imgDataUrl) {
-    setSelectedImage(imgDataUrl);
-  }
-}, []);
+  // لعرض الصورة عند تحميل الصفحة أو عند الحاجة
+  useEffect(() => {
+    const imgDataUrl = localStorage.getItem('img');
+    if (imgDataUrl) {
+      setSelectedImage(imgDataUrl);
+    }
+  }, []);
   return (
     <>
       <Navbar />
@@ -175,20 +174,12 @@ useEffect(() => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   {' '}
-                  
                   <path
                     d="M 51 592 C 38 38 25  44 200 47 L 649 46 C 618 101 617 324 379 273 C 274 246 82 350 49 615    "
                     fill="#003366"
                     stroke="none"
                     stroke-width="2"
-                  
                   ></path>
-{/* <path
-    d="M 51 522 Q 50 70 50 47 L 649 46 C 618 101 617 324 379 273 C 274 246 82 350 49 615"
-    fill="#003366"
-    stroke="none"
-    stroke-width="2"
-></path> */}
                 </svg>
                 <div className="welcome">
                   <h2>أهلا بك !</h2>

@@ -17,11 +17,6 @@ const tenderOfferSchema = new mongoose.Schema({
   message: {
     type: String,
   },
-  status: {
-    type: String,
-    enum: ['pending', 'accepted', 'rejected'],
-    default: 'pending',
-  },
   created_at: {
     type: Date,
     default: Date.now,

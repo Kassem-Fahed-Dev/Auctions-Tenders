@@ -1,7 +1,9 @@
 const express = require('express');
+const checkOwnerOrAdmin = require('../utils/checkOwnerOrAdmin');
 const tenderController = require('../controllers/tenderController');
 const tenderOfferController = require('../controllers/tenderOfferController');
 const authController = require('../controllers/authController');
+const Tender = require('../models/Tender');
 const router = express.Router();
 
 router
@@ -26,11 +28,13 @@ router
   .patch(
     '/:id',
     authController.protect,
+    checkOwnerOrAdmin(Tender, 'user'),
     tenderController.updateTenderWithItem,
   )
   .delete(
     '/:id',
     authController.protect,
+    checkOwnerOrAdmin(Tender, 'user'),
     tenderController.deleteTenderWithItem,
   );
 

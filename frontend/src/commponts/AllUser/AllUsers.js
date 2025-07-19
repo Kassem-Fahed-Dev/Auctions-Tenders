@@ -54,7 +54,7 @@ export default function AllUsers() {
         <div>
           <div className="but">
             <button
-              className="fav-act"
+              className={`fav-act ${change === 'personal' ? 'active' : ''}`}
               onClick={() => {
                 setChange('personal');
               }}
@@ -62,7 +62,7 @@ export default function AllUsers() {
               البيانات الشخصية
             </button>
             <button
-              className="fav-act"
+              className={`fav-act ${change === 'creat_A' ? 'active' : ''}`}
               onClick={() => {
                 setChange('creat_A');
               }}
@@ -70,7 +70,8 @@ export default function AllUsers() {
               المزادات المنشأة
             </button>
             <button
-              className="fav-act"
+              className={`fav-act ${change === 'creat_T' ? 'active' : ''}`}
+              // className="fav-act"
               onClick={() => {
                 setChange('creat_T');
               }}
@@ -80,7 +81,7 @@ export default function AllUsers() {
           </div>
           {change === 'personal' && (
             <div id="cccc">
-              <div id="cccc"></div>
+              <div id="ccd"></div>
               <div className="con_con">
                 <div className="con-prof">
                   <div className="con-img-info">
@@ -157,7 +158,7 @@ export default function AllUsers() {
                           d="M 51 592 C 38 38 25  44 200 47 L 649 46 C 618 101 617 324 379 273 C 274 246 82 350 49 615    "
                           fill="#003366"
                           stroke="none"
-                          stroke-width="2"
+                          strokeWidth="2"
                         ></path>
                       </svg>
                       <div className="welcome">

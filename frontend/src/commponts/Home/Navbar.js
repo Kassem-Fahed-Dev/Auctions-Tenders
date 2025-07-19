@@ -86,11 +86,12 @@ export default function Navbar({ wordBlod }) {
             </li>
           )}
           <li onClick={() => hoverItems('alluser')}>
-            <Link to="/users">
-              <div className="icon">
+            <div className="icon">
                 <i className="fas fa-users"></i>
               </div>
-              <p className="users">كل المستخدمين</p>
+            <Link to="/users">
+              
+              <p className="users"> المستخدمين</p>
             </Link>
           </li>
         </ul>

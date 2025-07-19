@@ -43,6 +43,7 @@ import Create_Tender from './commponts/Tenders/Create_Tender';
 import Cards from './commponts/Auctions/Cards';
 import ConfirmLogout from './commponts/Account/ConfirmLogout';
 import AllUsers from './commponts/AllUser/AllUsers';
+import All from './commponts/AllUser/All';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -162,11 +163,11 @@ function App() {
         <Route path="/TenderParticiped" element={<TenderParticiped />} />
         <Route path="/FavAuction" element={<FavAuction />} />
         <Route path="/FavTender" element={<FavTender />} />
-
         <Route path="/profile" element={<Profile />} />
         {/* logout */}
         <Route path="/logout1" element={<ConfirmLogout />} />
-        <Route path="/users" element={<AllUsers />} />
+        <Route path="/users" element={<All />} />
+        <Route path="/usersdetails" element={<AllUsers />} />
       </Routes>
     </div>
   );

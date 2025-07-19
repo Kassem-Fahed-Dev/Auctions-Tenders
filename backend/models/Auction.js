@@ -29,7 +29,7 @@ const auctionSchema = new mongoose.Schema(
     },
     startingPrice: {
       type: Number,
-      require: true,
+      required: true,
       default: 0,
     },
     highestPrice: {

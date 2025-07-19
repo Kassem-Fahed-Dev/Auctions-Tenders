@@ -16,6 +16,7 @@ exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
     type: 'auction',
     name: categoryName,
   });
+
   //console.log(category)
   const itemsInCategory = await Item.find({ category: category._id });
 
@@ -33,6 +34,12 @@ exports.getUserId = (req, res, next) => {
 
 // 1. CREATE Auction + Item
 exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
+
+  console.log('iam here');
+  console.log(req.user); //  Check if user exists
+  if (!req.user || !req.user.id) {
+    return next(new Error('User not authenticated or missing ID.'));
+  }
   let newItem = null;
   let newAuction = null;
   try {
@@ -41,6 +48,7 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
       ...req.body.item,
       auction: null, // Temporary placeholder
     });
+
 
     // Create Auction with Item reference
     newAuction = new Auction({
@@ -157,6 +165,7 @@ exports.deleteAuctionWithItem = catchAsync(async (req, res, next) => {
 exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
   let filterAuctionsByCategory = {};
   if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
+
   req.itemAuction = undefined;
   const query = Auction.find(filterAuctionsByCategory)
     .populate('item')
@@ -211,6 +220,7 @@ exports.getMyAuctions = catchAsync(async (req, res, next) => {
   const query = Auction.find(filterAuctionsByCategory)
     .populate('item')
     .populate('user');
+
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()
