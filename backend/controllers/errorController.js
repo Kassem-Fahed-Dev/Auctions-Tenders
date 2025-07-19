@@ -1,6 +1,6 @@
 const AppError = require('./../utils/appError');
 
-const handleCastErrorDB = (err) => {
+const handleCastErrorDB = (req,err) => {
   const message = req.t(`errors:invlaidCast`,{path:err.path,value:err.value})
   return new AppError(message, 400);
 };

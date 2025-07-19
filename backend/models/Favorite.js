@@ -5,15 +5,20 @@ const favoriteSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: true,
     },
-    auction: {
+    type: {
+      type: String,
+      enum: ['auction', 'tender'],
+      required: [true, 'type required'],
+    },
+    referenceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Auction',
-      required: true
-    }
+      required: [true, 'id required'],
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model('Favorite', favoriteSchema);

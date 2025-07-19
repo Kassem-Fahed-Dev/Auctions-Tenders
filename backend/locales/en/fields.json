@@ -7,5 +7,9 @@
     "success":"success",
     "fail":"fail",
     "error":"error",
-    "favorite":"favorite"
+    "favorite":"favorite",
+    "tender":"tender",
+    "offer":"offer",
+    "tenders":"tenders",
+    "offers":"offers"
 }

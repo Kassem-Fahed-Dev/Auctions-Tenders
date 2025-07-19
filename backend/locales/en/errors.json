@@ -21,5 +21,7 @@
   "createAuciton": "Auction dosn't created successfully",
   "sendingCode":"There was an error sending the code to your WhatsApp account. Try again later!",
   "favoriteExists": "This auction is already in your favorites",
-  "favoriteNotFound": "This auction is not in your favorites"
+  "favoriteNotFound": "This auction is not in your favorites",
+  "offering":"You cannot submit an offer to your own tender",
+  "offeringClose":"Offering is closed for this tender"
 }

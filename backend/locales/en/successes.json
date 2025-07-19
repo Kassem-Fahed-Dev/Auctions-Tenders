@@ -7,5 +7,9 @@
   "logout":"logged out successfully",
   "bid":"Bid placed successfully",
   "addFavorite":"Added to favorites successfully",
-  "removeFavorite":"Removed from favorites successfully"
+  "removeFavorite":"Removed from favorites successfully",
+  "createTender": "Tender created successfully"
+  ,"updateTender":"Tender updated successfully"
+  ,"deleteTender":"Tender deleted successfully"
+  ,"offer":"Offer submitted successfully"
 }

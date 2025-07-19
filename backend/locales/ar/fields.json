@@ -6,5 +6,9 @@
   "user": "مستخدم",
   "success": "نجاح",
   "fail": "فشل",
-  "error": "فشل"
+  "error": "فشل",
+  "tender":"مناقصة"
+  ,"offer":"عرض"
+  ,"tenders":"مناقصات"
+  ,"offers":"عروض"
 }

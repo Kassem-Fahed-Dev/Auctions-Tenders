@@ -9,10 +9,14 @@ router.use(authController.protect);
 // Get all favorites for current user
 router.get('/', favoriteController.getUserFavorites);
 
-// Toggle favorite status (add/remove)
-router.post('/:auctionId', favoriteController.toggleFavorite);
+// Toggle favorite status (add/remove) for auction
+router.post('/auction/:auctionId', favoriteController.toggleFavorite);
+// Toggle favorite status (add/remove) for tender
+router.post('/tender/:tenderId', favoriteController.toggleFavorite);
 
 // Check if an auction is favorited
-router.get('/check/:auctionId', favoriteController.checkFavorite);
+router.get('/auction/check/:auctionId', favoriteController.checkFavorite);
+// Check if a tender is favorited
+router.get('/tender/check/:tenderId', favoriteController.checkFavorite);
 
 module.exports = router;

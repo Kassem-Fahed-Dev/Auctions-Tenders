@@ -18,7 +18,7 @@ exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
   });
   //console.log(category)
   const itemsInCategory = await Item.find({ category: category._id });
-  
+
   const itemIds = itemsInCategory.map((item) => item._id);
   req.itemAuction = { item: { $in: itemIds } };
   // console.log(req.itemAuction)
@@ -158,7 +158,6 @@ exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
   let filterAuctionsByCategory = {};
   if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
   req.itemAuction = undefined;
-  console.log(filterAuctionsByCategory)
   const query = Auction.find(filterAuctionsByCategory)
     .populate('item')
     .populate('user');
@@ -169,34 +168,35 @@ exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
     .paginate();
 
   const auctions = await features.query;
-  
+
   // Check favorites
-  const auctionIds = auctions.map(auction => auction._id);
-  
+  const auctionIds = auctions.map((auction) => auction._id);
+
   // Get all favorites for this user and these auctions
   const favorites = await Favorite.find({
-      user: req.user.id,
-      auction: { $in: auctionIds }
-    });
-    
-    
-    // Create a Set of favorited auction IDs for quick lookup
-    const favoritedAuctionIds = new Set(
-      favorites.map(fav => fav.auction.toString())
+    user: req.user.id,
+    type: 'auction',
+    referenceId: { $in: auctionIds },
+  });
+
+  // Create a Set of favorited auction IDs for quick lookup
+  const favoritedAuctionIds = new Set(
+    favorites.map((fav) => fav.referenceId.toString()),
+  );
+  // Add favorite field to each auction
+  const updatedAuctions = auctions.map((auction) => {
+    const plainAuction = auction.toObject();
+    plainAuction.favorite = favoritedAuctionIds.has(
+      plainAuction._id.toString(),
     );
-    
-    // Add favorite field to each auction
-      auctions.forEach(auction => {
-      auction = auction.toObject();
-      auction.favorite = favoritedAuctionIds.has(auction._id.toString());
-      return auction;
-    });
-  //console.log(auctions)
+    return plainAuction;
+  });
+
   res.status(200).json({
     status: req.t(`fields:success`),
-    result: auctions.length,
+    result: updatedAuctions.length,
     data: {
-      data: auctions,
+      data: updatedAuctions,
     },
   });
 });
@@ -205,9 +205,9 @@ exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
 exports.getMyAuctions = catchAsync(async (req, res, next) => {
   let filterAuctionsByCategory = {};
   if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
-  req.itemAuction=undefined
-  filterAuctionsByCategory.user = req.user.id
-  console.log(filterAuctionsByCategory)
+  req.itemAuction = undefined;
+  filterAuctionsByCategory.user = req.user.id;
+  console.log(filterAuctionsByCategory);
   const query = Auction.find(filterAuctionsByCategory)
     .populate('item')
     .populate('user');
@@ -218,34 +218,35 @@ exports.getMyAuctions = catchAsync(async (req, res, next) => {
     .paginate();
 
   const auctions = await features.query;
-  
+
   // Check favorites
-  const auctionIds = auctions.map(auction => auction._id);
-  
+  const auctionIds = auctions.map((auction) => auction._id);
+
   // Get all favorites for this user and these auctions
   const favorites = await Favorite.find({
-      user: req.user.id,
-      auction: { $in: auctionIds }
-    });
-    
-    
-    // Create a Set of favorited auction IDs for quick lookup
-    const favoritedAuctionIds = new Set(
-      favorites.map(fav => fav.auction.toString())
+    user: req.user.id,
+    type: 'auction',
+    referenceId: { $in: auctionIds },
+  });
+
+  // Create a Set of favorited auction IDs for quick lookup
+  const favoritedAuctionIds = new Set(
+    favorites.map((fav) => fav.referenceId.toString()),
+  );
+  // Add favorite field to each auction
+  const updatedAuctions = auctions.map((auction) => {
+    const plainAuction = auction.toObject();
+    plainAuction.favorite = favoritedAuctionIds.has(
+      plainAuction._id.toString(),
     );
-    
-    // Add favorite field to each auction
-      auctions.forEach(auction => {
-      auction = auction.toObject();
-      auction.favorite = favoritedAuctionIds.has(auction._id.toString());
-      return auction;
-    });
-  //console.log(auctions)
+    return plainAuction;
+  });
+
   res.status(200).json({
     status: req.t(`fields:success`),
-    result: auctions.length,
+    result: updatedAuctions.length,
     data: {
-      data: auctions,
+      data: updatedAuctions,
     },
   });
 });
