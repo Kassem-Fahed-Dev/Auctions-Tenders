@@ -2,6 +2,7 @@ const Auction = require('../models/Auction');
 const AuctionBid = require('../models/AuctionBid');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const notificationService = require('../utils/notificationService');
 
 exports.placeBid = catchAsync(async (req, res, next) => {
   const auctionId = req.params.id;
@@ -25,7 +26,7 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   }
 
   // 3. Check auction status
-  if (auction.activeStatus !== 'active') {
+  if (auction.activeStatus !== 'جاري') {
     return next(new AppError(req.t(`errors:biddingClose`), 400));
   }
 
@@ -52,6 +53,17 @@ exports.placeBid = catchAsync(async (req, res, next) => {
 
   // Use transaction if possible (e.g., mongoose-transactions)
   await Promise.all([bid.save(), auction.save()]);
+
+  // Send notification to auction owner
+  const nogif = await notificationService.createNotification({
+    userId: auction.user,
+    title: 'مزايدة جديدة على مزادك',
+    message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك "${auction.auctionTtile}"`,
+    type: 'auction',
+    referenceId: auction._id,
+  });
+
+  console.log('notification created', nogif);
 
   res.status(201).json({
     status: req.t(`fields:success`),
