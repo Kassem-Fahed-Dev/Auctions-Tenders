@@ -2,7 +2,11 @@ const Auction = require('../models/Auction');
 const AuctionBid = require('../models/AuctionBid');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+
 const notificationService = require('../utils/notificationService');
+
+const Wallet = require('../models/Wallet');
+
 
 exports.placeBid = catchAsync(async (req, res, next) => {
   const auctionId = req.params.id;
@@ -40,6 +44,27 @@ exports.placeBid = catchAsync(async (req, res, next) => {
       ),
     );
   }
+
+  // block 10% of startingPrice to participate in the auction
+
+  let wallet = await Wallet.findOne({ partner:userId });
+  if (!wallet) {
+    wallet = await Wallet.create({ partner:userId });
+  }
+
+  const blockedAmount =(0.1*auction.startingPrice)
+  if(wallet.availableAmount < blockedAmount){
+    return next(
+      new AppError(
+        req.t(`errors:blockedAmount`, { blockedAmount,doc:req.t("fields:auction") }),
+        400,
+      ),
+    );
+  }
+
+  wallet.availableAmount -= blockedAmount;
+  wallet.blockedAmount += blockedAmount;
+  wallet.save()
 
   // 5. Create the bid
   const bid = new AuctionBid({

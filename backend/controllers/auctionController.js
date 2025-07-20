@@ -105,6 +105,12 @@ exports.getAuctionWithItem = catchAsync(async (req, res, next) => {
 // 3. UPDATE Auction + Item
 exports.updateAuctionWithItem = catchAsync(async (req, res, next) => {
   // Update Auction
+   if (req.user.role != 'admin') {
+    if (req.body.auction) {
+      delete req.body.auction.status;
+      delete req.body.auction.activeStatus;
+    }
+  }
   const auction = await Auction.findByIdAndUpdate(
     req.params.id,
     req.body.auction,

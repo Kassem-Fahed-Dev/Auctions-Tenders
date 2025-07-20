@@ -33,6 +33,11 @@ const tenderSchema = new mongoose.Schema(
       enum: ['جاري', 'منتهي', 'قادم'],
       default: 'قادم',
     },
+    startingPrice: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     numberOfItems: Number,
     city: String,
     description: {

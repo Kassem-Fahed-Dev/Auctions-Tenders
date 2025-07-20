@@ -27,6 +27,26 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
   if (tender.activeStatus !== 'جاري') {
     return next(new AppError(req.t(`errors:offeringClose`), 400));
   }
+
+    let wallet = await Wallet.findOne({ partner:userId });
+    if (!wallet) {
+      wallet = await Wallet.create({ partner:userId });
+    }
+  
+    const blockedAmount =(0.1*tender.startingPrice)
+    if(wallet.availableAmount < blockedAmount){
+      return next(
+        new AppError(
+          req.t(`errors:offerAmount`, { blockedAmount,doc:req.t("fields:tender") }),
+          400,
+        ),
+      );
+    }
+  
+    wallet.availableAmount -= blockedAmount;
+    wallet.blockedAmount += blockedAmount;
+    wallet.save()
+  
   const offer = new TenderOffer({
     user: userId,
     tender: tenderId,
