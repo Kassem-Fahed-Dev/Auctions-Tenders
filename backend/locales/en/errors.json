@@ -18,6 +18,7 @@
   "bidding":"You cannot bid on your own auction",
   "biddingClose":"Bidding is closed for this auction",
   "biddingAmount":"Bid amount must be at least {{minimumValidBid}}",
+  "blockedAmount":"you should have {{blockedAmount}} in your wallet to participate in this {{doc}}",
   "createAuciton": "Auction dosn't created successfully",
   "sendingCode":"There was an error sending the code to your WhatsApp account. Try again later!",
   "favoriteExists": "This auction is already in your favorites",

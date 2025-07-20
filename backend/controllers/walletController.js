@@ -14,8 +14,35 @@ exports.getAllWalletActivities = catchAsync(async (req, res, next) => {
   const WalletActivities = await features.query;
   res.status(200).json({
     status: 'success',
-    results:WalletActivities.length,
+    results: WalletActivities.length,
     data: WalletActivities,
+  });
+});
+
+exports.getMyWalletActivities = catchAsync(async (req, res, next) => {
+  const query = WalletActivity.find({partner:req.user.id});
+  const features = new APIFeatures(query, req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const WalletActivities = await features.query;
+  res.status(200).json({
+    status: 'success',
+    results: WalletActivities.length,
+    data: WalletActivities,
+  });
+});
+
+exports.getWallet = catchAsync(async (req, res, next) => {
+  const partner = req.user.id
+  let wallet = await Wallet.findOne({ partner });
+  if (!wallet) {
+    wallet = await Wallet.create({ partner });
+  }
+  res.status(200).json({
+    status: 'success',
+    data: wallet,
   });
 });
 
@@ -38,7 +65,7 @@ exports.depositRequest = catchAsync(async (req, res, next) => {
   await wallet.save();
 
   // log activity
-  const w =await WalletActivity.create({
+  const w = await WalletActivity.create({
     partner,
     descriptionTransaction: 'Deposit requested',
     amount, // positive

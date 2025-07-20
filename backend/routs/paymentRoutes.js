@@ -40,5 +40,6 @@ router.get(
   walletController.getAllWalletActivities,
 );
 
-router.get('');
+router.get('/wallet',walletController.getWallet);
+router.get('/myWalletActivities',walletController.getMyWalletActivities);
 module.exports = router;
