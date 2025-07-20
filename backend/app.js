@@ -55,7 +55,6 @@ app.use('/api/v1/payments', paymentRouter);
 app.use('/api/v1/favorites', favoriteRouter);
 app.use('/api/v1/tenders', tenderRouter);
 
-
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
