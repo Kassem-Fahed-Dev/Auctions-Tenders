@@ -86,6 +86,12 @@ exports.getTenderWithItem = catchAsync(async (req, res, next) => {
 
 // 3. UPDATE Tender + Item
 exports.updateTenderWithItem = catchAsync(async (req, res, next) => {
+  if (req.user.role != 'admin') {
+    if (req.body.tender) {
+      delete req.body.tender.status;
+      delete req.body.tender.activeStatus;
+    }
+  }
   const tender = await Tender.findByIdAndUpdate(
     req.params.id,
     req.body.tender,
