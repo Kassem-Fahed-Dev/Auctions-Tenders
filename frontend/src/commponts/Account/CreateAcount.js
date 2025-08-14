@@ -179,6 +179,7 @@ export default function CreateAcount() {
          '/api/v1/users/signup',
           JSON.stringify(formData),
           {
+            withCredentials: true,
             headers: {
               
               'Content-Type': 'application/json',
@@ -245,6 +246,7 @@ export default function CreateAcount() {
           '/api/v1/users/login',
           JSON.stringify(formData1),
           {
+            withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',
@@ -303,6 +305,7 @@ export default function CreateAcount() {
           '/api/v1/users/forgotPassword',
           JSON.stringify(formData2),
           {
+            withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
               'Accept-Language': 'ar',

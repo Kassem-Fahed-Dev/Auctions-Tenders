@@ -106,8 +106,21 @@
   padding: 10px;
   display: block;
   font-size: 24px;
-  left: 75%;
-  /* right: 95px; */
+  /* left: 463px; */
+  left: 185%;
+  /* right:-90%; */
+}
+.listSort .but  {
+  position: relative;
+  width: 250px;
+  background-color: #fff;
+  padding: 10px;
+  display: block;
+  font-size: 24px;
+  left: 43%;
+  top: -40px;
+  /* left: -80%; */
+  /* right:90%; */
 }
 .listSort .buttonSort button:hover {
   background-color: #003366;
@@ -134,6 +147,7 @@
 }
 .imageAuction {
   width: 295px;
+  height: 200px;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
@@ -652,9 +666,26 @@ input [type='date'] {
   background-color: transparent;
   border-radius: 8px;
 }
-.list-data button.back {
+
+.de{
+  height: 50px;
+  width: 90px;
+  height: 50px;
+  width: 90px;
+    text-align: center;
+  margin-top: 10px;
+    padding-top: 10px;
+}
+.list-data div.back {
   background-color: #003366;
   color: #fff;
+  border-radius: 8px;
+  height: 50px;
+  width: 90px;
+  text-align: center;
+  padding-top: 10px;
+ height: 50px;
+  width: 90px;
   font-weight: bold;
 }
 .textarea {

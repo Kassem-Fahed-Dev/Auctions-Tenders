@@ -2,10 +2,10 @@ import AuctionsNavbar from './AuctionsNavbar';
 import Navbar from '../Home/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../privacy policy/Footer';
+import ButtonSort from '../Home/ButtonSort';
 export default function AuctionGroups() {
   const navegate = useNavigate();
-    localStorage.setItem('status','فرز حسب');
-  function go1() {}
+
   return (
     <div>
       <Navbar wordBlod={'auctions'} />
@@ -19,6 +19,7 @@ export default function AuctionGroups() {
         <p>إنشاء مزاد</p>
         <i className="fas fa-plus"></i>
       </button>
+     
       <div className="group-con">
         <div className="group-div div1">
           <Link className="link" to="/car">
