@@ -8,12 +8,17 @@ import Cards from '../Auctions/Cards';
 import ButtonSort from '../Home/ButtonSort';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { fetchUserFromAPI } from '../Account/Profile/store/Redux';
 export default function AllUsers() {
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [showXButton, setShowXButton] = useState(false);
+     const location = useLocation();
+       localStorage.setItem('status','فرز حسب');
+  const da = location.state || {}; 
+console.log(da)
   useEffect(() => {
     dispatch(fetchUserFromAPI());
   }, [dispatch]);
@@ -165,17 +170,17 @@ export default function AllUsers() {
                         <h2>أهلا بك !</h2>
                         <p className="data1">بياناتك محمية بكل صدق وشفافية</p>
                       </div>
-                      <h3>{nn.name}</h3>
+                      <h3>{da?.name}</h3>
 
                       <p className="par-info">
-                        اسم المستخدم :<div className="name">{nn.name}</div>{' '}
+                        اسم المستخدم :<div className="name">{da?.name}</div>{' '}
                       </p>
                       <p className="par-info">
                         البريد الالكتروني :
-                        <div className="email">{nn.email}</div>
+                        <div className="email">{da?.email}</div>
                       </p>
                       <p className="par-info">
-                        الرقم :<div className="number">{nn.phone}</div>{' '}
+                        الرقم :<div className="number">{da?.phone}</div>{' '}
                       </p>
                     </div>
                   </div>
@@ -198,7 +203,7 @@ export default function AllUsers() {
                 height="40px"
               />
               <div className="dec">
-                <Cards page={'all'} />
+                <Cards id={da?._id} page={'id'} />
               </div>
             </div>
           )}

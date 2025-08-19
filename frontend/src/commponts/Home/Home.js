@@ -11,7 +11,7 @@ import Footer from '../privacy policy/Footer';
 import { Link } from 'react-router-dom';
 export default function Home() {
   const tok = localStorage.getItem('jwt'); 
-  localStorage.setItem('status','فرز حسب');
+  
   return (
     <div>
       <div className="header">

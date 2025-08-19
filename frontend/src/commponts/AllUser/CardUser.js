@@ -1,13 +1,13 @@
 import './AllUsers.css';
 import im from '../../image/user2.jpg';
 import { Link } from 'react-router-dom';
-export default function CardUser() {
+export default function CardUser({da}) {
   return (
     <>
       <div className="containerCard">
         <img className="pic1" src={im} alt="Error" />
-        <p className="userNamee"> فادي</p>
-        <Link to="/usersdetails" id="lin">
+        <p className="userNamee"> {da?.name}</p>
+        <Link to="/usersdetails" state={da} id="lin">
           {' '}
           عرض الحساب{' '}
         </Link>

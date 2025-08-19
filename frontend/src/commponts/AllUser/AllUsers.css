@@ -84,5 +84,6 @@
 .fav-act.active {
   background-color: #003366; /* مثال: أزرق غامق */
   color: white;
+
   border-radius: 5px;
 }
