@@ -5,6 +5,7 @@ const Favorite = require('../models/Favorite');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
+const AuctionBid = require('../models/AuctionBid');
 
 exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
   const categoryName = req.query.categoryName;
@@ -266,6 +267,20 @@ exports.getMyAuctions = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+// GET User Participate Auctions
+exports.getUserParticipateAuctions = catchAsync(async (req, res, next) => {
+  const auctions = await AuctionBid.find({user:req.user.id})
+    .populate('auction')
+
+  res.status(200).json({
+    status: req.t(`fields:success`),
+    data: {
+      data: auctions,
+    },
+  });
+});
+
 
 // exports.getAllAuctions = factory.getAll(Auction);
 // exports.getAuction = factory.getOne(Auction);

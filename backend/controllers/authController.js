@@ -100,7 +100,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   // check if the token in Blacklist tokens or not
   const checkIfBlacklisted = await BlacklistToken.findOne({ token });
-  console.log(checkIfBlacklisted);
   if (checkIfBlacklisted)
     return next(new AppError(req.t(`errors:access`), 401));
 

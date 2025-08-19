@@ -13,6 +13,13 @@ router
     auctionController.filterAuctionsByCategory,
     auctionController.getAllAuctionsWithItems,
   )
+router
+  .get(
+    '/participateAuctions',
+    authController.protect,
+    auctionController.filterAuctionsByCategory,
+    auctionController.getUserParticipateAuctions,
+  )
   .post('/', authController.protect, auctionController.createAuctionWithItem);
 router.get(
   '/myAuctions',
