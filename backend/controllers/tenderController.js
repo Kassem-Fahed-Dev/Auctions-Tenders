@@ -5,6 +5,7 @@ const Favorite = require('../models/Favorite');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
+const TenderOffer = require('../models/TenderOffer');
 
 // Filter tenders by category
 exports.filterTendersByCategory = catchAsync(async (req, res, next) => {
@@ -164,9 +165,9 @@ exports.getAllTendersWithItems = catchAsync(async (req, res, next) => {
     const favoritedTenderIds = new Set(
     favorites.map((fav) => fav.referenceId.toString()),
   );
-  // Add favorite field to each auction
-  const updatedTenders = tenders.map((auction) => {
-    const plainTender = auction.toObject();
+  // Add favorite field to each tender
+  const updatedTenders = tenders.map((tender) => {
+    const plainTender = tender.toObject();
     plainTender.favorite = favoritedTenderIds.has(
       plainTender._id.toString(),
     );
@@ -218,3 +219,57 @@ exports.getMyTenders = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+// GET User Participate Tenders
+exports.getUserParticipateTenders = catchAsync(async (req, res, next) => {
+  let filterTendersByCategory = {};
+  if (req.itemTender) filterTendersByCategory = req.itemTender;
+  req.itemTender = undefined;
+
+  const participateTenders = await TenderOffer.find({user:req.user.id})
+  const participateTendersIds = participateTenders.map((participateTender) => participateTender.tender);
+  filterTendersByCategory._id = { $in: participateTendersIds };
+  const query = Tender.find(filterTendersByCategory)
+    .populate('item')
+    .populate('user');
+
+  const features = new APIFeatures(query, req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const Tenders = await features.query;
+
+  // Check favorites
+  const tenderIds = Tenders.map((tender) => tender._id);
+
+  // Get all favorites for this user and these Tenders
+  const favorites = await Favorite.find({
+    user: req.user.id,
+    type: 'tender',
+    referenceId: { $in: tenderIds },
+  });
+
+  // Create a Set of favorited tender IDs for quick lookup
+  const favoritedTenderIds = new Set(
+    favorites.map((fav) => fav.referenceId.toString()),
+  );
+  // Add favorite field to each tender
+  const updatedTenders = Tenders.map((tender) => {
+    const plainTender = tender.toObject();
+    plainTender.favorite = favoritedTenderIds.has(
+      plainTender._id.toString(),
+    );
+    return plainTender;
+  });
+
+  res.status(200).json({
+    status: req.t(`fields:success`),
+    result: updatedTenders.length,
+    data: {
+      data: updatedTenders,
+    },
+  });
+});
+

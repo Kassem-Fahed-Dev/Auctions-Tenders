@@ -2,6 +2,7 @@
   "name": "auctions&tenders",
   "version": "1.0.0",
   "main": "app.js",
+  "type": "commonjs",
   "scripts": {
     "test": "nodemon server.js",
     "start": "set NODE_ENV=development&& nodemon server.js",

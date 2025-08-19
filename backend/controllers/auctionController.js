@@ -270,18 +270,69 @@ exports.getMyAuctions = catchAsync(async (req, res, next) => {
 
 // GET User Participate Auctions
 exports.getUserParticipateAuctions = catchAsync(async (req, res, next) => {
-  const auctions = await AuctionBid.find({user:req.user.id})
-    .populate('auction')
+  let filterAuctionsByCategory = {};
+  if (req.itemAuction) filterAuctionsByCategory = req.itemAuction;
+  req.itemAuction = undefined;
+
+  const participateAuctions = await AuctionBid.find({user:req.user.id})
+  const participateAuctionsIds = participateAuctions.map((participateAuction) => participateAuction.auction);
+  filterAuctionsByCategory._id = { $in: participateAuctionsIds };
+  const query = Auction.find(filterAuctionsByCategory)
+    .populate('item')
+    .populate('user');
+
+  const features = new APIFeatures(query, req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const auctions = await features.query;
+
+  // Check favorites
+  const auctionIds = auctions.map((auction) => auction._id);
+
+  // Get all favorites for this user and these auctions
+  const favorites = await Favorite.find({
+    user: req.user.id,
+    type: 'auction',
+    referenceId: { $in: auctionIds },
+  });
+
+  // Create a Set of favorited auction IDs for quick lookup
+  const favoritedAuctionIds = new Set(
+    favorites.map((fav) => fav.referenceId.toString()),
+  );
+  // Add favorite field to each auction
+  const updatedAuctions = auctions.map((auction) => {
+    const plainAuction = auction.toObject();
+    plainAuction.favorite = favoritedAuctionIds.has(
+      plainAuction._id.toString(),
+    );
+    return plainAuction;
+  });
 
   res.status(200).json({
     status: req.t(`fields:success`),
+    result: updatedAuctions.length,
     data: {
-      data: auctions,
+      data: updatedAuctions,
     },
   });
 });
 
 
+exports.getAuctionParticipants = catchAsync(async (req, res, next) => {
+const auction = req.params.id;
+const auctionParticipants = await AuctionBid.find({auction}).populate('user')
+res.status(200).json({
+    status: req.t(`fields:success`),
+    result: auctionParticipants.length,
+    data: {
+      data: auctionParticipants,
+    },
+  });
+})
 // exports.getAllAuctions = factory.getAll(Auction);
 // exports.getAuction = factory.getOne(Auction);
 // exports.createAuction = factory.createOne(Auction);

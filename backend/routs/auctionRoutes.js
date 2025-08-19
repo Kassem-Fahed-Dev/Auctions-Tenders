@@ -15,6 +15,12 @@ router
   )
 router
   .get(
+    '/auctionParticipants/:id',
+    authController.protect,
+    auctionController.getAuctionParticipants,
+  )
+router
+  .get(
     '/participateAuctions',
     authController.protect,
     auctionController.filterAuctionsByCategory,
