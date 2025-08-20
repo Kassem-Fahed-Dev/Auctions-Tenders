@@ -7,269 +7,251 @@ const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const TenderOffer = require('../models/TenderOffer');
 
-// Filter tenders by category
+// Helper function to add favorites to tenders
+const addFavoritesToTenders = async (tenders, userId) => {
+  const tenderIds = tenders.map((tender) => tender._id);
+  
+  const favorites = await Favorite.find({
+    user: userId,
+    type: 'tender',
+    referenceId: { $in: tenderIds },
+  });
+
+  const favoritedTenderIds = new Set(
+    favorites.map((fav) => fav.referenceId.toString())
+  );
+
+  return tenders.map((tender) => {
+    const plainTender = tender.toObject();
+    plainTender.favorite = favoritedTenderIds.has(plainTender._id.toString());
+    return plainTender;
+  });
+};
+
+// Helper function to build tender query with filters
+const buildTenderQuery = (filters = {}) => {
+  return Tender.find(filters)
+    .populate('item')
+    .populate('user');
+};
+
+// Helper function to execute query with API features
+const executeTenderQuery = async (query, queryParams) => {
+  const features = new APIFeatures(query, queryParams)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  return await features.query;
+};
+
+// Helper function to send tender response
+const sendTenderResponse = (res, req, tenders, message = null) => {
+  const response = {
+    status: req.t('fields:success'),
+    result: tenders.length,
+    data: { data: tenders },
+  };
+
+  if (message) {
+    response.message = message;
+  }
+
+  res.status(200).json(response);
+};
+
+// Helper function to get tenders with favorites
+const getTendersWithFavorites = async (filters, queryParams, userId) => {
+  const query = buildTenderQuery(filters);
+  const tenders = await executeTenderQuery(query, queryParams);
+  return await addFavoritesToTenders(tenders, userId);
+};
+
+// Helper function to handle category filtering
+const applyCategoryFilter = (req, filterProperty) => {
+  let filters = {};
+  if (req[filterProperty]) {
+    filters = req[filterProperty];
+  }
+  req[filterProperty] = undefined;
+  return filters;
+};
+
 exports.filterTendersByCategory = catchAsync(async (req, res, next) => {
   const categoryName = req.query.categoryName;
   req.query = (({ categoryName, ...rest }) => rest)(req.query);
+  
   if (!categoryName) {
     return next();
   }
+
   const category = await Category.findOne({
     type: 'tender',
     name: categoryName,
   });
+
   const itemsInCategory = await Item.find({ category: category._id });
   const itemIds = itemsInCategory.map((item) => item._id);
+  
   req.itemTender = { item: { $in: itemIds } };
   next();
 });
 
-// middleware to add userId to query parameters
 exports.getUserId = (req, res, next) => {
   req.params.userId = req.user.id;
   next();
 };
 
-// 1. CREATE Tender + Item
 exports.createTenderWithItem = catchAsync(async (req, res, next) => {
   let newItem = null;
   let newTender = null;
+
   try {
+    // Create Item first
     newItem = new Item({
       ...req.body.item,
       tender: null,
     });
+
+    // Create Tender with Item reference
     newTender = new Tender({
       ...req.body.tender,
       user: req.user.id,
       item: newItem._id,
     });
+
+    // Update Item with Tender reference
     newItem.tender = newTender._id;
     await newItem.save();
     await newTender.save();
+
     const populatedTender = await Tender.findById(newTender._id)
       .populate('item')
       .populate('user');
+
     res.status(201).json({
-      status: req.t(`fields:success`),
-      message: req.t(`successes:createTender`),
-      data: {
-        populatedTender,
-      },
+      status: req.t('fields:success'),
+      message: req.t('successes:createTender'),
+      data: { populatedTender },
     });
   } catch (err) {
+    // Cleanup on error
     if (newTender) await Tender.findByIdAndDelete({ _id: newTender._id });
     if (newItem) await Item.findByIdAndDelete({ _id: newItem._id });
     return next(new AppError(err, 400));
   }
 });
 
-// 2. GET Tender + Item
 exports.getTenderWithItem = catchAsync(async (req, res, next) => {
   const tender = await Tender.findById(req.params.id)
     .populate('item')
     .populate('user');
+
   if (!tender) {
     return next(
       new AppError(
-        req.t(`errors:notFound`, { doc: req.t(`fields:tender`) }),
-        404,
-      ),
+        req.t('errors:notFound', { doc: req.t('fields:tender') }),
+        404
+      )
     );
   }
+
   res.status(200).json({
-    status: req.t(`fields:success`),
-    data: {
-      data: tender,
-    },
+    status: req.t('fields:success'),
+    data: { data: tender },
   });
 });
 
-// 3. UPDATE Tender + Item
 exports.updateTenderWithItem = catchAsync(async (req, res, next) => {
-  if (req.user.role != 'admin') {
-    if (req.body.tender) {
-      delete req.body.tender.status;
-      delete req.body.tender.activeStatus;
-    }
+  // Remove sensitive fields for non-admin users
+  if (req.user.role !== 'admin' && req.body.tender) {
+    delete req.body.tender.status;
+    delete req.body.tender.activeStatus;
   }
+
   const tender = await Tender.findByIdAndUpdate(
     req.params.id,
     req.body.tender,
-    { new: true, runValidators: true },
+    { new: true, runValidators: true }
   );
+
   if (!tender) {
     return next(
       new AppError(
-        req.t(`errors:notFound`, { doc: req.t(`fields:tender`) }),
-        404,
-      ),
+        req.t('errors:notFound', { doc: req.t('fields:tender') }),
+        404
+      )
     );
   }
+
+  // Update linked Item if provided
   if (req.body.item) {
     await Item.findByIdAndUpdate(tender.item, req.body.item, {
       new: true,
       runValidators: true,
     });
   }
+
   const tenderAndItem = await Tender.findById(req.params.id).populate('item');
+  
   res.status(200).json({
-    status: req.t(`fields:success`),
-    message: req.t(`successes:updateTender`),
-    data: {
-      data: tenderAndItem,
-    },
+    status: req.t('fields:success'),
+    message: req.t('successes:updateTender'),
+    data: { data: tenderAndItem },
   });
 });
 
-// 4. DELETE Tender + Item
 exports.deleteTenderWithItem = catchAsync(async (req, res, next) => {
   const tender = await Tender.findById(req.params.id);
-  if (!tender)
+  
+  if (!tender) {
     return next(
       new AppError(
-        req.t(`errors:notFound`, { doc: req.t(`fields:tender`) }),
-        404,
-      ),
+        req.t('errors:notFound', { doc: req.t('fields:tender') }),
+        404
+      )
     );
+  }
+
+  // Delete linked Item first, then Tender
   await Item.findByIdAndDelete(tender.item);
   await Tender.findByIdAndDelete(req.params.id);
+
   res.status(204).json({
-    status: req.t(`fields:success`),
-    message: req.t(`successes:deleteTender`),
+    status: req.t('fields:success'),
+    message: req.t('successes:deleteTender'),
     data: null,
   });
 });
 
-// Get All Tenders + Items
 exports.getAllTendersWithItems = catchAsync(async (req, res, next) => {
-  let filterTendersByCategory = {};
-  if (req.itemTender) filterTendersByCategory = req.itemTender;
-  req.itemTender = undefined;
-  const query = Tender.find(filterTendersByCategory)
-    .populate('item')
-    .populate('user');
-  const features = new APIFeatures(query, req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  const tenders = await features.query;
-  // Check favorites
-  const tenderIds = tenders.map((tender) => tender._id);
-  const favorites = await Favorite.find({
-    user: req.user.id,
-    type: 'tender',
-    referenceId: { $in: tenderIds },
-  });
-    const favoritedTenderIds = new Set(
-    favorites.map((fav) => fav.referenceId.toString()),
-  );
-  // Add favorite field to each tender
-  const updatedTenders = tenders.map((tender) => {
-    const plainTender = tender.toObject();
-    plainTender.favorite = favoritedTenderIds.has(
-      plainTender._id.toString(),
-    );
-    return plainTender;
-  });
-
-  res.status(200).json({
-    status: req.t(`fields:success`),
-    result: updatedTenders.length,
-    data: {
-      data: updatedTenders,
-    },
-  });
+  const filters = applyCategoryFilter(req, 'itemTender');
+  const tenders = await getTendersWithFavorites(filters, req.query, req.user.id);
+  sendTenderResponse(res, req, tenders);
 });
 
-// Get my tenders
 exports.getMyTenders = catchAsync(async (req, res, next) => {
-  let filterTendersByCategory = {};
-  if (req.itemTender) filterTendersByCategory = req.itemTender;
-  req.itemTender = undefined;
-  filterTendersByCategory.user = req.user.id;
-  const query = Tender.find(filterTendersByCategory)
-    .populate('item')
-    .populate('user');
-  const features = new APIFeatures(query, req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  const tenders = await features.query;
-  const tenderIds = tenders.map((tender) => tender._id);
-  const favorites = await Favorite.find({
-    user: req.user.id,
-    tender: { $in: tenderIds },
-  });
-  const favoritedTenderIds = new Set(
-    favorites.map((fav) => fav.tender.toString()),
-  );
-  tenders.forEach((tender) => {
-    tender = tender.toObject();
-    tender.favorite = favoritedTenderIds.has(tender._id.toString());
-    return tender;
-  });
-  res.status(200).json({
-    status: req.t(`fields:success`),
-    result: tenders.length,
-    data: {
-      data: tenders,
-    },
-  });
+  const filters = { 
+    ...applyCategoryFilter(req, 'itemTender'), 
+    user: req.user.id 
+  };
+  
+  const tenders = await getTendersWithFavorites(filters, req.query, req.user.id);
+  sendTenderResponse(res, req, tenders);
 });
 
-// GET User Participate Tenders
 exports.getUserParticipateTenders = catchAsync(async (req, res, next) => {
-  let filterTendersByCategory = {};
-  if (req.itemTender) filterTendersByCategory = req.itemTender;
-  req.itemTender = undefined;
-
-  const participateTenders = await TenderOffer.find({user:req.user.id})
-  const participateTendersIds = participateTenders.map((participateTender) => participateTender.tender);
-  filterTendersByCategory._id = { $in: participateTendersIds };
-  const query = Tender.find(filterTendersByCategory)
-    .populate('item')
-    .populate('user');
-
-  const features = new APIFeatures(query, req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-
-  const Tenders = await features.query;
-
-  // Check favorites
-  const tenderIds = Tenders.map((tender) => tender._id);
-
-  // Get all favorites for this user and these Tenders
-  const favorites = await Favorite.find({
-    user: req.user.id,
-    type: 'tender',
-    referenceId: { $in: tenderIds },
-  });
-
-  // Create a Set of favorited tender IDs for quick lookup
-  const favoritedTenderIds = new Set(
-    favorites.map((fav) => fav.referenceId.toString()),
+  const participateTenders = await TenderOffer.find({ user: req.user.id });
+  const participateTenderIds = participateTenders.map(
+    (participateTender) => participateTender.tender
   );
-  // Add favorite field to each tender
-  const updatedTenders = Tenders.map((tender) => {
-    const plainTender = tender.toObject();
-    plainTender.favorite = favoritedTenderIds.has(
-      plainTender._id.toString(),
-    );
-    return plainTender;
-  });
 
-  res.status(200).json({
-    status: req.t(`fields:success`),
-    result: updatedTenders.length,
-    data: {
-      data: updatedTenders,
-    },
-  });
+  const filters = {
+    ...applyCategoryFilter(req, 'itemTender'),
+    _id: { $in: participateTenderIds },
+  };
+
+  const tenders = await getTendersWithFavorites(filters, req.query, req.user.id);
+  sendTenderResponse(res, req, tenders);
 });
-
