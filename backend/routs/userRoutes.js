@@ -12,7 +12,6 @@ router.get('/checkLogin', authController.protect, authController.checkLogin);
 router.post('/forgotPassword', authController.forgotPassword);
 router.post('/checkResetCode', authController.checkResetCode);
 router.patch('/resetPassword', authController.resetPassword);
-router.get('/:id', userController.getUser);
 
 router.get(
   '/me',
@@ -34,8 +33,9 @@ router.delete('/deleteMe', authController.protect, userController.deleteMe);
 //router.use(authController.restrictTo('admin'));
 
 router
-  .route('/:id')
-  .patch(authController.protect,authController.restrictTo('admin'),userController.updateUser)
-  .delete(authController.protect,authController.restrictTo('admin'),userController.deleteUser);
+.route('/:id')
+.patch(authController.protect,authController.restrictTo('admin'),userController.updateUser)
+.delete(authController.protect,authController.restrictTo('admin'),userController.deleteUser)
+.get(userController.getUser);
 
 module.exports = router;
