@@ -1,49 +1,49 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
-import Auction from './Auction';
-export default function Cards({page,item,id}) {
+import Tender from './Tender';
+
+export default function CardTen({page,item,id}) {
   const [all, setAll] = useState([]);
+  let sort;
+    const token = localStorage.getItem('jwt'); 
   const [errorMessage, setErrorMessage] = useState({});
-    let sort;
-    if(item=="سيارات"){
-        sort=localStorage.getItem('status4')
+     if(item=="سيارات"){
+        sort=localStorage.getItem('status4tn')
      
    }
    else if(item=="عقارات"){
-        sort=localStorage.getItem('status5')
+        sort=localStorage.getItem('status5tn')
       
    }else if(item=="إلكترونيات"){
-        sort=localStorage.getItem('status6')
+        sort=localStorage.getItem('status6tn')
      
    }else if(item=="أثاث"){
-        sort=localStorage.getItem('status7')
+        sort=localStorage.getItem('status7tn')
      
    }else if(item=="ملابس"){
-        sort=localStorage.getItem('status8')
+        sort=localStorage.getItem('status8tn')
  
    }else if(item=="إكسسوار"){
-        sort=localStorage.getItem('status9')
+        sort=localStorage.getItem('status9tn')
     
    }else if(item=="أخرى"){
-        sort=localStorage.getItem('status10')
+        sort=localStorage.getItem('status10tn')
 
    }else{
-    sort=localStorage.getItem('status')
+    sort=localStorage.getItem('statustn')
    }
-     const token = localStorage.getItem('jwt'); 
-    // if(page=="all"){ 
-  useEffect(()=>{
+   useEffect(()=>{
     if(page=="all"){
-          console.log('all')
+          console.log(sort)
     axiosInstance
     .get(
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           '/api/v1/auctions'
+           '/api/v1/tenders'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions?activeStatus=${sort.trim()}`
-          : `/api/v1/auctions?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -121,7 +121,7 @@ export default function Cards({page,item,id}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          '/api/v1/auctions/myAuctions'
+          '/api/v1/tenders/myTenders'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
           ? `/api/v1/auctions/myAuctions?activeStatus=${sort.trim()}`
           : `/api/v1/auctions/myAuctions?categoryName=${sort.trim()}`
@@ -162,7 +162,7 @@ export default function Cards({page,item,id}) {
       `${
       sort=='فرز حسب'
           ? 
-          `/api/v1/auctions?categoryName=${item}`
+          `/api/v1/tenders?categoryName=${item}`
           : `/api/v1/auctions?categoryName=${item}&activeStatus=${sort.trim()}`
           
       }`
@@ -202,10 +202,10 @@ export default function Cards({page,item,id}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/favorites?type=auction`
+          `/api/v1/favorites?type=tender`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/favorites?type=auction?activeStatus=${sort.trim()}`
-          : `/api/v1/favorites?type=auction?categoryName=${sort.trim()}`
+          ? `/api/v1/favorites?type=tender?activeStatus=${sort.trim()}`
+          : `/api/v1/favorites?type=tender?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -234,7 +234,7 @@ export default function Cards({page,item,id}) {
         });
       }
     });
-  }   else if(page=="share"){
+  }  else if(page=="share"){
   
     console.log(sort)
     axiosInstance
@@ -242,10 +242,10 @@ export default function Cards({page,item,id}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/auctions/participateAuctions`
+          `/api/v1/tenders/participateTenders`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions/participateAuctions?activeStatus=${sort.trim()}`
-          : `/api/v1/auctions/participateAuctions?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/participateTenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/participateTenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -276,12 +276,12 @@ export default function Cards({page,item,id}) {
     });
   }
 },[sort])
-// }
   return (
     <>
       <div className="alotofAuction">
+    
         {all.map((auc) => (
-          <Auction data={auc} />
+          <Tender data={auc} />
         ))}
       </div>
     </>

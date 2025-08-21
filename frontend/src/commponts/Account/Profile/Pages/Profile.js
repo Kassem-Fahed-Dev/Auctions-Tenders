@@ -24,7 +24,7 @@ export default function Account() {
   }, [dispatch]);
   const [DataUser, setDataUser] = useState('');
   const token = localStorage.getItem('jwt');
-  localStorage.setItem('status', 'فرز حسب');
+  // localStorage.setItem('status', 'فرز حسب');
   useEffect(() => {
     axiosInstance
       .get('/api/v1/users/me', {

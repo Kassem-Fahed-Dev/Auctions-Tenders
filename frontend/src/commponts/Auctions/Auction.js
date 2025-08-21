@@ -69,7 +69,8 @@ function handel_Fav(e,da) {
    e.preventDefault();
   let hh = e.target;
   console.log(token)
-  if (da?.favorite==true) {
+ if (hh.style.color === 'red') {
+   
     hh.style.cssText = 'color: black;';
     setcol('black')
   } else {

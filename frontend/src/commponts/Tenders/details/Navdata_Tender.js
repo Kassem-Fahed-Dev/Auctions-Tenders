@@ -5,14 +5,15 @@ import im2 from './boxing.jpg';
 import im3 from './im3.jpg';
 import vid from './ggg.mp4';
 
-function Data() {
+function Data({state1}) {
   return (
     <div>
       <pre className="information-auction">
-        {`
+        {/* {`
  المطلوب شركة مختصة لبناء مسجد جديد عيى أرض مساحتها 200متر مربع
  مع مراعاة وتأمين كافة مستلزمات البناء والديكور والقدرة على الانتهاء خلال 
- المدة المحددة`}
+ المدة المحددة`} */}
+ {state1?.item?.description}
       </pre>
     </div>
   );
@@ -105,13 +106,13 @@ function Vidio() {
     </div>
   );
 }
-export default function Navdata_Tender() {
+export default function Navdata_Tender({state}) {
   const [content, setContent] = useState('data');
   const [activeClick, setActiveClick] = useState('data');
 
   const renderContent = () => {
     if (content === 'data') {
-      return <Data />;
+      return <Data state1={state}/>;
     } else if (content === 'image') {
       return <Image />;
     } else if (content === 'vidio') {
@@ -131,7 +132,7 @@ export default function Navdata_Tender() {
         >
           البيانات
         </button>
-        <button
+        {/* <button
           onClick={() => {
             setContent('image');
             setActiveClick('image');
@@ -148,7 +149,7 @@ export default function Navdata_Tender() {
           className={`normal ${activeClick === 'vidio' ? 'ptn-clicked' : ''}`}
         >
           الفيديو
-        </button>
+        </button> */}
       </div>
 
       <hr id="lineee" />

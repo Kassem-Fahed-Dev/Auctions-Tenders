@@ -192,7 +192,7 @@ console.log(da)
           {change === 'creat_A' && (
             <div>
               <div className="but-sor">
-                <ButtonSort />
+            
               </div>
               <p className="par">المزادات المنشأة</p>
               <img
@@ -202,7 +202,9 @@ console.log(da)
                 width="50px"
                 height="40px"
               />
+                <ButtonSort test2={'create'}/>
               <div className="dec">
+                  
                 <Cards id={da?._id} page={'id'} />
               </div>
             </div>
@@ -210,7 +212,7 @@ console.log(da)
           {change === 'creat_T' && (
             <div>
               <div className="but-sor">
-                <ButtonSort />
+                
               </div>
               <p className="par">المناقصات المنشأة</p>
               <img
@@ -220,6 +222,7 @@ console.log(da)
                 width="50px"
                 height="40px"
               />
+              
               <div className="dec">
                 <Cards page={'all'} />
               </div>

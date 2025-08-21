@@ -52,7 +52,7 @@ export default function Details() {
       <AuctionsNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مزادات السيارات</h1>
+          <h1>مزادات {data?.item?.category=="6800c48bc5246f1b240fa3c8"?'سيارات':data?.item?.category=="6800c4ccc5246f1b240fa3cd"?'عقارات':data?.item?.category=="6800d4090c7d9514e40218f0"?'أخرى':data?.item?.category=="6800cf48bdccd52594f29573"?'ملابس':data?.item?.category=="6800ce86aec6df25ccc63ff5"?'إكسسوار':data?.item?.category=="6800cdb36e155b2e04089fbd"?'أثاث':'إلكترونات'}</h1>
           <button
             className="back"
             onClick={() => {
@@ -125,7 +125,7 @@ activeStatus
 
                 <div>
                   التصنيف:
-                  <span>الكترونيات </span>
+                  <span>{data?.item?.category=="6800c48bc5246f1b240fa3c8"?'سيارات':data?.item?.category=="6800c4ccc5246f1b240fa3cd"?'عقارات':data?.item?.category=="6800d4090c7d9514e40218f0"?'أخرى':data?.item?.category=="6800cf48bdccd52594f29573"?'ملابس':data?.item?.category=="6800ce86aec6df25ccc63ff5"?'إكسسوار':data?.item?.category=="6800cdb36e155b2e04089fbd"?'أثاث':'إلكترونات'} </span>
                 </div>
                 <div>
                   البلد:

@@ -20,6 +20,17 @@ localStorage.setItem('status7', 'فرز حسب');
 localStorage.setItem('status8', 'فرز حسب');
 localStorage.setItem('status9', 'فرز حسب');
 localStorage.setItem('status10', 'فرز حسب');
+localStorage.setItem('statustn', 'فرز حسب');
+localStorage.setItem('status1tn', 'فرز حسب');
+localStorage.setItem('status2tn', 'فرز حسب');
+localStorage.setItem('status3tn', 'فرز حسب');
+localStorage.setItem('status4tn', 'فرز حسب');
+localStorage.setItem('status5tn', 'فرز حسب');
+localStorage.setItem('status6tn', 'فرز حسب');
+localStorage.setItem('status7tn', 'فرز حسب');
+localStorage.setItem('status8tn', 'فرز حسب');
+localStorage.setItem('status9tn', 'فرز حسب');
+localStorage.setItem('status10tn', 'فرز حسب');
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

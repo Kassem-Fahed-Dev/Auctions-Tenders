@@ -7,6 +7,7 @@ import TendersNavbar from './TendersNavbar';
 import Navbar from '../Home/Navbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CardTen from './CardTen';
 
 export default function FavoriteTenders() {
   const [value, setValue] = useState('فرز حسب');
@@ -185,9 +186,7 @@ export default function FavoriteTenders() {
           </button>
         </div>
       </div>
-        <div className="alotofAuction">
-          <Tender />
-        </div>
+        <CardTen page={'fav'}/>
         <Footer />
       </div>
     </>
