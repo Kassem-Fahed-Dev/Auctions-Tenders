@@ -133,7 +133,7 @@
   /* width: 1312px; */
   width: 95%;
   margin: auto;
-  margin-bottom: 60px;
+  height: 480px;
   margin-top: 32px;
   /* padding-right: 20px; */
 }
@@ -149,8 +149,8 @@
 }
 
 .homeimg {
-  width: 45%;
-  height: 60vh;
+  width: 550px;
+  height: 480px;
   border-radius: 82px;
   border: #cccccc solid 3px;
 }
@@ -167,13 +167,13 @@
 .adv {
   direction: rtl;
   /* width: 1312px; */
-  margin: 32px auto;
+  /* margin: 32px auto; */
   padding-right: 30px;
 }
 
 .adv h1 {
   font-size: 48px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 .adv ul li h2 {
   font-size: 24px;
