@@ -2,15 +2,27 @@
   background-color: #ffd700;
   display: flex;
   border: none;
-  gap: 40px;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  height: 53px;
+  width: 220px;
+  margin-left: 3%;
+  margin-top: 20px;
+  padding: 10px;
+  /* background-color: #ffd700;
+  display: flex;
+  border: none;
+  gap: 15px;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  height: 65px;
-  width: 250px;
+  height: 64px;
+  width: 204px;
   margin-left: 3%;
   margin-top: 20px;
-  padding: 15px;
+  padding: 15px; */
 }
 .createauction p {
   margin-bottom: 0px;
@@ -27,7 +39,7 @@
   font-weight: bold;
 }
 .sort {
-  width: 250px;
+  /* width: 250px;
   background-color: #fff;
   border-radius: 22px;
   display: flex;
@@ -41,6 +53,25 @@
   font-size: 24px;
   position: absolute;
   top: 230px;
+  /* right: 25%; */
+  /* left: 75%;
+  outline: none;
+  caret-color: transparent; */
+  width: 214px;
+  height: 42px;
+  background-color: #fff;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 40px;
+  justify-content: center;
+  text-align: end;
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 24px;
+  position: absolute;
+  top: 210px;
   /* right: 25%; */
   left: 75%;
   outline: none;
@@ -101,24 +132,35 @@
 }
 .listSort .buttonSort button {
   position: relative;
-  width: 250px;
+  width: 196px;
   background-color: #fff;
-  padding: 10px;
+  /* padding: 10px; */
   display: block;
-  font-size: 24px;
+  font-size: 23px;
   /* left: 463px; */
-  left: 185%;
-  /* right:-90%; */
-}
-.listSort .but  {
+  left: 229%;
+  /* top: 4px; */
+
+  /* right: -90%;
   position: relative;
   width: 250px;
   background-color: #fff;
   padding: 10px;
   display: block;
   font-size: 24px;
-  left: 43%;
-  top: -40px;
+  /* left: 463px; */
+  /* left: 185%; */
+  /* right:-90%; */
+}
+.listSort .but {
+  position: relative;
+  width: 250px;
+  background-color: #fff;
+  padding: 10px;
+  display: block;
+  font-size: 24px;
+  left: 38%;
+  top: -65px;
   /* left: -80%; */
   /* right:90%; */
 }
@@ -134,7 +176,7 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.listSort .so11 button{ 
+.listSort .so11 button {
   left: 1020px;
 }
 /* ---------auction---------- */
@@ -369,7 +411,7 @@ p.upload {
 }
 .create-auction-button .createp {
   direction: rtl;
-  margin-top: 90px;
+  margin-top: 40px;
   /* margin-top: 60px; */
   margin-right: 10%;
   font-size: 38px;
@@ -381,6 +423,7 @@ p.upload {
   position: relative;
   margin-right: -35px;
   margin-bottom: 50px;
+  width: 309px;
 }
 .auction22 {
   position: relative;
@@ -390,7 +433,8 @@ p.upload {
 .create-auction-button .fas.fa-chevron-left {
   position: absolute;
   left: 10%;
-  top: 190px;
+  top: 125px;
+  /* top: 190px; */
   /* top: 170px; */
 
   border: none;
@@ -461,13 +505,14 @@ p.upload {
   margin-right: -68px;
 }
 .create-auction-button {
-  padding-bottom: 100px;
+  padding-bottom: 110px;
 }
 .group2 {
   /* padding-right: 20px; */
-  border: #000000 solid 3px;
+  border: #000000 solid 1px;
+  outline: none;
   direction: rtl;
-  width: 150px;
+  width: 155px;
   height: 31px;
   border-radius: 8px;
   /* left: 120px;
@@ -479,6 +524,7 @@ p.upload {
   font-weight: 500;
   /* margin-right: -40px; */
   margin-bottom: 6px;
+  background-color: #f2f2f2;
 }
 .group22 {
   border: none;
@@ -670,14 +716,15 @@ input [type='date'] {
   border-radius: 8px;
 }
 
-.de{
+.de {
   height: 50px;
   width: 90px;
   height: 50px;
   width: 90px;
-    text-align: center;
+  text-align: center;
   margin-top: 10px;
-    padding-top: 10px;
+  padding-top: 10px;
+  cursor: pointer;
 }
 .list-data div.back {
   background-color: #003366;
@@ -687,7 +734,7 @@ input [type='date'] {
   width: 90px;
   text-align: center;
   padding-top: 10px;
- height: 50px;
+  height: 50px;
   width: 90px;
   font-weight: bold;
 }
@@ -713,7 +760,7 @@ input [type='date'] {
 .group-con {
   padding-top: 30px;
   padding-bottom: 50px;
-  padding-left: 10%;
+  padding-left: 7%;
   display: flex;
 
   flex-wrap: wrap;
@@ -784,6 +831,7 @@ input [type='date'] {
 .create-auction-button .createp1 {
   font-size: 48px;
   margin-right: 8%;
+  margin-top: 26px;
 }
 /* ----- */
 .create-auction-button .fas1 {
@@ -791,7 +839,8 @@ input [type='date'] {
 }
 
 .so {
-  top: 375px;
+  /* top: 375px; */
+  top: 295px;
 }
 .createauction-group {
   margin-top: -108px;
@@ -799,9 +848,10 @@ input [type='date'] {
 .sort-ten {
   gap: 25px;
 }
-.Navul li.p-ten a:hover {
+/* .Navul li.p-ten a:hover {
   font-size: 35px;
-}
+  color: red;
+} */
 .error-title {
   top: 30px;
   right: 45px;
@@ -915,4 +965,27 @@ input [type='date'] {
   background-color: #003366;
   color: #fff;
   cursor: pointer;
+}
+.deleteAuction {
+  background-color: #b90909;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  font-size: 17px;
+  width: 100px;
+  text-align: center;
+  height: 40px;
+  display: block;
+  margin-top: 30px;
+  padding-top: 6px;
+  margin-right: 10px;
+}
+.cotainerptn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deleteAuction:hover {
+  font-size: 20px;
 }

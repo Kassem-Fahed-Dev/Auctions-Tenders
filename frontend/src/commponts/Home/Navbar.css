@@ -10,7 +10,7 @@
 
 .Nav {
   width: 95%;
-  height: 80px;
+  height: 70px;
   background-color: #f2f2f2;
   border-radius: 28px;
   margin: 5px auto;
@@ -27,21 +27,22 @@
   width: 40%;
   padding: 4px;
   gap: 30px;
+  margin-top: 8px;
 }
 /* القاىمة الثانية */
 .ul2 {
   width: 300px;
   font-size: 14px;
   padding: 4px;
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .ul1 li {
   width: 50px;
 }
 /* ال hover على الكلمات */
 .Navul li a:hover {
-  font-weight: bold;
-  font-size: 36px;
+  font-weight: 600;
+  font-size: 32px;
 }
 /* الايقونات ضمن الناف */
 .fas {
@@ -73,7 +74,7 @@
 /* ال لوغو */
 .logo1 {
   width: 85px;
-  height: 66px;
+  height: 59px;
 }
 .logo {
   border: none;

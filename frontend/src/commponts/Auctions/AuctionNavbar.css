@@ -1,24 +1,29 @@
-.auctionNav{
-    margin-top: 40px;
+.auctionNav {
+  margin-top: 40px;
 }
 .auctionNav .navul1 {
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
-.auctionNav .navul1 p{
-    margin-bottom: 0px;
+.auctionNav .navul1 p {
+  margin-bottom: 0px;
 }
-.auctionNav .navul1 li{
-    width: 7%;
+.auctionNav .navul1 li {
+  width: 7%;
 }
-.auctionNav .navul1 li.p1{
-    width: 350px;
+.auctionNav .navul1 li.p1 {
+  width: 326px;
+  margin-right: -100px;
 }
-.auctionNav .navul1 li.p2{
-    width: 267px;
+.auctionNav .navul1 li.p2 {
+  width: 254px;
+  margin-right: -100px;
 }
-.auctionNav .navul1 li.group{
-    width: 10%;
+.auctionNav .navul1 li.group {
+  width: 10%;
+  margin-right: -50px;
+}
+.auctionNav .navul1 :hover {
+  font-weight: 500 !important;
 }
