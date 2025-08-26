@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { fetchUserFromAPI } from '../Account/Profile/store/Redux';
+import CardTen from '../Tenders/CardTen';
 export default function AllUsers() {
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState('');
@@ -19,6 +20,7 @@ export default function AllUsers() {
        localStorage.setItem('status','فرز حسب');
   const da = location.state || {}; 
 console.log(da)
+console.log(da._id)
   useEffect(() => {
     dispatch(fetchUserFromAPI());
   }, [dispatch]);
@@ -224,7 +226,7 @@ console.log(da)
               />
               
               <div className="dec">
-                <Cards page={'all'} />
+                <CardTen id={da?._id} page={'id'} /> 
               </div>
             </div>
           )}

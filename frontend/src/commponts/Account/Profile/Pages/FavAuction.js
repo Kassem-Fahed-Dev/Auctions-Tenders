@@ -5,6 +5,8 @@ import Footer from '../../../privacy policy/Footer';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Profile from './Profile';
+import Cards from '../../../Auctions/Cards';
+import ButtonSort from '../../../Home/ButtonSort';
 
 export default function FavAuction() {
   function handel_Fav(e) {
@@ -79,7 +81,7 @@ export default function FavAuction() {
           </h3>
 
           <div className="test-con">
-            <button
+            {/* <button
               className="sort21"
               type="text"
               onMouseEnter={() => {
@@ -219,19 +221,12 @@ export default function FavAuction() {
                   منتهي
                 </button>
               </div>
-            </div>
+            </div> */}
+            <ButtonSort test2={'favp'}/>
           </div>
         </div>
       </div>
-      <div className="flexible">
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-      </div>
+      <Cards page={'fav'}/>
       <Footer />
     </>
   );

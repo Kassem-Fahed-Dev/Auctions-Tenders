@@ -19,13 +19,26 @@ export default function ButtonSort({test2}) {
    } else if(test2=='fav'){
       sort=localStorage.getItem('status1')
       st='status1'
+   }else if(test2=='favh'){
+      sort=localStorage.getItem('status1h')
+      st='status1h'
+   }
+   else if(test2=='favp'){
+      sort=localStorage.getItem('status1p')
+      st='status1p'
    }else if(test2=="create"){
         sort=localStorage.getItem('status2')
       st='status2'
+   }else if(test2=="createp"){
+        sort=localStorage.getItem('status2p')
+      st='status2p'
    }
    else if(test2=="share"){
         sort=localStorage.getItem('status3')
       st='status3'
+   } else if(test2=="sharep"){
+        sort=localStorage.getItem('status3p')
+      st='status3p'
    }
     const handleClick=()=>{
       

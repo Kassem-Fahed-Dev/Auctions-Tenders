@@ -3,6 +3,7 @@ import axiosInstance from '../AxiosInterceptors';
 import Tender from './Tender';
 
 export default function CardTen({page,item,id}) {
+  console.log(id)
   const [all, setAll] = useState([]);
   let sort;
     const token = localStorage.getItem('jwt'); 
@@ -73,16 +74,16 @@ export default function CardTen({page,item,id}) {
     });
   }
      if(page=="id"){
-          console.log('id')
+          console.log(id)
     axiosInstance
     .get(
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           `/api/v1/auctions?user=${id}`
+           `/api/v1/tenders?user=${id}`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions?user=${id}&activeStatus=${sort.trim()}`
-          : `/api/v1/auctions?user=${id}&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?user=${id}&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?user=${id}&categoryName=${sort.trim()}`
       }`
       ,
       {
