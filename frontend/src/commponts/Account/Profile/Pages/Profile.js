@@ -1,4 +1,6 @@
 import '../profile.css';
+import { useLocation } from 'react-router-dom';
+
 import Side from '../componants/Side';
 import Alert from './Alert';
 import ll from '../../../../image/user2.jpg';
@@ -13,6 +15,10 @@ import { fetchUserFromAPI } from '../store/Redux';
 
 // 55555555555555555555555555
 export default function Account() {
+  const location = useLocation();
+
+  const currentPath = location.pathname;
+
   const [imageLoaded, setImageLoaded] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const [isActive, setIsActive] = useState(false);
@@ -98,6 +104,12 @@ export default function Account() {
         <div id={nn.show === true ? 'focus' : ''} className="con-flex">
           <Side />
           <div className="con-prof">
+            {currentPath === '/create' && (
+              <div className="PersonalData">
+                <span className="far fa-edit"></span>
+                <div>البيانات الشخصية</div>
+              </div>
+            )}
             <div className="con-img-info">
               <div className="con-img-ptn">
                 <div className={`img-profile ${isActive ? 'active' : ''}`}>

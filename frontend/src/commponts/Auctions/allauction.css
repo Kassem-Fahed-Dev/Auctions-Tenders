@@ -39,24 +39,6 @@
   font-weight: bold;
 }
 .sort {
-  /* width: 250px;
-  background-color: #fff;
-  border-radius: 22px;
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  gap: 50px;
-  justify-content: center;
-  text-align: end;
-  padding: 10px;
-  padding-left: 20px;
-  font-size: 24px;
-  position: absolute;
-  top: 230px;
-  /* right: 25%; */
-  /* left: 75%;
-  outline: none;
-  caret-color: transparent; */
   width: 214px;
   height: 42px;
   background-color: #fff;
@@ -72,10 +54,31 @@
   font-size: 24px;
   position: absolute;
   top: 210px;
-  /* right: 25%; */
+
   left: 75%;
   outline: none;
   caret-color: transparent;
+  /* jjjjjjjjjjjjjjjjjjjjjjjjjjjj  for profile*/
+  /* width: 214px;
+  height: 42px;
+  background-color: #fff;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 40px;
+  justify-content: center;
+  text-align: end;
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 24px;
+  position: absolute;
+  top: 710px;
+  right: 25%;
+  left: 4%;
+  outline: none;
+  caret-color: transparent; */
+  /* jjjjjjjjjjjjjjjjjjjjjjjjjjjj */
 }
 .sort p {
   margin-bottom: 0px;
@@ -227,7 +230,7 @@
   gap: 10px;
 }
 .product2 {
-  margin-right: 22px;
+  margin-right: -2px;
 }
 .oneAuction .userName .userAuction,
 .oneAuction .product .tableAuction,
@@ -455,7 +458,8 @@ p.upload {
 }
 .create-auction-data1 {
   width: 680px;
-  min-height: 500px;
+  /* min-height: 500px; */
+  min-height: 610px;
   /* height: 840px; */
   margin-top: 20px;
   margin-bottom: 20px;
