@@ -978,7 +978,7 @@ input [type='date'] {
   height: 40px;
   display: block;
   margin-top: 30px;
-  padding-top: 6px;
+  /* padding-top: 6px; */
   margin-right: 10px;
 }
 .cotainerptn {

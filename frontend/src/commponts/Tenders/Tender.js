@@ -1,6 +1,6 @@
 import im4 from '../../image/alarm.png';
 import im5 from './image-Tenders/qwe.jpeg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 export default function Tender({ data, showDelete = false }) {
@@ -14,6 +14,39 @@ export default function Tender({ data, showDelete = false }) {
     const dayDifference = timeDifference / (1000 * 3600 * 24); // تحويل المللي ثانية إلى أيام
     return dayDifference;
   };
+  const navegate = useNavigate()
+ const deleteTen=()=>{
+  console.log('del')
+  axiosInstance
+  .delete(
+    `/api/v1/tenders/${data._id}`
+    ,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept-Language': 'ar',
+         'credentials': 'include',
+          'Authorization': `Bearer ${token}`,
+      },
+    }
+  )
+  .then((res) => {
+    
+    window.location.reload();
+  })
+  .catch((error) => {
+    if (error.response) {
+      const validationErrors = {};
+      validationErrors.messageBackend = error.response.data.message;
+      setErrorMessage(validationErrors);
+    } else {
+      console.log('An unexpected error occurred:', error.message);
+      setErrorMessage({
+        messageBackend: 'An unexpected error occurred.',
+      });
+    }
+  });
+ }
   const [color, setColor] = useState('black');
   const differenceInDays = calculateDateDifference(
     data?.startTime,
@@ -169,7 +202,7 @@ export default function Tender({ data, showDelete = false }) {
           التفاصيل
         </Link>
 
-        {showDelete && <Link className="deleteAuction">حذف</Link>}
+        {showDelete && <button onClick={deleteTen} className="deleteAuction">حذف</button>}
       </div>
     </div>
   );

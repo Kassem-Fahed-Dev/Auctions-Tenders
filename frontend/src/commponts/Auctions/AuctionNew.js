@@ -151,7 +151,8 @@ export default function AuctionNew() {
           </button>
         </div>
       </div>
-      <div className="flexible">
+      {/* <div className="flexible"> */}
+        {/* <Auction showDelete={true} />
         <Auction showDelete={true} />
         <Auction showDelete={true} />
         <Auction showDelete={true} />
@@ -159,9 +160,8 @@ export default function AuctionNew() {
         <Auction showDelete={true} />
         <Auction showDelete={true} />
         <Auction showDelete={true} />
-        <Auction showDelete={true} />
-      </div>
-      <Cards page="create" />
+      </div> */}
+      <Cards page="create"  showDelete={true}/>
 
       <Footer />
     </div>

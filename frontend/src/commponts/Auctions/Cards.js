@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import Auction from './Auction';
-export default function Cards({page,item,id}) {
+export default function Cards({page,item,id,showDelete}) {
   const [all, setAll] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
     let sort;
@@ -196,16 +196,16 @@ export default function Cards({page,item,id}) {
   }
    else if(page=="fav"){
   
-    console.log(sort)
+    console.log('fav')
     axiosInstance
     .get(
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/favorites?type=auction`
+          `/api/v1/auctions`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/favorites?type=auction?activeStatus=${sort.trim()}`
-          : `/api/v1/favorites?type=auction?categoryName=${sort.trim()}`
+          ? `/api/v1/auctions?activeStatus=${sort.trim()}`
+          : `/api/v1/auctions?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -218,9 +218,13 @@ export default function Cards({page,item,id}) {
       }
     )
     .then((res) => {
-      setAll(res.data.data.data);
-      console.log('create')
-      console.log(res.data.data.data);
+      const favorites = res.data.data.data.filter(item => item.favorite === true);
+    
+      // تعيين العناصر المفلترة إلى الحالة
+      setAll(favorites);
+      
+      
+      console.log(res.data.data.data[0].favorite);
     })
     .catch((error) => {
       if (error.response) {
@@ -281,7 +285,7 @@ export default function Cards({page,item,id}) {
     <>
       <div className="alotofAuction">
         {all.map((auc) => (
-          <Auction data={auc} />
+          <Auction data={auc} showDelete={showDelete}/>
         ))}
       </div>
     </>

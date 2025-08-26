@@ -154,7 +154,7 @@ export default function CreateTender() {
             </button>
           </div>
         </div>
-        <div className="flexible">
+        {/* <div className="flexible">
           <Tender showDelete={true} />
           <Tender showDelete={true} />
           <Tender showDelete={true} />
@@ -162,8 +162,8 @@ export default function CreateTender() {
           <Tender showDelete={true} />
           <Tender showDelete={true} />
           <Tender showDelete={true} />
-        </div>
-        <CardTen page={'create'} />
+        </div> */}
+        <CardTen page={'create'} showDelete={true} />
         <Footer />
       </div>
     </>

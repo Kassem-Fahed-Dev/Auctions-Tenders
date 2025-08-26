@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import Tender from './Tender';
 
-export default function CardTen({page,item,id}) {
+export default function CardTen({page,item,id,showDelete}) {
   console.log(id)
   const [all, setAll] = useState([]);
   let sort;
@@ -124,8 +124,8 @@ export default function CardTen({page,item,id}) {
           ? 
           '/api/v1/tenders/myTenders'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions/myAuctions?activeStatus=${sort.trim()}`
-          : `/api/v1/auctions/myAuctions?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/myTenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/myTenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -203,10 +203,10 @@ export default function CardTen({page,item,id}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/favorites?type=tender`
+          `/api/v1/tenders`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/favorites?type=tender?activeStatus=${sort.trim()}`
-          : `/api/v1/favorites?type=tender?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -219,8 +219,12 @@ export default function CardTen({page,item,id}) {
       }
     )
     .then((res) => {
-      setAll(res.data.data.data);
-      console.log('create')
+      const favorites = res.data.data.data.filter(item => item.favorite === true);
+    
+      // تعيين العناصر المفلترة إلى الحالة
+      setAll(favorites);
+      
+      
       console.log(res.data.data.data);
     })
     .catch((error) => {
@@ -282,7 +286,7 @@ export default function CardTen({page,item,id}) {
       <div className="alotofAuction">
     
         {all.map((auc) => (
-          <Tender data={auc} />
+          <Tender data={auc} showDelete={showDelete} />
         ))}
       </div>
     </>
