@@ -517,6 +517,7 @@ p.upload {
   border-radius: 8px;
   /* left: 120px;
     top: 10px; */
+    cursor: default;
   position: relative;
   right: 155px;
   bottom: 50px;

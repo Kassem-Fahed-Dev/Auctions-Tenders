@@ -17,7 +17,8 @@ axiosInstance.interceptors.response.use(
       localStorage.setItem('jwt',null)
       localStorage.setItem('name','حساب الدخول')
       window.location.href='/'
-      alert(error.message)
+      // alert("يُرجى تسجيل الدخول أولاً")
+      alert(error.response.data.message)
     }
     return Promise.reject(error); // إعادة الخطأ لكي تتمكن من معالجته في أماكن أخرى إذا لزم الأمر
   }
