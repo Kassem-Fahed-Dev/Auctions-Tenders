@@ -44,6 +44,7 @@ import Cards from './commponts/Auctions/Cards';
 import ConfirmLogout from './commponts/Account/ConfirmLogout';
 import AllUsers from './commponts/AllUser/AllUsers';
 import All from './commponts/AllUser/All';
+import Wallet from './commponts/Account/Profile/Pages/Wallet';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -164,6 +165,7 @@ function App() {
         <Route path="/FavAuction" element={<FavAuction />} />
         <Route path="/FavTender" element={<FavTender />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/wallet" element={<Wallet />} />
         {/* logout */}
         <Route path="/logout1" element={<ConfirmLogout />} />
         <Route path="/users" element={<All />} />

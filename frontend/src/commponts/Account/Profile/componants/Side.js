@@ -10,11 +10,7 @@ export default function Side() {
       <div className="con-info">
         <Link
           to="/create"
-          className={`info ${
-            currentPath === '/create' 
-              ? 'active'
-              : ''
-          }`}
+          className={`info ${currentPath === '/create' ? 'active' : ''}`}
         >
           المزادات التي أنشأتها
         </Link>
@@ -69,6 +65,15 @@ export default function Side() {
           className={`info ${currentPath === '/FavTender' ? 'active' : ''}`}
         >
           المناقصات المفضلة
+        </Link>
+        <div className="line-info">
+          <span className="fas fa-stop"></span>
+        </div>
+        <Link
+          to="/wallet"
+          className={`info ${currentPath === '/wallet' ? 'active' : ''}`}
+        >
+          محفطتك الالكترونية
         </Link>
         <div className="line-info">
           <span className="fas fa-stop"></span>

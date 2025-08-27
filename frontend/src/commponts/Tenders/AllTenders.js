@@ -26,9 +26,10 @@ export default function AllTenders() {
         <p>إنشاء مناقصة</p>
         <i className="fas fa-plus"></i>
       </button>
-     
-           <ButtonSortTen test2={'all'}/>
-         <CardTen page={'all'}/>
+
+      <ButtonSortTen test2={'all'} />
+      <CardTen page={'all'} />
+
       <Footer />
     </>
   );
