@@ -41,7 +41,7 @@ export default function Navbar({ wordBlod }) {
             className={wordBlod === 'home' ? 'bold' : ''}
             onClick={() => hoverItems('home')}
           >
-            <Link to="/">الرئيسية</Link>
+            <Link to="/"> الرئيسية</Link>
           </li>
           <li
             className={wordBlod === 'auctions' ? 'bold' : ''}
@@ -87,10 +87,9 @@ export default function Navbar({ wordBlod }) {
           )}
           <li onClick={() => hoverItems('alluser')}>
             <div className="icon">
-                <i className="fas fa-users"></i>
-              </div>
+              <i className="fas fa-users"></i>
+            </div>
             <Link to="/users">
-              
               <p className="users"> المستخدمين</p>
             </Link>
           </li>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-export default function ButtonSort({test2}) {
+export default function ButtonSortTen({test2}) {
    const [value,setValue]=useState('فرز حسب');
     const [value1,setValue1]=useState('فرز حسب');
     const [value2,setValue2]=useState('');
@@ -13,32 +13,28 @@ export default function ButtonSort({test2}) {
      console.log(test2)
     const navegate=useNavigate()
    if(test2=='all'){
-     sort=localStorage.getItem('status')
-     
-     st='status'
+     sort=localStorage.getItem('statustn') 
+     st='statustn'
    } else if(test2=='fav'){
-      sort=localStorage.getItem('status1')
-      st='status1'
+      sort=localStorage.getItem('status1tn')
+      st='status1tn'
    }else if(test2=='favh'){
-      sort=localStorage.getItem('status1h')
-      st='status1h'
-   }
-   else if(test2=='favp'){
-      sort=localStorage.getItem('status1p')
-      st='status1p'
+      sort=localStorage.getItem('status1tnh')
+      st='status1tnh'
+   }else if(test2=='favp'){
+      sort=localStorage.getItem('status1tnp')
+      st='status1tnp'
    }else if(test2=="create"){
-        sort=localStorage.getItem('status2')
-      st='status2'
-   }else if(test2=="createp"){
-        sort=localStorage.getItem('status2p')
-      st='status2p'
+        sort=localStorage.getItem('status2tn')
+      st='status2tn'
    }
    else if(test2=="share"){
-        sort=localStorage.getItem('status3')
-      st='status3'
-   } else if(test2=="sharep"){
-        sort=localStorage.getItem('status3p')
-      st='status3p'
+        sort=localStorage.getItem('status3tn')
+      st='status3tn'
+   }
+     else if(test2=="sharep"){
+        sort=localStorage.getItem('status3tnp')
+      st='status3tnp'
    }
     const handleClick=()=>{
       
@@ -97,7 +93,11 @@ export default function ButtonSort({test2}) {
                console.log('000') 
 
         }
-        if(item==' عقارات'||item==' إلكترونيات'||item==' سيارات'||item==' أثاث'||item==' إكسسوار'||item==' ملابس'||item==' أخرى'){
+        if(  item === 'بناء و إعمار'||
+      item === 'خدمات لأماكن عامة' ||
+      item === 'خدمات منوعة' ||
+      item === 'مركبات و اليات' ||
+      item === 'أخرى' ){
             setValue1(' مجموعات')
             setValue2('فرز حسب')
                console.log('0000')
@@ -123,13 +123,11 @@ export default function ButtonSort({test2}) {
             </div>
             <div className={`listSort  ${test.includes(' مجموعات')?'visable':''}`}>
             <div  className="buttonSort" >
-                <button className="button1" onClick={()=>{handleClick2(' سيارات')}}>سيارات</button>
-                <button onClick={()=>{handleClick2(' عقارات')}}>عقارات</button>
-                <button onClick={()=>{handleClick2(' إلكترونيات')}} >إلكترونيات</button>
-                <button onClick={()=>{handleClick2(' أثاث')}}>أثاث</button>
-                <button onClick={()=>{handleClick2(' إكسسوار')}}>إكسسوار</button>
-                <button onClick={()=>{handleClick2(' ملابس')}}>ملابس</button>
-                <button className="button2" onClick={()=>{handleClick2(' أخرى')}}>أخرى</button>
+                <button className="button1" onClick={()=>{handleClick2('بناء و إعمار')}}>بناء و إعمار</button>
+                <button onClick={()=>{handleClick2('خدمات لأماكن عامة')}}> خدمات لأماكن عامة </button>
+                <button onClick={()=>{handleClick2('خدمات منوعة')}} > خدمات منوعة</button>
+                <button onClick={()=>{handleClick2('مركبات و اليات')}}> مركبات و آليات</button>
+                <button className="button2" onClick={()=>{handleClick2('أخرى')}}>أخرى</button>
             </div>
           </div>
           <div className={`listSort  ${test.includes(' الوقت')?'visable':''}`}>

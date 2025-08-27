@@ -1,49 +1,50 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
-import Auction from './Auction';
-export default function Cards({page,item,id,showDelete}) {
+import Tender from './Tender';
+
+export default function CardTen({page,item,id,showDelete}) {
+  console.log(id)
   const [all, setAll] = useState([]);
+  let sort;
+    const token = localStorage.getItem('jwt'); 
   const [errorMessage, setErrorMessage] = useState({});
-    let sort;
-    if(item=="سيارات"){
-        sort=localStorage.getItem('status4')
+     if(item=="سيارات"){
+        sort=localStorage.getItem('status4tn')
      
    }
    else if(item=="عقارات"){
-        sort=localStorage.getItem('status5')
+        sort=localStorage.getItem('status5tn')
       
    }else if(item=="إلكترونيات"){
-        sort=localStorage.getItem('status6')
+        sort=localStorage.getItem('status6tn')
      
    }else if(item=="أثاث"){
-        sort=localStorage.getItem('status7')
+        sort=localStorage.getItem('status7tn')
      
    }else if(item=="ملابس"){
-        sort=localStorage.getItem('status8')
+        sort=localStorage.getItem('status8tn')
  
    }else if(item=="إكسسوار"){
-        sort=localStorage.getItem('status9')
+        sort=localStorage.getItem('status9tn')
     
    }else if(item=="أخرى"){
-        sort=localStorage.getItem('status10')
+        sort=localStorage.getItem('status10tn')
 
    }else{
-    sort=localStorage.getItem('status')
+    sort=localStorage.getItem('statustn')
    }
-     const token = localStorage.getItem('jwt'); 
-    // if(page=="all"){ 
-  useEffect(()=>{
+   useEffect(()=>{
     if(page=="all"){
-          console.log('all')
+          console.log(sort)
     axiosInstance
     .get(
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           '/api/v1/auctions'
+           '/api/v1/tenders'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions?activeStatus=${sort.trim()}`
-          : `/api/v1/auctions?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -73,16 +74,16 @@ export default function Cards({page,item,id,showDelete}) {
     });
   }
      if(page=="id"){
-          console.log('id')
+          console.log(id)
     axiosInstance
     .get(
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           `/api/v1/auctions?user=${id}`
+           `/api/v1/tenders?user=${id}`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions?user=${id}&activeStatus=${sort.trim()}`
-          : `/api/v1/auctions?user=${id}&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?user=${id}&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?user=${id}&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -121,10 +122,10 @@ export default function Cards({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          '/api/v1/auctions/myAuctions'
+          '/api/v1/tenders/myTenders'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions/myAuctions?activeStatus=${sort.trim()}`
-          : `/api/v1/auctions/myAuctions?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/myTenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/myTenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -162,7 +163,7 @@ export default function Cards({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'
           ? 
-          `/api/v1/auctions?categoryName=${item}`
+          `/api/v1/tenders?categoryName=${item}`
           : `/api/v1/auctions?categoryName=${item}&activeStatus=${sort.trim()}`
           
       }`
@@ -196,16 +197,16 @@ export default function Cards({page,item,id,showDelete}) {
   }
    else if(page=="fav"){
   
-    console.log('fav')
+    console.log(sort)
     axiosInstance
     .get(
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/auctions`
+          `/api/v1/tenders`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions?activeStatus=${sort.trim()}`
-          : `/api/v1/auctions?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -224,7 +225,7 @@ export default function Cards({page,item,id,showDelete}) {
       setAll(favorites);
       
       
-      console.log(res.data.data.data[0].favorite);
+      console.log(res.data.data.data);
     })
     .catch((error) => {
       if (error.response) {
@@ -238,7 +239,7 @@ export default function Cards({page,item,id,showDelete}) {
         });
       }
     });
-  }   else if(page=="share"){
+  }  else if(page=="share"){
   
     console.log(sort)
     axiosInstance
@@ -246,10 +247,10 @@ export default function Cards({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/auctions/participateAuctions`
+          `/api/v1/tenders/participateTenders`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/auctions/participateAuctions?activeStatus=${sort.trim()}`
-          : `/api/v1/auctions/participateAuctions?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/participateTenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/participateTenders?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -280,12 +281,12 @@ export default function Cards({page,item,id,showDelete}) {
     });
   }
 },[sort])
-// }
   return (
     <>
       <div className="alotofAuction">
+    
         {all.map((auc) => (
-          <Auction data={auc} showDelete={showDelete}/>
+          <Tender data={auc} showDelete={showDelete} />
         ))}
       </div>
     </>

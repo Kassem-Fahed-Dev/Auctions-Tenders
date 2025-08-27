@@ -15,6 +15,14 @@ router
   )
   .post('/', authController.protect, tenderController.createTenderWithItem);
 
+  router
+  .get(
+    '/participateTenders',
+    authController.protect,
+    tenderController.filterTendersByCategory,
+    tenderController.getUserParticipateTenders,
+  )
+  
 router.get(
   '/myTenders',
   authController.protect,

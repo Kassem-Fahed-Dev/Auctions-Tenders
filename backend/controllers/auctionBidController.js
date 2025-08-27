@@ -11,9 +11,9 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   const auctionId = req.params.id;
   const { amount } = req.body;
   const userId = req.user.id;
+
   // 1. Get the auction
   const auction = await Auction.findById(auctionId).populate('user');
-  console.log(auction);
   if (!auction) {
     return next(
       new AppError(
@@ -24,12 +24,12 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   }
 
   // 2. Check if user is the auction creator
-  if (auction.user.toString() === userId) {
+  if (auction.user._id == userId) {
     return next(new AppError(req.t(`errors:bidding`), 400));
   }
 
   // 3. Check auction status
-  if (auction.activeStatus !== 'جاري') {
+  if (auction.activeStatus != 'جاري') {
     return next(new AppError(req.t(`errors:biddingClose`), 400));
   }
 
@@ -44,30 +44,40 @@ exports.placeBid = catchAsync(async (req, res, next) => {
     );
   }
 
+  // 5. Check if user has already bid on this auction
+  const existingBid = await AuctionBid.findOne({ 
+    user: userId, 
+    auction: auctionId 
+  });
+
+
   // block 10% of startingPrice to participate in the auction
 
   let wallet = await Wallet.findOne({ partner: userId });
   if (!wallet) {
     wallet = await Wallet.create({ partner: userId });
   }
-
-  let blockedAmount = 0.1 * auction.startingPrice;
-  blockedAmount = wallet.availableAmount;
-  if (wallet.availableAmount < blockedAmount) {
-    return next(
-      new AppError(
-        req.t(`errors:blockedAmount`, {
-          blockedAmount,
-          doc: req.t('fields:auction'),
-        }),
-        400,
-      ),
-    );
+ // Only block amount if this is the user's first bid on this auction
+  if (!existingBid) {
+    const blockedAmount = (0.1 * auction.startingPrice);
+    
+    if (wallet.availableAmount < blockedAmount) {
+      return next(
+        new AppError(
+          req.t(`errors:blockedAmount`, { 
+            blockedAmount, 
+            doc: req.t("fields:auction") 
+          }),
+          400,
+        ),
+      );
+    }
+    
+    // Block the amount for first-time bidder
+    wallet.availableAmount -= blockedAmount;
+    wallet.blockedAmount += blockedAmount;
+    await wallet.save();
   }
-
-  wallet.availableAmount -= blockedAmount;
-  wallet.blockedAmount += blockedAmount;
-  wallet.save();
 
   // 5. Create the bid
   const bid = new AuctionBid({
@@ -76,10 +86,10 @@ exports.placeBid = catchAsync(async (req, res, next) => {
     amount,
   });
 
-  // 6. Update auction's current bid
+  // 8. Update auction's highest bid
   auction.highestPrice = amount;
 
-  // Use transaction if possible (e.g., mongoose-transactions)
+  // 9. Save both bid and auction (using Promise.all for better performance)
   await Promise.all([bid.save(), auction.save()]);
 
   // Send notification to auction owner

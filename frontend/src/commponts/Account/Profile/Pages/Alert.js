@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import {
   exitShow,
   setInput,
@@ -51,14 +52,14 @@ export default function Alert({ test }) {
                     </label>
                     <input
                       required
-                      
+                        autoComplete="off"
                       value={user.oldpass}
                       onChange={(e) => {
                         dispatch(thisPass(e.target.value));
                       }}
                       id="ff"
                       className="inp-newpass"
-                      type="text"
+                      type="password"
                     />
                     <label className="lab2-new" htmlFor="ff">
                       كلمة المرور الجديدة
@@ -66,6 +67,7 @@ export default function Alert({ test }) {
                     </label>
                     <input
                       required
+                        autoComplete="off"
                       value={user.userInput}
                       onChange={(e) => {
                         dispatch(setInput(e.target.value));
@@ -79,6 +81,7 @@ export default function Alert({ test }) {
                     </label>
                     <input
                       required
+                        autoComplete="off"
                       value={user.Input_confirm}
                       onChange={(e) => {
                         dispatch(setInput_confirm(e.target.value));
@@ -99,6 +102,7 @@ export default function Alert({ test }) {
                     {user.label}
                   </label>
                   <input
+                    autoComplete="off"
                     required
                     value={user.userInput}
                     onChange={(e) => {

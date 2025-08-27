@@ -20,7 +20,7 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
     );
   }
   // 2. Check if user is the tender creator
-  if (tender.user.toString() === userId) {
+  if (tender.user._id.toString() === userId) {
     return next(new AppError(req.t(`errors:offering`), 400));
   }
   // 3. Check tender status
@@ -28,11 +28,17 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
     return next(new AppError(req.t(`errors:offeringClose`), 400));
   }
 
+  const existingOffer = await TenderOffer.findOne({ 
+      user: userId, 
+      auction: tenderId 
+    });
+
     let wallet = await Wallet.findOne({ partner:userId });
     if (!wallet) {
       wallet = await Wallet.create({ partner:userId });
     }
-  
+
+    if(!existingOffer){
     const blockedAmount =(0.1*tender.startingPrice)
     if(wallet.availableAmount < blockedAmount){
       return next(
@@ -46,7 +52,7 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
     wallet.availableAmount -= blockedAmount;
     wallet.blockedAmount += blockedAmount;
     wallet.save()
-  
+}
   const offer = new TenderOffer({
     user: userId,
     tender: tenderId,

@@ -6,14 +6,14 @@ import Navbar from '../../Home/Navbar';
 import AuctionsNavbar from '../../Auctions/AuctionsNavbar';
 import Footer from '../../privacy policy/Footer';
 import { useLocation } from 'react-router-dom';
-function handel_Fav(e) {
-  let hh = e.target;
-  if (hh.style.color === 'red') {
-    hh.style.cssText = 'color: black;';
-  } else {
-    hh.style.cssText = 'color: red;';
-  }
-}
+// function handel_Fav(e) {
+//   let hh = e.target;
+//   if (hh.style.color === 'red') {
+//     hh.style.cssText = 'color: black;';
+//   } else {
+//     hh.style.cssText = 'color: red;';
+//   }
+// }
 export default function Details() {
   const [amount, setAmount] = useState('');
   function back() {
@@ -42,16 +42,17 @@ export default function Details() {
   //   return {};
   // }
   const location = useLocation();
-  const { data } = location.state;
-  console.log(data)
+  const { data,heart } = location.state||{};
 
+  console.log(data)
+ console.log(heart)
   return (
     <div className="All-con-det">
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مزادات السيارات</h1>
+          <h1>مزادات {data?.item?.category=="6800c48bc5246f1b240fa3c8"?'سيارات':data?.item?.category=="6800c4ccc5246f1b240fa3cd"?'عقارات':data?.item?.category=="6800d4090c7d9514e40218f0"?'أخرى':data?.item?.category=="6800cf48bdccd52594f29573"?'ملابس':data?.item?.category=="6800ce86aec6df25ccc63ff5"?'إكسسوار':data?.item?.category=="6800cdb36e155b2e04089fbd"?'أثاث':'إلكترونات'}</h1>
           <button
             className="back"
             onClick={() => {
@@ -69,14 +70,9 @@ export default function Details() {
                 <p>اسم المزاد : </p>
                 <h4>{data?.auctionTtile}</h4>
               </div>
-              <button
-                id="ptn-fav"
-                onClick={(e) => {
-                  handel_Fav(e);
-                }}
-              >
-                <i className="fas fa-heart"></i>
-              </button>
+            
+                <i     className={`fas fa-heart ${heart=='red'? 'red' :"black"}`}></i>
+              
             </div>
             <hr />
             <div className="div-con">
@@ -129,7 +125,7 @@ activeStatus
 
                 <div>
                   التصنيف:
-                  <span>الكترونيات </span>
+                  <span>{data?.item?.category=="6800c48bc5246f1b240fa3c8"?'سيارات':data?.item?.category=="6800c4ccc5246f1b240fa3cd"?'عقارات':data?.item?.category=="6800d4090c7d9514e40218f0"?'أخرى':data?.item?.category=="6800cf48bdccd52594f29573"?'ملابس':data?.item?.category=="6800ce86aec6df25ccc63ff5"?'إكسسوار':data?.item?.category=="6800cdb36e155b2e04089fbd"?'أثاث':'إلكترونات'} </span>
                 </div>
                 <div>
                   البلد:

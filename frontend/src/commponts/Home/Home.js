@@ -10,8 +10,8 @@ import im4 from '../../image/car.jpg';
 import Footer from '../privacy policy/Footer';
 import { Link } from 'react-router-dom';
 export default function Home() {
-  const tok = localStorage.getItem('jwt'); 
-  localStorage.setItem('status','فرز حسب');
+  const tok = localStorage.getItem('jwt');
+
   return (
     <div>
       <div className="header">

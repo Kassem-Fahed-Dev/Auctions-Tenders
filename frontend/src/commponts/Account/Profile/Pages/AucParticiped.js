@@ -6,62 +6,64 @@ import Auction from '../../../Auctions/Auction';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Profile from './Profile';
+import Cards from '../../../Auctions/Cards';
+import ButtonSort from '../../../Home/ButtonSort';
 export default function AucParticiped() {
-  function handel_Fav(e) {
-    let hh = e.target;
-    if (hh.style.color === 'red') {
-      hh.style.cssText = 'color: none;';
-    } else {
-      hh.style.cssText = 'color: red;';
-    }
-  }
+  // function handel_Fav(e) {
+  //   let hh = e.target;
+  //   if (hh.style.color === 'red') {
+  //     hh.style.cssText = 'color: none;';
+  //   } else {
+  //     hh.style.cssText = 'color: red;';
+  //   }
+  // }
 
-  const [value, setValue] = useState('فرز حسب');
-  const [value1, setValue1] = useState('فرز حسب');
-  const [value2, setValue2] = useState('');
-  const [test, setTest] = useState('');
-  const [hover, setHover] = useState(false);
-  const navegate = useNavigate();
-  const handleClick = () => {
-    if (value2 == 'فرز حسب' && value == 'فرز حسب') {
-      setTest(' ');
-      setValue2('');
-    } else if (value == 'فرز حسب' && test == 'فرز حسب') {
-      setTest(' ');
-      setValue1('فرز حسب');
-      setValue(value1);
-    } else if (value2 == 'فرز حسب') {
-      setValue1('فرز حسب');
-      setTest(value1);
-      setValue(value1);
-    } else {
-      setTest(value1);
-      setValue(value1);
-    }
-  };
-  const handleClick2 = (item) => {
-    setValue(item);
-    setTest(item);
-    if (item == ' جاري' || item == ' منتهي' || item == ' قادم') {
-      setValue1(' الوقت');
-      setValue2('فرز حسب');
-    }
-    if (value == ' الوقت' || value == ' مجموعات') {
-      setValue2('فرز حسب');
-    }
-    if (
-      item == ' عقارات' ||
-      item == ' إلكترونيات' ||
-      item == ' سيارات' ||
-      item == ' أثاث' ||
-      item == ' إكسسوار' ||
-      item == ' ملابس' ||
-      item == ' أخرى'
-    ) {
-      setValue1(' مجموعات');
-      setValue2('فرز حسب');
-    }
-  };
+  // const [value, setValue] = useState('فرز حسب');
+  // const [value1, setValue1] = useState('فرز حسب');
+  // const [value2, setValue2] = useState('');
+  // const [test, setTest] = useState('');
+  // const [hover, setHover] = useState(false);
+  // const navegate = useNavigate();
+  // const handleClick = () => {
+  //   if (value2 == 'فرز حسب' && value == 'فرز حسب') {
+  //     setTest(' ');
+  //     setValue2('');
+  //   } else if (value == 'فرز حسب' && test == 'فرز حسب') {
+  //     setTest(' ');
+  //     setValue1('فرز حسب');
+  //     setValue(value1);
+  //   } else if (value2 == 'فرز حسب') {
+  //     setValue1('فرز حسب');
+  //     setTest(value1);
+  //     setValue(value1);
+  //   } else {
+  //     setTest(value1);
+  //     setValue(value1);
+  //   }
+  // };
+  // const handleClick2 = (item) => {
+  //   setValue(item);
+  //   setTest(item);
+  //   if (item == ' جاري' || item == ' منتهي' || item == ' قادم') {
+  //     setValue1(' الوقت');
+  //     setValue2('فرز حسب');
+  //   }
+  //   if (value == ' الوقت' || value == ' مجموعات') {
+  //     setValue2('فرز حسب');
+  //   }
+  //   if (
+  //     item == ' عقارات' ||
+  //     item == ' إلكترونيات' ||
+  //     item == ' سيارات' ||
+  //     item == ' أثاث' ||
+  //     item == ' إكسسوار' ||
+  //     item == ' ملابس' ||
+  //     item == ' أخرى'
+  //   ) {
+  //     setValue1(' مجموعات');
+  //     setValue2('فرز حسب');
+  //   }
+  // };
   return (
     <div>
       <Profile />
@@ -78,7 +80,7 @@ export default function AucParticiped() {
             />
             المزادات التي شاركت بها
           </h3>{' '}
-          <div className="test-con">
+          {/* <div className="test-con">
             <button
               className="sort21"
               type="text"
@@ -220,18 +222,11 @@ export default function AucParticiped() {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
+          <ButtonSort test2={'sharep'}/>
         </div>
       </div>
-      <div className="flexible">
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-      </div>
+      <Cards page={'share'}/>
       <Footer />
     </div>
   );
