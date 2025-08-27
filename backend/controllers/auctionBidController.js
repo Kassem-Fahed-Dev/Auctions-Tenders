@@ -7,7 +7,6 @@ const notificationService = require('../utils/notificationService');
 
 const Wallet = require('../models/Wallet');
 
-
 exports.placeBid = catchAsync(async (req, res, next) => {
   const auctionId = req.params.id;
   const { amount } = req.body;
@@ -47,16 +46,20 @@ exports.placeBid = catchAsync(async (req, res, next) => {
 
   // block 10% of startingPrice to participate in the auction
 
-  let wallet = await Wallet.findOne({ partner:userId });
+  let wallet = await Wallet.findOne({ partner: userId });
   if (!wallet) {
-    wallet = await Wallet.create({ partner:userId });
+    wallet = await Wallet.create({ partner: userId });
   }
 
-  const blockedAmount =(0.1*auction.startingPrice)
-  if(wallet.availableAmount < blockedAmount){
+  let blockedAmount = 0.1 * auction.startingPrice;
+  blockedAmount = wallet.availableAmount;
+  if (wallet.availableAmount < blockedAmount) {
     return next(
       new AppError(
-        req.t(`errors:blockedAmount`, { blockedAmount,doc:req.t("fields:auction") }),
+        req.t(`errors:blockedAmount`, {
+          blockedAmount,
+          doc: req.t('fields:auction'),
+        }),
         400,
       ),
     );
@@ -64,7 +67,7 @@ exports.placeBid = catchAsync(async (req, res, next) => {
 
   wallet.availableAmount -= blockedAmount;
   wallet.blockedAmount += blockedAmount;
-  wallet.save()
+  wallet.save();
 
   // 5. Create the bid
   const bid = new AuctionBid({
@@ -83,7 +86,7 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   const nogif = await notificationService.createNotification({
     userId: auction.user,
     title: 'مزايدة جديدة على مزادك',
-    message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك "${auction.auctionTtile}"`,
+    message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك ${auction.auctionTtile}`,
     type: 'auction',
     referenceId: auction._id,
   });
