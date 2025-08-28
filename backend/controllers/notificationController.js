@@ -10,6 +10,7 @@ exports.getNotificationsByUsername = catchAsync(async (req, res, next) => {
 
   // Find user by username
   const user = await User.findOne({ name: username });
+  console.log(user);
   if (!user) {
     return next(
       new AppError(`User with username '${username}' not found`, 404),
@@ -17,10 +18,7 @@ exports.getNotificationsByUsername = catchAsync(async (req, res, next) => {
   }
 
   // Get notifications for this user
-  const query = Notification.find({ user: user._id })
-    .populate('user', 'name email')
-    .sort({ createdAt: -1 }); // Most recent first
-
+  const query = Notification.find({ user: user._id }).sort({ createdAt: -1 }); // Most recent first
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()
@@ -28,6 +26,7 @@ exports.getNotificationsByUsername = catchAsync(async (req, res, next) => {
     .paginate();
 
   const notifications = await features.query;
+  console.log(notifications);
 
   res.status(200).json({
     status: 'success',

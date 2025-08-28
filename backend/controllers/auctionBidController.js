@@ -45,11 +45,10 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   }
 
   // 5. Check if user has already bid on this auction
-  const existingBid = await AuctionBid.findOne({ 
-    user: userId, 
-    auction: auctionId 
+  const existingBid = await AuctionBid.findOne({
+    user: userId,
+    auction: auctionId,
   });
-
 
   // block 10% of startingPrice to participate in the auction
 
@@ -57,22 +56,22 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   if (!wallet) {
     wallet = await Wallet.create({ partner: userId });
   }
- // Only block amount if this is the user's first bid on this auction
+  // Only block amount if this is the user's first bid on this auction
   if (!existingBid) {
-    const blockedAmount = (0.1 * auction.startingPrice);
-    
+    let blockedAmount = 0.1 * auction.startingPrice;
+    blockedAmount = wallet.availableAmount;
     if (wallet.availableAmount < blockedAmount) {
       return next(
         new AppError(
-          req.t(`errors:blockedAmount`, { 
-            blockedAmount, 
-            doc: req.t("fields:auction") 
+          req.t(`errors:blockedAmount`, {
+            blockedAmount,
+            doc: req.t('fields:auction'),
           }),
           400,
         ),
       );
     }
-    
+
     // Block the amount for first-time bidder
     wallet.availableAmount -= blockedAmount;
     wallet.blockedAmount += blockedAmount;
