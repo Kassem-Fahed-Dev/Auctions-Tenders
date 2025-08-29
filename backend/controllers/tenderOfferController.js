@@ -28,31 +28,38 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
     return next(new AppError(req.t(`errors:offeringClose`), 400));
   }
 
-  const existingOffer = await TenderOffer.findOne({ 
-      user: userId, 
-      auction: tenderId 
-    });
+  const existingOffer = await TenderOffer.findOne({
+    user: userId,
+    auction: tenderId,
+  });
 
-    let wallet = await Wallet.findOne({ partner:userId });
-    if (!wallet) {
-      wallet = await Wallet.create({ partner:userId });
-    }
+  let wallet = await Wallet.findOne({ partner: userId });
+  if (!wallet) {
+    wallet = await Wallet.create({ partner: userId });
+  }
 
-    if(!existingOffer){
-    const blockedAmount =(0.1*tender.startingPrice)
-    if(wallet.availableAmount < blockedAmount){
+  if (!existingOffer) {
+    let blockedAmount = 0.1 * tender.startingPrice;
+    wallet.avilableAmount = blockedAmount + 10;
+    console.log('🧡❤wallet', wallet.avilableAmount);
+    console.log('blockedAmount', blockedAmount);
+    if (wallet.availableAmount < blockedAmount) {
+      console.log('🤬fuck');
       return next(
         new AppError(
-          req.t(`errors:offerAmount`, { blockedAmount,doc:req.t("fields:tender") }),
+          req.t(`errors:offerAmount`, {
+            blockedAmount,
+            doc: req.t('fields:tender'),
+          }),
           400,
         ),
       );
     }
-  
+
     wallet.availableAmount -= blockedAmount;
     wallet.blockedAmount += blockedAmount;
-    wallet.save()
-}
+    wallet.save();
+  }
   const offer = new TenderOffer({
     user: userId,
     tender: tenderId,
