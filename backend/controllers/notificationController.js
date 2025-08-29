@@ -129,10 +129,11 @@ exports.deleteNotification = catchAsync(async (req, res, next) => {
 // Get notification statistics for current user
 exports.getNotificationStats = catchAsync(async (req, res, next) => {
   const totalNotifications = await Notification.countDocuments({
-    user: req.user.id,
+    user: req.user._id,
   });
+  console.log(req.user.id);
   const unreadNotifications = await Notification.countDocuments({
-    user: req.user.id,
+    user: req.user._id,
     read: false,
   });
 

@@ -95,7 +95,7 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   const nogif = await notificationService.createNotification({
     userId: auction.user,
     title: 'مزايدة جديدة على مزادك',
-    message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك ${auction.auctionTtile}`,
+    message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك ${auction.auctionTitle}`,
     type: 'auction',
     referenceId: auction._id,
   });

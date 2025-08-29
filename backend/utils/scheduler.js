@@ -3,6 +3,7 @@ const Auction = require('../models/Auction');
 const Tender = require('../models/Tender');
 const AuctionBid = require('../models/AuctionBid');
 const notificationService = require('./notificationService');
+const Favorite = require('../models/Favorite');
 
 // Function to update auction statuses automatically
 const updateAuctionStatuses = async () => {
@@ -42,9 +43,7 @@ const updateAuctionStatuses = async () => {
           })
           .catch((err) => console.error('Notification error:', err));
 
-        console.log(
-          `📢 Notification sent to auction owner: ${auction.user.name}`,
-        );
+        console.log(`Notification sent to auction owner: ${auction.user.name}`);
       }
     }
 
@@ -55,19 +54,19 @@ const updateAuctionStatuses = async () => {
     }).populate('user');
 
     if (auctionsToEnd.length > 0) {
-      console.log(`🏁 Found ${auctionsToEnd.length} auctions to end...`);
+      console.log(`Found ${auctionsToEnd.length} auctions to end...`);
 
       for (const auction of auctionsToEnd) {
         try {
           console.log(
-            `📧 Processing notifications for auction: ${auction.auctionTitle}`,
+            `Processing notifications for auction: ${auction.auctionTitle}`,
           );
 
           const bids = await AuctionBid.find({ auction: auction._id }).populate(
             'user',
           );
           console.log(
-            `📊 Found ${bids.length} bids for auction ${auction.auctionTitle}`,
+            `Found ${bids.length} bids for auction ${auction.auctionTitle}`,
           );
 
           if (bids.length > 0) {
@@ -77,7 +76,7 @@ const updateAuctionStatuses = async () => {
             );
 
             console.log(
-              `🏆 Winner found: ${winner.user.name} with bid ${winner.amount}`,
+              `Winner found: ${winner.user.name} with bid ${winner.amount}`,
             );
 
             // Notify winner
@@ -103,14 +102,38 @@ const updateAuctionStatuses = async () => {
               .catch((err) => console.error('Notification error:', err));
 
             // Notify others
-            const otherBidders = bids.filter(
-              (bid) => bid.user._id.toString() !== winner.user._id.toString(),
+            const allBiddersIds = new Set(
+              bids.map((bid) => bid.user._id.toString()),
+            );
+            // console.log('😀all biders ', allBiddersIds);
+            const winnerId = winner.user._id.toString();
+            const otherBiddersIds = [...allBiddersIds].filter(
+              (bidderId) => bidderId !== winnerId,
             );
 
-            for (const bid of otherBidders) {
+            // Fetch users who favorited this specific auction
+            const favoritedUsers = await Favorite.find({
+              referenceId: auction._id,
+              type: 'auction',
+            }).populate('user');
+            // console.log('😀favoritedUsers:', favoritedUsers);
+            // Get IDs of favorited users
+            const favoritedUserIds = new Set(
+              favoritedUsers.map((fav) => fav.user._id.toString()),
+            );
+
+            // Remove bidders from favorited users to get "favorites only" list
+            const favoritesOnlyUserIds = new Set(
+              [...favoritedUserIds].filter(
+                (userId) => !allBiddersIds.has(userId),
+              ),
+            );
+
+            // Send "You did not win" notification to non-winning bidders
+            for (const userId of otherBiddersIds) {
               await notificationService
                 .createNotification({
-                  userId: bid.user._id,
+                  userId: userId,
                   title: 'انتهى المزاد',
                   message: `انتهى المزاد "${auction.auctionTitle}"، لم تفز هذه المرة`,
                   type: 'auction',
@@ -118,8 +141,21 @@ const updateAuctionStatuses = async () => {
                 })
                 .catch((err) => console.error('Notification error:', err));
             }
+
+            // Send "Auction has ended" notification to "favorites only" users
+            for (const userId of favoritesOnlyUserIds) {
+              await notificationService
+                .createNotification({
+                  userId: userId,
+                  title: 'انتهى المزاد',
+                  message: `انتهى المزاد "${auction.auctionTitle}"`,
+                  type: 'auction',
+                  referenceId: auction._id,
+                })
+                .catch((err) => console.error('Notification error:', err));
+            }
           } else {
-            console.log(`📢 No bids found for auction ${auction.auctionTitle}`);
+            console.log(`No bids found for auction ${auction.auctionTitle}`);
             await notificationService
               .createNotification({
                 userId: auction.user._id,
@@ -129,6 +165,24 @@ const updateAuctionStatuses = async () => {
                 referenceId: auction._id,
               })
               .catch((err) => console.error('Notification error:', err));
+
+            // Send notification to users who favorited but no bids were made
+            const favoritedUsers = await Favorite.find({
+              referenceId: auction._id,
+              type: 'auction',
+            }).populate('user');
+
+            for (const fav of favoritedUsers) {
+              await notificationService
+                .createNotification({
+                  userId: fav.user._id,
+                  title: 'انتهى المزاد',
+                  message: `انتهى المزاد "${auction.auctionTitle}"`,
+                  type: 'auction',
+                  referenceId: auction._id,
+                })
+                .catch((err) => console.error('Notification error:', err));
+            }
           }
         } catch (error) {
           console.error(
@@ -138,13 +192,13 @@ const updateAuctionStatuses = async () => {
         }
       }
 
-      // بعد ما خلصنا إشعارات، نحدّث الحالة
+      // update status
       await Auction.updateMany(
         { _id: { $in: auctionsToEnd.map((a) => a._id) } },
         { $set: { activeStatus: 'منتهي' } },
       );
 
-      console.log(`🏁 ${auctionsToEnd.length} auctions updated to منتهي`);
+      console.log(` ${auctionsToEnd.length} auctions updated to منتهي`);
     }
 
     // 3. Mark future auctions
@@ -269,8 +323,8 @@ cron.schedule('* * * * *', updateAllStatuses, {
   scheduled: true,
 });
 
-console.log('🚀 Starting automatic auction/tender status scheduler...');
-console.log('⏰ Status updates will run every minute automatically');
+console.log(' Starting automatic auction/tender status scheduler...');
+console.log(' Status updates will run every minute automatically');
 updateAllStatuses();
 
 module.exports = {
