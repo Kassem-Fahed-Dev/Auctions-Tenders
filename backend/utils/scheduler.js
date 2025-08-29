@@ -11,28 +11,20 @@ const updateAuctionStatuses = async () => {
     const now = new Date();
     console.log(`[${now.toISOString()}] Updating auction statuses...`);
 
-    // 1. Update auctions that should be starting now (قادم -> جاري)
-    const startingAuctions = await Auction.updateMany(
-      {
-        startTime: { $lte: now },
-        endTime: { $gt: now },
-        activeStatus: { $ne: 'جاري' },
-      },
-      { $set: { activeStatus: 'جاري' } },
-    );
+    // 1. Find and process auctions that should be starting now (قادم -> جاري)
+    const newlyStartedAuctions = await Auction.find({
+      startTime: { $lte: now },
+      endTime: { $gt: now },
+      activeStatus: { $ne: 'جاري' },
+    }).populate('user');
 
-    if (startingAuctions.modifiedCount > 0) {
+    if (newlyStartedAuctions.length > 0) {
       console.log(
-        ` ${startingAuctions.modifiedCount} auctions started (قادم -> جاري)`,
+        ` ${newlyStartedAuctions.length} auctions are starting (قادم -> جاري)`,
       );
 
-      const newlyStartedAuctions = await Auction.find({
-        startTime: { $lte: now },
-        endTime: { $gt: now },
-        activeStatus: 'جاري',
-      }).populate('user');
-
       for (const auction of newlyStartedAuctions) {
+        // Notify the auction owner
         await notificationService
           .createNotification({
             userId: auction.user._id,
@@ -43,10 +35,41 @@ const updateAuctionStatuses = async () => {
           })
           .catch((err) => console.error('Notification error:', err));
 
-        console.log(`Notification sent to auction owner: ${auction.user.name}`);
-      }
-    }
+        console.log(
+          `📢 Notification sent to auction owner: ${auction.user.name}`,
+        );
 
+        // Notify users who added this auction to their favorites
+        const favoritedUsers = await Favorite.find({
+          referenceId: auction._id,
+          type: 'auction',
+        }).populate('user');
+
+        for (const fav of favoritedUsers) {
+          await notificationService
+            .createNotification({
+              userId: fav.user._id,
+              title: 'بدأ المزاد',
+              message: `بدأ المزاد "${auction.auctionTitle}" الذي أضفته إلى مفضلتك`,
+              type: 'auction',
+              referenceId: auction._id,
+            })
+            .catch((err) => console.error('Notification error:', err));
+
+          console.log(
+            `📢 Notification sent to favorite user: ${fav.user.name}`,
+          );
+        }
+      }
+
+      // After sending all notifications, update the status of these auctions
+      await Auction.updateMany(
+        { _id: { $in: newlyStartedAuctions.map((a) => a._id) } },
+        { $set: { activeStatus: 'جاري' } },
+      );
+
+      console.log(` ${newlyStartedAuctions.length} auctions updated to جاري`);
+    }
     // 2. Process auctions that should end now
     const auctionsToEnd = await Auction.find({
       endTime: { $lte: now },
