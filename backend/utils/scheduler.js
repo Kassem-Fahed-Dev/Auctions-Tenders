@@ -4,6 +4,7 @@ const Tender = require('../models/Tender');
 const AuctionBid = require('../models/AuctionBid');
 const notificationService = require('./notificationService');
 const Favorite = require('../models/Favorite');
+const TenderOffer = require('../models/TenderOffer');
 
 // Function to update auction statuses automatically
 const updateAuctionStatuses = async () => {
@@ -251,27 +252,20 @@ const updateTenderStatuses = async () => {
     const now = new Date();
     console.log(` [${now.toISOString()}] Updating tender statuses...`);
 
-    const startingTenders = await Tender.updateMany(
-      {
-        startTime: { $lte: now },
-        endTime: { $gt: now },
-        activeStatus: { $ne: 'جاري' },
-      },
-      { $set: { activeStatus: 'جاري' } },
-    );
+    // 1. Find and process tenders that should be starting now (قادم -> جاري)
+    const newlyStartedTenders = await Tender.find({
+      startTime: { $lte: now },
+      endTime: { $gt: now },
+      activeStatus: { $ne: 'جاري' },
+    }).populate('user');
 
-    if (startingTenders.modifiedCount > 0) {
+    if (newlyStartedTenders.length > 0) {
       console.log(
-        ` ${startingTenders.modifiedCount} tenders started (قادم -> جاري)`,
+        ` ${newlyStartedTenders.length} tenders are starting (قادم -> جاري)`,
       );
 
-      const newlyStartedTenders = await Tender.find({
-        startTime: { $lte: now },
-        endTime: { $gt: now },
-        activeStatus: 'جاري',
-      }).populate('user');
-
       for (const tender of newlyStartedTenders) {
+        // Notify the tender owner
         await notificationService
           .createNotification({
             userId: tender.user._id,
@@ -281,35 +275,167 @@ const updateTenderStatuses = async () => {
             referenceId: tender._id,
           })
           .catch((err) => console.error('Notification error:', err));
+
+        console.log(
+          `📢 Notification sent to tender owner: ${tender.user.name}`,
+        );
+
+        // Notify users who added this tender to their favorites
+        const favoritedUsers = await Favorite.find({
+          referenceId: tender._id,
+          type: 'tender',
+        }).populate('user');
+
+        for (const fav of favoritedUsers) {
+          await notificationService
+            .createNotification({
+              userId: fav.user._id,
+              title: 'بدأت المناقصة',
+              message: `بدأت المناقصة "${tender.tenderTitle}" التي أضفتها إلى مفضلتك`,
+              type: 'tender',
+              referenceId: tender._id,
+            })
+            .catch((err) => console.error('Notification error:', err));
+
+          console.log(
+            `📢 Notification sent to favorite user: ${fav.user.name}`,
+          );
+        }
       }
+
+      // After sending all notifications, update the status of these tenders
+      await Tender.updateMany(
+        { _id: { $in: newlyStartedTenders.map((t) => t._id) } },
+        { $set: { activeStatus: 'جاري' } },
+      );
+
+      console.log(` ${newlyStartedTenders.length} tenders updated to جاري`);
     }
 
+    // 2. Process tenders that should end now
     const tendersToEnd = await Tender.find({
       endTime: { $lte: now },
       activeStatus: { $ne: 'منتهي' },
     }).populate('user');
 
     if (tendersToEnd.length > 0) {
+      console.log(`Found ${tendersToEnd.length} tenders to end...`);
+
       for (const tender of tendersToEnd) {
-        await notificationService
-          .createNotification({
-            userId: tender.user._id,
-            title: 'انتهت مناقصتك',
-            message: `انتهت مناقصتك "${tender.tenderTitle}"`,
-            type: 'tender',
-            referenceId: tender._id,
-          })
-          .catch((err) => console.error('Notification error:', err));
+        try {
+          console.log(
+            `Processing notifications for tender: ${tender.tenderTitle}`,
+          );
+
+          const offers = await TenderOffer.find({
+            tender: tender._id,
+          }).populate('user');
+          console.log(
+            `Found ${offers.length} offers for tender ${tender.tenderTitle}`,
+          );
+
+          if (offers.length > 0) {
+            // Notify owner
+            console.log('offers❤❤', offers.length);
+            await notificationService
+              .createNotification({
+                userId: tender.user._id,
+                title: 'انتهت مناقصتك',
+                message: `انتهت مناقصتك "${tender.tenderTitle}"، يمكنك الآن مراجعة العروض واختيار الأنسب`,
+                type: 'tender',
+                referenceId: tender._id,
+              })
+              .catch((err) => console.error('Notification error:', err));
+
+            // Notify all bidders
+            const allBiddersIds = new Set(
+              offers.map((offer) => offer.user._id.toString()),
+            );
+
+            for (const userId of allBiddersIds) {
+              await notificationService
+                .createNotification({
+                  userId: userId,
+                  title: 'انتهت المناقصة',
+                  message: `انتهت المناقصة "${tender.tenderTitle}"، سيتم إعلامك بالنتيجة بعد مراجعة العروض`,
+                  type: 'tender',
+                  referenceId: tender._id,
+                })
+                .catch((err) => console.error('Notification error:', err));
+            }
+
+            // Notify "favorites only" users
+            const favoritedUsers = await Favorite.find({
+              referenceId: tender._id,
+              type: 'tender',
+            }).populate('user');
+
+            const favoritedUserIds = new Set(
+              favoritedUsers.map((fav) => fav.user._id.toString()),
+            );
+
+            const favoritesOnlyUserIds = new Set(
+              [...favoritedUserIds].filter(
+                (userId) => !allBiddersIds.has(userId),
+              ),
+            );
+
+            for (const userId of favoritesOnlyUserIds) {
+              await notificationService
+                .createNotification({
+                  userId: userId,
+                  title: 'انتهت المناقصة',
+                  message: `انتهت المناقصة "${tender.tenderTitle}"`,
+                  type: 'tender',
+                  referenceId: tender._id,
+                })
+                .catch((err) => console.error('Notification error:', err));
+            }
+          } else {
+            console.log(`No offers found for tender ${tender.tenderTitle}`);
+            await notificationService
+              .createNotification({
+                userId: tender.user._id,
+                title: 'انتهت مناقصتك بدون عروض',
+                message: `انتهت مناقصتك "${tender.tenderTitle}" بدون أي عروض`,
+                type: 'tender',
+                referenceId: tender._id,
+              })
+              .catch((err) => console.error('Notification error:', err));
+
+            // Send notification to users who favorited but no offers were made
+            const favoritedUsers = await Favorite.find({
+              referenceId: tender._id,
+              type: 'tender',
+            }).populate('user');
+
+            for (const fav of favoritedUsers) {
+              await notificationService
+                .createNotification({
+                  userId: fav.user._id,
+                  title: 'انتهت المناقصة',
+                  message: `انتهت المناقصة "${tender.tenderTitle}"`,
+                  type: 'tender',
+                  referenceId: tender._id,
+                })
+                .catch((err) => console.error('Notification error:', err));
+            }
+          }
+        } catch (error) {
+          console.error(` Error processing ended tender ${tender._id}:`, error);
+        }
       }
 
+      // update status
       await Tender.updateMany(
         { _id: { $in: tendersToEnd.map((t) => t._id) } },
         { $set: { activeStatus: 'منتهي' } },
       );
 
-      console.log(`🏁 ${tendersToEnd.length} tenders updated to منتهي`);
+      console.log(` ${tendersToEnd.length} tenders updated to منتهي`);
     }
 
+    // 3. Mark future tenders
     const upcomingTenders = await Tender.updateMany(
       {
         startTime: { $gt: now },
