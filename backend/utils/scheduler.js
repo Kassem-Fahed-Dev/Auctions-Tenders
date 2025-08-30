@@ -276,9 +276,7 @@ const updateTenderStatuses = async () => {
           })
           .catch((err) => console.error('Notification error:', err));
 
-        console.log(
-          `📢 Notification sent to tender owner: ${tender.user.name}`,
-        );
+        console.log(`Notification sent to tender owner: ${tender.user.name}`);
 
         // Notify users who added this tender to their favorites
         const favoritedUsers = await Favorite.find({
@@ -297,9 +295,7 @@ const updateTenderStatuses = async () => {
             })
             .catch((err) => console.error('Notification error:', err));
 
-          console.log(
-            `📢 Notification sent to favorite user: ${fav.user.name}`,
-          );
+          console.log(` Notification sent to favorite user: ${fav.user.name}`);
         }
       }
 
@@ -336,7 +332,7 @@ const updateTenderStatuses = async () => {
 
           if (offers.length > 0) {
             // Notify owner
-            console.log('offers❤❤', offers.length);
+            // console.log('offers❤❤', offers.length);
             await notificationService
               .createNotification({
                 userId: tender.user._id,
