@@ -1,0 +1,251 @@
+.con-admin {
+  direction: rtl;
+}
+.con_sides {
+  /* background-color: rgb(45, 45, 233); */
+  display: flex;
+  justify-content: center;
+  gap: 110px;
+  height: 400px;
+}
+.sideAdmin {
+  background-color: #e7e7e7;
+  width: 200px;
+  height: 400px;
+  margin-right: -52px;
+  margin-top: 9px;
+}
+.logAdmin {
+  width: 110px;
+  margin-right: 50px;
+  margin-top: 14px;
+}
+.side_Admin_h1 {
+  margin-right: 20px;
+  font-size: 19px;
+}
+.side_Admin_h6 {
+  text-align: center;
+  /* margin-right: 9px; */
+  font-size: 12px;
+  margin-top: -6px;
+}
+.linksAdmin {
+  /* display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.linksAdmin a {
+  display: block;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 10px;
+  text-decoration: none;
+  margin-top: 9px;
+  color: #000000;
+}
+.linksAdmin a span i {
+  font-size: 30px;
+}
+.side2 {
+  /* background-color: rgb(32, 146, 57); */
+  width: 800px;
+  height: 190px;
+  height: 400px;
+}
+.h1tit {
+  /* margin: 20px; */
+  font-size: 42px;
+  margin-top: 55px;
+  color: #0072e4;
+}
+.h1tit i {
+  /* color: red; */
+  margin-left: 10px;
+  margin-top: 7px;
+}
+.titdet {
+  margin-top: 200px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.con_table {
+  /* background-color: #66b2ff; */
+  display: flex;
+  width: 100px;
+  justify-content: center;
+  /* gap: 30px; */
+}
+.pttable,
+.pttable2 {
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  text-align: center;
+  color: #ffffffff;
+  background-color: #003366;
+  margin-right: 162px;
+}
+.pttable2 {
+  margin-right: 80px;
+  background-color: red;
+}
+
+.table2 {
+  border-collapse: collapse;
+  width: 90%;
+  text-align: center;
+  margin-right: 69px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  border: 3px solid #ccc;
+}
+
+.table2 td {
+  border: 2px solid #cccccc;
+  padding: 10px;
+}
+.table2 th {
+  border: 2px solid #cccccc;
+  padding: 10px;
+}
+/* payAdmin */
+.pttable22 {
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  text-align: center;
+  color: #ffffffff;
+  background-color: #003366;
+  margin-left: -161px;
+  width: 67px;
+  height: 30px;
+}
+.con_AdminGroup {
+  width: 800px;
+  height: 80px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.ptn_Gr1 {
+  background-color: #003366;
+  color: #ffffff;
+  width: 180px;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
+  font-size: 19px;
+  font-weight: 400;
+}
+.con_AddGroup1 {
+  /* background-color: red; */
+  width: 800px;
+  height: 400px;
+}
+.h3inconGroup {
+  padding-top: 20px;
+  color: rgb(105, 105, 105);
+  font-size: 32px;
+  padding-bottom: 30px;
+}
+.h3inconGroup i {
+  padding-left: 10px;
+}
+.leftsideGroup {
+  width: 300px;
+  height: 200px;
+  background-color: #cccccc;
+  border-radius: 24px;
+  position: relative;
+}
+.rightsidegroup {
+  width: 350px;
+  height: 200px;
+  /* background-color: #e4007d; */
+}
+.con_flextowside {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.buttom_side {
+  height: 50px;
+  width: 300px;
+  background-color: rgb(177, 177, 177);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  position: absolute;
+  bottom: 0px;
+}
+.qustion {
+  font-size: 77px;
+  color: #cccccccc;
+  position: absolute;
+  top: 17px;
+  left: 53px;
+}
+.qustion1 {
+  font-size: 37px;
+  color: #000000;
+  position: absolute;
+  top: 0px;
+  left: 139px;
+}
+
+.circlediv {
+  background-color: rgb(177, 177, 177);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 76px;
+}
+.rightsidegroup input {
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  width: 200px;
+  background-color: #cccccc;
+}
+.name_input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ptn_group2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-top: 40px;
+}
+.ptn_group2 button {
+  border: none;
+  border-radius: 14px;
+  color: #ffffff;
+  width: 80px;
+  height: 37px;
+  background-color: green;
+}
+.ptn_group2 .reject {
+  background-color: rgb(52, 51, 51);
+}
+.ptn_Gr1.activeBtn {
+  background-color: #011e3b;
+}
+.imgupl {
+  font-size: 12px;
+  background-color: red;
+  display: block;
+  width: 100px;
+}
+.imgupl i {
+  font-size: 12px;
+}

@@ -53,7 +53,7 @@ export default function Wallet() {
             <span className="span">نشاط المحفظة</span>
           </p>
 
-          <table>
+          <table className="table1">
             <thead>
               <tr>
                 <th>النوع</th>
