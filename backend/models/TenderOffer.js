@@ -16,6 +16,7 @@ const tenderOfferSchema = new mongoose.Schema({
   },
   message: {
     type: String,
+    required: [true, 'add a descrption to you offer'],
   },
   created_at: {
     type: Date,
@@ -23,4 +24,4 @@ const tenderOfferSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('TenderOffer', tenderOfferSchema); 
+module.exports = mongoose.model('TenderOffer', tenderOfferSchema);

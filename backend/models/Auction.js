@@ -11,7 +11,7 @@ const auctionSchema = new mongoose.Schema(
       ref: 'Item',
       required: true,
     },
-    auctionTtile: {
+    auctionTitle: {
       type: String,
       required: [true, 'Inter auction title'],
     },

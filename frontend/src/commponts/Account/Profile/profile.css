@@ -736,12 +736,12 @@
 .span {
   margin-right: 10px;
 }
-table {
+.table1 {
   margin-right: 50px;
   margin-left: 50px;
   margin-bottom: 50px;
 }
-table th {
+.table1 th {
   /* padding: 0px 120px 0px 120px; */
   /* color: red; */
   padding-right: 20px;
@@ -749,14 +749,14 @@ table th {
   width: 300px;
   font-size: 19px;
 }
-table td {
+.table1 td {
   padding-right: 20px;
   width: 300px;
   font-size: 19px;
   /* padding: 0px 120px 0px 120px; */
   border-bottom: 1px solid;
 }
-tbody td {
+.table1 tbody td {
   width: 300px;
   height: 55px;
   /* border-bottom: 1px solid; */

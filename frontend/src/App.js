@@ -45,6 +45,15 @@ import ConfirmLogout from './commponts/Account/ConfirmLogout';
 import AllUsers from './commponts/AllUser/AllUsers';
 import All from './commponts/AllUser/All';
 import Wallet from './commponts/Account/Profile/Pages/Wallet';
+// import WalletManger from './commponts/Admin/WalletManger';
+import WalletManger from './commponts/Admin/WalletManger';
+import Control from './commponts/Admin/Control';
+import AuctionAdmin from './commponts/Admin/AuctionAdmin';
+import TenderAdmin from './commponts/Admin/TenderAdmin';
+import UserAdmin from './commponts/Admin/UserAdmin';
+import GroupAdmin from './commponts/Admin/GroupAdmin';
+import PayAdmin from './commponts/Admin/PayAdmin';
+import WalletAdmin from './commponts/Admin/WalletAdmin';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -170,6 +179,15 @@ function App() {
         <Route path="/logout1" element={<ConfirmLogout />} />
         <Route path="/users" element={<All />} />
         <Route path="/usersdetails" element={<AllUsers />} />
+        {/* Admin */}
+        <Route path="/ad" element={<WalletManger />} />
+        <Route path="/con" element={<Control />} />
+        <Route path="/Auc" element={<AuctionAdmin />} />
+        <Route path="/Ten" element={<TenderAdmin />} />
+        <Route path="/use" element={<UserAdmin />} />
+        <Route path="/Gr" element={<GroupAdmin />} />
+        <Route path="/Pay" element={<PayAdmin />} />
+        <Route path="/Wal" element={<WalletAdmin />} />
       </Routes>
     </div>
   );

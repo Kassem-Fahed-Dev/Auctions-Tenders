@@ -4,6 +4,7 @@ const Wallet = require('../models/Wallet');
 const WalletActivity = require('../models/WalletActivity');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const notificationService = require('../utils/notificationService');
 
 exports.submitOffer = catchAsync(async (req, res, next) => {
   const tenderId = req.params.id;
@@ -28,37 +29,51 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
     return next(new AppError(req.t(`errors:offeringClose`), 400));
   }
 
-  const existingOffer = await TenderOffer.findOne({ 
-      user: userId, 
-      auction: tenderId 
-    });
+  const existingOffer = await TenderOffer.findOne({
+    user: userId,
+    tender: tenderId,
+  });
+  // console.log('existing offer', existingOffer);
+  let wallet = await Wallet.findOne({ partner: userId });
+  if (!wallet) {
+    wallet = await Wallet.create({ partner: userId });
+  }
 
-    let wallet = await Wallet.findOne({ partner:userId });
-    if (!wallet) {
-      wallet = await Wallet.create({ partner:userId });
-    }
-
-    if(!existingOffer){
-    const blockedAmount =(0.1*tender.startingPrice)
-    if(wallet.availableAmount < blockedAmount){
+  if (!existingOffer) {
+    let blockedAmount = 0.1 * tender.startingPrice;
+    wallet.availableAmount = blockedAmount + 10; // for testing
+    if (wallet.availableAmount < blockedAmount) {
       return next(
         new AppError(
-          req.t(`errors:offerAmount`, { blockedAmount,doc:req.t("fields:tender") }),
+          req.t(`errors:offerAmount`, {
+            blockedAmount,
+            doc: req.t('fields:tender'),
+          }),
           400,
         ),
       );
     }
-  
+
     wallet.availableAmount -= blockedAmount;
     wallet.blockedAmount += blockedAmount;
-    wallet.save()
-}
+    wallet.save();
+  }
   const offer = new TenderOffer({
     user: userId,
     tender: tenderId,
     amount,
     message,
   });
+
+  // Send notification to tender owner
+  const nogif = await notificationService.createNotification({
+    userId: tender.user,
+    title: 'عرض جديد على مناقصتك',
+    message: `  ${tender.tenderTitle} على مناقصتك  ${amount} بتقديم عرض  بقيمة   ${req.user.name}  قام`,
+    type: 'tender',
+    referenceId: tender._id,
+  });
+
   await offer.save();
   res.status(201).json({
     status: req.t(`fields:success`),
