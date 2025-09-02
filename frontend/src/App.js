@@ -54,6 +54,8 @@ import UserAdmin from './commponts/Admin/UserAdmin';
 import GroupAdmin from './commponts/Admin/GroupAdmin';
 import PayAdmin from './commponts/Admin/PayAdmin';
 import WalletAdmin from './commponts/Admin/WalletAdmin';
+import EditGroup from './commponts/Admin/EditGroup';
+import AddGroup from './commponts/Admin/AddGroup';
 
 // >>>>>>> Stashed changes
 function App() {
@@ -188,6 +190,8 @@ function App() {
         <Route path="/Gr" element={<GroupAdmin />} />
         <Route path="/Pay" element={<PayAdmin />} />
         <Route path="/Wal" element={<WalletAdmin />} />
+        <Route path="/edit" element={<EditGroup />} />
+        <Route path="/ADD" element={<AddGroup />} />
       </Routes>
     </div>
   );

@@ -3,6 +3,23 @@ import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 export default function GroupAdmin() {
+  const [groupToDelete, setGroupToDelete] = useState(null);
+
+  const handleDeleteClick = (groupName) => {
+    setGroupToDelete(groupName); // تخزن اسم/ID المجموعة
+  };
+
+  const confirmDelete = () => {
+    console.log('تم حذف:', groupToDelete);
+    // هون بتحط كود الحذف الحقيقي (API call أو تحديث state)
+    setGroupToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setGroupToDelete(null);
+  };
+
+  // ةةةةةةةةةةةةةةة
   const [showDiv, setShowDiv] = useState(null);
   const [cover, setCover] = useState(null);
 
@@ -79,88 +96,415 @@ export default function GroupAdmin() {
               >
                 <i class="fa-solid fa-wallet"></i> بحث عن مجموعة{' '}
               </button>
-              <button
+              <Link
+                to="/ADD"
                 className={`ptn_Gr1 ${showDiv === 'add' ? 'activeBtn' : ''}`}
                 onClick={() => setShowDiv('add')}
               >
                 <i class="fa-solid fa-wallet"></i> اضافة مجموعة{' '}
-              </button>
+              </Link>
             </div>
             <div>
               {showDiv === 'search' && (
-                <div className="boxContent">
-                  <h3>🔍 ابحث عن مجموعة</h3>
-                  <input type="text" placeholder="اكتب اسم المجموعة..." />
-                </div>
-              )}
-
-              {showDiv === 'add' && (
-                <div className="con_AddGroup1">
-                  <h3 className="h3inconGroup">
-                    <i className="fa-solid fa-pen-to-square"></i>
-                    اضافة مجموعة{' '}
-                  </h3>
-                  <div className="con_flextowside">
-                    <div className="rightsidegroup">
-                      <div>
-                        <div className="name_input">
-                          <p>اسم المجموعة</p>
-                          <input type="text" />
-                        </div>
-                        <div className="name_input">
-                          <p>نوع المجموعة</p>
-                          <input type="text" />
-                          {/* مممم */}
-                          {/* مممم */}
-                        </div>
-                        <div className="name_input">
-                          <p>صورة غلاف المجموعة</p>
-
-                          <input
-                            type="file"
-                            id="coverUpload"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={handleImageChange}
-                          />
-                          <label htmlFor="coverUpload" className="uploadBtn">
-                            📷 رفع صورة
-                          </label>
-                          {cover && (
-                            <img
-                              src={cover}
-                              alt="cover"
-                              className="coverImagePreview"
-                            />
-                          )}
-                          {/* {cover && (
-                            <div className="previewCover">
-                              <img
-                                src={cover}
-                                alt="cover"
-                                className="coverImagePreview"
-                              />
-                            </div>
-                          )} */}
-                        </div>
-                        <div className="ptn_group2">
-                          <button>حفظ</button>
-                          <button className="reject">تراجع</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="leftsideGroup">
-                      <div className="buttom_side">
-                        <p className="qustion1">?</p>
-                      </div>
-                      <div className="circlediv">
-                        <p className="qustion">?</p>
-                      </div>
-                    </div>
+                <div className="searchdiv">
+                  <h3>ادخل اسم المجموعة التي تود البحث عنها ثم خدد نوعها </h3>
+                  <div className="name_input1">
+                    <p>اسم المجموعة</p>
+                    <input type="text" />
                   </div>
+                  <div className="name_input1">
+                    <p>نوع المجموعة</p>
+                    <input type="text" />
+                  </div>
+                  <button className="ffffff">بحث</button>
                 </div>
               )}
             </div>
+          </div>
+        </div>
+        <div>
+          <p className="nametit">
+            <i class="fa-solid fa-gavel"></i> مجموعة المزادات{' '}
+          </p>
+        </div>
+        <div className="group-con2">
+          <div className="group-div div1">
+            <span className="link">
+              <button
+                className="ptndelgroup"
+                onClick={() => handleDeleteClick('سيارات')}
+              >
+                <span>x</span>
+              </button>
+              سيارات
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </span>
+          </div>
+          {/* ممممم */}
+          {groupToDelete && (
+            <div className="confirm-modal">
+              <div className="modal-content">
+                <p>
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
+                </p>
+                <button className="btn-confirm" onClick={confirmDelete}>
+                  نعم
+                </button>
+                <button className="btn-cancel" onClick={cancelDelete}>
+                  لا
+                </button>
+              </div>
+            </div>
+          )}
+          {/* ممممم */}
+          <div className="group-div div2">
+            <Link className="link">
+              <button
+                className="ptndelgroup"
+                onClick={() => handleDeleteClick('عقارات')}
+              >
+                <span>x</span>
+              </button>
+              عقارات
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </Link>
+          </div>
+          {groupToDelete && (
+            <div className="confirm-modal">
+              <div className="modal-content">
+                <p>
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
+                </p>
+                <button className="btn-confirm" onClick={confirmDelete}>
+                  نعم
+                </button>
+                <button className="btn-cancel" onClick={cancelDelete}>
+                  لا
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="group-div div3">
+            <Link className="link">
+              <button
+                className="ptndelgroup"
+                onClick={() => handleDeleteClick('إلكترونيات')}
+              >
+                <span>x</span>
+              </button>
+              إلكترونيات
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </Link>
+          </div>
+          {groupToDelete && (
+            <div className="confirm-modal">
+              <div className="modal-content">
+                <p>
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
+                </p>
+                <button className="btn-confirm" onClick={confirmDelete}>
+                  نعم
+                </button>
+                <button className="btn-cancel" onClick={cancelDelete}>
+                  لا
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="group-div div4">
+            <Link className="link">
+              <button
+                className="ptndelgroup"
+                onClick={() => handleDeleteClick('أثاث')}
+              >
+                <span>x</span>
+              </button>
+              أثاث
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </Link>
+          </div>
+          {groupToDelete && (
+            <div className="confirm-modal">
+              <div className="modal-content">
+                <p>
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
+                </p>
+                <button className="btn-confirm" onClick={confirmDelete}>
+                  نعم
+                </button>
+                <button className="btn-cancel" onClick={cancelDelete}>
+                  لا
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="group-div div5">
+            <Link className="link">
+              <button
+                className="ptndelgroup"
+                onClick={() => handleDeleteClick('ملابس')}
+              >
+                <span>x</span>
+              </button>
+              ملابس
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </Link>
+          </div>
+          {groupToDelete && (
+            <div className="confirm-modal">
+              <div className="modal-content">
+                <p>
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
+                </p>
+                <button className="btn-confirm" onClick={confirmDelete}>
+                  نعم
+                </button>
+                <button className="btn-cancel" onClick={cancelDelete}>
+                  لا
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="group-div div6">
+            <Link className="link">
+              <button
+                className="ptndelgroup"
+                onClick={() => handleDeleteClick('إكسسوار')}
+              >
+                <span>x</span>
+              </button>
+              إكسسوار
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </Link>
+          </div>
+          {groupToDelete && (
+            <div className="confirm-modal">
+              <div className="modal-content">
+                <p>
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
+                </p>
+                <button className="btn-confirm" onClick={confirmDelete}>
+                  نعم
+                </button>
+                <button className="btn-cancel" onClick={cancelDelete}>
+                  لا
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="group-div div7">
+            <Link className="link">
+              <button
+                className="ptndelgroup"
+                onClick={() => handleDeleteClick('أخرى')}
+              >
+                <span>x</span>
+              </button>
+              أخرى
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </Link>
+          </div>
+          {groupToDelete && (
+            <div className="confirm-modal">
+              <div className="modal-content">
+                <p>
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
+                </p>
+                <button className="btn-confirm" onClick={confirmDelete}>
+                  نعم
+                </button>
+                <button className="btn-cancel" onClick={cancelDelete}>
+                  لا
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div>
+          <p className="nametit">
+            <i class="far fa-handshake"></i> مجموعة المناقصات{' '}
+          </p>
+
+          <div className="group-con2">
+            <div className="group-div div11">
+              <div className="sss">
+                <Link className="link">
+                  <button
+                    className="ptndelgroup"
+                    onClick={() => handleDeleteClick('بناءواعمار')}
+                  >
+                    <span>x</span>
+                  </button>
+                  بناءواعمار
+                  <Link to="/edit" className="ptneditgroup">
+                    <i className="fa-solid fa-pen-to-square"></i>
+                  </Link>
+                </Link>
+              </div>
+            </div>
+            {groupToDelete && (
+              <div className="confirm-modal">
+                <div className="modal-content">
+                  <p>
+                    هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                    مجموعة المناقصات علما انه سيتم حذف كل العناصر الموجودة فيها
+                    ؟
+                  </p>
+                  <button className="btn-confirm" onClick={confirmDelete}>
+                    نعم
+                  </button>
+                  <button className="btn-cancel" onClick={cancelDelete}>
+                    لا
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="group-div div22">
+              <Link className="link">
+                <button
+                  className="ptndelgroup1"
+                  onClick={() => handleDeleteClick('خدمات لأماكن عامة')}
+                >
+                  <span>x</span>
+                </button>
+                خدمات لأماكن عامة
+                <Link to="/edit" className="ptneditgroup1">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </Link>
+              </Link>
+            </div>
+            {groupToDelete && (
+              <div className="confirm-modal">
+                <div className="modal-content">
+                  <p>
+                    هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                    مجموعة المناقصات علما انه سيتم حذف كل العناصر الموجودة فيها
+                    ؟
+                  </p>
+                  <button className="btn-confirm" onClick={confirmDelete}>
+                    نعم
+                  </button>
+                  <button className="btn-cancel" onClick={cancelDelete}>
+                    لا
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="group-div div33">
+              <Link className="link">
+                <button
+                  className="ptndelgroup"
+                  onClick={() => handleDeleteClick('خدمات منوعة')}
+                >
+                  <span>x</span>
+                </button>
+                خدمات منوعة
+                <Link to="/edit" className="ptneditgroup">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </Link>
+              </Link>
+            </div>{' '}
+            {groupToDelete && (
+              <div className="confirm-modal">
+                <div className="modal-content">
+                  <p>
+                    هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                    مجموعة المناقصات علما انه سيتم حذف كل العناصر الموجودة فيها
+                    ؟
+                  </p>
+                  <button className="btn-confirm" onClick={confirmDelete}>
+                    نعم
+                  </button>
+                  <button className="btn-cancel" onClick={cancelDelete}>
+                    لا
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="group-div div44">
+              <Link className="link">
+                <button
+                  className="ptndelgroup"
+                  onClick={() => handleDeleteClick('مركبات واليات')}
+                >
+                  <span>x</span>
+                </button>
+                مركبات واليات
+                <Link to="/edit" className="ptneditgroup">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </Link>
+              </Link>
+            </div>{' '}
+            {groupToDelete && (
+              <div className="confirm-modal">
+                <div className="modal-content">
+                  <p>
+                    هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                    مجموعة المناقصات علما انه سيتم حذف كل العناصر الموجودة فيها
+                    ؟
+                  </p>
+                  <button className="btn-confirm" onClick={confirmDelete}>
+                    نعم
+                  </button>
+                  <button className="btn-cancel" onClick={cancelDelete}>
+                    لا
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="group-div div55">
+              <Link className="link">
+                <button
+                  className="ptndelgroup"
+                  onClick={() => handleDeleteClick('أخرى')}
+                >
+                  <span>x</span>
+                </button>
+                أخرى
+                <Link to="/edit" className="ptneditgroup">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </Link>
+              </Link>
+            </div>{' '}
+            {groupToDelete && (
+              <div className="confirm-modal">
+                <div className="modal-content">
+                  <p>
+                    هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                    مجموعة المناقصات علما انه سيتم حذف كل العناصر الموجودة فيها
+                    ؟
+                  </p>
+                  <button className="btn-confirm" onClick={confirmDelete}>
+                    نعم
+                  </button>
+                  <button className="btn-cancel" onClick={cancelDelete}>
+                    لا
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

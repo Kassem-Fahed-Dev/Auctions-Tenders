@@ -58,11 +58,11 @@ export default function AuctionAdmin() {
             </div>
           </div>
           <div className="side2">
-            {/* <h1 className="h1tit">مدير المناقصات </h1> */}
             <h1 className="h1tit">
               {' '}
-              <i className="fa-solid fa-people-group"></i>مدير المزادات{' '}
+              <i class="fa-solid fa-gavel"></i> مدير المزادات{' '}
             </h1>
+            <div>;oarmdr;o</div>
           </div>
         </div>
       </div>
