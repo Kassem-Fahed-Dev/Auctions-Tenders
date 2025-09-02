@@ -1,6 +1,8 @@
-import './Admin.css';
-import imag from '../../image/logo.png';
+import '../Admin.css';
+import imag from '../../../image/logo.png';
 import { Link } from 'react-router-dom';
+import SortDropdown from '../SortDropdown';
+import Auction from '../../Auctions/Auction';
 export default function AuctionAdmin() {
   return (
     <>
@@ -62,8 +64,26 @@ export default function AuctionAdmin() {
               {' '}
               <i class="fa-solid fa-gavel"></i> مدير المزادات{' '}
             </h1>
-            <div>;oarmdr;o</div>
+            <div className="con_Adminsort">
+              <SortDropdown />
+              <div className="sdsd">
+                <i className="fas fa-search icon "></i>
+                <input type="serach" className="searchptnAdmin" />
+              </div>
+            </div>
           </div>
+        </div>
+        <div className="fflex">
+          <Auction />
+          <Auction />
+          <Auction />
+          <Auction />
+          <Auction />
+          <Auction />
+          <Auction />
+          <Auction />
+          <Auction />
+          <Auction />
         </div>
       </div>
     </>

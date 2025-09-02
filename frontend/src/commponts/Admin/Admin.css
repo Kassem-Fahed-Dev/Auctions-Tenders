@@ -426,3 +426,103 @@
   border-radius: 6px;
   margin-right: 190px;
 }
+/* ptn sort admin  */
+/* Admin.css */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: 'Tahoma', sans-serif;
+  direction: rtl;
+}
+
+.dropdown-btn {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50px;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  height: 30px;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrow {
+  font-size: 14px;
+}
+
+/* القائمة المنسدلة */
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 0;
+  border: 1px solid #000;
+  border-radius: 12px;
+  background: #fff;
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.dropdown-menu.open {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-bottom: 1px solid #aaa;
+  cursor: pointer;
+  display: block;
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu li:hover {
+  background: #f2f2f2;
+}
+/* end the sort */
+
+.sdsd {
+  position: relative;
+  width: 330px;
+  height: 50px;
+}
+.sdsd i {
+  font-size: 16px;
+  position: absolute;
+  top: 7px;
+  left: 90px;
+  color: #000;
+}
+.con_Adminsort {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 150px;
+  /* background-color: #0072e4; */
+  margin-top: 150px;
+  width: 900px;
+  height: 250px;
+}
+.searchptnAdmin {
+  border: none;
+  width: 250px;
+  border-radius: 12px;
+  outline: none;
+  background-color: #ffffffff;
+  border: 1px solid black;
+}
+.fflex {
+  display: flex;
+  gap: 3%;
+  padding-right: 11%;
+  padding-left: 0%;
+  flex-wrap: wrap;
+  margin-bottom: 20%;
+}

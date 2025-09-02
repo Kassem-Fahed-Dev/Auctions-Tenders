@@ -43,11 +43,7 @@ export default function Account() {
       })
       .then((res) => {
         setDataUser(res.data.data.data);
-<<<<<<< HEAD
-        console.log(res.data.data.data)
-=======
-        console.log(res.data.data.data.role, 'this is roleeeeeeeeeee');
->>>>>>> 42860e0546031cd070d2dac1719f619f3897bc39
+        console.log(res.data.data.data);
       })
 
       .catch((error) => {
