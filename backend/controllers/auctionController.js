@@ -6,6 +6,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const AuctionBid = require('../models/AuctionBid');
+const notificationService = require('../utils/notificationService');
 
 // Helper function to add favorites to auctions
 const addFavoritesToAuctions = async (auctions, userId) => {
@@ -126,7 +127,32 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
     const populatedAuction = await Auction.findById(newAuction._id)
       .populate('item')
       .populate('user');
-
+    // send notification to user that add category ouction to their fav
+    try {
+      const categoryId = populatedAuction.item.category;
+      if (categoryId) {
+        // Find the category to get its name
+        const category = await Category.findById(categoryId);
+        console.log('😀category ', category._id);
+        const favoritedUsers = await Favorite.find({
+          referenceId: category._id,
+          type: 'category',
+        }).populate('user');
+        console.log('😀fuck');
+        for (const fav of favoritedUsers) {
+          await notificationService.createNotification({
+            userId: fav.user._id,
+            title: 'اشعار من انواعك المفضلة',
+            message: `${category.name}   تم اضافة مزاد جديد الى`,
+            type: 'category',
+            referenceId: category._id,
+          });
+          console.log('😎😋Iam hereeeeeeeeeeeeeee');
+        }
+      }
+    } catch (error) {
+      console.error('Error when sending category favorite notification', error);
+    }
     res.status(201).json({
       status: req.t('fields:success'),
       message: req.t('successes:createAuction'),

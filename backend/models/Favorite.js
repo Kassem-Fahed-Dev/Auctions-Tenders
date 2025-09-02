@@ -9,7 +9,7 @@ const favoriteSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['auction', 'tender'],
+      enum: ['auction', 'tender', 'category'],
       required: [true, 'type required'],
     },
     referenceId: {

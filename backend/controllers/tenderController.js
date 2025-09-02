@@ -6,7 +6,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const TenderOffer = require('../models/TenderOffer');
-
+const notificationService = require('../utils/notificationService');
 // Helper function to add favorites to tenders
 const addFavoritesToTenders = async (tenders, userId) => {
   const tenderIds = tenders.map((tender) => tender._id);
@@ -127,7 +127,38 @@ exports.createTenderWithItem = catchAsync(async (req, res, next) => {
     const populatedTender = await Tender.findById(newTender._id)
       .populate('item')
       .populate('user');
+    // send notification to user that add category tender to their fav
+    try {
+      const categoryId = populatedTender.item.category;
+      if (categoryId) {
+        const category = await Category.findById(categoryId);
 
+        if (category) {
+          const favoritedUsers = await Favorite.find({
+            referenceId: category._id,
+            type: 'category',
+          }).populate('user');
+
+          for (const fav of favoritedUsers) {
+            await notificationService.createNotification({
+              userId: fav.user._id,
+              title: 'مفضلتك',
+              message: `تم إضافة مناقصة جديدة إلى ${category.name}`,
+              type: 'category',
+              referenceId: category._id,
+            });
+            console.log(
+              ` Notification sent to favorite user: ${fav.user.name} for new tender in category ${category.name}`,
+            );
+          }
+        }
+      }
+    } catch (notificationError) {
+      console.error(
+        'Error sending category favorite notification:',
+        notificationError,
+      );
+    }
     res.status(201).json({
       status: req.t('fields:success'),
       message: req.t('successes:createTender'),
