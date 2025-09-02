@@ -5,6 +5,7 @@ import Tender from './Tender';
 import Footer from '../privacy policy/Footer';
 import { useState } from 'react';
 import CardTen from './CardTen';
+import Search from '../Auctions/Serach';
 
 export default function TenderGroup({ paragraph }) {
   const navegaet = useNavigate();
@@ -142,6 +143,7 @@ export default function TenderGroup({ paragraph }) {
           </button>
         </div>
       </div>
+      <Search page={"group"}/>
         <CardTen page="group" item={paragraph}/>
       <Footer />
     </div>

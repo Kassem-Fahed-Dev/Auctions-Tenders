@@ -6,6 +6,7 @@ import Footer from '../privacy policy/Footer';
 import { useState } from 'react';
 import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
+import Search from './Serach';
 
 export default function AuctionGroup({ paragraph }) {
   const navegaet = useNavigate();
@@ -152,6 +153,7 @@ export default function AuctionGroup({ paragraph }) {
           </button>
         </div>
       </div>
+      <Search page={"group"}/>
       <Cards page="group" item={paragraph}/>
       <Footer />
     </div>

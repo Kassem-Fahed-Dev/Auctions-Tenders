@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardTen from './CardTen';
 import ButtonSortTen from './ButtonSortten';
+import Search from '../Auctions/Serach';
 
 export default function ShareTenders() {
 
@@ -29,6 +30,7 @@ export default function ShareTenders() {
           <i className="fas fa-plus"></i>
         </button>
         <ButtonSortTen test2='share'/>
+        <Search page={"all"}/>
        <CardTen page={'share'}/>
         <Footer />
       </div>

@@ -9,6 +9,7 @@ import TendersNavbar from './TendersNavbar';
 import Tender from './Tender';
 import ButtonSortTen from './ButtonSortten';
 import CardTen from './CardTen';
+import Search from '../Auctions/Serach';
 export default function AllTenders() {
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
@@ -28,6 +29,7 @@ export default function AllTenders() {
       </button>
 
       <ButtonSortTen test2={'all'} />
+      <Search page={"all"}/>
       <CardTen page={'all'} />
 
       <Footer />

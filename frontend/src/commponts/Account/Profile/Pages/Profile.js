@@ -43,6 +43,7 @@ export default function Account() {
       })
       .then((res) => {
         setDataUser(res.data.data.data);
+        console.log(res.data.data.data)
       })
       .catch((error) => {
         console.log('error');

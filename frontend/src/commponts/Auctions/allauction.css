@@ -994,3 +994,128 @@ input [type='date'] {
 .deleteAuction:hover {
   font-size: 20px;
 }
+input.position{
+   background: #fff;
+   border: #000 solid 2px;
+  width: 255px;
+  position: relative;
+  left: 320px;
+  bottom: 45px;
+  height: 40px;
+}
+i.position{
+ position: relative;
+ color: #000;
+  left: 350px;
+  z-index: 3;
+  bottom: 43px;  
+}
+input.position1{
+     background: #fff;
+   border: #000 solid 1px;
+  width: 255px;
+  position: relative;
+  left: 320px;
+  bottom: 55px;
+  height: 40px;
+}
+i.position1{
+ position: relative;
+ color: #000;
+  left: 350px;
+  z-index: 3;
+  bottom: 52px;  
+}
+input.position2{
+    background: #fff;
+   border: #000 solid 1px;
+  width: 255px;
+  position: relative;
+  right: -70px;
+  bottom: 25px;
+  height: 40px;
+}
+i.position2{
+ position: relative;
+ color: #000;
+ left: -150px;
+  z-index: 3;
+  bottom: -7px;  
+}
+button.pos{
+  
+  top: 686px;
+  left: 50px;
+}
+.listSort .buttonSort .buttonpos1{
+  
+  position:absolute;
+  /* top: 800px; */
+  top: 740px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos2{
+ 
+  position:absolute;
+  /* top: 800px; */
+  top: 780px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos3{
+
+  position:absolute;
+  /* top: 800px; */
+  top: 780px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos4{
+
+  position:absolute;
+  /* top: 800px; */
+  top: 820px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos5{
+
+  position:absolute;
+  /* top: 800px; */
+  top: 860px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos6{
+
+  position:absolute;
+  /* top: 800px; */
+  top: 900px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos7{
+
+  position:absolute;
+  /* top: 800px; */
+  top: 940px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos8{
+
+  position:absolute;
+  /* top: 800px; */
+  top: 980px;
+  left: 60px;
+}
+.visable1{
+  height: 50px;
+  display: block;
+}
+.visable2{
+  height: 240px;
+  display: block;
+}
+.visable3{
+  height: 100px;
+  display: block;
+}
+.visable4{
+  height: 155px;
+  display: block;
+}

@@ -6,6 +6,7 @@ import { useState } from "react";
 import Cards from "./Cards";
 import { useNavigate } from 'react-router-dom';
 import ButtonSort from "../Home/ButtonSort";
+import Search from "./Serach";
 export default function ShareAuction(){
      let sort=localStorage.getItem('status3')
    if(sort==' الوقت'||sort==' مجموعات'){
@@ -23,7 +24,7 @@ sort=localStorage.setItem('status3','فرز حسب')
              <i className="fas fa-plus"></i>
             </button>
             <ButtonSort test2={'share'}/>
-           
+           <Search page={"all"}/>
          <Cards page="share"/>
           
                         <Footer/>

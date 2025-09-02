@@ -13,6 +13,7 @@ import '../profile.css';
 import Side from '../componants/Side';
 import CardTen from '../../../Tenders/CardTen';
 import ButtonSortTen from '../../../Tenders/ButtonSortten';
+import Search from '../../../Auctions/Serach';
 // import Card from "../../Auc-Folder/Card";
 // >>>>>>> 2b43e7c895dec329841e8800521ec7636eedf246
 export default function FavTender() {
@@ -212,10 +213,12 @@ export default function FavTender() {
                 </button>
               </div>
             </div> */}
-            <ButtonSortTen test2={'favp'}/>
+             <Search/>
+            <ButtonSortTen test2={'favp'} position={"profile"}/>
           </div>
         </div>
       </div>
+     
      <CardTen page={'fav'}/>
 
       <Footer />

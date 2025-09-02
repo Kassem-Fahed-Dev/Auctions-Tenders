@@ -782,3 +782,6 @@ tbody td {
   text-align: center;
   display: inline-block;
 }
+.color{
+  background-color: #00000095;
+}

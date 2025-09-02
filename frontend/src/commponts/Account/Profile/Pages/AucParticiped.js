@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Profile from './Profile';
 import Cards from '../../../Auctions/Cards';
 import ButtonSort from '../../../Home/ButtonSort';
+import Search from '../../../Auctions/Serach';
 export default function AucParticiped() {
   // function handel_Fav(e) {
   //   let hh = e.target;
@@ -75,8 +76,8 @@ export default function AucParticiped() {
               className="img-icon"
               src={Star}
               alt="Error"
-              width={'45px'}
-              height={'45px'}
+              width={'50px'}
+              height={'40px'}
             />
             المزادات التي شاركت بها
           </h3>{' '}
@@ -223,9 +224,14 @@ export default function AucParticiped() {
               </div>
             </div>
           </div> */}
-          <ButtonSort test2={'sharep'}/>
+          <div className="test-con">
+             <Search />
+             </div>
+          <ButtonSort test2={'sharep'} position={"profile"}/>
+          
         </div>
       </div>
+   
       <Cards page={'share'}/>
       <Footer />
     </div>

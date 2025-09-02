@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 // =======
 import '../profile.css';
 import CardTen from '../../../Tenders/CardTen';
+import Search from '../../../Auctions/Serach';
 // import "../../Auc-Folder/Auc.css";
 // import Side from "../componants/Side";
 // import Card from "../../Auc-Folder/Card";
@@ -78,6 +79,7 @@ export default function TenderCreate() {
             المناقصات التي أنشأتها
           </h3>
           <div className="test-con">
+            <Search/>
             
         <button
           className="sort sort-share"
@@ -170,6 +172,7 @@ export default function TenderCreate() {
           </div>
         </div>
       </div>
+      
       <CardTen page={'create'}/>
 
       <Footer />
