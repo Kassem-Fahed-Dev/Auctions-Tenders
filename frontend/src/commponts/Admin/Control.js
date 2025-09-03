@@ -60,8 +60,32 @@ export default function ControlAdmin() {
           <div className="side2">
             <h1 className="h1tit">
               {' '}
-              <i className="fa-solid fa-people-group"></i>لوحة التحكم{' '}
+              <i class="fas fa-chart-line"></i>لوحة التحكم{' '}
             </h1>
+            <div className="con_Admin_control">
+              <div>
+                <p>
+                  <i class="fa-solid fa-gavel"></i>{' '}
+                </p>
+                <p>عدد المزادات </p>
+                <p>250</p>
+              </div>
+              <div>
+                <p>
+                  <i class="far fa-handshake"></i>{' '}
+                </p>
+                <p>عدد المناقصات</p>
+                <p>250</p>
+              </div>
+              <div>
+                <p>
+                  {' '}
+                  <i class="fa-solid fa-user-large"></i>
+                </p>
+                <p>عدد المستخدمين </p>
+                <p>250</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

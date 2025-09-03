@@ -81,8 +81,8 @@ export default function Side({ role }) {
         {role === 'user' && (
           <>
             <Link
-              to="/ad"
-              className={`info ${currentPath === '/ad' ? 'active' : ''}`}
+              to="/con"
+              className={`info ${currentPath === '/con' ? 'active' : ''}`}
             >
               اللوحة الرئيسية
             </Link>

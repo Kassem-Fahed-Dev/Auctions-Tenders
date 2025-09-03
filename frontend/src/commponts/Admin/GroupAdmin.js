@@ -6,12 +6,11 @@ export default function GroupAdmin() {
   const [groupToDelete, setGroupToDelete] = useState(null);
 
   const handleDeleteClick = (groupName) => {
-    setGroupToDelete(groupName); // تخزن اسم/ID المجموعة
+    setGroupToDelete(groupName);
   };
 
   const confirmDelete = () => {
     console.log('تم حذف:', groupToDelete);
-    // هون بتحط كود الحذف الحقيقي (API call أو تحديث state)
     setGroupToDelete(null);
   };
 
@@ -89,24 +88,24 @@ export default function GroupAdmin() {
               {' '}
               <i className="fa-solid fa-people-group"></i>مدير المجموعات{' '}
             </h1>
-            <div className="con_AdminGroup">
+            <div className="con_AdminGroup2">
               <button
                 className={`ptn_Gr1 ${showDiv === 'search' ? 'activeBtn' : ''}`}
                 onClick={() => setShowDiv('search')}
               >
-                <i class="fa-solid fa-wallet"></i> بحث عن مجموعة{' '}
+                <i class="fas fa-search"></i> بحث عن مجموعة{' '}
               </button>
               <Link
                 to="/ADD"
                 className={`ptn_Gr1 ${showDiv === 'add' ? 'activeBtn' : ''}`}
                 onClick={() => setShowDiv('add')}
               >
-                <i class="fa-solid fa-wallet"></i> اضافة مجموعة{' '}
+                <i class="fas fa-plus"></i> اضافة مجموعة{' '}
               </Link>
             </div>
             <div>
               {showDiv === 'search' && (
-                <div className="searchdiv">
+                <div className="searchdiv2">
                   <h3>ادخل اسم المجموعة التي تود البحث عنها ثم خدد نوعها </h3>
                   <div className="name_input1">
                     <p>اسم المجموعة</p>
@@ -116,7 +115,12 @@ export default function GroupAdmin() {
                     <p>نوع المجموعة</p>
                     <input type="text" />
                   </div>
-                  <button className="ffffff">بحث</button>
+                  <button
+                    className="fffffff 
+"
+                  >
+                    بحث
+                  </button>
                 </div>
               )}
             </div>

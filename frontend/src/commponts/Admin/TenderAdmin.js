@@ -1,6 +1,8 @@
 import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
+import SortDropdown from './SortDropdown';
+import Tender from '../Tenders/Tender';
 export default function TenderAdmin() {
   return (
     <>
@@ -60,9 +62,26 @@ export default function TenderAdmin() {
           <div className="side2">
             <h1 className="h1tit">
               {' '}
-              <i className="fa-solid fa-people-group"></i>مدير المناقصات{' '}
+              <i class="far fa-handshake"></i> مدير المناقصات{' '}
             </h1>
+            <div className="con_Adminsort">
+              <SortDropdown />
+              <div className="sdsd">
+                <i className="fas fa-search icon "></i>
+                <input type="serach" className="searchptnAdmin" />
+              </div>
+            </div>
           </div>
+        </div>
+        <div className="fflex">
+          <Tender />
+          <Tender />
+          <Tender />
+          <Tender />
+          <Tender />
+          <Tender />
+          <Tender />
+          <Tender />
         </div>
       </div>
     </>
