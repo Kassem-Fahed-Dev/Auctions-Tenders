@@ -1,7 +1,132 @@
 import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axiosInstance from '../AxiosInterceptors';
+import { id } from '../Account/Profile/store/Redux';
 export default function WalletAdmin() {
+  const [walletActivity, setWalletActivity] = useState([]);
+  const token = localStorage.getItem('jwt');
+  const [errorMessage, setErrorMessage] = useState({});
+  const status = 'pending';
+  // /api/v1/payment/walletActivities?descriptionTransaction=Deposit requested&status=completed
+  useEffect(() => {
+    axiosInstance
+      .get(`/api/v1/payments/walletActivities?status=${status}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setWalletActivity(res.data.data);
+        console.log(res.data.data);
+        console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }, []);
+
+  const accept = (id, discription) => {
+    console.log('lllllllllllllllllll');
+    const valdition = {};
+    console.log(id);
+    console.log(discription);
+    axiosInstance
+      .patch(
+        `${
+          discription == 'Deposit requested'
+            ? `/api/v1/payments/deposit/approve/${id}`
+            : `/api/v1/payments/withdraw/complete/${id}`
+        }`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        //  alert('تم تغيير كلمة المرور بنجاح')
+        // setHoverAuction('spinner');
+        window.location.reload();
+
+        console.log(res);
+      })
+      .catch((error) => {
+        // setHoverAuction('spinner');
+        if (error.response) {
+          valdition.messageBackend = error.response.data.message;
+          // setErrorMessageupdate(valdition);
+          console.log('p3');
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          // setErrorMessageupdate({
+          //   messageBackend: 'An unexpected error occurred.',
+          // });
+        }
+      });
+  };
+  const reject = (id, discription) => {
+    console.log('pppppppppppppppppppp');
+    const valdition = {};
+    axiosInstance
+      .patch(
+        `${
+          discription == 'Deposit requested'
+            ? `/api/v1/payments/deposit/reject/${id}`
+            : `/api/v1/payments/withdraw/fail/${id}`
+        }`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        //  alert('تم تغيير كلمة المرور بنجاح')
+        // setHoverAuction('spinner');
+        window.location.reload();
+
+        console.log(res);
+      })
+      .catch((error) => {
+        // setHoverAuction('spinner');
+        if (error.response) {
+          valdition.messageBackend = error.response.data.message;
+          // setErrorMessageupdate(valdition);
+          console.log('p3');
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          // setErrorMessageupdate({
+          //   messageBackend: 'An unexpected error occurred.',
+          // });
+        }
+      });
+  };
   return (
     <>
       <div className="con-admin">
@@ -78,7 +203,42 @@ export default function WalletAdmin() {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              {walletActivity.map((activity) => (
+                <tr>
+                  <td>{activity?.descriptionTransaction}</td>
+                  <td>{activity?.partner?.name}</td>
+                  <td>{activity?.amount} مليون ل.س</td>
+                  <td> {activity.date?.slice(0, 10).replaceAll('-', '/')}</td>
+                  <td>
+                    <div className="con_table">
+                      <button
+                        
+                        className="pttable"
+                        onClick={()=>{accept(
+                          activity?._id,
+                          activity?.descriptionTransaction
+                        )}}
+                      >
+                        قبول{' '}
+                      </button>
+                      <button
+                        className="pttable2"
+                       
+                        
+                        onClick={()=>{reject(
+                          activity?._id,
+                          activity?.descriptionTransaction
+                        )}}
+                      >
+                        {' '}
+                        رفض{' '}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+
+              {/* <tr>
                 <td>مراد</td>
                 <td>فادي الأحمد</td>
                 <td>500 مليون ل.س</td>
@@ -137,19 +297,7 @@ export default function WalletAdmin() {
                     <button className="pttable2"> رفض </button>
                   </div>
                 </td>
-              </tr>
-              <tr>
-                <td>مراد</td>
-                <td>فادي الأحمد</td>
-                <td>500 مليون ل.س</td>
-                <td>2025/5/15</td>
-                <td>
-                  <div className="con_table">
-                    <button className="pttable">قبول </button>
-                    <button className="pttable2"> رفض </button>
-                  </div>
-                </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

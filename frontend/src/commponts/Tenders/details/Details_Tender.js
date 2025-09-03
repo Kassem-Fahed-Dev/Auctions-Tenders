@@ -8,31 +8,78 @@ import Footer from '../../privacy policy/Footer';
 import TendersNavbar from '../TendersNavbar';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
+import axiosInstance from '../../AxiosInterceptors';
 function back() {
   window.history.go(-1);
 }
 
 export default function Details_Tender() {
   const scroll1 = useEffect(() => window.scrollTo(0, 0));
+const [errorMessage5, setErrorMessage5] = useState({});
+     const [errorMessage, setErrorMessage] = useState({});
+  const [amount, setAmount] = useState({amount:''});
 
   // const [amount, setAmount] = useState('');
   const location = useLocation();
   const { data,heart } = location.state||{};
-  const [amount, setAmount] = useState('');
   function back() {
     window.history.go(-1);
   }
-  function handleInputChange(e) {
-    const value = e.target.value;
+   function handleInputChange(e) {
+     const { name, value } = e.target;
+    //setAmount(false)
+    setAmount({ ...amount, [name]: Number(value.trim())  });
+    console.log(amount)
+    // if (!/^\d+$/.test(value)) {
+    //   return;
+    // }
 
-    if (!/^\d+$/.test(value)) {
-      return;
-    }
-
-    setAmount(value);
+    // setAmount(value);
   }
-  const [showParticipation, setShowParticipation] = useState(false);
+
+   const [showParticipation, setShowParticipation] = useState(false);
+
+ const token = localStorage.getItem('jwt');
+  const submitAmount=(e)=>{
+    // e.preventDefault();
+     setAmount('');
+ setShowParticipation(false);
+
+    console.log('ppp')
+   axiosInstance
+        .post(
+          `/api/v1/tenders/submitOffer/${data?._id}`,
+          JSON.stringify(amount),
+          {
+            headers: {
+             'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+        console.log(res)
+        setAmount({amount:''})
+          window.location.reload();
+        })
+        .catch((error) => {
+        
+          if (error.response) {
+            const validationErrors4 = {};
+            validationErrors4.messageBackend = error.response.data.message;
+            setErrorMessage5(validationErrors4);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage5({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    
+  }
+
 
   // function handleInputChange(e) {
   //   const value = e.target.value;

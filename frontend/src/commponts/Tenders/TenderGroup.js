@@ -75,6 +75,7 @@ export default function TenderGroup({ paragraph }) {
   };
   return (
     <div>
+        <Search page={"group"}/>
       <Navbar wordBlod={'tenders'} />
       <TendersNavbar wordBlod={'group'} />
       <div className="create-auction-button">
@@ -117,7 +118,7 @@ export default function TenderGroup({ paragraph }) {
       </button>
 
       <div className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}>
-        <div className="buttonSort">
+        <div className="buttonSort but">
           <button
             className="button1"
             onClick={() => {
@@ -143,7 +144,7 @@ export default function TenderGroup({ paragraph }) {
           </button>
         </div>
       </div>
-      <Search page={"group"}/>
+    
         <CardTen page="group" item={paragraph}/>
       <Footer />
     </div>

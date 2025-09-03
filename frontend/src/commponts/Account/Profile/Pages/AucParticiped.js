@@ -76,163 +76,160 @@ export default function AucParticiped() {
               className="img-icon"
               src={Star}
               alt="Error"
-              width={'50px'}
+              width={'45px'}
               height={'40px'}
             />
             المزادات التي شاركت بها
           </h3>{' '}
-          {/* <div className="test-con">
-            <button
-              className="sort21"
-              type="text"
-              onMouseEnter={() => {
-                setHover(true);
-              }}
-              onMouseLeave={() => {
-                setHover(false);
-              }}
-              onClick={handleClick}
-              value={value}
-            >
-              <div>{value}</div>
-              <i
-                className={`fas fa-chevron-left fas1 ${
-                  hover == true ? 'white' : 'black'
-                } ${
-                  value.includes(' مجموعات') ||
-                  value.includes(' الوقت') ||
-                  value.includes('فرز حسب')
-                    ? 'sort1'
-                    : 'sort2'
-                }`}
-                onclick={handleClick}
-              ></i>
-            </button>
-
-            <div
-              className={`listSort  ${
-                test.includes('فرز حسب') ? 'visable21' : ''
-              }`}
-            >
-              <div className="buttonSort">
-                <button
-                  className="button1"
-                  onClick={() => {
-                    handleClick2(' مجموعات');
-                  }}
-                >
-                  المجموعة
-                </button>
-                <button
-                  className="button2"
-                  onClick={() => {
-                    handleClick2(' الوقت');
-                  }}
-                >
-                  الوقت
-                </button>
-              </div>
-            </div>
-            <div
-              className={`listSort ${
-                test.includes(' مجموعات') ? 'visable2' : ''
-              }`}
-            >
-              <div className="buttonSort">
-                <button
-                  className="button1"
-                  onClick={() => {
-                    handleClick2(' سيارات');
-                  }}
-                >
-                  سيارات
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' عقارات');
-                  }}
-                >
-                  عقارات
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' إلكترونيات');
-                  }}
-                >
-                  إلكترونيات
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' أثاث');
-                  }}
-                >
-                  أثاث
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' إكسسوار');
-                  }}
-                >
-                  إكسسوار
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' ملابس');
-                  }}
-                >
-                  ملابس
-                </button>
-                <button
-                  className="button2"
-                  onClick={() => {
-                    handleClick2(' أخرى');
-                  }}
-                >
-                  أخرى
-                </button>
-              </div>
-            </div>
-            <div
-              className={`listSort  ${
-                test.includes(' الوقت') ? 'visable2' : ''
-              }`}
-            >
-              <div className="buttonSort">
-                <button
-                  className="button1"
-                  onClick={() => {
-                    handleClick2(' جاري');
-                  }}
-                >
-                  جاري
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' قادم');
-                  }}
-                >
-                  قادم
-                </button>
-                <button
-                  className="button2"
-                  onClick={() => {
-                    handleClick2(' منتهي');
-                  }}
-                >
-                  منتهي
-                </button>
-              </div>
-            </div>
-          </div> */}
-          <div className="test-con">
-             <Search />
-             </div>
-          <ButtonSort test2={'sharep'} position={"profile"}/>
-          
+         <div className="test-con">
+                    {/* <button
+                      className="sort21"
+                      type="text"
+                      onMouseEnter={() => {
+                        setHover(true);
+                      }}
+                      onMouseLeave={() => {
+                        setHover(false);
+                      }}
+                      onClick={handleClick}
+                      value={value}
+                    >
+                      <div>{value}</div>
+                      <i
+                        className={`fas fa-chevron-left fas1 ${
+                          hover == true ? 'white' : 'black'
+                        } ${
+                          value.includes(' مجموعات') ||
+                          value.includes(' الوقت') ||
+                          value.includes('فرز حسب')
+                            ? 'sort1'
+                            : 'sort2'
+                        }`}
+                        onclick={handleClick}
+                      ></i>
+                    </button>
+        
+                    <div
+                      className={`listSort  ${
+                        test.includes('فرز حسب') ? 'visable21' : ''
+                      }`}
+                    >
+                      <div className="buttonSort">
+                        <button
+                          className="button1"
+                          onClick={() => {
+                            handleClick2(' مجموعات');
+                          }}
+                        >
+                          المجموعة
+                        </button>
+                        <button
+                          className="button2"
+                          onClick={() => {
+                            handleClick2(' الوقت');
+                          }}
+                        >
+                          الوقت
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      className={`listSort ${
+                        test.includes(' مجموعات') ? 'visable2' : ''
+                      }`}
+                    >
+                      <div className="buttonSort">
+                        <button
+                          className="button1"
+                          onClick={() => {
+                            handleClick2(' سيارات');
+                          }}
+                        >
+                          سيارات
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleClick2(' عقارات');
+                          }}
+                        >
+                          عقارات
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleClick2(' إلكترونيات');
+                          }}
+                        >
+                          إلكترونيات
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleClick2(' أثاث');
+                          }}
+                        >
+                          أثاث
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleClick2(' إكسسوار');
+                          }}
+                        >
+                          إكسسوار
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleClick2(' ملابس');
+                          }}
+                        >
+                          ملابس
+                        </button>
+                        <button
+                          className="button2"
+                          onClick={() => {
+                            handleClick2(' أخرى');
+                          }}
+                        >
+                          أخرى
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      className={`listSort  ${
+                        test.includes(' الوقت') ? 'visable2' : ''
+                      }`}
+                    >
+                      <div className="buttonSort">
+                        <button
+                          className="button1"
+                          onClick={() => {
+                            handleClick2(' جاري');
+                          }}
+                        >
+                          جاري
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleClick2(' قادم');
+                          }}
+                        >
+                          قادم
+                        </button>
+                        <button
+                          className="button2"
+                          onClick={() => {
+                            handleClick2(' منتهي');
+                          }}
+                        >
+                          منتهي
+                        </button>
+                      </div>
+                    </div> */}
+                    <Search page="participped"/>
+                    <ButtonSort test2={'sharep'} position={"profile"}/>
+                  </div>
         </div>
       </div>
    
-      <Cards page={'share'}/>
+      <Cards page={'sharep'}/>
       <Footer />
     </div>
   );

@@ -229,7 +229,7 @@ export default function FavAuction() {
         </div>
       </div>
       
-      <Cards page={'fav'}/>
+      <Cards page={'favp'}/>
       <Footer />
     </>
   );

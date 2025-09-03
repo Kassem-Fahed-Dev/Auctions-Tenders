@@ -85,6 +85,7 @@ export default function AuctionGroup({ paragraph }) {
 
   return (
     <div>
+      <Search page={"group"}/>
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'group'} />
       <div className="create-auction-button">
@@ -153,7 +154,7 @@ export default function AuctionGroup({ paragraph }) {
           </button>
         </div>
       </div>
-      <Search page={"group"}/>
+      
       <Cards page="group" item={paragraph}/>
       <Footer />
     </div>

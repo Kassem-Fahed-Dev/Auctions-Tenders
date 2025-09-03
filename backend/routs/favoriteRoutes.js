@@ -13,7 +13,8 @@ router.get('/', favoriteController.getUserFavorites);
 router.post('/auction/:auctionId', favoriteController.toggleFavorite);
 // Toggle favorite status (add/remove) for tender
 router.post('/tender/:tenderId', favoriteController.toggleFavorite);
-
+// Toggle favorite status (add/remove) for category
+router.post('/category/:categoryId', favoriteController.toggleFavorite);
 // Check if an auction is favorited
 router.get('/auction/check/:auctionId', favoriteController.checkFavorite);
 // Check if a tender is favorited

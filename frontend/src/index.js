@@ -9,6 +9,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { Store_App } from './commponts/Account/Profile/store/Store';
+localStorage.setItem('statusallAu', 'فرز حسب');
+localStorage.setItem('statusallTe', 'فرز حسب');
+localStorage.setItem('statusfavAu', 'فرز حسب');
+localStorage.setItem('statusfavTe', 'فرز حسب');
 localStorage.setItem('status', 'فرز حسب');
 localStorage.setItem('status1', 'فرز حسب');
 localStorage.setItem('status1h', 'فرز حسب');

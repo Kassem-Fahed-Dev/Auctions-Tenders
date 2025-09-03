@@ -87,7 +87,7 @@ sort=localStorage.setItem('status2','فرز حسب')
           <div className="test-con">
              <Search/>
              <button
-          className="sort sort-share"
+          className="sort sort-share pos1"
           onMouseEnter={() => {
             setHover(true);
           }}
@@ -111,7 +111,7 @@ sort=localStorage.setItem('status2','فرز حسب')
         <div
           className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}
         >
-          <div className="buttonSort so11">
+          <div className="buttonSort so11 sortp">
             <button
               className="button1"
               onClick={() => {
@@ -141,7 +141,7 @@ sort=localStorage.setItem('status2','فرز حسب')
         <div
           className={`listSort  ${test.includes(' مقبول') ? 'visable' : ''}`}
         >
-          <div className="buttonSort so11">
+          <div className="buttonSort so11 sortp">
             <button
               className="button1"
               onClick={() => {
