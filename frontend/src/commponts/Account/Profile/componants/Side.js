@@ -1,7 +1,7 @@
 import { useLocation, Link } from 'react-router-dom';
 import '../profile.css';
 
-export default function Side() {
+export default function Side({ role }) {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -78,6 +78,19 @@ export default function Side() {
         <div className="line-info">
           <span className="fas fa-stop"></span>
         </div>
+        {role === 'admin' && (
+          <>
+            <Link
+              to="/con"
+              className={`info ${currentPath === '/con' ? 'active' : ''}`}
+            >
+              اللوحة الرئيسية
+            </Link>
+            <div className="line-info">
+              <span className="fas fa-stop"></span>
+            </div>
+          </>
+        )}
       </div>
     </>
   );

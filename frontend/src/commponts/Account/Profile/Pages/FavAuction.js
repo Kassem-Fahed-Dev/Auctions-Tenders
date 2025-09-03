@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Profile from './Profile';
 import Cards from '../../../Auctions/Cards';
 import ButtonSort from '../../../Home/ButtonSort';
+import Search from '../../../Auctions/Serach';
 
 export default function FavAuction() {
   function handel_Fav(e) {
@@ -222,11 +223,13 @@ export default function FavAuction() {
                 </button>
               </div>
             </div> */}
-            <ButtonSort test2={'favp'}/>
+            <Search/>
+            <ButtonSort test2={'favp'} position={"profile"}/>
           </div>
         </div>
       </div>
-      <Cards page={'fav'}/>
+      
+      <Cards page={'favp'}/>
       <Footer />
     </>
   );

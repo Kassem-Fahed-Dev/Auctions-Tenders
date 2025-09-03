@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 // =======
 import '../profile.css';
 import CardTen from '../../../Tenders/CardTen';
+import Search from '../../../Auctions/Serach';
 // import "../../Auc-Folder/Auc.css";
 // import Side from "../componants/Side";
 // import Card from "../../Auc-Folder/Card";
@@ -78,9 +79,10 @@ export default function TenderCreate() {
             المناقصات التي أنشأتها
           </h3>
           <div className="test-con">
+            <Search/>
             
         <button
-          className="sort sort-share"
+          className="sort sort-share pos pos2"
           onMouseEnter={() => {
             setHover(true);
           }}
@@ -104,7 +106,7 @@ export default function TenderCreate() {
         <div
           className={`listSort ${test.includes('فرز حسب') ? 'visable' : ''}`}
         >
-          <div className="buttonSort so11 ">
+          <div className="buttonSort so11 sortp">
             <button
               className="button1"
               onClick={() => {
@@ -134,7 +136,7 @@ export default function TenderCreate() {
         <div
           className={`listSort  ${test.includes(' مقبول') ? 'visable' : ''}`}
         >
-          <div className="buttonSort so11">
+          <div className="buttonSort so11 sortp">
             <button
               className="button1"
               onClick={() => {
@@ -170,6 +172,7 @@ export default function TenderCreate() {
           </div>
         </div>
       </div>
+      
       <CardTen page={'create'}/>
 
       <Footer />

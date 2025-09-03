@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../AxiosInterceptors';
 import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
-import Search from '../Home/Search';
+import Search from './Serach';
 export default function AllAuctions() {
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
@@ -77,6 +77,7 @@ export default function AllAuctions() {
 
   return (
     <div className="allauctions">
+      <Search page={"all"}/>
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'all'} />
       <button
@@ -90,7 +91,9 @@ export default function AllAuctions() {
       </button>
       <div className="vv">
         <ButtonSort test2="all" />
+      
       </div>
+       
       <Cards page="all" />
 
       <Footer />

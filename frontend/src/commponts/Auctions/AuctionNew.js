@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
+import Search from './Serach';
 export default function AuctionNew() {
   let sort = localStorage.getItem('status2');
   if (sort == ' الوقت' || sort == ' مجموعات') {
@@ -55,6 +56,7 @@ export default function AuctionNew() {
   };
   return (
     <div>
+      <Search page={"all"}/>
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'Auctions2'} />
       <button
@@ -161,6 +163,7 @@ export default function AuctionNew() {
         <Auction showDelete={true} />
         <Auction showDelete={true} />
       </div> */}
+      
       <Cards page="create"  showDelete={true}/>
 
       <Footer />

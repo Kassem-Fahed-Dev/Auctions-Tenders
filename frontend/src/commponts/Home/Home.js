@@ -33,12 +33,12 @@ export default function Home() {
           <Link to="/fav" className="heart">
             <i className="fas fa-heart icon1"></i>
           </Link>
-          <button className="bell">
+          <Link to="/not" className="bell">
             <div className="num-message">
               <p>90</p>
             </div>
             <i className="fas fa-bell icon2"></i>
-          </button>
+          </Link>
           <div>
             <button className="button-tell">
               <i className="fas fa-phone icon-phone"></i>

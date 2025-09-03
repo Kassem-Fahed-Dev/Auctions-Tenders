@@ -5,6 +5,7 @@ import Tender from './Tender';
 import Footer from '../privacy policy/Footer';
 import { useState } from 'react';
 import CardTen from './CardTen';
+import Search from '../Auctions/Serach';
 
 export default function TenderGroup({ paragraph }) {
   const navegaet = useNavigate();
@@ -74,6 +75,7 @@ export default function TenderGroup({ paragraph }) {
   };
   return (
     <div>
+        <Search page={"group"}/>
       <Navbar wordBlod={'tenders'} />
       <TendersNavbar wordBlod={'group'} />
       <div className="create-auction-button">
@@ -116,7 +118,7 @@ export default function TenderGroup({ paragraph }) {
       </button>
 
       <div className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}>
-        <div className="buttonSort">
+        <div className="buttonSort but">
           <button
             className="button1"
             onClick={() => {
@@ -142,6 +144,7 @@ export default function TenderGroup({ paragraph }) {
           </button>
         </div>
       </div>
+    
         <CardTen page="group" item={paragraph}/>
       <Footer />
     </div>

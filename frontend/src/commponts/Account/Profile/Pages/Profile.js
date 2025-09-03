@@ -28,7 +28,7 @@ export default function Account() {
   useEffect(() => {
     dispatch(fetchUserFromAPI());
   }, [dispatch]);
-  const [DataUser, setDataUser] = useState('');
+  const [DataUser, setDataUser] = useState({});
   const token = localStorage.getItem('jwt');
   // localStorage.setItem('status', 'فرز حسب');
   useEffect(() => {
@@ -43,7 +43,17 @@ export default function Account() {
       })
       .then((res) => {
         setDataUser(res.data.data.data);
+// <<<<<<< Updated upstream
+        console.log(res.data.data.data);
+// =======
+//<<<<<<< HEAD
+        console.log(res.data.data.data)
+//=======
+        console.log(res.data.data.data.role, 'this is roleeeeeeeeeee');
+//>>>>>>> 42860e0546031cd070d2dac1719f619f3897bc39
+// >>>>>>> Stashed changes
       })
+
       .catch((error) => {
         console.log('error');
         // setHover('spinner');
@@ -102,7 +112,8 @@ export default function Account() {
       <Navbar />
       <div className="al">
         <div id={nn.show === true ? 'focus' : ''} className="con-flex">
-          <Side />
+          {/* <Side /> */}
+          <Side role={DataUser.role} />
           <div className="con-prof">
             {currentPath === '/create' && (
               <div className="PersonalData">

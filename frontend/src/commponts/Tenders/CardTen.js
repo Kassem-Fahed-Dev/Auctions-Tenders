@@ -30,6 +30,12 @@ export default function CardTen({page,item,id,showDelete}) {
    }else if(item=="أخرى"){
         sort=localStorage.getItem('status10tn')
 
+   }else if(page=="favp"){
+        sort=localStorage.getItem('status1tnp')
+
+   }else if(page=="sharep"){
+        sort=localStorage.getItem('status3tnp')
+
    }else{
     sort=localStorage.getItem('statustn')
    }
@@ -239,7 +245,93 @@ export default function CardTen({page,item,id,showDelete}) {
         });
       }
     });
-  }  else if(page=="share"){
+  }  
+  
+   else if(page=="favp"){
+  
+    console.log(sort)
+    axiosInstance
+    .get(
+      `${
+      sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
+          ? 
+          `/api/v1/tenders`
+          : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
+          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?categoryName=${sort.trim()}`
+      }`
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+           'credentials': 'include',
+            'Authorization': `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      const favorites = res.data.data.data.filter(item => item.favorite === true);
+    
+      // تعيين العناصر المفلترة إلى الحالة
+      setAll(favorites);
+      
+      
+      console.log(res.data.data.data);
+    })
+    .catch((error) => {
+      if (error.response) {
+        const validationErrors = {};
+        validationErrors.messageBackend = error.response.data.message;
+        setErrorMessage(validationErrors);
+      } else {
+        console.log('An unexpected error occurred:', error.message);
+        setErrorMessage({
+          messageBackend: 'An unexpected error occurred.',
+        });
+      }
+    });
+  } else if(page=="share"){
+  
+    console.log(sort)
+    axiosInstance
+    .get(
+      `${
+      sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
+          ? 
+          `/api/v1/tenders/participateTenders`
+          : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
+          ? `/api/v1/tenders/participateTenders?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/participateTenders?categoryName=${sort.trim()}`
+      }`
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+           'credentials': 'include',
+            'Authorization': `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      setAll(res.data.data.data);
+      console.log('create')
+      console.log(res.data.data.data);
+    })
+    .catch((error) => {
+      if (error.response) {
+        const validationErrors = {};
+        validationErrors.messageBackend = error.response.data.message;
+        setErrorMessage(validationErrors);
+      } else {
+        console.log('An unexpected error occurred:', error.message);
+        setErrorMessage({
+          messageBackend: 'An unexpected error occurred.',
+        });
+      }
+    });
+  }else if(page=="sharep"){
   
     console.log(sort)
     axiosInstance

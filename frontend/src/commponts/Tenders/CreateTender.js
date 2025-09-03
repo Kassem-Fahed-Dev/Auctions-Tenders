@@ -7,6 +7,7 @@ import Navbar from '../Home/Navbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardTen from './CardTen';
+import Search from '../Auctions/Serach';
 
 export default function CreateTender() {
   const [value, setValue] = useState('فرز حسب');
@@ -54,6 +55,7 @@ export default function CreateTender() {
   return (
     <>
       <div>
+         <Search page={"all"}/>
         <Navbar wordBlod={'tenders'} />
         <TendersNavbar wordBlod={'Auctions2'} />
         <button
@@ -163,6 +165,7 @@ export default function CreateTender() {
           <Tender showDelete={true} />
           <Tender showDelete={true} />
         </div> */}
+       
         <CardTen page={'create'} showDelete={true} />
         <Footer />
       </div>

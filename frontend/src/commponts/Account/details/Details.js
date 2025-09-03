@@ -2,6 +2,7 @@ import './details.css';
 import Navdata from './Navdata';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import axiosInstance from '../../AxiosInterceptors';
 import Navbar from '../../Home/Navbar';
 import AuctionsNavbar from '../../Auctions/AuctionsNavbar';
 import Footer from '../../privacy policy/Footer';
@@ -14,22 +15,67 @@ import { useLocation } from 'react-router-dom';
 //     hh.style.cssText = 'color: red;';
 //   }
 // }
+
 export default function Details() {
-  const [amount, setAmount] = useState('');
+      const [errorMessage5, setErrorMessage5] = useState({});
+     const [errorMessage, setErrorMessage] = useState({});
+  const [amount, setAmount] = useState({amount:''});
   function back() {
     window.history.go(-1);
   }
   function handleInputChange(e) {
-    const value = e.target.value;
+     const { name, value } = e.target;
+    //setAmount(false)
+    setAmount({ ...amount, [name]: Number(value.trim())  });
+    console.log(amount)
+    // if (!/^\d+$/.test(value)) {
+    //   return;
+    // }
 
-    if (!/^\d+$/.test(value)) {
-      return;
-    }
-
-    setAmount(value);
+    // setAmount(value);
   }
   const [showParticipation, setShowParticipation] = useState(false);
 
+ const token = localStorage.getItem('jwt');
+  const submitAmount=(e)=>{
+    // e.preventDefault();
+     setAmount('');
+ setShowParticipation(false);
+
+    console.log('ppp')
+   axiosInstance
+        .post(
+          `/api/v1/auctions/placeBid/${data?._id}`,
+          JSON.stringify(amount),
+          {
+            headers: {
+             'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+        console.log(res)
+        setAmount({amount:''})
+          window.location.reload();
+        })
+        .catch((error) => {
+        
+          if (error.response) {
+            const validationErrors4 = {};
+            validationErrors4.messageBackend = error.response.data.message;
+            setErrorMessage5(validationErrors4);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage5({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    
+  }
   // const [state, setState] = useState('قادم');
   // function getcolor() {
   //   if (state === 'جاري') {
@@ -154,14 +200,15 @@ activeStatus
                     <input
                       type="number "
                       onChange={handleInputChange}
-                      value={amount}
+                    
+                    name="amount"
+                    value={amount.amount}
+                  
+                    autoComplete="off"
                       placeholder="أدخل أرقام فقط"
                     />
                     <button
-                      onClick={() => {
-                        setAmount('');
-                        setShowParticipation(false);
-                      }}
+                      onClick={submitAmount}
                       disabled={!amount}
                     >
                       إرسال

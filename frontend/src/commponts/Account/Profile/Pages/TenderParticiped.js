@@ -11,6 +11,7 @@ import '../profile.css';
 import Side from '../componants/Side';
 import ButtonSortTen from '../../../Tenders/ButtonSortten';
 import CardTen from '../../../Tenders/CardTen';
+import Search from '../../../Auctions/Serach';
 // import Card from "../../Auc-Folder/Card";
 // >>>>>>> 2b43e7c895dec329841e8800521ec7636eedf246
 export default function TenderParticiped() {
@@ -83,7 +84,8 @@ export default function TenderParticiped() {
             المناقصات التي شاركت بها
           </h3>
           <div className="test-con">
-            <ButtonSortTen test2={'sharep'}/>
+            <Search page="participped"/>
+            <ButtonSortTen test2={'sharep'} position={"profile"}/>
             {/* <button
               className="sort21 sort-ten"
               type="text"
@@ -214,7 +216,8 @@ export default function TenderParticiped() {
           </div>
         </div>
       </div>
-    <CardTen page={'share'}/>
+   
+    <CardTen page={'sharep'}/>
 
       <Footer />
     </>

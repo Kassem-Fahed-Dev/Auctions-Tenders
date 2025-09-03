@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
+import Search from './Serach';
 export default function FavoriteAuction() {
    let sort=localStorage.getItem('status1')
    if(sort==' الوقت'||sort==' مجموعات'){
@@ -15,6 +16,7 @@ sort=localStorage.setItem('status1','فرز حسب')
    
   return (
     <div>
+      <Search page={"all"}/>
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'Auctions3'} />
       <button
@@ -27,6 +29,7 @@ sort=localStorage.setItem('status1','فرز حسب')
         <i className="fas fa-plus"></i>
       </button>
     <ButtonSort test2={'fav'}/>
+    
        <Cards page={'fav'}/>
       <Footer />
     </div>
