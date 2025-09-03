@@ -39,7 +39,11 @@ export default function ButtonSort({test2,position}) {
    } else if(test2=="sharep"){
         sort=localStorage.getItem('status3p')
       st='status3p'
+   }else if(test2=="alluserAuFav"){
+        sort=localStorage.getItem('statusallAu')
+      st='statusallAu'
    }
+
     const handleClick=()=>{
       
         if(value2=='فرز حسب'&&value=='فرز حسب'){
@@ -67,6 +71,7 @@ export default function ButtonSort({test2,position}) {
         
           
        }
+       
        else{
           setTest(value1)
               localStorage.setItem(st,value1)
@@ -74,6 +79,8 @@ export default function ButtonSort({test2,position}) {
            
        }
     }
+    
+console.log(sort)
     const handleClick2=(item)=>{
         setValue(item)
         setTest(item)

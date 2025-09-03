@@ -78,7 +78,7 @@ export default function Side({ role }) {
         <div className="line-info">
           <span className="fas fa-stop"></span>
         </div>
-        {role === 'user' && (
+        {role === 'admin' && (
           <>
             <Link
               to="/ad"

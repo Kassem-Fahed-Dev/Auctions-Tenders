@@ -16,6 +16,7 @@ export default function AllTenders() {
 
   return (
     <>
+     <Search page={"all"}/>
       <Navbar wordBlod={'tenders'} />
       <TendersNavbar wordBlod={'all'} />
       <button
@@ -29,7 +30,7 @@ export default function AllTenders() {
       </button>
 
       <ButtonSortTen test2={'all'} />
-      <Search page={"all"}/>
+     
       <CardTen page={'all'} />
 
       <Footer />

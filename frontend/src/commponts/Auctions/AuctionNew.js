@@ -56,6 +56,7 @@ export default function AuctionNew() {
   };
   return (
     <div>
+      <Search page={"all"}/>
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'Auctions2'} />
       <button
@@ -162,7 +163,7 @@ export default function AuctionNew() {
         <Auction showDelete={true} />
         <Auction showDelete={true} />
       </div> */}
-      <Search page={"all"}/>
+      
       <Cards page="create"  showDelete={true}/>
 
       <Footer />

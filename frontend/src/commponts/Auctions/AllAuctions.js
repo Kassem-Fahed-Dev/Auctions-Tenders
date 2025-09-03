@@ -77,6 +77,7 @@ export default function AllAuctions() {
 
   return (
     <div className="allauctions">
+      <Search page={"all"}/>
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'all'} />
       <button
@@ -90,8 +91,9 @@ export default function AllAuctions() {
       </button>
       <div className="vv">
         <ButtonSort test2="all" />
-       <Search page={"all"}/>
+      
       </div>
+       
       <Cards page="all" />
 
       <Footer />

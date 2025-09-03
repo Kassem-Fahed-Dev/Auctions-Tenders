@@ -82,7 +82,7 @@ export default function TenderCreate() {
             <Search/>
             
         <button
-          className="sort sort-share"
+          className="sort sort-share pos pos2"
           onMouseEnter={() => {
             setHover(true);
           }}
@@ -106,7 +106,7 @@ export default function TenderCreate() {
         <div
           className={`listSort ${test.includes('فرز حسب') ? 'visable' : ''}`}
         >
-          <div className="buttonSort so11 ">
+          <div className="buttonSort so11 sortp">
             <button
               className="button1"
               onClick={() => {
@@ -136,7 +136,7 @@ export default function TenderCreate() {
         <div
           className={`listSort  ${test.includes(' مقبول') ? 'visable' : ''}`}
         >
-          <div className="buttonSort so11">
+          <div className="buttonSort so11 sortp">
             <button
               className="button1"
               onClick={() => {

@@ -844,6 +844,7 @@ input [type='date'] {
 
 .so {
   /* top: 375px; */
+ left: 1040px;
   top: 295px;
 }
 .createauction-group {
@@ -997,33 +998,33 @@ input.position{
    background: #fff;
    border: #000 solid 2px;
   width: 255px;
-  position: relative;
-  left: 320px;
-  bottom: 45px;
+  position: absolute;
+  left: 70px;
+ top: 213px;
   height: 40px;
 }
 i.position{
- position: relative;
+ position: absolute;
  color: #000;
-  left: 350px;
+  left: 80px;
   z-index: 3;
-  bottom: 43px;  
+ top: 220px;
 }
 input.position1{
      background: #fff;
    border: #000 solid 1px;
   width: 255px;
-  position: relative;
-  left: 320px;
-  bottom: 55px;
+  position: absolute;
+   left: 95px;
+ top: 295px;
   height: 40px;
 }
 i.position1{
- position: relative;
+ position: absolute;
  color: #000;
-  left: 350px;
+  left: 100px;
   z-index: 3;
-  bottom: 52px;  
+  top: 305px;
 }
 input.position2{
     background: #fff;
@@ -1041,9 +1042,30 @@ i.position2{
   z-index: 3;
   bottom: -7px;  
 }
+input.position3{
+    background: #fff;
+   border: #000 solid 1px;
+  width: 255px;
+  position: relative;
+  right: -90px;
+  bottom: 25px;
+  height: 40px;
+}
+i.position3{
+ position: relative;
+ color: #000;
+ left: -140px;
+  z-index: 3;
+  bottom: -7px;  
+}
 button.pos{
   
   top: 686px;
+  left: 50px;
+}
+button.pos1{
+  
+  top: 725px;
   left: 50px;
 }
 .listSort .buttonSort .buttonpos1{
@@ -1117,4 +1139,15 @@ button.pos{
 .visable4{
   height: 155px;
   display: block;
+}
+.listSort .sortp button{
+  left :-105px;
+  top:-20px
+}
+button.pos2{
+  left: 40px;
+
+}
+div.margin{
+  margin-top: 55px;
 }

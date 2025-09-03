@@ -219,7 +219,7 @@ export default function FavTender() {
         </div>
       </div>
      
-     <CardTen page={'fav'}/>
+     <CardTen page={'favp'}/>
 
       <Footer />
     </>

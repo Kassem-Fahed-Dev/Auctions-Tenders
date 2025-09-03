@@ -55,6 +55,7 @@ export default function CreateTender() {
   return (
     <>
       <div>
+         <Search page={"all"}/>
         <Navbar wordBlod={'tenders'} />
         <TendersNavbar wordBlod={'Auctions2'} />
         <button
@@ -164,7 +165,7 @@ export default function CreateTender() {
           <Tender showDelete={true} />
           <Tender showDelete={true} />
         </div> */}
-        <Search page={"all"}/>
+       
         <CardTen page={'create'} showDelete={true} />
         <Footer />
       </div>

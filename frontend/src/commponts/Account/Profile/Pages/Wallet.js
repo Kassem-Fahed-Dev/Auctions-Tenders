@@ -5,7 +5,10 @@ import { submit } from '../store/Redux';
 export default function Wallet() {
    const token = localStorage.getItem('jwt');
    const [wallet,setWallet]=useState('');
-   const [walletActivity,setWalletActivity]=useState('');
+   const [walletActivity,setWalletActivity]=useState([]);
+      const [timeh,setTimeh]=useState([]);
+        const [timem,setTimem]=useState([]);
+          const [timeap,setTimeap]=useState([]);
    const [isDisabled,setIsDisabled]=useState(true);
     const [isDisabled1,setIsDisabled1]=useState(true);
    const [deposit,setDeposit]=useState({amount:''});
@@ -156,6 +159,73 @@ export default function Wallet() {
           }
         });
   }
+
+const extractDateTime = (dateString) => {
+    const date = new Date(dateString);
+    
+    let day = date.toLocaleDateString('ar-EG', { weekday: 'long' }); // اليوم باللغة العربية
+    
+    // تعديل اليوم
+    if (day == 'السبت') {
+      day = 'الأحد';
+    } else if (day == 'الجمعة') {
+      day = 'السبت';
+    } else if (day == 'الأحد') {
+      day = 'الاثنين';
+    } else if (day == 'الاثنين') {
+      day = 'الثلاثاء';
+    } else if (day == 'الثلاثاء') {
+      day = 'الأربعاء';
+    } else if (day == 'الأربعاء') {
+      day = 'الخميس';
+    } else if (day == 'الخميس') {
+      day = 'الجمعة';
+    }
+
+    // الحصول على الوقت بالتوقيت المحلي
+    let hours = date.getHours(); // استخدم getHours للحصول على الوقت المحلي
+    const minutes = date.getMinutes().toString().padStart(2, '0'); // استخدم getMinutes للحصول على الدقائق المحلية
+
+    // تحديد AM أو PM
+    const ampm = hours >= 12 ? 'م' : 'ص';
+    hours = hours % 12; // تحويل الصيغة من 24 إلى 12
+    hours = hours ? hours : 12; // إذا كانت الساعة 0، جعله 12
+
+    return { day, hours, minutes, ampm };
+};
+
+// مثال للاستخدام
+// const dateTimeInfo = extractDateTime("2025-08-31T20:39:09.672Z");
+// console.log(walletActivity[0]?.date);
+for (let index = 0; index < walletActivity.length; index++) {
+  const { day, hours, minutes, ampm } = extractDateTime(walletActivity[index]?.
+createdAt
+  );
+//  setTimeh([...timeh,hours])
+//   setTimem([...timem,minutes])
+//    setTimeap([...timeap,ampm])
+}
+ const rows = [];
+
+for (let index = 0; index < walletActivity.length; index++) {
+  const activity = walletActivity[index];
+   const { day, hours, minutes, ampm } = extractDateTime(walletActivity[index]?.date);
+  rows.push(
+    <tr key={index}>
+      <td>{activity.descriptionTransaction}</td>
+      <td>{activity.amount} ل.س</td>
+      <td>
+        {activity.date?.slice(0, 10).replaceAll('-', '/')} <br />{hours}:{minutes}{ampm}
+      </td>
+      <td>
+        <span className="status done">
+          {activity.status === "pending" ? "انتظار⏳" : activity.status === "completed" ? "مكتمل✅" : "فشل❌"}
+        </span>
+      </td>
+    </tr>
+  );
+}
+
   return (
     <>
       <Profile />
@@ -237,21 +307,22 @@ export default function Wallet() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>إيداع</td>
-                {/* <td>500 ل.س</td> */}
-                <td></td>
+               {/* {walletActivity.map((walletActivity) => (
+                    <tr>
+                <td>{walletActivity?.descriptionTransaction}</td>
+                <td>{walletActivity?.amount} ل.س</td>
+                <td>   {walletActivity?.createdAt?.slice(0, 10).replaceAll('-', '/')} <br />
+                  </td>
+             
                 <td>
-                  2025/07/15
-                  <br />
-                  10:06 مساءً
-                </td>
-
-                <td>
-                  <span class="status done">مكتمل ✅</span>
+                  <span class="status done">{walletActivity?.status=="pending"?"انتظار⏳":walletActivity?.status=="complete"?"مكتمل✅":"فشل❌"} </span>
                 </td>
               </tr>
+                      ))} */}
+                   {rows}
 
+             
+{/* 
               <tr>
                 <td>سحب</td>
                 <td>500 ل.س</td>
@@ -263,8 +334,8 @@ export default function Wallet() {
                 <td>
                   <span class="status fail">فشل ❌</span>
                 </td>
-              </tr>
-              <tr>
+              </tr> */}
+              {/* <tr>
                 <td>دفع مزاد</td>
                 <td>500 ل.س</td>
                 <td>
@@ -273,10 +344,10 @@ export default function Wallet() {
                   10:06 مساءً
                 </td>
                 <td>
-                  <span class="status done">مكتمل ✅</span>
+                  <span class="status done">مكتمل </span>
                 </td>
-              </tr>
-              <tr>
+              </tr> */}
+              {/* <tr>
                 <td>سحب</td>
                 <td>500 ل.س</td>
                 <td>
@@ -287,8 +358,8 @@ export default function Wallet() {
                 <td>
                   <span class="status wait">انتظار ⏳</span>
                 </td>
-              </tr>
-              <tr>
+              </tr> */}
+              {/* <tr>
                 <td>دفع مناقصة</td>
                 <td>500 ل.س</td>
                 <td>
@@ -299,7 +370,7 @@ export default function Wallet() {
                 <td>
                   <span class="status done">مكتمل ✅</span>
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

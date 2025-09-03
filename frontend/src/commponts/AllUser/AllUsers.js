@@ -9,6 +9,7 @@ import ButtonSort from '../Home/ButtonSort';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Serach from '../../commponts/Auctions/Serach'
 import { fetchUserFromAPI } from '../Account/Profile/store/Redux';
 import CardTen from '../Tenders/CardTen';
 export default function AllUsers() {
@@ -193,6 +194,7 @@ console.log(da._id)
 
           {change === 'creat_A' && (
             <div>
+            <Serach page="participped"/>
               <div className="but-sor">
             
               </div>
@@ -204,9 +206,9 @@ console.log(da._id)
                 width="50px"
                 height="40px"
               />
-                <ButtonSort test2={'create'}/>
+                
               <div className="dec">
-                  
+                 <ButtonSort test2={'alluserAuFav'}/> 
                 <Cards id={da?._id} page={'id'} />
               </div>
             </div>
