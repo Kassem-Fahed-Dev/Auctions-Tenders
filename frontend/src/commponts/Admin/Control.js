@@ -1,44 +1,97 @@
 import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
+
 import ControChart from './ControChart';
+
 import { useEffect } from 'react';
-// import useEffect from ""
+import axiosInstance from '../AxiosInterceptors';
+import { useState } from 'react';
 export default function ControlAdmin() {
-  // ببببببببببببببب
-
+  const token = localStorage.getItem('jwt');
+  const [numAu, setNumAu] = useState([]);
+  const [numTn, setNumTn] = useState([]);
+  const [numUser, setNumUser] = useState([]);
+  const [errorMessage, setErrorMessage] = useState({});
   useEffect(() => {
-    const ctx = document.getElementById('myChart');
-    if (ctx) {
-      // إذا في مخطط قديم على نفس الكانفس، امسحه
-      if (window.myChartInstance) {
-        window.myChartInstance.destroy();
-      }
-
-      // اعمل مخطط جديد وخزنه في متغير عام
-      window.myChartInstance = new window.Chart(ctx.getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو'],
-          datasets: [
-            {
-              label: 'المبيعات',
-              data: [50, 75, 100, 60, 90],
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
-            },
-          ],
+    axiosInstance
+      .get('/api/v1/auctions', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
         },
-        options: {
-          responsive: true,
-          plugins: {
-            title: { display: true, text: 'إحصائيات المبيعات' },
-            legend: { display: true },
-          },
-        },
+      })
+      .then((res) => {
+        setNumAu(res.data.result);
+        console.log(res.data.result);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
       });
-    }
+
+    axiosInstance
+      .get('/api/v1/tenders', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setNumTn(res.data.result);
+        console.log(res.data.result);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+
+    axiosInstance
+      .get('/api/v1/users', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setNumUser(res.data.results);
+        console.log(res.data.result);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
   }, []);
-  // ببببببببببببببب
 
   return (
     <>
@@ -106,14 +159,14 @@ export default function ControlAdmin() {
                   <i class="fa-solid fa-gavel"></i>{' '}
                 </p>
                 <p>عدد المزادات </p>
-                <p>250</p>
+                <p>{numAu}</p>
               </div>
               <div>
                 <p>
                   <i class="far fa-handshake"></i>{' '}
                 </p>
                 <p>عدد المناقصات</p>
-                <p>250</p>
+                <p>{numTn}</p>
               </div>
               <div>
                 <p>
@@ -121,7 +174,7 @@ export default function ControlAdmin() {
                   <i class="fa-solid fa-user-large"></i>
                 </p>
                 <p>عدد المستخدمين </p>
-                <p>250</p>
+                <p>{numUser}</p>
               </div>
             </div>
           </div>
