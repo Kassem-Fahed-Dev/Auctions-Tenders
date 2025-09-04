@@ -1,7 +1,45 @@
 import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
+import ControChart from './ControChart';
+import { useEffect } from 'react';
+// import useEffect from ""
 export default function ControlAdmin() {
+  // ببببببببببببببب
+
+  useEffect(() => {
+    const ctx = document.getElementById('myChart');
+    if (ctx) {
+      // إذا في مخطط قديم على نفس الكانفس، امسحه
+      if (window.myChartInstance) {
+        window.myChartInstance.destroy();
+      }
+
+      // اعمل مخطط جديد وخزنه في متغير عام
+      window.myChartInstance = new window.Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو'],
+          datasets: [
+            {
+              label: 'المبيعات',
+              data: [50, 75, 100, 60, 90],
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: { display: true, text: 'إحصائيات المبيعات' },
+            legend: { display: true },
+          },
+        },
+      });
+    }
+  }, []);
+  // ببببببببببببببب
+
   return (
     <>
       <div className="con-admin">
@@ -88,6 +126,7 @@ export default function ControlAdmin() {
             </div>
           </div>
         </div>
+        <ControChart />
       </div>
     </>
   );

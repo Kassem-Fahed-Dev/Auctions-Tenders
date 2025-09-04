@@ -673,3 +673,18 @@
 .p_title {
   font-size: 14px;
 }
+.charts-container {
+  margin-top: 40px;
+  margin-right: 70px;
+  margin-bottom: 70px;
+}
+.charts-container div {
+  background-color: #cccccc;
+  width: 500px;
+  border-radius: 14px;
+}
+.charts-container h3 {
+  padding-top: 5px;
+  padding-right: 15px;
+  color: #0072e4;
+}
