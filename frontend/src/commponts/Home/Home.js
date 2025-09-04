@@ -9,9 +9,41 @@ import im3 from '../../image/bil.jpg';
 import im4 from '../../image/car.jpg';
 import Footer from '../privacy policy/Footer';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import axiosInstance from '../AxiosInterceptors';
+import { useState } from 'react';
 export default function Home() {
-  const tok = localStorage.getItem('jwt');
-
+  const [all, setAll] = useState([]);
+  const [errorMessage, setErrorMessage] = useState({});
+  const token = localStorage.getItem('jwt');
+  useEffect(() => {
+    axiosInstance
+      .get('/api/v1/notifications/stats', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setAll(res.data.data);
+        console.log('create');
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }, []);
   return (
     <div>
       <div className="header">
@@ -35,7 +67,7 @@ export default function Home() {
           </Link>
           <Link to="/not" className="bell">
             <div className="num-message">
-              <p>90</p>
+              <p>{all?.unread}</p>
             </div>
             <i className="fas fa-bell icon2"></i>
           </Link>
