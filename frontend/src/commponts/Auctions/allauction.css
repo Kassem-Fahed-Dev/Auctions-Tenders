@@ -1124,6 +1124,10 @@ button.pos1{
   top: 980px;
   left: 60px;
 }
+.poscre{
+  top: 343px;
+  left: 150px;
+}
 .visable1{
   height: 50px;
   display: block;
@@ -1150,4 +1154,56 @@ button.pos2{
 }
 div.margin{
   margin-top: 55px;
+}
+input.alluser{
+ background: #fff;
+   border: #000 solid 2px;
+  width: 255px;
+  position: absolute;
+  left: -290px;
+ top: 100px;
+  height: 40px;
+
+}
+i.alluser{
+color: #000;
+z-index: 3;
+  position: absolute;
+  left: -280px;
+ top: 110px;
+  
+}
+.alotofAuction{
+  margin-top: 70px;
+}
+.alotof{
+  margin-top: 125px;
+}
+.listSort .buttonSort .buttonpos1cre{
+
+  /* position:absolute; */
+  /* top: 800px; */
+  top: 65px;
+  left: 155px;
+}
+/* .listSort .buttonSort .buttonpos2cre{ */
+
+  /* position:absolute; */
+  /* top: 800px; */
+  /* top: 65px;
+  left: 60px;
+} */
+ .listSort .buttonSort .buttonpos2cre{
+
+  /* position:absolute; */
+  /* top: 800px; */
+  top: 70px;
+  left: 450px;
+}
+ .listSort .buttonSort .buttonpos3cre{
+
+  /* position:absolute; */
+  /* top: 800px; */
+  top: 70px;
+  left: 442px;
 }

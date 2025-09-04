@@ -190,7 +190,7 @@ export default function FavoriteTenders() {
         </div>
       </div> */}
       
-<ButtonSortTen test2={"fav"}/>
+<ButtonSortTen test2={"fav"} position={"profile2"}/>
       
      <div className='margin'>
         <CardTen page={'fav'}/>
