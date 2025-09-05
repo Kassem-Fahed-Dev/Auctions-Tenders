@@ -11,6 +11,9 @@ const categorySchema = new mongoose.Schema(
       unique: true,
       required: [true, 'name required'],
     },
+    image: {
+      type: String, // سنخزن الرابط المحلي للصورة
+    },
     properties: [
       //here we can add dynamic fields that admins determine it
       { key: String, required: Boolean, dataType: String },

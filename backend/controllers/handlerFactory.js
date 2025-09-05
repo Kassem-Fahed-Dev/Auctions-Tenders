@@ -8,8 +8,8 @@ exports.deleteOne = (Model) =>
     const doc = await Model.findByIdAndDelete(req.params.id);
 
     let modelName = Model.modelName;
-    modelName = modelName.toLowerCase()
-    
+    modelName = modelName.toLowerCase();
+
     if (!doc) {
       return next(
         new AppError(
@@ -41,7 +41,7 @@ exports.updateOne = (Model) =>
     });
 
     let modelName = Model.modelName;
-    modelName = modelName.toLowerCase()
+    modelName = modelName.toLowerCase();
     if (!doc) {
       return next(
         new AppError(
@@ -61,6 +61,10 @@ exports.updateOne = (Model) =>
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    if (req.file) {
+      req.body.image = `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}`;
+    }
+
     const doc = await Model.create(req.body);
 
     res.status(201).json({
@@ -77,7 +81,7 @@ exports.getOne = (Model, popOptions) =>
     if (popOptions) query = query.populate(popOptions);
     const doc = await query;
     let modelName = Model.modelName;
-    modelName = modelName.toLowerCase()
+    modelName = modelName.toLowerCase();
     if (!doc) {
       return next(
         new AppError(
