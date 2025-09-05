@@ -97,7 +97,7 @@ export default function GroupAdmin() {
               </button> */}
               <Link
                 to="/ADD"
-                className={`ptn_Gr1 ${showDiv === 'add' ? 'activeBtn' : ''}`}
+                className={`ptn_Gr2 ${showDiv === 'add' ? 'activeBtn' : ''}`}
                 onClick={() => setShowDiv('add')}
               >
                 <i class="fas fa-plus"></i> اضافة مجموعة{' '}
