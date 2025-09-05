@@ -7,21 +7,21 @@ import axiosInstance from '../AxiosInterceptors';
 import { useState } from 'react';
 import { useEffect } from 'react';
 export default function TenderAdmin() {
-   const [all, setAll] = useState([]);
-    let sort;
-      const token = localStorage.getItem('jwt'); 
-    const [errorMessage, setErrorMessage] = useState({});
-  useEffect(()=>{ axiosInstance
+  const [all, setAll] = useState([]);
+  let sort;
+  const token = localStorage.getItem('jwt');
+  const [errorMessage, setErrorMessage] = useState({});
+  useEffect(() => {
+    axiosInstance
       .get(
-        `/api/v1/tenders?status=قيد الانتظار`
-         
-        ,
+        `/api/v1/tenders?status=قيد الانتظار`,
+
         {
           headers: {
             'Content-Type': 'application/json',
             'Accept-Language': 'ar',
-             'credentials': 'include',
-              'Authorization': `Bearer ${token}`,
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
           },
         }
       )
@@ -40,7 +40,8 @@ export default function TenderAdmin() {
             messageBackend: 'An unexpected error occurred.',
           });
         }
-      });},[])
+      });
+  }, []);
   return (
     <>
       <div className="con-admin">
@@ -101,6 +102,12 @@ export default function TenderAdmin() {
               {' '}
               <i class="far fa-handshake"></i> مدير المناقصات{' '}
             </h1>
+            <div className="ten_ptn_control">
+              <button className="ptn_Gr1">مرفوع للطلب </button>
+              <button className="ptn_Gr1">مقبول </button>
+              <button className="ptn_Gr1">مرفوض </button>
+            </div>
+            <p className="t2">المناقصات المرفوعة للطلب </p>
             <div className="con_Adminsort">
               {/* <SortDropdown /> */}
               {/* <div className="sdsd">
@@ -111,9 +118,11 @@ export default function TenderAdmin() {
           </div>
         </div>
         <div className="fflex">
-      {all.map((auc) => (
-                <Tender data={auc}  />
-              ))}
+          {/* {all.map((auc) => (
+            <Tender data={auc} />
+          ))} */}
+          <Tender />
+          <Tender showAccept="true" showReject="true" />
         </div>
       </div>
     </>

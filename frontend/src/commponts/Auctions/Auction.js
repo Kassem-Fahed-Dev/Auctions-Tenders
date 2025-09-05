@@ -9,7 +9,12 @@ import im5 from '../../image/alarm.png';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
-export default function Auction({ data, showDelete = false }) {
+export default function Auction({
+  data,
+  showDelete = false,
+  showAccept = false,
+  showReject = false,
+}) {
   const [errorMessage, setErrorMessage] = useState({});
   const x = 'جاري';
   const calculateDateDifference = (start, end) => {
@@ -19,38 +24,33 @@ export default function Auction({ data, showDelete = false }) {
     const dayDifference = timeDifference / (1000 * 3600 * 24); // تحويل المللي ثانية إلى أيام
     return dayDifference;
   };
-  const deleteAuc=()=>{
-    console.log('del')
+  const deleteAuc = () => {
+    console.log('del');
     axiosInstance
-    .delete(
-      `/api/v1/auctions/${data._id}`
-      ,
-      {
+      .delete(`/api/v1/auctions/${data._id}`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
-           'credentials': 'include',
-            'Authorization': `Bearer ${token}`,
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
         },
-      }
-    )
-    .then((res) => {
-      
-      window.location.reload();
-    })
-    .catch((error) => {
-      if (error.response) {
-        const validationErrors = {};
-        validationErrors.messageBackend = error.response.data.message;
-        setErrorMessage(validationErrors);
-      } else {
-        console.log('An unexpected error occurred:', error.message);
-        setErrorMessage({
-          messageBackend: 'An unexpected error occurred.',
-        });
-      }
-    });
-   }
+      })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  };
   const [color, setColor] = useState('black');
   const differenceInDays = calculateDateDifference(
     data?.startTime,
@@ -229,7 +229,14 @@ export default function Auction({ data, showDelete = false }) {
         <Link to={`/det`} state={{ data, heart: col }} className="ditales">
           التفاصيل
         </Link>
-        {showDelete && <button onClick={deleteAuc} className="deleteAuction">حذف</button>}
+        {showDelete && (
+          <button onClick={deleteAuc} className="deleteAuction">
+            حذف
+          </button>
+        )}
+        {showAccept && <button className="acceptAuction">قبول</button>}
+
+        {showReject && <button className="rejectAuction">رفض</button>}
       </div>
     </div>
   );

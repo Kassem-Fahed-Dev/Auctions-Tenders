@@ -557,10 +557,11 @@
 .fflex {
   display: flex;
   gap: 3%;
-  padding-right: 11%;
-  padding-left: 0%;
+  padding-right: 0%;
+  padding-left: 11%;
   flex-wrap: wrap;
   margin-bottom: 20%;
+  direction: ltr;
 }
 /* control */
 .con_Admin_control {
@@ -672,19 +673,21 @@
 }
 .p_title {
   font-size: 14px;
-
-
-
-
+}
+.t2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 110px;
+  color: #0072e4;
+  margin-right: -80px;
 }
 /* <<<<<<< HEAD */
-.fa-can1{
+.fa-can1 {
   color: black;
   position: relative;
   left: 20px;
 }
 /* ======= */
-
 
 .charts-container {
   margin-top: 40px;
@@ -702,3 +705,18 @@
   color: #0072e4;
 }
 /* >>>>>>> 5bab9692581af73526e40c7114740eba9209f6e9 */
+.acceptAuction {
+  background-color: green;
+  padding-bottom: 9px;
+}
+.rejectAuction {
+  background-color: red;
+  padding-bottom: 9px;
+  margin-right: 6px;
+}
+.ten_ptn_control {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 99px;
+}

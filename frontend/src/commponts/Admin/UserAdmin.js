@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 export default function UserAdmin() {
+  const [userToEdit, setUserToEdit] = useState(null);
   const [showDeleteUser, setShowDeleteUser] = useState(false);
   const [showDeleteAdmin, setShowDeleteAdmin] = useState(false);
   const [showAddAdmin, setShowAddAdmin] = useState(false);
@@ -11,7 +12,7 @@ export default function UserAdmin() {
   const deleteUserRef = useRef(null);
   const deleteAdminRef = useRef(null);
   const addAdminRef = useRef(null);
- 
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -44,120 +45,111 @@ export default function UserAdmin() {
   }, [showDeleteUser, showDeleteAdmin, showAddAdmin]);
 
   const [userToDelete, setUserToDelete] = useState(null);
-const [all, setAll] = useState([]);
+  const [all, setAll] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
-       const token = localStorage.getItem('jwt'); 
-useEffect(()=>{  axiosInstance
-    .get(
-      `/api/v1/users`
-      ,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept-Language': 'ar',
-           'credentials': 'include',
-            'Authorization': `Bearer ${token}`,
-        },
-      }
-    )
-    .then((res) => {
-      setAll(res.data.data.data);
-      console.log(res.data.data.data);
-    })
-    .catch((error) => {
-      if (error.response) {
-        const validationErrors = {};
-        validationErrors.messageBackend = error.response.data.message;
-        setErrorMessage(validationErrors);
-      } else {
-        console.log('An unexpected error occurred:', error.message);
-        setErrorMessage({
-          messageBackend: 'An unexpected error occurred.',
-        });
-      }
-    });
-  },[])
-  // /api/v1/users/67d7b0f4cd667d344c9fb910
-  const deleteUser=(e,id)=>{
-
-    console.log('del')
+  const token = localStorage.getItem('jwt');
+  useEffect(() => {
     axiosInstance
-    .delete(
-      `/api/v1/users/${id}`
-      ,
-      {
+      .get(`/api/v1/users`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
-           'credentials': 'include',
-            'Authorization': `Bearer ${token}`,
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
         },
-      }
-    )
-    .then((res) => {
-      console.log('تم الحذف:', userToDelete);
-      setUserToDelete(null);
-      window.location.reload()
-      //  e.preventDefault(); 
-      //       let parentElement = e.target.closest('.delee')
-      //       if (parentElement) {
-      //           parentElement.style.display = 'none'; }
-                console.log(res)
-    })
-    .catch((error) => {
-      if (error.response) {
-        const validationErrors = {};
-        validationErrors.messageBackend = error.response.data.message;
-        setErrorMessage(validationErrors);
-      } else {
-        console.log('An unexpected error occurred:', error.message);
-        setErrorMessage({
-          messageBackend: 'An unexpected error occurred.',
-        });
-      }
-    });
-  }
+      })
+      .then((res) => {
+        setAll(res.data.data.data);
+        console.log(res.data.data.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }, []);
+  // /api/v1/users/67d7b0f4cd667d344c9fb910
+  const deleteUser = (e, id) => {
+    console.log('del');
+    axiosInstance
+      .delete(`/api/v1/users/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log('تم الحذف:', userToDelete);
+        setUserToDelete(null);
+        window.location.reload();
+        //  e.preventDefault();
+        //       let parentElement = e.target.closest('.delee')
+        //       if (parentElement) {
+        //           parentElement.style.display = 'none'; }
+        console.log(res);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  };
   const [formData2, setFormData2] = useState({
-      name: '',
-    });
+    name: '',
+  });
   const handleChange2 = (e) => {
     const { value } = e.target;
     setFormData2({ name: value.trim() });
-    console.log(formData2)
+    console.log(formData2);
   };
-  const addAdmin=()=>{
-    const valdition={}
-      axiosInstance.patch(`/api/v1/users/updateMe`, JSON.stringify({'role':'admin'}), {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-              // alert('تم تغيير الرقم بنجاح')
-          // setHoverAuction('spinner');
-          window.location.reload();
-          console.log(res);
-        })
-        .catch((error) => {
-          // setHoverAuction('spinner');
-          if (error.response) {
-            valdition.messageBackend =
-              error.response.data.message;
-            // setErrorMessageupdate(valdition);
-            console.log('p3');
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            // setErrorMessageupdate({
-            //   messageBackend: 'An unexpected error occurred.',
-            // });
-          }
-        })
-    
-  }
+  const addAdmin = () => {
+    const valdition = {};
+    axiosInstance
+      .patch(`/api/v1/users/updateMe`, JSON.stringify({ role: 'admin' }), {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // alert('تم تغيير الرقم بنجاح')
+        // setHoverAuction('spinner');
+        window.location.reload();
+        console.log(res);
+      })
+      .catch((error) => {
+        // setHoverAuction('spinner');
+        if (error.response) {
+          valdition.messageBackend = error.response.data.message;
+          // setErrorMessageupdate(valdition);
+          console.log('p3');
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          // setErrorMessageupdate({
+          //   messageBackend: 'An unexpected error occurred.',
+          // });
+        }
+      });
+  };
   return (
     <>
       <div className="con-admin">
@@ -323,35 +315,49 @@ useEffect(()=>{  axiosInstance
             </tr>
           </thead>
           <tbody>
-           
-            {
-              all.map((user)=>( <tr className='delee'>
-              <td>{user?.role}</td>
-              <td>{user?.email}</td>
-              <td> {user?.name} </td>
-              <td>
-                <button
-                  className="ptn_delete_admin"
-                  onClick={() =>
-                    setUserToDelete({ role: `${user?.role}`, name:`${user?.name}`, id:`${user?._id}`  })
-                  }
-                >
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
-              </td>
+            {all.map((user) => (
+              <tr className="delee">
+                <td>{user?.role}</td>
+                <td>{user?.email}</td>
+                <td> {user?.name} </td>
+                <td>
+                  <button
+                    className="ptn_delete_admin"
+                    onClick={() =>
+                      setUserToDelete({
+                        role: `${user?.role}`,
+                        name: `${user?.name}`,
+                        id: `${user?._id}`,
+                      })
+                    }
+                  >
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </td>
 
-                 <td>
-                <button
-                  className="ptn_delete_admin fa-can1"
-                  onClick={() =>
-                    setUserToDelete({ role: `${user?.role}`, name:`${user?.name}`, id:`${user?._id}`  })
-                  }
-                >
-                  <i class="fas fa-user fa-can1"></i>
-                </button>
-              </td>
-            </tr>))
-            }
+                <td>
+                  <button
+                    className="ptn_delete_admin fa-can1"
+                    // onClick={() =>
+                    //   setUserToDelete({
+                    //     role: `${user?.role}`,
+                    //     name: `${user?.name}`,
+                    //     id: `${user?._id}`,
+                    //   })
+                    // }
+                    onClick={() =>
+                      setUserToEdit({
+                        role: user?.role,
+                        name: user?.name,
+                        id: user?._id,
+                      })
+                    }
+                  >
+                    <i class="fas fa-user fa-can1"></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         {userToDelete && (
@@ -372,10 +378,11 @@ useEffect(()=>{  axiosInstance
                   من جديد.
                 </p>
               )}
+
               <button
                 className="btn-confirm"
                 onClick={(e) => {
-                  deleteUser(e,userToDelete?.id)
+                  deleteUser(e, userToDelete?.id);
                 }}
               >
                 نعم
@@ -383,6 +390,38 @@ useEffect(()=>{  axiosInstance
               <button
                 className="btn-cancel"
                 onClick={() => setUserToDelete(null)}
+              >
+                لا
+              </button>
+            </div>
+          </div>
+        )}
+
+        {userToEdit && (
+          <div className="confirm-modal">
+            <div className="modal-content">
+              {userToEdit.role === 'user' ? (
+                <p>
+                  هل تريد ترقية المستخدم <b>"{userToEdit.name}"</b> إلى مدير؟
+                </p>
+              ) : (
+                <p>
+                  هل تريد إزالة صلاحية المدير من <b>"{userToEdit.name}"</b>
+                  وجعله مستخدم عادي؟
+                </p>
+              )}
+
+              <button
+                className="btn-confirm"
+                onClick={() => {
+                  setUserToEdit(null);
+                }}
+              >
+                نعم
+              </button>
+              <button
+                className="btn-cancel"
+                onClick={() => setUserToEdit(null)}
               >
                 لا
               </button>

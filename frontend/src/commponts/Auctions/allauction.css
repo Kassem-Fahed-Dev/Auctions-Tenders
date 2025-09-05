@@ -257,7 +257,9 @@
 .many span {
   color: #00cc66;
 }
-.ditales {
+.ditales,
+.acceptAuction,
+.rejectAuction {
   background-color: #003366;
   color: #fff;
   text-decoration: none;
@@ -844,7 +846,7 @@ input [type='date'] {
 
 .so {
   /* top: 375px; */
- left: 1040px;
+  left: 1040px;
   top: 295px;
 }
 .createauction-group {
@@ -994,193 +996,179 @@ input [type='date'] {
 .deleteAuction:hover {
   font-size: 20px;
 }
-input.position{
-   background: #fff;
-   border: #000 solid 2px;
+input.position {
+  background: #fff;
+  border: #000 solid 2px;
   width: 255px;
   position: absolute;
   left: 70px;
- top: 213px;
+  top: 213px;
   height: 40px;
 }
-i.position{
- position: absolute;
- color: #000;
+i.position {
+  position: absolute;
+  color: #000;
   left: 80px;
   z-index: 3;
- top: 220px;
+  top: 220px;
 }
-input.position1{
-     background: #fff;
-   border: #000 solid 1px;
+input.position1 {
+  background: #fff;
+  border: #000 solid 1px;
   width: 255px;
   position: absolute;
-   left: 95px;
- top: 295px;
+  left: 95px;
+  top: 295px;
   height: 40px;
 }
-i.position1{
- position: absolute;
- color: #000;
+i.position1 {
+  position: absolute;
+  color: #000;
   left: 100px;
   z-index: 3;
   top: 305px;
 }
-input.position2{
-    background: #fff;
-   border: #000 solid 1px;
+input.position2 {
+  background: #fff;
+  border: #000 solid 1px;
   width: 255px;
   position: relative;
   right: -70px;
   bottom: 25px;
   height: 40px;
 }
-i.position2{
- position: relative;
- color: #000;
- left: -150px;
+i.position2 {
+  position: relative;
+  color: #000;
+  left: -150px;
   z-index: 3;
-  bottom: -7px;  
+  bottom: -7px;
 }
-input.position3{
-    background: #fff;
-   border: #000 solid 1px;
+input.position3 {
+  background: #fff;
+  border: #000 solid 1px;
   width: 255px;
   position: relative;
   right: -90px;
   bottom: 25px;
   height: 40px;
 }
-i.position3{
- position: relative;
- color: #000;
- left: -140px;
+i.position3 {
+  position: relative;
+  color: #000;
+  left: -140px;
   z-index: 3;
-  bottom: -7px;  
+  bottom: -7px;
 }
-button.pos{
-  
+button.pos {
   top: 686px;
   left: 50px;
 }
-button.pos1{
-  
+button.pos1 {
   top: 725px;
   left: 50px;
 }
-.listSort .buttonSort .buttonpos1{
-  
-  position:absolute;
+.listSort .buttonSort .buttonpos1 {
+  position: absolute;
   /* top: 800px; */
   top: 740px;
   left: 60px;
 }
-.listSort .buttonSort .buttonpos2{
- 
-  position:absolute;
+.listSort .buttonSort .buttonpos2 {
+  position: absolute;
   /* top: 800px; */
   top: 780px;
   left: 60px;
 }
-.listSort .buttonSort .buttonpos3{
-
-  position:absolute;
+.listSort .buttonSort .buttonpos3 {
+  position: absolute;
   /* top: 800px; */
   top: 780px;
   left: 60px;
 }
-.listSort .buttonSort .buttonpos4{
-
-  position:absolute;
+.listSort .buttonSort .buttonpos4 {
+  position: absolute;
   /* top: 800px; */
   top: 820px;
   left: 60px;
 }
-.listSort .buttonSort .buttonpos5{
-
-  position:absolute;
+.listSort .buttonSort .buttonpos5 {
+  position: absolute;
   /* top: 800px; */
   top: 860px;
   left: 60px;
 }
-.listSort .buttonSort .buttonpos6{
-
-  position:absolute;
+.listSort .buttonSort .buttonpos6 {
+  position: absolute;
   /* top: 800px; */
   top: 900px;
   left: 60px;
 }
-.listSort .buttonSort .buttonpos7{
-
-  position:absolute;
+.listSort .buttonSort .buttonpos7 {
+  position: absolute;
   /* top: 800px; */
   top: 940px;
   left: 60px;
 }
-.listSort .buttonSort .buttonpos8{
-
-  position:absolute;
+.listSort .buttonSort .buttonpos8 {
+  position: absolute;
   /* top: 800px; */
   top: 980px;
   left: 60px;
 }
-.poscre{
+.poscre {
   top: 343px;
   left: 150px;
 }
-.visable1{
+.visable1 {
   height: 50px;
   display: block;
 }
-.visable2{
+.visable2 {
   height: 240px;
   display: block;
 }
-.visable3{
+.visable3 {
   height: 100px;
   display: block;
 }
-.visable4{
+.visable4 {
   height: 155px;
   display: block;
 }
-.listSort .sortp button{
-  left :-105px;
-  top:-20px
+.listSort .sortp button {
+  left: -105px;
+  top: -20px;
 }
-button.pos2{
+button.pos2 {
   left: 40px;
-
 }
-div.margin{
+div.margin {
   margin-top: 55px;
 }
-input.alluser{
- background: #fff;
-   border: #000 solid 2px;
+input.alluser {
+  background: #fff;
+  border: #000 solid 2px;
   width: 255px;
   position: absolute;
   left: -290px;
- top: 100px;
+  top: 100px;
   height: 40px;
-
 }
-i.alluser{
-color: #000;
-z-index: 3;
+i.alluser {
+  color: #000;
+  z-index: 3;
   position: absolute;
   left: -280px;
- top: 110px;
-  
+  top: 110px;
 }
-.alotofAuction{
+.alotofAuction {
   margin-top: 70px;
 }
-.alotof{
+.alotof {
   margin-top: 125px;
 }
-.listSort .buttonSort .buttonpos1cre{
-
+.listSort .buttonSort .buttonpos1cre {
   /* position:absolute; */
   /* top: 800px; */
   top: 65px;
@@ -1188,20 +1176,18 @@ z-index: 3;
 }
 /* .listSort .buttonSort .buttonpos2cre{ */
 
-  /* position:absolute; */
-  /* top: 800px; */
-  /* top: 65px;
+/* position:absolute; */
+/* top: 800px; */
+/* top: 65px;
   left: 60px;
 } */
- .listSort .buttonSort .buttonpos2cre{
-
+.listSort .buttonSort .buttonpos2cre {
   /* position:absolute; */
   /* top: 800px; */
   top: 70px;
   left: 450px;
 }
- .listSort .buttonSort .buttonpos3cre{
-
+.listSort .buttonSort .buttonpos3cre {
   /* position:absolute; */
   /* top: 800px; */
   top: 70px;
