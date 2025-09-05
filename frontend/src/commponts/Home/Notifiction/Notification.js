@@ -84,6 +84,44 @@ export default function Notification() {
       });
     console.log(o);
   }
+  // =============
+    const deletenot=(e,da)=>{
+      
+    console.log('del')
+    axiosInstance
+    .delete(
+      `/api/v1/notifications/${da._id}`
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+           'credentials': 'include',
+            'Authorization': `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      
+       e.preventDefault(); 
+            let parentElement = e.target.closest('.unread') || e.target.closest('.read');
+            if (parentElement) {
+                parentElement.style.display = 'none'; }
+                console.log(res)
+    })
+    .catch((error) => {
+      if (error.response) {
+        const validationErrors = {};
+        validationErrors.messageBackend = error.response.data.message;
+        setErrorMessage(validationErrors);
+      } else {
+        console.log('An unexpected error occurred:', error.message);
+        setErrorMessage({
+          messageBackend: 'An unexpected error occurred.',
+        });
+      }
+    });
+   }
   return (
     <>
       <Navbar />
@@ -111,11 +149,19 @@ export default function Notification() {
           <div className={notification?.read?'read':'unread'} onClick={(e) => handel_Fav(e, notification)}>
             {/* <img src={immm} alt="err" className="imgnot" /> */}
             <div className='fas fa-bell icon2 icon_bell imgnot'></div>
+            <button
+            onClick={(e) => deletenot(e, notification)}
+                // className="ptndelgroup"
+               className='deletNotification'
+              >
+                <span>x</span>
+              </button>
             <p className="p111">{notification?.title}</p>
             <p className="p222">
               {' '}
               {notification?.message}
             </p>
+            
           </div> 
      
           ))

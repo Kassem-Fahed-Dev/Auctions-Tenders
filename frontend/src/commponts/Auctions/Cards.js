@@ -52,7 +52,7 @@ export default function Cards({ page, item, id, showDelete }) {
         )
         .then((res) => {
           setAll(res.data.data.data);
-          console.log(all);
+          console.log(res.data);
         })
         .catch((error) => {
           if (error.response) {

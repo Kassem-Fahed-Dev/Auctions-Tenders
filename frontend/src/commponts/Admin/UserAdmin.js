@@ -106,7 +106,7 @@ export default function UserAdmin() {
             </h1>
             <div className="test">
               <div className="con_AdminGroup">
-                <div className="action-wrapper" ref={deleteUserRef}>
+                {/* <div className="action-wrapper" ref={deleteUserRef}>
                   <button
                     className={`ptn_Gr1 ${show === 'user' ? 'activeBtn' : ''}`}
                     onClick={() => {
@@ -133,8 +133,8 @@ export default function UserAdmin() {
                       </div>
                     </div>
                   )}
-                </div>
-                <div className="action-wrapper" ref={deleteAdminRef}>
+                </div> */}
+                {/* <div className="action-wrapper" ref={deleteAdminRef}>
                   <button
                     className={`ptn_Gr1 ${show === 'admin' ? 'activeBtn' : ''}`}
                     onClick={() => {
@@ -163,7 +163,7 @@ export default function UserAdmin() {
                       </div>
                     </div>
                   )}
-                </div>
+                </div> */}
                 <div className="action-wrapper" ref={addAdminRef}>
                   <button
                     className={`ptn_Gr1 ${

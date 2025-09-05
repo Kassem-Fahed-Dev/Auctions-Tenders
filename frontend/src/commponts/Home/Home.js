@@ -67,7 +67,8 @@ export default function Home() {
           </Link>
           <Link to="/not" className="bell">
             <div className="num-message">
-              <p>{all?.unread}</p>
+              {/* <p>99+</p> */}
+              <p>{all?.unread<100?all?.unread:'99+'}</p>
             </div>
             <i className="fas fa-bell icon2"></i>
           </Link>

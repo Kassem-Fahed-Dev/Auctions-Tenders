@@ -1,7 +1,100 @@
 import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import axiosInstance from '../AxiosInterceptors';
+import { useState } from 'react';
 export default function ControlAdmin() {
+  const token = localStorage.getItem('jwt');
+    const [numAu, setNumAu] = useState([]);
+     const [numTn, setNumTn] = useState([]);
+      const [numUser, setNumUser] = useState([]);
+    const [errorMessage, setErrorMessage] = useState({});
+  useEffect(()=>{
+        axiosInstance
+        .get( '/api/v1/auctions',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+              credentials: 'include',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setNumAu(res.data.result);
+          console.log(res.data.result);
+        })
+        .catch((error) => {
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+
+        axiosInstance
+        .get( '/api/v1/tenders',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+              credentials: 'include',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setNumTn(res.data.result);
+          console.log(res.data.result);
+        })
+        .catch((error) => {
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+
+         axiosInstance
+        .get( '/api/v1/users',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+              credentials: 'include',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setNumUser(res.data.results);
+          console.log(res.data.result);
+        })
+        .catch((error) => {
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+  },[])
   return (
     <>
       <div className="con-admin">
@@ -68,14 +161,14 @@ export default function ControlAdmin() {
                   <i class="fa-solid fa-gavel"></i>{' '}
                 </p>
                 <p>عدد المزادات </p>
-                <p>250</p>
+                <p>{numAu}</p>
               </div>
               <div>
                 <p>
                   <i class="far fa-handshake"></i>{' '}
                 </p>
                 <p>عدد المناقصات</p>
-                <p>250</p>
+                <p>{numTn}</p>
               </div>
               <div>
                 <p>
@@ -83,7 +176,7 @@ export default function ControlAdmin() {
                   <i class="fa-solid fa-user-large"></i>
                 </p>
                 <p>عدد المستخدمين </p>
-                <p>250</p>
+                <p>{numUser}</p>
               </div>
             </div>
           </div>
