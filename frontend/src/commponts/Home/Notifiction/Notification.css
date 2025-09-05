@@ -64,8 +64,8 @@ div.read{
   border-bottom: #000 solid 1px;
 }
 div.unread{
-  /* background-color: #00000015; */
-  background-color: aqua;
+  background-color: #00000015;
+  /* background-color: aqua; */
   border-bottom: #000 solid 1px;
 }
 .dis{
