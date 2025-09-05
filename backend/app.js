@@ -46,6 +46,7 @@ app.use('/api/v1/favorites', favoriteRouter);
 app.use('/api/v1/notifications', notificationRouter);
 app.use('/api/v1/tenders', tenderRouter);
 app.use('/api/v1/search', searchRouter);
+app.use('/uploads', express.static('uploads'));
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

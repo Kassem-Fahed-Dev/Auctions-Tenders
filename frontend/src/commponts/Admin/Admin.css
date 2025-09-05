@@ -725,22 +725,27 @@
 
 label.aulabel,
 label.telabel {
-  width: fit-content;
-  position: relative;
-  right: 110px;
-  bottom: 40px;
-  font-size: 14px;
-}
-input.auinput,
-input.teinput {
-  position: relative;
-  right: 110px;
-  bottom: 40px;
+  label.aulabel,
+  label.telabel {
+    width: fit-content;
+    position: relative;
+    right: 110px;
+    bottom: 40px;
+    font-size: 14px;
+  }
+  input.auinput,
+  input.teinput {
+    position: relative;
+    right: 110px;
+    bottom: 40px;
+  }
+  input.teinput {
+    right: 91px;
+  }
 }
 input.teinput {
   right: 91px;
 }
-
 .acceptAuction {
   background-color: green;
   padding-bottom: 9px;
