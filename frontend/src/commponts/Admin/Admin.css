@@ -194,7 +194,13 @@
   height: 200px;
   background-color: #cccccc;
   border-radius: 24px;
+  margin-top: 24px;
+  margin-right: 48px;
   position: relative;
+}
+.con_radios2 p {
+  margin-right: 18px;
+  margin-top: 5px;
 }
 .rightsidegroup {
   width: 350px;
@@ -694,13 +700,12 @@
   color: #0072e4;
   margin-right: -80px;
 }
-/* <<<<<<< HEAD */
+
 .fa-can1 {
   color: black;
   position: relative;
   left: 20px;
 }
-/* ======= */
 
 .charts-container {
   margin-top: 40px;
@@ -717,25 +722,25 @@
   padding-right: 15px;
   color: #0072e4;
 }
-/* >>>>>>> 5bab9692581af73526e40c7114740eba9209f6e9 */
-<<<<<<< HEAD
-label.aulabel,label.telabel{
+
+label.aulabel,
+label.telabel {
   width: fit-content;
   position: relative;
   right: 110px;
   bottom: 40px;
   font-size: 14px;
 }
-input.auinput,input.teinput{
+input.auinput,
+input.teinput {
   position: relative;
   right: 110px;
   bottom: 40px;
+}
+input.teinput {
+  right: 91px;
+}
 
-}
-input.teinput{
-   right: 91px;
-}
-=======
 .acceptAuction {
   background-color: green;
   padding-bottom: 9px;
@@ -751,4 +756,41 @@ input.teinput{
   justify-content: space-around;
   margin-top: 99px;
 }
->>>>>>> 408d51e9f01c76b7d2c70dd39fb5ff97645e5275
+
+.second_name_Admin {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: red; */
+  /* margin-top: -200px; */
+}
+.con_radios2 {
+  width: 300px;
+  height: 50px;
+  /* background-color: rgb(0, 17, 255); */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fixdisplay {
+  /* background-color: #011e3b; */
+  height: 204px;
+}
+.rad2 {
+  position: relative;
+  left: -56px;
+  bottom: 5px;
+  width: 95px;
+  height: 20px;
+  font-size: 11px;
+}
+.name_in {
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  /* padding-left: 40px ; */
+  background-color: #f1f1f1;
+  width: 200px;
+  margin-top: -13px;
+}
