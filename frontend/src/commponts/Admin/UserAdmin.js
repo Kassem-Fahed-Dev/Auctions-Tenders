@@ -342,12 +342,12 @@ useEffect(()=>{  axiosInstance
 
                  <td>
                 <button
-                  className="ptn_delete_admin fa-can"
+                  className="ptn_delete_admin fa-can1"
                   onClick={() =>
                     setUserToDelete({ role: `${user?.role}`, name:`${user?.name}`, id:`${user?._id}`  })
                   }
                 >
-                  <i class="fas fa-user fa-can"></i>
+                  <i class="fas fa-user fa-can1"></i>
                 </button>
               </td>
             </tr>))
