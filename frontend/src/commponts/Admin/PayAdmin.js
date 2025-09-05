@@ -43,12 +43,12 @@ export default function PayAdmin() {
                 </span>
                 مدير المجموعات{' '}
               </Link>
-              <Link to="/Pay">
+              {/* <Link to="/Pay">
                 <span>
                   <i class="fa-solid fa-sack-dollar"></i>{' '}
                 </span>{' '}
                 الدفع{' '}
-              </Link>
+              </Link> */}
               <Link to="/Wal">
                 <span>
                   <i class="fa-solid fa-wallet"></i>{' '}

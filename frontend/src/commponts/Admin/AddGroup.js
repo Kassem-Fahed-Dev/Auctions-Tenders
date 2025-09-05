@@ -12,6 +12,18 @@ export default function AddGroup() {
       setCover(URL.createObjectURL(file));
     }
   };
+  const goBack=()=>{
+ window.history.back();
+  }
+    const [formCheck, setFormCheck] = useState({
+      check1: false,
+      check2: false,
+    });
+      const handleChange1 = (e) => {
+    const { name, checked } = e.target;
+    setFormCheck({ ...formCheck, [name]: checked });
+  };
+    const [errorMessage, setErrorMessage] = useState({});
   return (
     <>
       <div className="con-admin">
@@ -53,12 +65,12 @@ export default function AddGroup() {
                 </span>
                 مدير المجموعات{' '}
               </Link>
-              <Link to="/Pay">
+              {/* <Link to="/Pay">
                 <span>
                   <i class="fa-solid fa-sack-dollar"></i>{' '}
                 </span>{' '}
                 الدفع{' '}
-              </Link>
+              </Link> */}
               <Link to="/Wal">
                 <span>
                   <i class="fa-solid fa-wallet"></i>{' '}
@@ -87,9 +99,45 @@ export default function AddGroup() {
                       <input type="text" />
                     </div>
                     <div className="name_input">
-                      <p>نوع المجموعة</p>
-                      <input type="text" />
+                      <p>نوع المجموعة:</p>
+                    
+                      {/* <div > */}
+                  {/* <label >
+                    مزاد
+                  </label> */}
+                  {/* <i className="fas fa-check"></i> */}
+                  {/* <input
+                    type="checkbox"
+                 
+                    name="check1"
+                    value={'auction'}
+                    checked={formCheck.check1}
+                    onChange={handleChange1}
+                  />
+                </div>
+                <div >
+                  <label >
+                    مناقصة
+                  </label> */}
+                  {/* <i className="fas fa-check "></i> */}
+                  {/* <input
+                    type="checkbox"
+                  
+                    name="check2"
+                    checked={formCheck.check2}
+                    onChange={handleChange1}
+                  />
+                </div> */}
+                      {/* <input type="text" /> */}
                     </div>
+                      <div>
+                        <label className='aulabel'>مزاد</label>
+                       <input  type="radio" value={'auction'}  name="check1" className='auinput'/>
+                      </div>
+                         <div>
+                        <label className='telabel'>مناقصة</label>
+                       <input  type="radio" value={'tender'}  name="check1" className='teinput'/>
+                      </div>
                     <div className="name_input">
                       <p>صورة غلاف المجموعة</p>
 
@@ -115,7 +163,7 @@ export default function AddGroup() {
                     </div>
                     <div className="ptn_group2">
                       <button>حفظ</button>
-                      <button className="reject">تراجع</button>
+                      <button className="reject" onClick={()=>{goBack()}}>تراجع</button>
                     </div>
                   </div>
                 </div>

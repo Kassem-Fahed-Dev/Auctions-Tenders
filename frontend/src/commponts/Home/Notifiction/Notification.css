@@ -36,12 +36,16 @@
 }
 .con_notif {
   margin-top: 100px;
+    margin-bottom: 100px;
+    cursor: pointer;
   /* background-color: aqua; */
 }
 .imgnot {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  background-color: #00336650;
+  border: #f2f2f2 2px solid;
 }
 .con_notif div {
   display: flex;
@@ -54,4 +58,25 @@
 }
 .p222 {
   margin-right: 200px;
+}
+div.read{
+  background-color: transparent;
+  border-bottom: #000 solid 1px;
+}
+div.unread{
+  background-color: #00000015;
+  /* background-color: aqua; */
+  border-bottom: #000 solid 1px;
+}
+.dis{
+  border-bottom: #000 solid 1px;
+  display: none;
+}
+.deletNotification{
+  border-radius: 50%;
+  background-color: red;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  left: -1150px;
 }

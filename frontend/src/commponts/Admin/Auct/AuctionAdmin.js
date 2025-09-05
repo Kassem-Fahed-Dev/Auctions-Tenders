@@ -3,7 +3,45 @@ import imag from '../../../image/logo.png';
 import { Link } from 'react-router-dom';
 import SortDropdown from '../SortDropdown';
 import Auction from '../../Auctions/Auction';
+import axiosInstance from '../../AxiosInterceptors';
+import { useState } from 'react';
+import { useEffect } from 'react';
 export default function AuctionAdmin() {
+  const [all, setAll] = useState([]);
+  let sort;
+  const token = localStorage.getItem('jwt');
+  const [errorMessage, setErrorMessage] = useState({});
+  useEffect(() => {
+    axiosInstance
+      .get(
+        `/api/v1/auctions?status=قيد الانتظار`,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setAll(res.data.data.data);
+        console.log(res.data.data.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }, []);
   return (
     <>
       <div className="con-admin">
@@ -45,12 +83,12 @@ export default function AuctionAdmin() {
                 </span>
                 مدير المجموعات{' '}
               </Link>
-              <Link to="/Pay">
+              {/* <Link to="/Pay">
                 <span>
                   <i class="fa-solid fa-sack-dollar"></i>{' '}
                 </span>{' '}
                 الدفع{' '}
-              </Link>
+              </Link> */}
               <Link to="/Wal">
                 <span>
                   <i class="fa-solid fa-wallet"></i>{' '}
@@ -64,26 +102,26 @@ export default function AuctionAdmin() {
               {' '}
               <i class="fa-solid fa-gavel"></i> مدير المزادات{' '}
             </h1>
+            <div className="ten_ptn_control">
+              <button className="ptn_Gr1">مرفوع للطلب </button>
+              <button className="ptn_Gr1">مقبول </button>
+              <button className="ptn_Gr1">مرفوض </button>
+            </div>
+            <p className="t2">المزادات المرفوعة للطلب </p>
             <div className="con_Adminsort">
-              <SortDropdown />
+              {/* <SortDropdown />
               <div className="sdsd">
                 <i className="fas fa-search icon "></i>
                 <input type="serach" className="searchptnAdmin" />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
         <div className="fflex">
-          <Auction />
-          <Auction />
-          <Auction />
-          <Auction />
-          <Auction />
-          <Auction />
-          <Auction />
-          <Auction />
-          <Auction />
-          <Auction />
+          {/* {all.map((auc) => (
+            <Auction data={auc} />
+          ))} */}
+          <Auction showAccept="true" showReject="true" />
         </div>
       </div>
     </>

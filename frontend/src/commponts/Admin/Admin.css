@@ -157,6 +157,19 @@
   text-decoration: none;
   font-weight: 400;
 }
+.ptn_Gr2 {
+  background-color: #003366;
+  color: #ffffff;
+  width: 180px;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
+  font-size: 19px;
+  padding: 10px;
+  text-decoration: none;
+  font-weight: 400;
+  margin-right: -737px;
+}
 .ptn_Gr1 i {
   color: #ffffffff;
   padding-left: 8px;
@@ -433,7 +446,7 @@
 
 .modal-content {
   background: white;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 10px;
   text-align: center;
 }
@@ -557,10 +570,11 @@
 .fflex {
   display: flex;
   gap: 3%;
-  padding-right: 11%;
-  padding-left: 0%;
+  padding-right: 0%;
+  padding-left: 11%;
   flex-wrap: wrap;
   margin-bottom: 20%;
+  direction: ltr;
 }
 /* control */
 .con_Admin_control {
@@ -673,3 +687,68 @@
 .p_title {
   font-size: 14px;
 }
+.t2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 110px;
+  color: #0072e4;
+  margin-right: -80px;
+}
+/* <<<<<<< HEAD */
+.fa-can1 {
+  color: black;
+  position: relative;
+  left: 20px;
+}
+/* ======= */
+
+.charts-container {
+  margin-top: 40px;
+  margin-right: 70px;
+  margin-bottom: 70px;
+}
+.charts-container div {
+  background-color: #cccccc;
+  width: 500px;
+  border-radius: 14px;
+}
+.charts-container h3 {
+  padding-top: 5px;
+  padding-right: 15px;
+  color: #0072e4;
+}
+/* >>>>>>> 5bab9692581af73526e40c7114740eba9209f6e9 */
+/* <<<<<<< HEAD */
+label.aulabel,label.telabel{
+  width: fit-content;
+  position: relative;
+  right: 110px;
+  bottom: 40px;
+  font-size: 14px;
+}
+input.auinput,input.teinput{
+  position: relative;
+  right: 110px;
+  bottom: 40px;
+
+}
+input.teinput{
+   right: 91px;
+}
+/* ======= */
+.acceptAuction {
+  background-color: green;
+  padding-bottom: 9px;
+}
+.rejectAuction {
+  background-color: red;
+  padding-bottom: 9px;
+  margin-right: 6px;
+}
+.ten_ptn_control {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 99px;
+}
+/* >>>>>>> 408d51e9f01c76b7d2c70dd39fb5ff97645e5275 */
