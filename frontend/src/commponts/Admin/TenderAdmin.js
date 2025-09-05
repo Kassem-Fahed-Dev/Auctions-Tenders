@@ -3,7 +3,44 @@ import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import SortDropdown from './SortDropdown';
 import Tender from '../Tenders/Tender';
+import axiosInstance from '../AxiosInterceptors';
+import { useState } from 'react';
+import { useEffect } from 'react';
 export default function TenderAdmin() {
+   const [all, setAll] = useState([]);
+    let sort;
+      const token = localStorage.getItem('jwt'); 
+    const [errorMessage, setErrorMessage] = useState({});
+  useEffect(()=>{ axiosInstance
+      .get(
+        `/api/v1/tenders?status=قيد الانتظار`
+         
+        ,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+             'credentials': 'include',
+              'Authorization': `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setAll(res.data.data.data);
+        console.log(res.data.data.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });},[])
   return (
     <>
       <div className="con-admin">
@@ -45,12 +82,12 @@ export default function TenderAdmin() {
                 </span>
                 مدير المجموعات{' '}
               </Link>
-              <Link to="/Pay">
+              {/* <Link to="/Pay">
                 <span>
                   <i class="fa-solid fa-sack-dollar"></i>{' '}
                 </span>{' '}
                 الدفع{' '}
-              </Link>
+              </Link> */}
               <Link to="/Wal">
                 <span>
                   <i class="fa-solid fa-wallet"></i>{' '}
@@ -65,23 +102,18 @@ export default function TenderAdmin() {
               <i class="far fa-handshake"></i> مدير المناقصات{' '}
             </h1>
             <div className="con_Adminsort">
-              <SortDropdown />
-              <div className="sdsd">
+              {/* <SortDropdown /> */}
+              {/* <div className="sdsd">
                 <i className="fas fa-search icon "></i>
                 <input type="serach" className="searchptnAdmin" />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
         <div className="fflex">
-          <Tender />
-          <Tender />
-          <Tender />
-          <Tender />
-          <Tender />
-          <Tender />
-          <Tender />
-          <Tender />
+      {all.map((auc) => (
+                <Tender data={auc}  />
+              ))}
         </div>
       </div>
     </>

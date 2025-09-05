@@ -2,6 +2,7 @@ import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import axiosInstance from '../AxiosInterceptors';
 export default function UserAdmin() {
   const [showDeleteUser, setShowDeleteUser] = useState(false);
   const [showDeleteAdmin, setShowDeleteAdmin] = useState(false);
@@ -10,7 +11,7 @@ export default function UserAdmin() {
   const deleteUserRef = useRef(null);
   const deleteAdminRef = useRef(null);
   const addAdminRef = useRef(null);
-
+ 
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -43,7 +44,120 @@ export default function UserAdmin() {
   }, [showDeleteUser, showDeleteAdmin, showAddAdmin]);
 
   const [userToDelete, setUserToDelete] = useState(null);
+const [all, setAll] = useState([]);
+  const [errorMessage, setErrorMessage] = useState({});
+       const token = localStorage.getItem('jwt'); 
+useEffect(()=>{  axiosInstance
+    .get(
+      `/api/v1/users`
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+           'credentials': 'include',
+            'Authorization': `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      setAll(res.data.data.data);
+      console.log(res.data.data.data);
+    })
+    .catch((error) => {
+      if (error.response) {
+        const validationErrors = {};
+        validationErrors.messageBackend = error.response.data.message;
+        setErrorMessage(validationErrors);
+      } else {
+        console.log('An unexpected error occurred:', error.message);
+        setErrorMessage({
+          messageBackend: 'An unexpected error occurred.',
+        });
+      }
+    });
+  },[])
+  // /api/v1/users/67d7b0f4cd667d344c9fb910
+  const deleteUser=(e,id)=>{
 
+    console.log('del')
+    axiosInstance
+    .delete(
+      `/api/v1/users/${id}`
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+           'credentials': 'include',
+            'Authorization': `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      console.log('تم الحذف:', userToDelete);
+      setUserToDelete(null);
+      window.location.reload()
+      //  e.preventDefault(); 
+      //       let parentElement = e.target.closest('.delee')
+      //       if (parentElement) {
+      //           parentElement.style.display = 'none'; }
+                console.log(res)
+    })
+    .catch((error) => {
+      if (error.response) {
+        const validationErrors = {};
+        validationErrors.messageBackend = error.response.data.message;
+        setErrorMessage(validationErrors);
+      } else {
+        console.log('An unexpected error occurred:', error.message);
+        setErrorMessage({
+          messageBackend: 'An unexpected error occurred.',
+        });
+      }
+    });
+  }
+  const [formData2, setFormData2] = useState({
+      name: '',
+    });
+  const handleChange2 = (e) => {
+    const { value } = e.target;
+    setFormData2({ name: value.trim() });
+    console.log(formData2)
+  };
+  const addAdmin=()=>{
+    const valdition={}
+      axiosInstance.patch(`/api/v1/users/updateMe`, JSON.stringify({'role':'admin'}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+              // alert('تم تغيير الرقم بنجاح')
+          // setHoverAuction('spinner');
+          window.location.reload();
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
+    
+  }
   return (
     <>
       <div className="con-admin">
@@ -85,12 +199,12 @@ export default function UserAdmin() {
                 </span>
                 مدير المجموعات{' '}
               </Link>
-              <Link to="/Pay">
+              {/* <Link to="/Pay">
                 <span>
                   <i class="fa-solid fa-sack-dollar"></i>{' '}
                 </span>{' '}
                 الدفع{' '}
-              </Link>
+              </Link> */}
               <Link to="/Wal">
                 <span>
                   <i class="fa-solid fa-wallet"></i>{' '}
@@ -165,7 +279,7 @@ export default function UserAdmin() {
                   )}
                 </div> */}
                 <div className="action-wrapper" ref={addAdminRef}>
-                  <button
+                  {/* <button
                     className={`ptn_Gr1 ${
                       show === 'deladmin' ? 'activeBtn' : ''
                     }`}
@@ -177,8 +291,8 @@ export default function UserAdmin() {
                     }}
                   >
                     <i className="fas fa-plus"></i> إضافة مدير
-                  </button>
-                  {showAddAdmin && (
+                  </button> */}
+                  {/* {showAddAdmin && (
                     <div className="action-box">
                       <p className="p_title">
                         ادخل اسم المدير الذي تود ترقيته الى مدير
@@ -186,13 +300,13 @@ export default function UserAdmin() {
                         علماً بأنه سوفف يتمتع بصلاحية المدير التي تعطيه اياها
                       </p>
                       <div className="search_input">
-                        <input type="text" />
+                        <input type="text" onChange={(e)=>{handleChange2(e)}}/>
                         <button className="search_btn">
                           <i className="fa-solid fa-magnifying-glass"></i>
                         </button>
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
@@ -205,71 +319,39 @@ export default function UserAdmin() {
               <th>البريد الالكتروني </th>
               <th>الاسم الكامل</th>
               <th>حذف </th>
+              <th>تعديل الصلاحية </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>مدير</td>
-              <td>fadi@gmail.com </td>
-              <td>فادي الاحمد </td>
+           
+            {
+              all.map((user)=>( <tr className='delee'>
+              <td>{user?.role}</td>
+              <td>{user?.email}</td>
+              <td> {user?.name} </td>
               <td>
                 <button
                   className="ptn_delete_admin"
                   onClick={() =>
-                    setUserToDelete({ role: 'مدير', name: 'فادي الأحمد' })
+                    setUserToDelete({ role: `${user?.role}`, name:`${user?.name}`, id:`${user?._id}`  })
                   }
                 >
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </td>
-            </tr>
 
-            <tr>
-              <td>مستخدم</td>
-              <td>fadi@gmail.com </td>
-              <td>فادي الاحمد </td>
-              <td>
+                 <td>
                 <button
-                  className="ptn_delete_admin"
+                  className="ptn_delete_admin fa-can"
                   onClick={() =>
-                    setUserToDelete({ role: 'مستخدم', name: 'فادي الأحمد' })
+                    setUserToDelete({ role: `${user?.role}`, name:`${user?.name}`, id:`${user?._id}`  })
                   }
                 >
-                  <i class="fa-regular fa-trash-can"></i>
+                  <i class="fas fa-user fa-can"></i>
                 </button>
               </td>
-            </tr>
-            <tr>
-              <td>مدير</td>
-              <td>fadi@gmail.com </td>
-              <td>فادي الاحمد </td>
-              <td>
-                <button
-                  className="ptn_delete_admin"
-                  onClick={() =>
-                    setUserToDelete({ role: 'مدير', name: 'فادي الأحمد' })
-                  }
-                >
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>مستخدم</td>
-              <td>fadi@gmail.com </td>
-              <td>فادي الاحمد </td>
-              <td>
-                <button
-                  className="ptn_delete_admin"
-                  onClick={() =>
-                    setUserToDelete({ role: 'مستخدم', name: 'فادي الأحمد' })
-                  }
-                >
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
-              </td>
-            </tr>
+            </tr>))
+            }
           </tbody>
         </table>
         {userToDelete && (
@@ -292,9 +374,8 @@ export default function UserAdmin() {
               )}
               <button
                 className="btn-confirm"
-                onClick={() => {
-                  console.log('تم الحذف:', userToDelete);
-                  setUserToDelete(null);
+                onClick={(e) => {
+                  deleteUser(e,userToDelete?.id)
                 }}
               >
                 نعم

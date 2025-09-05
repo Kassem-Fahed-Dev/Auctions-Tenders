@@ -433,7 +433,7 @@
 
 .modal-content {
   background: white;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 10px;
   text-align: center;
 }
@@ -672,4 +672,9 @@
 }
 .p_title {
   font-size: 14px;
+}
+.fa-can{
+  color: black;
+  position: relative;
+  left: 20px;
 }

@@ -187,7 +187,7 @@ export default function Auction({ data, showDelete = false }) {
 
       <div className="userName">
         <i className="fas fa-user userAuction"></i>
-        <div>{data?.user.name}:الناشر</div>
+        <div>{data?.user?.name}:الناشر</div>
       </div>
       <div className="product">
         <div className="product1">

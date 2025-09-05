@@ -69,12 +69,12 @@ export default function GroupAdmin() {
                 </span>
                 مدير المجموعات{' '}
               </Link>
-              <Link to="/Pay">
+              {/* <Link to="/Pay">
                 <span>
                   <i class="fa-solid fa-sack-dollar"></i>{' '}
                 </span>{' '}
                 الدفع{' '}
-              </Link>
+              </Link> */}
               <Link to="/Wal">
                 <span>
                   <i class="fa-solid fa-wallet"></i>{' '}
@@ -89,12 +89,12 @@ export default function GroupAdmin() {
               <i className="fa-solid fa-people-group"></i>مدير المجموعات{' '}
             </h1>
             <div className="con_AdminGroup2">
-              <button
+              {/* <button
                 className={`ptn_Gr1 ${showDiv === 'search' ? 'activeBtn' : ''}`}
                 onClick={() => setShowDiv('search')}
               >
                 <i class="fas fa-search"></i> بحث عن مجموعة{' '}
-              </button>
+              </button> */}
               <Link
                 to="/ADD"
                 className={`ptn_Gr1 ${showDiv === 'add' ? 'activeBtn' : ''}`}
@@ -104,7 +104,7 @@ export default function GroupAdmin() {
               </Link>
             </div>
             <div>
-              {showDiv === 'search' && (
+              {/* {showDiv === 'search' && (
                 <div className="searchdiv2">
                   <h3>ادخل اسم المجموعة التي تود البحث عنها ثم خدد نوعها </h3>
                   <div className="name_input1">
@@ -122,7 +122,7 @@ export default function GroupAdmin() {
                     بحث
                   </button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
