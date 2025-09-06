@@ -17,7 +17,8 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState({});
   const token = localStorage.getItem('jwt');
   useEffect(() => {
-    axiosInstance
+  if(token!='null'){
+      axiosInstance
       .get('/api/v1/notifications/stats', {
         headers: {
           'Content-Type': 'application/json',
@@ -43,6 +44,7 @@ export default function Home() {
           });
         }
       });
+  }
   }, []);
   return (
     <div>
@@ -68,7 +70,7 @@ export default function Home() {
           <Link to="/not" className="bell">
             <div className="num-message">
               {/* <p>99+</p> */}
-              <p>{all?.unread<100?all?.unread:'99+'}</p>
+              <p>{token !='null' & all?.unread<100?all?.unread:token=='null'?'0':'99+'}</p>
             </div>
             <i className="fas fa-bell icon2"></i>
           </Link>

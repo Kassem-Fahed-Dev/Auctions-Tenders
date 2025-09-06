@@ -718,7 +718,7 @@
   color: #0072e4;
 }
 /* >>>>>>> 5bab9692581af73526e40c7114740eba9209f6e9 */
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
 label.aulabel,label.telabel{
   width: fit-content;
   position: relative;
@@ -735,7 +735,7 @@ input.auinput,input.teinput{
 input.teinput{
    right: 91px;
 }
-=======
+/* ======= */
 .acceptAuction {
   background-color: green;
   padding-bottom: 9px;
@@ -751,4 +751,4 @@ input.teinput{
   justify-content: space-around;
   margin-top: 99px;
 }
->>>>>>> 408d51e9f01c76b7d2c70dd39fb5ff97645e5275
+/* >>>>>>> 408d51e9f01c76b7d2c70dd39fb5ff97645e5275 */
