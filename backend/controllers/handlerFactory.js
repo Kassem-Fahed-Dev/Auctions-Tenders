@@ -64,8 +64,10 @@ exports.createOne = (Model) =>
     if (req.file) {
       req.body.image = `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}`;
     }
-
-    const doc = await Model.create(req.body);
+    const doc = await Model.create({
+      ...req.body,
+      image: req.file ? req.body.image : null,
+    });
 
     res.status(201).json({
       status: req.t(`fields:success`),
