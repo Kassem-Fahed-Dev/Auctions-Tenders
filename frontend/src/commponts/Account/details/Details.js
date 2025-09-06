@@ -17,17 +17,17 @@ import { useLocation } from 'react-router-dom';
 // }
 
 export default function Details() {
-      const [errorMessage5, setErrorMessage5] = useState({});
-     const [errorMessage, setErrorMessage] = useState({});
-  const [amount, setAmount] = useState({amount:''});
+  const [errorMessage5, setErrorMessage5] = useState({});
+  const [errorMessage, setErrorMessage] = useState({});
+  const [amount, setAmount] = useState({ amount: '' });
   function back() {
     window.history.go(-1);
   }
   function handleInputChange(e) {
-     const { name, value } = e.target;
+    const { name, value } = e.target;
     //setAmount(false)
-    setAmount({ ...amount, [name]: Number(value.trim())  });
-    console.log(amount)
+    setAmount({ ...amount, [name]: Number(value.trim()) });
+    console.log(amount);
     // if (!/^\d+$/.test(value)) {
     //   return;
     // }
@@ -36,46 +36,40 @@ export default function Details() {
   }
   const [showParticipation, setShowParticipation] = useState(false);
 
- const token = localStorage.getItem('jwt');
-  const submitAmount=(e)=>{
+  const token = localStorage.getItem('jwt');
+  const submitAmount = (e) => {
     // e.preventDefault();
-     setAmount('');
- setShowParticipation(false);
+    setAmount('');
+    setShowParticipation(false);
 
-    console.log('ppp')
-   axiosInstance
-        .post(
-          `/api/v1/auctions/placeBid/${data?._id}`,
-          JSON.stringify(amount),
-          {
-            headers: {
-             'Content-Type': 'application/json',
+    console.log('ppp');
+    axiosInstance
+      .post(`/api/v1/auctions/placeBid/${data?._id}`, JSON.stringify(amount), {
+        headers: {
+          'Content-Type': 'application/json',
           'Accept-Language': 'ar',
           credentials: 'include',
           Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-        console.log(res)
-        setAmount({amount:''})
-          window.location.reload();
-        })
-        .catch((error) => {
-        
-          if (error.response) {
-            const validationErrors4 = {};
-            validationErrors4.messageBackend = error.response.data.message;
-            setErrorMessage5(validationErrors4);
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            setErrorMessage5({
-              messageBackend: 'An unexpected error occurred.',
-            });
-          }
-        });
-    
-  }
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setAmount({ amount: '' });
+        window.location.reload();
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors4 = {};
+          validationErrors4.messageBackend = error.response.data.message;
+          setErrorMessage5(validationErrors4);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage5({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  };
   // const [state, setState] = useState('قادم');
   // function getcolor() {
   //   if (state === 'جاري') {
@@ -88,17 +82,32 @@ export default function Details() {
   //   return {};
   // }
   const location = useLocation();
-  const { data,heart } = location.state||{};
+  const { data, heart } = location.state || {};
 
-  console.log(data)
- console.log(heart)
+  console.log(data);
+  console.log(heart);
   return (
     <div className="All-con-det">
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مزادات {data?.item?.category=="6800c48bc5246f1b240fa3c8"?'سيارات':data?.item?.category=="6800c4ccc5246f1b240fa3cd"?'عقارات':data?.item?.category=="6800d4090c7d9514e40218f0"?'أخرى':data?.item?.category=="6800cf48bdccd52594f29573"?'ملابس':data?.item?.category=="6800ce86aec6df25ccc63ff5"?'إكسسوار':data?.item?.category=="6800cdb36e155b2e04089fbd"?'أثاث':'إلكترونات'}</h1>
+          <h1>
+            مزادات{' '}
+            {data?.item?.category == '6800c48bc5246f1b240fa3c8'
+              ? 'سيارات'
+              : data?.item?.category == '6800c4ccc5246f1b240fa3cd'
+              ? 'عقارات'
+              : data?.item?.category == '6800d4090c7d9514e40218f0'
+              ? 'أخرى'
+              : data?.item?.category == '6800cf48bdccd52594f29573'
+              ? 'ملابس'
+              : data?.item?.category == '6800ce86aec6df25ccc63ff5'
+              ? 'إكسسوار'
+              : data?.item?.category == '6800cdb36e155b2e04089fbd'
+              ? 'أثاث'
+              : 'إلكترونات'}
+          </h1>
           <button
             className="back"
             onClick={() => {
@@ -116,27 +125,40 @@ export default function Details() {
                 <p>اسم المزاد : </p>
                 <h4>{data?.auctionTtile}</h4>
               </div>
-            
-                <i     className={`fas fa-heart ${heart=='red'? 'red' :"black"}`}></i>
-              
+
+              <i
+                className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
+              ></i>
             </div>
             <hr />
             <div className="div-con">
               <h6>تفاصيل المزاد </h6>
 
-              <div >
+              <div>
                 حالة المزاد :
-                <span className={data?.activeStatus === 'جاري' ? 'timedet' :data?.activeStatus === 'قادم'? 'time2det':"time1det"}>{data?.
-activeStatus
-}</span>
+                <span
+                  className={
+                    data?.activeStatus === 'جاري'
+                      ? 'timedet'
+                      : data?.activeStatus === 'قادم'
+                      ? 'time2det'
+                      : 'time1det'
+                  }
+                >
+                  {data?.activeStatus}
+                </span>
               </div>
             </div>
             <div className="condivs">
               <div>
-                تاريخ البدء :<span>{data?.startTime?.slice(0,10).replaceAll('-','/')}</span>
+                تاريخ البدء :
+                <span>
+                  {data?.startTime?.slice(0, 10).replaceAll('-', '/')}
+                </span>
               </div>
               <div>
-                تاريخ الانتهاء :<span>{data?.endTime?.slice(0,10).replaceAll('-','/')}</span>
+                تاريخ الانتهاء :
+                <span>{data?.endTime?.slice(0, 10).replaceAll('-', '/')}</span>
               </div>
               <div>
                 السعر الابتدائي:
@@ -153,12 +175,11 @@ activeStatus
                 اسم المنتج:<span>{data?.item?.name}</span>
               </div>
               <div>
-              {data?.item?.properties.map((item) => (
-  <div key={item.key}>
-    {item.key}: <span>{item.value}</span>
-  </div>
-))}
-                
+                {data?.item?.properties.map((item) => (
+                  <div key={item.key}>
+                    {item.key}: <span>{item.value}</span>
+                  </div>
+                ))}
               </div>
               <div>
                 حالة المنتج:<span>{data?.item?.status}</span>
@@ -171,7 +192,21 @@ activeStatus
 
                 <div>
                   التصنيف:
-                  <span>{data?.item?.category=="6800c48bc5246f1b240fa3c8"?'سيارات':data?.item?.category=="6800c4ccc5246f1b240fa3cd"?'عقارات':data?.item?.category=="6800d4090c7d9514e40218f0"?'أخرى':data?.item?.category=="6800cf48bdccd52594f29573"?'ملابس':data?.item?.category=="6800ce86aec6df25ccc63ff5"?'إكسسوار':data?.item?.category=="6800cdb36e155b2e04089fbd"?'أثاث':'إلكترونات'} </span>
+                  <span>
+                    {data?.item?.category == '6800c48bc5246f1b240fa3c8'
+                      ? 'سيارات'
+                      : data?.item?.category == '6800c4ccc5246f1b240fa3cd'
+                      ? 'عقارات'
+                      : data?.item?.category == '6800d4090c7d9514e40218f0'
+                      ? 'أخرى'
+                      : data?.item?.category == '6800cf48bdccd52594f29573'
+                      ? 'ملابس'
+                      : data?.item?.category == '6800ce86aec6df25ccc63ff5'
+                      ? 'إكسسوار'
+                      : data?.item?.category == '6800cdb36e155b2e04089fbd'
+                      ? 'أثاث'
+                      : 'إلكترونات'}{' '}
+                  </span>
                 </div>
                 <div>
                   البلد:
@@ -182,9 +217,30 @@ activeStatus
                 </div>
               </div>
               <div>
-                <button
+                {/* <button
                   className="ptn-particip"
                   onClick={() => setShowParticipation(true)}
+                >
+                  <div className="fas fa-hand-point-up"></div>
+                  شارك بالمزاد
+                </button> */}
+
+                <button
+                  className="ptn-particip"
+                  onClick={() => {
+                    if (data?.activeStatus !== 'منتهي') {
+                      setShowParticipation(true);
+                    }
+                  }}
+                  disabled={data?.activeStatus === 'منتهي'}
+                  style={{
+                    backgroundColor:
+                      data?.activeStatus === 'منتهي' ? 'gray' : '',
+                    cursor:
+                      data?.activeStatus === 'منتهي'
+                        ? 'not-allowed'
+                        : 'pointer',
+                  }}
                 >
                   <div className="fas fa-hand-point-up"></div>
                   شارك بالمزاد
@@ -200,17 +256,12 @@ activeStatus
                     <input
                       type="number "
                       onChange={handleInputChange}
-                    
-                    name="amount"
-                    value={amount.amount}
-                  
-                    autoComplete="off"
+                      name="amount"
+                      value={amount.amount}
+                      autoComplete="off"
                       placeholder="أدخل أرقام فقط"
                     />
-                    <button
-                      onClick={submitAmount}
-                      disabled={!amount}
-                    >
+                    <button onClick={submitAmount} disabled={!amount}>
                       إرسال
                     </button>
                     <button
@@ -258,8 +309,10 @@ activeStatus
               </div>
             )}
           </div>
-         <div className='create-auction-data2'>  <Navdata state={data} /></div>
-         
+          <div className="create-auction-data2">
+            {' '}
+            <Navdata state={data} />
+          </div>
         </div>
       </div>{' '}
       <div style={{ marginTop: '80px' }}>

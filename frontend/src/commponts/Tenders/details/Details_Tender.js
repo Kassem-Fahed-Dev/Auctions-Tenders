@@ -218,13 +218,35 @@ export default function Details_Tender() {
                   <button
                     className="ptn-particip"
                     onClick={() => {
+                      if (data?.activeStatus !== 'منتهي') {
+                        setShowParticipation(true);
+                        handelTesting();
+                      }
+                    }}
+                    disabled={data?.activeStatus === 'منتهي'}
+                    style={{
+                      backgroundColor:
+                        data?.activeStatus === 'منتهي' ? 'gray' : '',
+                      cursor:
+                        data?.activeStatus === 'منتهي'
+                          ? 'not-allowed'
+                          : 'pointer',
+                    }}
+                  >
+                    <div className="fas fa-hand-point-up"></div>
+                    شارك بالمناقصة
+                  </button>
+
+                  {/* <button
+                    className="ptn-particip"
+                    onClick={() => {
                       setShowParticipation(true);
                       handelTesting();
                     }}
                   >
                     <div className="fas fa-hand-point-up"></div>
                     شارك بالمناقصة
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
