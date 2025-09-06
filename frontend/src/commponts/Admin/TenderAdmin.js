@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 export default function TenderAdmin() {
   const [all, setAll] = useState([]);
    const [yes, setYes] = useState(true);
-    const [yes1, setYes1] = useState('true');
+    const [yes1, setYes1] = useState(true);
   const [type,setType] =useState('مرفوعة للطلب')
   let sort;
   const token = localStorage.getItem('jwt');
@@ -46,17 +46,18 @@ export default function TenderAdmin() {
         }
       });
   }, []);
-    const sortTen=(e,type1)=>{
+    const sortTen=async(e,type1)=>{
     const {value}= e.target
     setType(value)
-if(type1=='قيد الانتظار '){
+if(type1=='قيد الانتظار'){
   setYes(true)
   setYes1(true)
 }else{
     setYes(null)
   setYes1(null)
 }
-console.log(type)
+await new Promise(resolve => setTimeout(resolve, 0));
+console.log(type1)
 axiosInstance
       .get(
         `/api/v1/tenders?status=${type1} `,

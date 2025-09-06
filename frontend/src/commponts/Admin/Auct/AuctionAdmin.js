@@ -45,19 +45,28 @@ export default function AuctionAdmin() {
         }
       });
   }, []);
-  const sortAu=(e,type1)=>{
+  const sortAu=async(e,type1)=>{
     const {value}= e.target
     setType(value)
-if(type1=='قيد الانتظار '){
+if(type1=='قيد الانتظار'){
+  console.log('o')
   setYes(true)
   setYes1(true)
+  console.log(yes)
+console.log(yes1)
 }else{
+   console.log('o1')
     setYes(null)
   setYes1(null)
-}
-console.log(type1)
-console.log(yes)
+  console.log(yes)
 console.log(yes1)
+}
+   await new Promise(resolve => setTimeout(resolve, 0));
+     console.log(yes)
+console.log(yes1)
+console.log(type1)
+// console.log(yes)
+// console.log(yes1)
 axiosInstance
       .get(
         `/api/v1/auctions?status=${type1} `,

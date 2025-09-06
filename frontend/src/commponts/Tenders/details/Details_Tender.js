@@ -78,18 +78,20 @@ export default function Details_Tender() {
       });
   };
 
-  // function handleInputChange(e) {
-  //   const value = e.target.value;
+  function handleInputChange(e) {
+    const value = e.target.value;
 
-  //   if (!/^\d+$/.test(value)) {
-  //     return;
-  //   }
+    if (!/^\d+$/.test(value)) {
+      return;
+    }
 
-  //   setAmount(value);
-  // }
+    setAmount(value);
+  }
   let Allow;
   let TimeRun = false;
+
   function handelTesting() {
+    setShowParticipation(true);
     if (state === 'قادم' && !TimeRun) {
       TimeRun = true;
       const neew = document.createElement('p');

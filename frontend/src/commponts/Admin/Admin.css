@@ -784,7 +784,8 @@ input.teinput {
   position: relative;
   left: -56px;
   bottom: 5px;
-  width: 95px;
+  /* width: 95px; */
+  width: 10px;
   height: 20px;
   font-size: 11px;
 }
@@ -796,4 +797,7 @@ input.teinput {
   background-color: #f1f1f1;
   width: 200px;
   margin-top: -13px;
+}
+img.qustion{
+  width: ;
 }
