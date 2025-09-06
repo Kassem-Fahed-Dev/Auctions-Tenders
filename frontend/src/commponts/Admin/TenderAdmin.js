@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 export default function TenderAdmin() {
   const [all, setAll] = useState([]);
-   const [yes, setYes] = useState('true');
+   const [yes, setYes] = useState(true);
     const [yes1, setYes1] = useState('true');
   const [type,setType] =useState('مرفوعة للطلب')
   let sort;
@@ -30,6 +30,7 @@ export default function TenderAdmin() {
       )
       .then((res) => {
         setAll(res.data.data.data);
+        
         console.log(res.data.data.data);
       })
       .catch((error) => {
@@ -48,12 +49,12 @@ export default function TenderAdmin() {
     const sortTen=(e,type1)=>{
     const {value}= e.target
     setType(value)
-if(type=='قيد الانتظار'){
-  setYes('true')
-  setYes1('true')
+if(type1=='قيد الانتظار '){
+  setYes(true)
+  setYes1(true)
 }else{
-    setYes('false')
-  setYes1('false')
+    setYes(null)
+  setYes1(null)
 }
 console.log(type)
 axiosInstance

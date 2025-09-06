@@ -725,8 +725,6 @@
 
 label.aulabel,
 label.telabel {
-  label.aulabel,
-  label.telabel {
     width: fit-content;
     position: relative;
     right: 110px;
@@ -742,7 +740,7 @@ label.telabel {
   input.teinput {
     right: 91px;
   }
-}
+
 input.teinput {
   right: 91px;
 }

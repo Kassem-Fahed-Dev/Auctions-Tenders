@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import imag from '../../image/logo.png';
 
 export default function AddGroup() {
   const [showDiv, setShowDiv] = useState(null);
   const [cover, setCover] = useState(null);
-
+   const [num, setNum] = useState('');
+  const [formData1, setFormData1] = useState({
+     type:'',
+      name:'' ,
+      properties: [],
+      image:'', 
+  });
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -20,9 +26,85 @@ export default function AddGroup() {
     check2: false,
   });
   const handleChange1 = (e) => {
-    const { name, checked } = e.target;
-    setFormCheck({ ...formCheck, [name]: checked });
+    const { name, value } = e.target;
+    setFormData1({ ...formData1, [name]: value });
+    console.log(formData1)
   };
+    const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData1({ ...formData1, [name]: value.trim() });
+    console.log(formData1)
+  };
+ const rows = [];
+//  let count=1;
+//  console.log(num)
+// while(count==1){
+//   for (let index = 0; index < num; index++) {
+// setFormData1({
+//     ...formData1,
+//     properties: [
+//         ...formData1.properties,
+//         { key: "", dataType: "", required: "true" }
+//     ]
+// });
+
+// }
+// count=0
+// }
+const newProperties = [];
+
+for (let index = 0; index < num; index++) {
+
+  rows.push(
+ <>
+   <div className="second_name_Admin">
+                    <p>اسم الحقل </p>
+                    <input type="text" className="name_in" />
+                  </div>
+                  <div className="con_radios2">
+                    <p>النمط :</p>
+                    <div>
+                      <label className="rad2">نص</label>
+                      <input type="radio" value="" name="" className="r2" />
+                    </div>
+                    <div>
+                      <label className="rad2">حقل</label>
+                      <input type="radio" value="" name="" className="r2" />
+                    </div>
+                  </div></>
+  );
+}
+for (let i = 0; i < num; i++) {
+    newProperties.push({ key: "", dataType: "", required: "true" });
+}
+
+// setFormData1({
+//     ...formData1,
+//     properties: [
+//         ...formData1.properties,
+//         ...newProperties
+//     ]
+// });
+const [repet,setRepet]=useState('1')
+// useEffect(()=>{
+// let   count=1;}
+// ,[])
+if (repet=='1') {
+    setFormData1(prevFormData => ({
+        ...prevFormData,
+        properties: [
+            ...prevFormData.properties,
+            ...newProperties
+        ]
+    }));
+   setRepet('0')
+  }
+
+  const handleChange3 = (event) => {
+        setNum(event.target.value);
+        setRepet('1')
+    };
+    console.log(formData1.properties)
   const [errorMessage, setErrorMessage] = useState({});
   return (
     <>
@@ -96,7 +178,7 @@ export default function AddGroup() {
                   <div>
                     <div className="name_input">
                       <p>اسم المجموعة</p>
-                      <input type="text" />
+                      <input type="text" name={'name'}   value={formData1.name} onChange={(e)=>{handleChange(e)}}/>
                     </div>
                     <div className="name_input">
                       <p>نوع المجموعة:</p>
@@ -133,18 +215,20 @@ export default function AddGroup() {
                     <div>
                       <label className="aulabel">مزاد</label>
                       <input
+                      onChange={(e)=>{handleChange1(e)}}
                         type="radio"
                         value={'auction'}
-                        name="check1"
+                        name="type"
                         className="auinput"
                       />
                     </div>
                     <div>
                       <label className="telabel">مناقصة</label>
                       <input
+                      onChange={(e)=>{handleChange1(e)}}
                         type="radio"
                         value={'tender'}
-                        name="check1"
+                        name="type"
                         className="teinput"
                       />
                     </div>
@@ -196,23 +280,9 @@ export default function AddGroup() {
                 <div className="fixdisplay">
                   <div className="second_name_Admin">
                     <p>عدد الحقول الاضافية </p>
-                    <input type="number" className="name_in" />
+                    <input type="number" className="name_in" value={num} onChange={(e)=>{handleChange3(e)}}/>
                   </div>
-                  <div className="second_name_Admin">
-                    <p>اسم الحقل </p>
-                    <input type="text" className="name_in" />
-                  </div>
-                  <div className="con_radios2">
-                    <p>النمط :</p>
-                    <div>
-                      <label className="rad2">نص</label>
-                      <input type="radio" value="" name="" className="r2" />
-                    </div>
-                    <div>
-                      <label className="rad2">حقل</label>
-                      <input type="radio" value="" name="" className="r2" />
-                    </div>
-                  </div>
+                {rows}
                 </div>
                 {/* <div className="leftsideGroup">
                   <div className="buttom_side">
