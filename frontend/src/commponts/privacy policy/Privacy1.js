@@ -1,6 +1,7 @@
 import Navbar from '../Home/Navbar';
 import Footer from './Footer';
 import './policy.css';
+import icon1 from '../../image/icon.jpg';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 export default function Privacy() {
@@ -13,7 +14,17 @@ export default function Privacy() {
           <Link to="/">
             <span className="	fas fa-chevron-left"></span>
           </Link>
-          <span className="	far fa-edit"></span>
+          {/* <span className="	far fa-edit"></span> */}
+          <img
+            src={icon1}
+            alt="err"
+            style={{
+              width: '60px',
+
+              border: '1px solid #ccc',
+              borderRadius: '12px',
+            }}
+          />
           <p clasclassNames="title">شروط الاستخدام وإخلاء المسؤولية</p>
         </div>
         <span>تاريخ السريان: [00/00/0000]</span>

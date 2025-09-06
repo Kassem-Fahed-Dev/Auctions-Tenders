@@ -15,21 +15,21 @@ function back() {
 
 export default function Details_Tender() {
   const scroll1 = useEffect(() => window.scrollTo(0, 0));
-const [errorMessage5, setErrorMessage5] = useState({});
-     const [errorMessage, setErrorMessage] = useState({});
-  const [amount, setAmount] = useState({amount:''});
+  const [errorMessage5, setErrorMessage5] = useState({});
+  const [errorMessage, setErrorMessage] = useState({});
+  const [amount, setAmount] = useState({ amount: '' });
 
   // const [amount, setAmount] = useState('');
   const location = useLocation();
-  const { data,heart } = location.state||{};
+  const { data, heart } = location.state || {};
   function back() {
     window.history.go(-1);
   }
-   function handleInputChange(e) {
-     const { name, value } = e.target;
+  function handleInputChange(e) {
+    const { name, value } = e.target;
     //setAmount(false)
-    setAmount({ ...amount, [name]: Number(value.trim())  });
-    console.log(amount)
+    setAmount({ ...amount, [name]: Number(value.trim()) });
+    console.log(amount);
     // if (!/^\d+$/.test(value)) {
     //   return;
     // }
@@ -37,49 +37,46 @@ const [errorMessage5, setErrorMessage5] = useState({});
     // setAmount(value);
   }
 
-   const [showParticipation, setShowParticipation] = useState(false);
+  const [showParticipation, setShowParticipation] = useState(false);
 
- const token = localStorage.getItem('jwt');
-  const submitAmount=(e)=>{
+  const token = localStorage.getItem('jwt');
+  const submitAmount = (e) => {
     // e.preventDefault();
-     setAmount('');
- setShowParticipation(false);
+    setAmount('');
+    setShowParticipation(false);
 
-    console.log('ppp')
-   axiosInstance
-        .post(
-          `/api/v1/tenders/submitOffer/${data?._id}`,
-          JSON.stringify(amount),
-          {
-            headers: {
-             'Content-Type': 'application/json',
-          'Accept-Language': 'ar',
-          credentials: 'include',
-          Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-        console.log(res)
-        setAmount({amount:''})
-          window.location.reload();
-        })
-        .catch((error) => {
-        
-          if (error.response) {
-            const validationErrors4 = {};
-            validationErrors4.messageBackend = error.response.data.message;
-            setErrorMessage5(validationErrors4);
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            setErrorMessage5({
-              messageBackend: 'An unexpected error occurred.',
-            });
-          }
-        });
-    
-  }
-
+    console.log('ppp');
+    axiosInstance
+      .post(
+        `/api/v1/tenders/submitOffer/${data?._id}`,
+        JSON.stringify(amount),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        setAmount({ amount: '' });
+        window.location.reload();
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors4 = {};
+          validationErrors4.messageBackend = error.response.data.message;
+          setErrorMessage5(validationErrors4);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage5({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  };
 
   // function handleInputChange(e) {
   //   const value = e.target.value;
@@ -90,8 +87,8 @@ const [errorMessage5, setErrorMessage5] = useState({});
 
   //   setAmount(value);
   // }
-   let Allow;
-   let TimeRun = false;
+  let Allow;
+  let TimeRun = false;
   function handelTesting() {
     if (state === 'قادم' && !TimeRun) {
       TimeRun = true;
@@ -154,18 +151,27 @@ const [errorMessage5, setErrorMessage5] = useState({});
                 <p>اسم المناقصة : </p>
                 <h4>{data?.tenderTitle}</h4>
               </div>
-            
-                <i     className={`fas fa-heart ${heart=='red'? 'red' :"black"}`}></i>
-              
+
+              <i
+                className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
+              ></i>
             </div>
             <hr />
-            <div className="div-con1">
+            <div className="div-con11">
               <h6 className="tit">تفاصيل المناقصة </h6>
-                <div >
+              <div>
                 حالة المناقصة :
-                <span className={data?.activeStatus === 'جاري' ? 'timedet' :data?.activeStatus === 'قادم'? 'time2det':"time1det"}>{data?.
-activeStatus
-}</span>
+                <span
+                  className={
+                    data?.activeStatus === 'جاري'
+                      ? 'timedet'
+                      : data?.activeStatus === 'قادم'
+                      ? 'time2det'
+                      : 'time1det'
+                  }
+                >
+                  {data?.activeStatus}
+                </span>
               </div>
               {/* <div className="state_tender">
                 حالة المناقصة :
@@ -176,12 +182,16 @@ activeStatus
             </div>
             <div className="condivs">
               <div className="dv1">
-                تاريخ البدء :<span>{data?.startTime?.slice(0,10).replaceAll('-','/')}</span>
+                تاريخ البدء :
+                <span>
+                  {data?.startTime?.slice(0, 10).replaceAll('-', '/')}
+                </span>
               </div>
               <div className="dv2">
-                تاريخ الانتهاء :<span>{data?.endTime?.slice(0,10).replaceAll('-','/')}</span>
+                تاريخ الانتهاء :
+                <span>{data?.endTime?.slice(0, 10).replaceAll('-', '/')}</span>
               </div>
-               <div>
+              <div>
                 السعر الابتدائي:
                 <span>{data.startingPrice}</span>
               </div>
@@ -208,7 +218,7 @@ activeStatus
                   <button
                     className="ptn-particip"
                     onClick={() => {
-                      // setShowParticipation(true);
+                      setShowParticipation(true);
                       handelTesting();
                     }}
                   >
