@@ -125,46 +125,55 @@ const uploadImages = (files) => {
   }
 
   const uploadPromises = files.map((file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'SmartWorld');
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'SmartWorld');
 
-    return axiosInstance
-      .post(
-        'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
-        formData
-      )
-      .then((res) => {
-        console.log('Upload successful:', res.data);
-        const public_id = res.data.public_id;
-        console.log(public_id)
-        // تحديث الحالة أو البيانات كما تريد
-      setFormData1((prevData) => ({
-          ...prevData,
-          item: {
-            ...prevData.item,
-            photo:[...prevData.item.photo,public_id]
-          },
-        }));
-      })
-      .catch((error) => {
-        if (error.response) {
-          const validationErrors = {};
-          validationErrors.messageBackend = error.response.data.message;
-          setErrorMessage(validationErrors);
-        } else {
-          console.log('An unexpected error occurred:', error.message);
-          setErrorMessage({
-            messageBackend: 'حدث خطأ غير متوقع.',
-          });
-        }
-        // يمكن أن تعيد خطأ أو تكتفي
-        throw error;
-      });
+  return axiosInstance
+    .post(
+      'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
+      formData
+    )
+    .then((res) => {
+      console.log('Upload successful:', res.data);
+      const public_id = res.data.public_id;
+      console.log(public_id);
+      
+      // تحديث الحالة أو البيانات كما تريد
+      // setFormData1((prevData) => ({
+      //   ...prevData,
+      //   item: {
+      //     ...prevData.item,
+      //     photo: [...prevData.item.photo, public_id]
+      //   },
+      // }));
+
+      // إرجاع public_id
+      return public_id; // هنا نعيد public_id
+    })
+    .catch((error) => {
+      if (error.response) {
+        const validationErrors = {};
+        validationErrors.messageBackend = error.response.data.message;
+        setErrorMessage(validationErrors);
+      } else {
+        console.log('An unexpected error occurred:', error.message);
+        setErrorMessage({
+          messageBackend: 'حدث خطأ غير متوقع.',
+        });
+      }
+      // يمكن أن تعيد خطأ أو تكتفي
+      throw error;
+    });
+});
+
+// استخدام Promise.all لانتظار جميع عمليات الرفع وإرجاع مصفوفة من public_id
+return Promise.all(uploadPromises)
+  .then((publicIds) => {
+    console.log('All public IDs:', publicIds);
+    return publicIds; // إرجاع مصفوفة من جميع public_id
   });
 
-  // استخدام Promise.all لانتظار جميع عمليات الرفع
-  return Promise.all(uploadPromises);
 };
 
 
@@ -269,22 +278,35 @@ const uploadImages = (files) => {
         }
       });
   };
+  // const [pic,setPic]=useState([])
+  let pic;
 console.log(selectedFiles);
  const handleSubmit = async (e) => {
   e.preventDefault();
   console.log('cha');
   console.log(selectedFiles);
   setHoverAuction('spinner-Auction');
-  try {
+ try {
     // انتظر انتهاء رفع الصور
-    await uploadImages(selectedFiles);
-  } catch (uploadError) {
+pic= await uploadImages(selectedFiles)
+    setFormData1({...formData1,item:{...formData1.item,photo:pic}})
+  //  setFormData1({...formData1,item:{...formData1.item,photo:x}})
+  }  catch (uploadError) {
     // معالجة أخطاء رفع الصور إذا كانت هناك حاجة
     console.error('خطأ أثناء رفع الصور:', uploadError);
     setHoverAuction('spinner');
     return;
   }
-
+  console.log(pic)
+ 
+// await  setFormData1((prevData) => ({
+//           ...prevData,
+//           item: {
+//             ...prevData.item,
+//            photo: [...pic],
+//           },
+//         }));
+console.log(formData1)
   // باقي منطق التحقق من البيانات...
   setHoverAuction('spinner-Auction');
   const valditionErrerorsAuction = { item: {}, auction: {} };

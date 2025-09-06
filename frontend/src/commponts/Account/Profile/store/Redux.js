@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../../AxiosInterceptors';
+import { useState } from 'react';
+
 export const fetchUserFromAPI = createAsyncThunk(
   'show_edite/fetchUser',
   async (_, data) => {
@@ -21,9 +23,12 @@ export const fetchUserFromAPI = createAsyncThunk(
     }
   }
 );
+
 const ptn = createSlice({
+  
   name: 'show_edite',
   initialState: {
+    id:'',
     show: false,
     picture: false,
     oldpass: '',
@@ -38,6 +43,7 @@ const ptn = createSlice({
     error: '',
     label: 'الاسم المستخدم',
   },
+  
   reducers: {
     toggleShow: (state) => {
       state.show = true;
@@ -62,6 +68,37 @@ const ptn = createSlice({
     },
     submit: (state) => {
       state.submit1 = state.userInput;
+           const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/users/updateMe`, JSON.stringify({'name':state.submit1}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          // setHoverAuction('spinner');
+          alert('تم تغيير الاسم بنجاح')
+          window.location.reload();
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
     },
     error_msg: (state, action) => {
       state.error = action.payload;
@@ -71,15 +108,115 @@ const ptn = createSlice({
     },
     updateEmail: (state) => {
       state.email = state.userInput;
+           const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/users/updateMe`, JSON.stringify({'email':state.email}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          // setHoverAuction('spinner');
+             alert('تم تغيير البريد الإلكتروني بنجاح')
+          window.location.reload();
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
     },
+    
     updatePhone: (state) => {
+      
       state.number = state.userInput;
+       const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/users/updateMe`, JSON.stringify({'phone':state.number}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+              alert('تم تغيير الرقم بنجاح')
+          // setHoverAuction('spinner');
+          window.location.reload();
+         
+         
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
     },
     updateLocation: (state) => {
+       
       state.location = state.userInput;
+      
     },
     updatepass: (state) => {
       state.pass = state.userInput;
+       const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/users/updateMyPassword`, JSON.stringify({'password':state.pass,'passwordCurrent':state.oldpass,'passwordConfirm':state.Input_confirm}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+             alert('تم تغيير كلمة المرور بنجاح')
+          // setHoverAuction('spinner');
+          window.location.reload();
+        
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
     },
     labelName: (state, action) => {
       state.label = action.payload;
@@ -90,11 +227,12 @@ const ptn = createSlice({
     builder
       .addCase(fetchUserFromAPI.fulfilled, (state, action) => {
         const user = action.payload;
-        state.name = user.name || state.name;
-        state.fullname = user.fullName || state.fullname;
-        state.email = user.email || state.email;
-        state.phone = user.phone || state.phone;
-        state.location = user.location || state.location;
+        state.id= user?._id || state.id;
+        state.name = user?.name || state.name;
+
+        state.email = user?.email || state.email;
+        state.phone = user?.phone || state.phone;
+        state.location = user?.location || state.location;
       })
       .addCase(fetchUserFromAPI.rejected, (state, action) => {
         state.error = action.payload;
@@ -103,6 +241,7 @@ const ptn = createSlice({
 });
 
 export const {
+  id,
   togglePicture,
   exitpicture,
   toggleShow,

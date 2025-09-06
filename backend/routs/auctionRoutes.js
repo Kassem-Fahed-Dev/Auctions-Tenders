@@ -6,19 +6,17 @@ const checkOwnerOrAdmin = require('../utils/checkOwnerOrAdmin');
 const Auction = require('../models/Auction');
 const router = express.Router();
 
-router
-  .get(
-    '/',
-    authController.protect,
-    auctionController.filterAuctionsByCategory,
-    auctionController.getAllAuctionsWithItems,
-  )
-router
-  .get(
-    '/auctionParticipants/:id',
-    authController.protect,
-    auctionController.getAuctionParticipants,
-  )
+router.get(
+  '/',
+  authController.protect,
+  auctionController.filterAuctionsByCategory,
+  auctionController.getAllAuctionsWithItems,
+);
+router.get(
+  '/auctionParticipants/:id',
+  authController.protect,
+  auctionController.getAuctionParticipants,
+);
 router
   .get(
     '/participateAuctions',

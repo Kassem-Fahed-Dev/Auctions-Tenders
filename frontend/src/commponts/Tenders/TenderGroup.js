@@ -4,44 +4,78 @@ import { useNavigate } from 'react-router-dom';
 import Tender from './Tender';
 import Footer from '../privacy policy/Footer';
 import { useState } from 'react';
+import CardTen from './CardTen';
+import Search from '../Auctions/Serach';
 
 export default function TenderGroup({ paragraph }) {
   const navegaet = useNavigate();
+    let sort;
+  let st;
   function goback() {
     navegaet('/tendersgroup');
   }
+     if(paragraph=="بناءواعمار"){
+        sort=localStorage.getItem('status4')
+      st='status4tn'
+   }
+   else if(paragraph=="خدمات لأماكن عامة"){
+        sort=localStorage.getItem('status5')
+      st='status5tn'
+   }else if(paragraph=="خدمات منوعة"){
+        sort=localStorage.getItem('status6')
+      st='status6tn'
+   }else if(paragraph=="مركبات واليات"){
+        sort=localStorage.getItem('status7')
+      st='status7tn'
+   }else if(paragraph=="أخرى"){
+        sort=localStorage.getItem('status10')
+      st='status10tn'
+   }
+
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
   const [value2, setValue2] = useState('');
   const [test, setTest] = useState('');
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
-  const handleClick = () => {
+    const handleClick = () => {
     if (value2 == 'فرز حسب' && value == 'فرز حسب') {
       setTest(' ');
       setValue2('');
+      console.log('1')
+
     } else if (value == 'فرز حسب' && test == 'فرز حسب') {
       setTest(' ');
       setValue1('فرز حسب');
       setValue(value1);
+       console.log('2')
     } else if (value2 == 'فرز حسب') {
       setValue1('فرز حسب');
       setTest(value1);
       setValue(value1);
+       console.log('3')
+        
     } else {
       setTest(value1);
       setValue(value1);
+       localStorage.setItem(st,value1)
+       console.log('4')
     }
   };
   const handleClick2 = (item) => {
     setValue(item);
     setTest(item);
+      localStorage.setItem(st,item)
+     console.log('5')
     if (value == ' جاري' || value == ' منتهي' || value == ' قادم') {
       setValue2('فرز حسب');
+     
+        console.log('6')
     }
   };
   return (
     <div>
+        <Search page={"group"}/>
       <Navbar wordBlod={'tenders'} />
       <TendersNavbar wordBlod={'group'} />
       <div className="create-auction-button">
@@ -84,7 +118,7 @@ export default function TenderGroup({ paragraph }) {
       </button>
 
       <div className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}>
-        <div className="buttonSort">
+        <div className="buttonSort but">
           <button
             className="button1"
             onClick={() => {
@@ -110,14 +144,8 @@ export default function TenderGroup({ paragraph }) {
           </button>
         </div>
       </div>
-      <div className="alotofAuction">
-        <Tender />
-        <Tender />
-        <Tender />
-        <Tender />
-        <Tender />
-        <Tender />
-      </div>
+    
+        <CardTen page="group" item={paragraph}/>
       <Footer />
     </div>
   );

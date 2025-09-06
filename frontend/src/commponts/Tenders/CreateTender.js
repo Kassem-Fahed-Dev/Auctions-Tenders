@@ -6,6 +6,8 @@ import TendersNavbar from './TendersNavbar';
 import Navbar from '../Home/Navbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CardTen from './CardTen';
+import Search from '../Auctions/Serach';
 
 export default function CreateTender() {
   const [value, setValue] = useState('فرز حسب');
@@ -53,6 +55,7 @@ export default function CreateTender() {
   return (
     <>
       <div>
+         <Search page={"all"}/>
         <Navbar wordBlod={'tenders'} />
         <TendersNavbar wordBlod={'Auctions2'} />
         <button
@@ -77,7 +80,7 @@ export default function CreateTender() {
         >
           <div>{value}</div>
           <i
-            className={`fas fa-chevron-left ${
+            className={`fas fa-chevron-left fas1 ${
               hover == true ? 'white' : 'black'
             } ${
               value.includes('فرز حسب') || value.includes(' مقبول')
@@ -88,9 +91,9 @@ export default function CreateTender() {
         </button>
 
         <div
-          className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}
+          className={`listSort ${test.includes('فرز حسب') ? 'visable' : ''}`}
         >
-          <div className="buttonSort">
+          <div className="buttonSort so11 ">
             <button
               className="button1"
               onClick={() => {
@@ -120,7 +123,7 @@ export default function CreateTender() {
         <div
           className={`listSort  ${test.includes(' مقبول') ? 'visable' : ''}`}
         >
-          <div className="buttonSort">
+          <div className="buttonSort so11">
             <button
               className="button1"
               onClick={() => {
@@ -153,13 +156,17 @@ export default function CreateTender() {
             </button>
           </div>
         </div>
-        <div className="alotofAuction">
-          <Tender />
-          <Tender />
-          <Tender />
-          <Tender />
-          <Tender />
-        </div>
+        {/* <div className="flexible">
+          <Tender showDelete={true} />
+          <Tender showDelete={true} />
+          <Tender showDelete={true} />
+          <Tender showDelete={true} />
+          <Tender showDelete={true} />
+          <Tender showDelete={true} />
+          <Tender showDelete={true} />
+        </div> */}
+       
+        <CardTen page={'create'} showDelete={true} />
         <Footer />
       </div>
     </>

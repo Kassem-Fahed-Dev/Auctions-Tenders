@@ -1,14 +1,37 @@
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Home/Navbar';
 import { useState } from 'react';
+import axiosInstance from '../AxiosInterceptors';
 import axios from 'axios';
 export default function Create_Tender() {
   const [formData, setFormData] = useState('');
   const [hover, setHover] = useState('بيانات');
-  const [namePass, setNamePase] = useState([]);
+
   const [errorMessage, setErrorMessage] = useState({});
   const [length, setLength] = '';
   const [key, setKey] = [];
+
+  const [namePass, setNamePase] = useState([]);
+  // const [namePass, setNamePase] = useState(['list1']);
+  const [namePass1, setNamePase1] = useState('');
+  const [hoverAuc, setHoverAuc] = useState('');
+  const [hoverAuction, setHoverAuction] = useState('spinner');
+
+  const [errorMessageAuc, setErrorMessageAuc] = useState({});
+  const [formData1, setFormData1] = useState({
+    tender: {
+      tenderTitle: '',
+      startTime: '',
+      endTime: '',
+      city: '',
+      startingPrice: '',
+    },
+    item: {
+      category: '',
+      name: '',
+      description: '',
+    },
+  });
   const navegaet = useNavigate();
   function goback() {
     window.history.go(-1);
@@ -18,34 +41,44 @@ export default function Create_Tender() {
       setNamePase([...namePass, items]);
     }
   };
+  const [keyList, setKeyList] = useState([]);
+  const [len, setLen] = useState(0);
+  const [border, setBorder] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const hoverItems2 = (items) => {
-    setFormData(items);
+    setNamePase1(' ');
+    const token = localStorage.getItem('jwt');
+    setFormData(items.trim());
     if (namePass.includes('list1')) {
       setNamePase(namePass.filter((i) => i !== 'list1'));
     }
 
-    axios
-      .get(
-        `https://auctions-tenders-38sx.onrender.com/api/v1/categories?name=${items}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-          },
-        }
-      )
+    axiosInstance
+      .get(`/api/v1/categories?name=${items}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
-        // setHover('spinner');
-        console.log(res.data.data);
-        console.log(res.data.data.data[0].properties);
-        console.log(res.data.data.data[0].properties.length);
-        setLength(res.data.data.data[0].properties.length);
-        while (length > 0) {
-          // setKey([...key,res])
-        }
+        const properties = res.data.data.data[0].properties;
+        setLen(res.data.data.data[0].properties.length);
+        setBorder('true');
+        console.log(res);
+        const auctionId = res.data.data.data[0]._id;
+        setIsButtonDisabled(false);
+        setKeyList(properties.map((property) => property.key));
+        setFormData1((prevData) => ({
+          ...prevData,
+          item: {
+            ...prevData.item,
+            category: auctionId,
+          },
+        }));
       })
       .catch((error) => {
-        // setHover('spinner');
         if (error.response) {
           const validationErrors = {};
           validationErrors.messageBackend = error.response.data.message;
@@ -58,6 +91,51 @@ export default function Create_Tender() {
         }
       });
   };
+  const [inputs, setInputs] = useState([]);
+  const handleChange2 = (k) => (e) => {
+    const { value } = e.target;
+
+    // تحقق من وجود formData1 و item
+    if (formData1 && formData1.item) {
+      const properties = Array.isArray(formData1.item.properties)
+        ? formData1.item.properties
+        : []; // إذا لم تكن مصفوفة، استخدم مصفوفة فارغة
+
+      if (properties.some((item) => item?.key === k)) {
+        console.log('if');
+        setFormData1((prevData) => ({
+          ...prevData,
+          item: {
+            ...prevData.item,
+            properties: properties.map((item1) =>
+              item1.key === k
+                ? { ...item1, value: value.trim() }
+                : typeof item1 === 'string'
+                ? item1.trim()
+                : item1
+            ),
+          },
+        }));
+      } else {
+        const newObject = { key: k, value: value.trim() };
+        console.log('if1');
+        setInputs((prevInputs) => {
+          const newInputs = [...prevInputs, newObject];
+
+          setFormData1((prevData) => ({
+            ...prevData,
+            item: {
+              ...prevData.item,
+              properties: [...properties, newObject], // استخدم properties هنا
+            },
+          }));
+
+          return newInputs;
+        });
+      }
+    }
+  };
+
   const handleChange = (e) => {
     const { value } = e.target;
     setFormData(value);
@@ -93,8 +171,8 @@ export default function Create_Tender() {
       const newImage = URL.createObjectURL(file);
       setImages((prevImages) => {
         const updatedImages = [...prevImages];
-        updatedImages[index] = newImage; 
-        return updatedImages; 
+        updatedImages[index] = newImage;
+        return updatedImages;
       });
     }
   };
@@ -112,6 +190,67 @@ export default function Create_Tender() {
       }, 0);
     }
   };
+  const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setFormData1((prevData) => ({
+      ...prevData,
+      [name.includes('tender') ? 'tender' : 'item']: {
+        ...prevData[name.includes('tender') ? 'tender' : 'item'],
+        [name.includes('tender') ? name.split('.')[1] : name]: value.trim(),
+      },
+    }));
+    console.log(formData1);
+  };
+  const navegate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // باقي منطق التحقق من البيانات...
+    setHoverAuction('spinner-Auction');
+    const valditionErrerorsAuction = { item: {}, tender: {} };
+
+    // استكمال التحقق من صحة البيانات هنا (كما في الكود السابق)
+    // ...
+
+    if (
+      Object.keys(valditionErrerorsAuction.tender).length === 0 &&
+      Object.keys(valditionErrerorsAuction.item).length === 0
+    ) {
+      const token = localStorage.getItem('jwt');
+      setHoverAuction('spinner-Auction');
+
+      axiosInstance
+        .post('/api/v1/tenders', JSON.stringify(formData1), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setHoverAuction('spinner');
+          console.log(res);
+          navegate('/createTender');
+        })
+        .catch((error) => {
+          setHoverAuction('spinner');
+          if (error.response) {
+            valditionErrerorsAuction.messageBackend =
+              error.response.data.message;
+            setErrorMessageAuc(valditionErrerorsAuction);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessageAuc({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    }
+  };
+
   return (
     <div className="create-auction-button">
       <Navbar wordBlod={'tenders'} />
@@ -119,8 +258,25 @@ export default function Create_Tender() {
       <button className="	fas fa-chevron-left" onClick={goback}></button>
       <div className="create-auction-data">
         <div className="create-auction-data1">
-          <form className="create-auction-form2">
+          <form className="create-auction-form2" onSubmit={handleSubmit}>
             <div className="auction22">
+              <div className="product-name">
+                <label className="product-name-label">اسم المناقصة</label>
+                <input
+                  type="text"
+                  name="tender.tenderTitle"
+                  value={formData1.tender.tenderTtile}
+                  onChange={handleChange1}
+                  autoComplete="off"
+                />
+                {errorMessageAuc.tender?.tenderTtile && (
+                  <span className="error0 error-title">
+                    {' '}
+                    <span className="fa fa-warning"></span>
+                    {errorMessageAuc.tender.tenderTtile}
+                  </span>
+                )}
+              </div>
               <label className="group-label">حدد المجموعة</label>
               <div
                 className={`triangle tri33  ${
@@ -151,14 +307,14 @@ export default function Create_Tender() {
               >
                 <p
                   className="group-hover p1"
-                  onClick={() => hoverItems2('بناءواعمار')}
+                  onClick={() => hoverItems2('بناءوإعمار')}
                 >
-                  بناءواعمار
+                  بناء و إعمار
                 </p>
                 <div></div>
                 <p
                   className="group-hover p2"
-                  onClick={() => hoverItems2('خدمات لأماكن عامة')}
+                  onClick={() => hoverItems2('خدمات لاماكن عامة')}
                 >
                   خدمات لأماكن عامة
                 </p>
@@ -174,7 +330,7 @@ export default function Create_Tender() {
                   className="group-hover p2"
                   onClick={() => hoverItems2('مركبات واليات')}
                 >
-                  مركبات واليات
+                  مركبات وآليات
                 </p>
                 <div></div>
 
@@ -185,28 +341,159 @@ export default function Create_Tender() {
                   أخرى
                 </p>
               </div>
+
               <div className="product-name">
-                <label className="product-name-label">اسم المنتج</label>
-                <input type="text" />
+                <label className="product-name-label">الموقع</label>
+                <input
+                  type="text"
+                  name="tender.city"
+                  value={formData1.tender.city}
+                  onChange={handleChange1}
+                  autoComplete="off"
+                />
+                {errorMessageAuc.tender?.city && (
+                  <span className="error0 error-title">
+                    {' '}
+                    <span className="fa fa-warning"></span>
+                    {errorMessageAuc.tender.city}
+                  </span>
+                )}
               </div>
               <div className="product-name">
                 <label className="product-name-label"> تاريخ البدء</label>
                 <input
                   type="date"
-                  placeholder="kkkk"
                   onKeyDown={handleKeyDown}
+                  name="tender.startTime"
+                  value={formData1.tender.startTime}
+                  onChange={handleChange1}
+                  autoComplete="off"
                 />
+                {errorMessageAuc.tender?.startTime && (
+                  <span className="error0 error-start-time">
+                    {' '}
+                    <span className="fa fa-warning"></span>
+                    {errorMessageAuc.tender.startTime}
+                  </span>
+                )}
               </div>
               <div className="product-name">
                 <label className="product-name-label"> تاريخ الانتهاء</label>
-                <input type="date" placeholder="" onKeyDown={handleKeyDown} />
-              </div>
-              <div className="product-name">
-                <label className="product-name-label">عدد المنتجات</label>
-                <input type="text" />
+                <input
+                  type="date"
+                  onKeyDown={handleKeyDown}
+                  name="tender.endTime"
+                  value={formData1.tender.endTime}
+                  onChange={handleChange1}
+                  autoComplete="off"
+                />
+                {errorMessageAuc.tender?.endTime && (
+                  <span className="error0 error-end-time">
+                    {' '}
+                    <span className="fa fa-warning"></span>
+                    {errorMessageAuc.tender.endTime}
+                  </span>
+                )}
               </div>
 
-              <button className="send-auction">إرسال</button>
+              <button
+                disabled={isButtonDisabled}
+                className={`send-auction ${
+                  hoverAuc.includes('no') ? 'hidden-send' : ''
+                } ${
+                  hoverAuction.includes('spinner-Auction') ? 'hidden-send' : ''
+                } ${
+                  isButtonDisabled == true ? 'send-auction1' : 'send-auction'
+                }`}
+              >
+                إرسال
+              </button>
+            </div>
+            <div className="group1">
+              <div className="product-name">
+                <label className="product-name-label">اسم المنتج</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData1.item.name}
+                  onChange={handleChange1}
+                  autoComplete="off"
+                />
+                {errorMessageAuc.item?.name && (
+                  <span className="error0 error-name">
+                    {' '}
+                    <span className="fa fa-warning"></span>
+                    {errorMessageAuc.item.name}
+                  </span>
+                )}
+              </div>
+
+              <div className="gr">
+                <p>بيانات خاصة بمجموعة {formData}:</p>
+                <div className={`${border === 'true' ? 'bor' : ''}`}>
+                  {keyList.length > 0 &&
+                    keyList.map((key) => (
+                      <div className="product-name" key={key}>
+                        <label className="product-name-label">{key}</label>
+                        <input
+                          type={`${
+                            key == 'لون السيارة' ||
+                            key == 'الموقع' ||
+                            key == 'لون الإكسسوار' ||
+                            key == 'نوع الإكسسوار' ||
+                            key == ' لون الجهاز' ||
+                            key == 'النوع' ||
+                            key == 'المادة' ||
+                            key == 'اللون' ||
+                            key == 'العلامة التجارية' ||
+                            key == 'موديل الجهاز' ||
+                            key == 'نوع القطعة' ||
+                            key == 'لون الأثاث' ||
+                            key == 'المقاس' ||
+                            key == 'المجموعة التي ينتمي لها' ||
+                            key == 'اسم العنصر'
+                              ? 'text'
+                              : 'number'
+                          }`}
+                          onChange={handleChange2(key)}
+                          autoComplete="off"
+                        />
+                      </div>
+                    ))}
+                  {errorMessageAuc.item?.properties && (
+                    <span className="error0 error-gr">
+                      <span className="fa fa-warning"></span>
+                      {errorMessageAuc.item.properties}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="auction3">
+                {errorMessageAuc.item?.status && (
+                  <span className="error0 error-status">
+                    {' '}
+                    <span className="fa fa-warning"></span>
+                  </span>
+                )}
+              </div>
+
+              <div className="product-name">
+                <label className="product-name-label">السعر الابتدائي</label>
+                <input
+                  type="number"
+                  name="tender.startingPrice"
+                  value={formData1.tender.startingPrice}
+                  onChange={handleChange1}
+                  autoComplete="off"
+                />
+                {errorMessageAuc.tender?.startingPrice && (
+                  <span className="error0 error-name">
+                    {' '}
+                    <span className="fa fa-warning"></span>
+                    {errorMessageAuc.tender.startingPrice}
+                  </span>
+                )}
+              </div>
             </div>
           </form>
         </div>
@@ -218,7 +505,7 @@ export default function Create_Tender() {
             >
               البيانات
             </button>
-            <button
+            {/* <button
               onClick={() => handleHover('الصور')}
               className={hover == 'الصور' ? 'back' : ''}
             >
@@ -229,13 +516,16 @@ export default function Create_Tender() {
               className={hover == 'الفيديو' ? 'back' : ''}
             >
               الفيديو
-            </button>
+            </button> */}
           </div>
           {hover == 'بيانات' && (
             <div>
               <textarea
                 className="textarea"
                 placeholder="اكتب ما تود إضافتهُ من معلومات توضيحية اكثر هنا"
+                name="description"
+                value={formData1.item?.description}
+                onChange={handleChange1}
               />
             </div>
           )}

@@ -9,11 +9,11 @@ export default function Footer({ black }) {
   };
   return (
     <>
-      <div class="footer">
+      <div className="footer">
         <div>
           <img className="footer-logo" src={imag} alt="error" />
         </div>
-        <h1>منصة Smart World</h1>
+        <h1 className="SW">منصة Smart World</h1>
         <h6>منصة تفاعلية رائدة في تقديم المزادات والمناقصات الالكترونية</h6>
         <div className="footer-list">
           <h1 className="hov1 hov2">التواصل:</h1>

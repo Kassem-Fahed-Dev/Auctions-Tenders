@@ -1,6 +1,20 @@
 * {
   font-family: IBM Plex Sans Arabic;
 }
+/* .i_plus{
+   background-color: #003366;
+   color: #fff;
+   height: 28px;
+ width: 25px;
+   font-size: 20px;
+  font-weight: 500;
+   text-align: center;
+}
+.i_plus span{
+position: relative;
+bottom: 4px;
+right: 5px;
+} */
 /* الجزء العلوي من الصفحة الرئيسية قبل البار */
 .header {
   display: flex;
@@ -119,6 +133,7 @@
 }
 .num-message p {
   text-align: center;
+  font-size: 9px;
 }
 /* ايقونة المفضلة */
 .icon1 {
@@ -133,7 +148,7 @@
   /* width: 1312px; */
   width: 95%;
   margin: auto;
-  margin-bottom: 60px;
+  height: 480px;
   margin-top: 32px;
   /* padding-right: 20px; */
 }
@@ -149,8 +164,8 @@
 }
 
 .homeimg {
-  width: 45%;
-  height: 60vh;
+  width: 550px;
+  height: 480px;
   border-radius: 82px;
   border: #cccccc solid 3px;
 }
@@ -167,13 +182,13 @@
 .adv {
   direction: rtl;
   /* width: 1312px; */
-  margin: 32px auto;
+  /* margin: 32px auto; */
   padding-right: 30px;
 }
 
 .adv h1 {
   font-size: 48px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 .adv ul li h2 {
   font-size: 24px;
@@ -369,3 +384,19 @@ ol {
   margin-top: 80px;
   margin-right: 1000px;
 }
+/* div.size{
+  text-overflow: ellipsis;
+overflow: hidden;
+} */
+/* p.size{
+  text-overflow: ellipsis;
+  width: 20px;
+  height: 20px;
+} */
+ div.icon_bell{
+  color: #00000095;
+  position: relative;
+  top: 10px;
+  right: 50px;
+  padding: 12px;
+ }

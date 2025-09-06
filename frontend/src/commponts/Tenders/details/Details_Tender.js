@@ -7,35 +7,91 @@ import AuctionsNavbar from '../../Auctions/AuctionsNavbar';
 import Footer from '../../privacy policy/Footer';
 import TendersNavbar from '../TendersNavbar';
 import { useEffect } from 'react';
-
-function handel_Fav(e) {
-  let hh = e.target;
-  if (hh.style.color === 'red') {
-    hh.style.cssText = 'color: black;';
-  } else {
-    hh.style.cssText = 'color: red;';
-  }
-}
+import { useLocation } from 'react-router-dom';
+import axiosInstance from '../../AxiosInterceptors';
 function back() {
   window.history.go(-1);
 }
 
 export default function Details_Tender() {
   const scroll1 = useEffect(() => window.scrollTo(0, 0));
+const [errorMessage5, setErrorMessage5] = useState({});
+     const [errorMessage, setErrorMessage] = useState({});
+  const [amount, setAmount] = useState({amount:''});
 
-  const [amount, setAmount] = useState('');
-
-  function handleInputChange(e) {
-    const value = e.target.value;
-
-    if (!/^\d+$/.test(value)) {
-      return;
-    }
-
-    setAmount(value);
+  // const [amount, setAmount] = useState('');
+  const location = useLocation();
+  const { data,heart } = location.state||{};
+  function back() {
+    window.history.go(-1);
   }
-  let Allow;
-  let TimeRun = false;
+   function handleInputChange(e) {
+     const { name, value } = e.target;
+    //setAmount(false)
+    setAmount({ ...amount, [name]: Number(value.trim())  });
+    console.log(amount)
+    // if (!/^\d+$/.test(value)) {
+    //   return;
+    // }
+
+    // setAmount(value);
+  }
+
+   const [showParticipation, setShowParticipation] = useState(false);
+
+ const token = localStorage.getItem('jwt');
+  const submitAmount=(e)=>{
+    // e.preventDefault();
+     setAmount('');
+ setShowParticipation(false);
+
+    console.log('ppp')
+   axiosInstance
+        .post(
+          `/api/v1/tenders/submitOffer/${data?._id}`,
+          JSON.stringify(amount),
+          {
+            headers: {
+             'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+        console.log(res)
+        setAmount({amount:''})
+          window.location.reload();
+        })
+        .catch((error) => {
+        
+          if (error.response) {
+            const validationErrors4 = {};
+            validationErrors4.messageBackend = error.response.data.message;
+            setErrorMessage5(validationErrors4);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage5({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    
+  }
+
+
+  // function handleInputChange(e) {
+  //   const value = e.target.value;
+
+  //   if (!/^\d+$/.test(value)) {
+  //     return;
+  //   }
+
+  //   setAmount(value);
+  // }
+   let Allow;
+   let TimeRun = false;
   function handelTesting() {
     if (state === 'قادم' && !TimeRun) {
       TimeRun = true;
@@ -60,19 +116,19 @@ export default function Details_Tender() {
     } else if (state === 'منتهي') {
     }
   }
-  const [showParticipation, setShowParticipation] = useState(false);
+  // const [showParticipation, setShowParticipation] = useState(false);
 
   const [state, setState] = useState('منتهي');
-  function getcolor() {
-    if (state === 'جاري') {
-      return { color: 'green', paddingRight: '6px', fontSize: '19px' };
-    } else if (state === 'قادم') {
-      return { color: 'blue', paddingRight: '6px', fontSize: '19px' };
-    } else if (state === 'منتهي') {
-      return { color: 'red', paddingRight: '6px', fontSize: '19px' };
-    }
-    return {};
-  }
+  // function getcolor() {
+  //   if (state === 'جاري') {
+  //     return { color: 'green', paddingRight: '6px', fontSize: '19px' };
+  //   } else if (state === 'قادم') {
+  //     return { color: 'blue', paddingRight: '6px', fontSize: '19px' };
+  //   } else if (state === 'منتهي') {
+  //     return { color: 'red', paddingRight: '6px', fontSize: '19px' };
+  //   }
+  //   return {};
+  // }
 
   return (
     <div className="All-con-det">
@@ -96,34 +152,38 @@ export default function Details_Tender() {
             <div className="con-title">
               <div className="div-title">
                 <p>اسم المناقصة : </p>
-                <h5> مطلوب شركة مخصصة لبناء مسجد</h5>
+                <h4>{data?.tenderTitle}</h4>
               </div>
-              <button
-                id="ptn-fav"
-                onClick={(e) => {
-                  handel_Fav(e);
-                }}
-              >
-                <i className="fas fa-heart"></i>
-              </button>
+            
+                <i     className={`fas fa-heart ${heart=='red'? 'red' :"black"}`}></i>
+              
             </div>
             <hr />
             <div className="div-con1">
               <h6 className="tit">تفاصيل المناقصة </h6>
-
-              <div className="state_tender">
+                <div >
+                حالة المناقصة :
+                <span className={data?.activeStatus === 'جاري' ? 'timedet' :data?.activeStatus === 'قادم'? 'time2det':"time1det"}>{data?.
+activeStatus
+}</span>
+              </div>
+              {/* <div className="state_tender">
                 حالة المناقصة :
                 <span id="stateauction" style={getcolor()}>
                   {state}
                 </span>
-              </div>
+              </div> */}
             </div>
             <div className="condivs">
               <div className="dv1">
-                تاريخ البدء :<span>12/2/2025</span>
+                تاريخ البدء :<span>{data?.startTime?.slice(0,10).replaceAll('-','/')}</span>
               </div>
               <div className="dv2">
-                تاريخ الانتهاء :<span>12/2/2025</span>
+                تاريخ الانتهاء :<span>{data?.endTime?.slice(0,10).replaceAll('-','/')}</span>
+              </div>
+               <div>
+                السعر الابتدائي:
+                <span>{data.startingPrice}</span>
               </div>
             </div>
             <hr />
@@ -140,7 +200,7 @@ export default function Details_Tender() {
                   <span>سوريا </span>
                 </div>
                 <div>
-                  المدينة : <span> حمص</span>
+                  المدينة : <span> {data?.city}</span>
                 </div>
               </div>
               <div className="kk">
@@ -231,7 +291,7 @@ export default function Details_Tender() {
             )}
           </div>
 
-          <Navdata />
+          <Navdata state={data} />
         </div>
       </div>{' '}
       <div style={{ marginTop: '80px' }}>

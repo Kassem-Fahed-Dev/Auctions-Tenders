@@ -11,61 +11,64 @@ import { useNavigate } from 'react-router-dom';
 import '../profile.css';
 // import "../../Auc-Folder/Auc.css";
 import Side from '../componants/Side';
+import CardTen from '../../../Tenders/CardTen';
+import ButtonSortTen from '../../../Tenders/ButtonSortten';
+import Search from '../../../Auctions/Serach';
 // import Card from "../../Auc-Folder/Card";
 // >>>>>>> 2b43e7c895dec329841e8800521ec7636eedf246
 export default function FavTender() {
-  function handel_Fav(e) {
-    let hh = e.target;
-    if (hh.style.color === 'red') {
-      hh.style.cssText = 'color: none;';
-    } else {
-      hh.style.cssText = 'color: red;';
-    }
-  }
-  const [value, setValue] = useState('فرز حسب');
-  const [value1, setValue1] = useState('فرز حسب');
-  const [value2, setValue2] = useState('');
-  const [test, setTest] = useState('');
-  const [hover, setHover] = useState(false);
-  const navegate = useNavigate();
-  const handleClick = () => {
-    if (value2 == 'فرز حسب' && value == 'فرز حسب') {
-      setTest(' ');
-      setValue2('');
-    } else if (value == 'فرز حسب' && test == 'فرز حسب') {
-      setTest(' ');
-      setValue1('فرز حسب');
-      setValue(value1);
-    } else if (value2 == 'فرز حسب') {
-      setValue1('فرز حسب');
-      setTest(value1);
-      setValue(value1);
-    } else {
-      setTest(value1);
-      setValue(value1);
-    }
-  };
-  const handleClick2 = (item) => {
-    setValue(item);
-    setTest(item);
-    if (item === ' جاري' || item === ' منتهي' || item === ' قادم') {
-      setValue1(' الوقت');
-      setValue2('فرز حسب');
-    }
-    if (value == ' الوقت' || value === ' مجموعات') {
-      setValue2('فرز حسب');
-    }
-    if (
-      item === 'بناء و إعمار' ||
-      item === ' خدمات لأماكن عامة ' ||
-      item === ' خدمات منوعة' ||
-      item === ' مركبات و آليات' ||
-      item === ' أخرى'
-    ) {
-      setValue1(' مجموعات');
-      setValue2('فرز حسب');
-    }
-  };
+  // function handel_Fav(e) {
+  //   let hh = e.target;
+  //   if (hh.style.color === 'red') {
+  //     hh.style.cssText = 'color: none;';
+  //   } else {
+  //     hh.style.cssText = 'color: red;';
+  //   }
+  // }
+  // const [value, setValue] = useState('فرز حسب');
+  // const [value1, setValue1] = useState('فرز حسب');
+  // const [value2, setValue2] = useState('');
+  // const [test, setTest] = useState('');
+  // const [hover, setHover] = useState(false);
+  // const navegate = useNavigate();
+  // const handleClick = () => {
+  //   if (value2 == 'فرز حسب' && value == 'فرز حسب') {
+  //     setTest(' ');
+  //     setValue2('');
+  //   } else if (value == 'فرز حسب' && test == 'فرز حسب') {
+  //     setTest(' ');
+  //     setValue1('فرز حسب');
+  //     setValue(value1);
+  //   } else if (value2 == 'فرز حسب') {
+  //     setValue1('فرز حسب');
+  //     setTest(value1);
+  //     setValue(value1);
+  //   } else {
+  //     setTest(value1);
+  //     setValue(value1);
+  //   }
+  // };
+  // const handleClick2 = (item) => {
+  //   setValue(item);
+  //   setTest(item);
+  //   if (item === ' جاري' || item === ' منتهي' || item === ' قادم') {
+  //     setValue1(' الوقت');
+  //     setValue2('فرز حسب');
+  //   }
+  //   if (value == ' الوقت' || value === ' مجموعات') {
+  //     setValue2('فرز حسب');
+  //   }
+  //   if (
+  //     item === 'بناء و إعمار' ||
+  //     item === ' خدمات لأماكن عامة ' ||
+  //     item === ' خدمات منوعة' ||
+  //     item === ' مركبات و آليات' ||
+  //     item === ' أخرى'
+  //   ) {
+  //     setValue1(' مجموعات');
+  //     setValue2('فرز حسب');
+  //   }
+  // };
   return (
     <>
       <Profile />
@@ -83,7 +86,7 @@ export default function FavTender() {
             المناقصات المفضلة
           </h3>
           <div className="test-con">
-            <button
+            {/* <button
               className="sort21 sort-ten"
               type="text"
               onMouseEnter={() => {
@@ -209,19 +212,14 @@ export default function FavTender() {
                   منتهي
                 </button>
               </div>
-            </div>
+            </div> */}
+             <Search/>
+            <ButtonSortTen test2={'favp'} position={"profile"}/>
           </div>
         </div>
       </div>
-      <div className="flexible">
-        <Tender />
-        <Tender />
-        <Tender />
-        <Tender />
-        <Tender />
-        <Tender />
-        <Tender />
-      </div>
+     
+     <CardTen page={'favp'}/>
 
       <Footer />
     </>

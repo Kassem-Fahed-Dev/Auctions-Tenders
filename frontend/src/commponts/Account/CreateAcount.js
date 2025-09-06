@@ -228,15 +228,16 @@ export default function CreateAcount() {
     if (!formData1.password.trim()) {
       valditionErrerors1.password = 'هذا الحقل مطلوب.';
       setHover('spinner');
-    } else if (
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{9,}$/.test(
-        formData1.password
-      )
-    ) {
-      valditionErrerors1.password =
-        'كلمة المرور يجب أن تتكون من تسعة محارف على الأقل و يبن أن تكون معقدة(أي تحتوي على : أحرف كبيرة-أحرف صغيرة-رموز-أرقام).';
-      setHover('spinner');
-    }
+    } 
+    // else if (
+    //   !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{9,}$/.test(
+    //     formData1.password
+    //   )
+    // ) {
+    //   valditionErrerors1.password =
+    //     'كلمة المرور يجب أن تتكون من تسعة محارف على الأقل و يبن أن تكون معقدة(أي تحتوي على : أحرف كبيرة-أحرف صغيرة-رموز-أرقام).';
+    //   setHover('spinner');
+    // }
     setErrorMessage1(valditionErrerors1);
       // const tok1=''
     if (Object.keys(valditionErrerors1).length === 0) {

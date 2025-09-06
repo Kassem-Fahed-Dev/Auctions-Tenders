@@ -15,6 +15,8 @@ const categoryRouter = require('./routs/categoryRoutes');
 const tenderRouter = require('./routs/tenderRoutes');
 const favoriteRouter = require('./routs/favoriteRoutes');
 const cloudinaryRouter = require('./routs/cloudinary');
+const notificationRouter = require('./routs/notificationRoutes');
+const searchRouter = require('./routs/searchRoutes');
 if (process.env.ENABLE_CRON == 'true') {
   require('./utils/scheduler');
 }
@@ -34,18 +36,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
 
-// app.use((req, res, next) => {
-//   console.log(req.headers);
-//   next();
-// });
-// app.use((req, res, next) => {
-//   req.requestTime = new Date().toISOString();
-//   next();
-// });
-
-//app.use('/api/v1/users',userRouter)
-
-//app.use('/api/v1/tours', tourRouter);
 app.use(i18nextMiddleware.handle(i18next));
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/auctions', auctionRouter);
@@ -55,6 +45,10 @@ app.use('/api/v1/tenders', tenderRouter);
 app.use('/api/v1/payments', paymentRouter);
 app.use('/api/v1/cloudinary', cloudinaryRouter);
 app.use('/api/v1/favorites', favoriteRouter);
+app.use('/api/v1/notifications', notificationRouter);
+app.use('/api/v1/tenders', tenderRouter);
+app.use('/api/v1/search', searchRouter);
+app.use('/uploads', express.static('uploads'));
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

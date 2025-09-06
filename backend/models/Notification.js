@@ -7,7 +7,7 @@ const notificationSchema = new mongoose.Schema(
     message: { type: String, required: true },
     type: {
       type: String,
-      enum: ['auction', 'tender', 'wallet', 'system'],
+      enum: ['auction', 'tender', 'category', 'wallet', 'system'],
       required: true,
     },
     referenceId: { type: mongoose.Schema.Types.ObjectId },

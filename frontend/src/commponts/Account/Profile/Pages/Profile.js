@@ -1,4 +1,6 @@
 import '../profile.css';
+import { useLocation } from 'react-router-dom';
+
 import Side from '../componants/Side';
 import Alert from './Alert';
 import ll from '../../../../image/user2.jpg';
@@ -13,6 +15,10 @@ import { fetchUserFromAPI } from '../store/Redux';
 
 // 55555555555555555555555555
 export default function Account() {
+  const location = useLocation();
+
+  const currentPath = location.pathname;
+
   const [imageLoaded, setImageLoaded] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const [isActive, setIsActive] = useState(false);
@@ -22,9 +28,9 @@ export default function Account() {
   useEffect(() => {
     dispatch(fetchUserFromAPI());
   }, [dispatch]);
-  const [DataUser, setDataUser] = useState('');
+  const [DataUser, setDataUser] = useState({});
   const token = localStorage.getItem('jwt');
-  localStorage.setItem('status', 'فرز حسب');
+  // localStorage.setItem('status', 'فرز حسب');
   useEffect(() => {
     axiosInstance
       .get('/api/v1/users/me', {
@@ -37,7 +43,17 @@ export default function Account() {
       })
       .then((res) => {
         setDataUser(res.data.data.data);
+// <<<<<<< Updated upstream
+        console.log(res.data.data.data);
+// =======
+//<<<<<<< HEAD
+        console.log(res.data.data.data)
+//=======
+        console.log(res.data.data.data.role, 'this is roleeeeeeeeeee');
+//>>>>>>> 42860e0546031cd070d2dac1719f619f3897bc39
+// >>>>>>> Stashed changes
       })
+
       .catch((error) => {
         console.log('error');
         // setHover('spinner');
@@ -96,8 +112,15 @@ export default function Account() {
       <Navbar />
       <div className="al">
         <div id={nn.show === true ? 'focus' : ''} className="con-flex">
-          <Side />
+          {/* <Side /> */}
+          <Side role={DataUser.role} />
           <div className="con-prof">
+            {currentPath === '/create' && (
+              <div className="PersonalData">
+                <span className="far fa-edit"></span>
+                <div>البيانات الشخصية</div>
+              </div>
+            )}
             <div className="con-img-info">
               <div className="con-img-ptn">
                 <div className={`img-profile ${isActive ? 'active' : ''}`}>

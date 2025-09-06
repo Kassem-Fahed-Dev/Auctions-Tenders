@@ -6,11 +6,12 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const AuctionBid = require('../models/AuctionBid');
+const notificationService = require('../utils/notificationService');
 
 // Helper function to add favorites to auctions
 const addFavoritesToAuctions = async (auctions, userId) => {
   const auctionIds = auctions.map((auction) => auction._id);
-  
+
   const favorites = await Favorite.find({
     user: userId,
     type: 'auction',
@@ -18,21 +19,21 @@ const addFavoritesToAuctions = async (auctions, userId) => {
   });
 
   const favoritedAuctionIds = new Set(
-    favorites.map((fav) => fav.referenceId.toString())
+    favorites.map((fav) => fav.referenceId.toString()),
   );
 
   return auctions.map((auction) => {
     const plainAuction = auction.toObject();
-    plainAuction.favorite = favoritedAuctionIds.has(plainAuction._id.toString());
+    plainAuction.favorite = favoritedAuctionIds.has(
+      plainAuction._id.toString(),
+    );
     return plainAuction;
   });
 };
 
 // Helper function to build auction query with filters
 const buildAuctionQuery = (filters = {}) => {
-  return Auction.find(filters)
-    .populate('item')
-    .populate('user');
+  return Auction.find(filters).populate('item').populate('user');
 };
 
 // Helper function to execute query with API features
@@ -71,7 +72,7 @@ const getAuctionsWithFavorites = async (filters, queryParams, userId) => {
 exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
   const categoryName = req.query.categoryName;
   req.query = (({ categoryName, ...rest }) => rest)(req.query);
-  
+
   if (!categoryName) {
     return next();
   }
@@ -83,7 +84,7 @@ exports.filterAuctionsByCategory = catchAsync(async (req, res, next) => {
 
   const itemsInCategory = await Item.find({ category: category._id });
   const itemIds = itemsInCategory.map((item) => item._id);
-  
+
   req.itemAuction = { item: { $in: itemIds } };
   next();
 });
@@ -96,7 +97,7 @@ exports.getUserId = (req, res, next) => {
 exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
   console.log('iam here');
   console.log(req.user);
-  
+
   if (!req.user || !req.user.id) {
     return next(new Error('User not authenticated or missing ID.'));
   }
@@ -126,7 +127,32 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
     const populatedAuction = await Auction.findById(newAuction._id)
       .populate('item')
       .populate('user');
-
+    // send notification to user that add category ouction to their fav
+    try {
+      const categoryId = populatedAuction.item.category;
+      if (categoryId) {
+        // Find the category to get its name
+        const category = await Category.findById(categoryId);
+        console.log('😀category ', category._id);
+        const favoritedUsers = await Favorite.find({
+          referenceId: category._id,
+          type: 'category',
+        }).populate('user');
+        console.log('😀fuck');
+        for (const fav of favoritedUsers) {
+          await notificationService.createNotification({
+            userId: fav.user._id,
+            title: 'اشعار من انواعك المفضلة',
+            message: `${category.name}   تم اضافة مزاد جديد الى`,
+            type: 'category',
+            referenceId: category._id,
+          });
+          console.log('😎😋Iam hereeeeeeeeeeeeeee');
+        }
+      }
+    } catch (error) {
+      console.error('Error when sending category favorite notification', error);
+    }
     res.status(201).json({
       status: req.t('fields:success'),
       message: req.t('successes:createAuction'),
@@ -149,8 +175,8 @@ exports.getAuctionWithItem = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         req.t('errors:notFound', { doc: req.t('fields:auction') }),
-        404
-      )
+        404,
+      ),
     );
   }
 
@@ -170,15 +196,15 @@ exports.updateAuctionWithItem = catchAsync(async (req, res, next) => {
   const auction = await Auction.findByIdAndUpdate(
     req.params.id,
     req.body.auction,
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   );
 
   if (!auction) {
     return next(
       new AppError(
         req.t('errors:notFound', { doc: req.t('fields:auction') }),
-        404
-      )
+        404,
+      ),
     );
   }
 
@@ -191,7 +217,7 @@ exports.updateAuctionWithItem = catchAsync(async (req, res, next) => {
   }
 
   const auctionAndItem = await Auction.findById(req.params.id).populate('item');
-  
+
   res.status(200).json({
     status: req.t('fields:success'),
     message: req.t('successes:updateAuction'),
@@ -201,13 +227,13 @@ exports.updateAuctionWithItem = catchAsync(async (req, res, next) => {
 
 exports.deleteAuctionWithItem = catchAsync(async (req, res, next) => {
   const auction = await Auction.findById(req.params.id);
-  
+
   if (!auction) {
     return next(
       new AppError(
         req.t('errors:notFound', { doc: req.t('fields:auction') }),
-        404
-      )
+        404,
+      ),
     );
   }
 
@@ -226,7 +252,11 @@ exports.getAllAuctionsWithItems = catchAsync(async (req, res, next) => {
   const filters = req.itemAuction || {};
   req.itemAuction = undefined;
 
-  const auctions = await getAuctionsWithFavorites(filters, req.query, req.user.id);
+  const auctions = await getAuctionsWithFavorites(
+    filters,
+    req.query,
+    req.user.id,
+  );
   sendAuctionResponse(res, req, auctions);
 });
 
@@ -235,14 +265,18 @@ exports.getMyAuctions = catchAsync(async (req, res, next) => {
   req.itemAuction = undefined;
 
   console.log(filters);
-  const auctions = await getAuctionsWithFavorites(filters, req.query, req.user.id);
+  const auctions = await getAuctionsWithFavorites(
+    filters,
+    req.query,
+    req.user.id,
+  );
   sendAuctionResponse(res, req, auctions);
 });
 
 exports.getUserParticipateAuctions = catchAsync(async (req, res, next) => {
   const participateAuctions = await AuctionBid.find({ user: req.user.id });
   const participateAuctionIds = participateAuctions.map(
-    (participateAuction) => participateAuction.auction
+    (participateAuction) => participateAuction.auction,
   );
 
   const filters = {
@@ -251,14 +285,20 @@ exports.getUserParticipateAuctions = catchAsync(async (req, res, next) => {
   };
   req.itemAuction = undefined;
 
-  const auctions = await getAuctionsWithFavorites(filters, req.query, req.user.id);
+  const auctions = await getAuctionsWithFavorites(
+    filters,
+    req.query,
+    req.user.id,
+  );
   sendAuctionResponse(res, req, auctions);
 });
 
 exports.getAuctionParticipants = catchAsync(async (req, res, next) => {
   const auction = req.params.id;
-  const auctionParticipants = await AuctionBid.find({ auction }).populate('user');
-  
+  const auctionParticipants = await AuctionBid.find({ auction }).populate(
+    'user',
+  );
+
   res.status(200).json({
     status: req.t('fields:success'),
     result: auctionParticipants.length,

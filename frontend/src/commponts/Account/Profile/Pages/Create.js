@@ -2,7 +2,7 @@ import Star from '../star.jpg';
 import '../profile.css';
 import Auction from '../../../Auctions/Auction';
 import Footer from '../../../privacy policy/Footer';
-
+import  Cards from '../../../Auctions/Cards'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Profile from './Profile';
@@ -11,24 +11,29 @@ import Profile from './Profile';
 import '../profile.css';
 // import "../../Auc-Folder/Auc.css";
 import Side from '../componants/Side';
+import Search from '../../../Auctions/Serach';
 // import Card from "../../Auc-Folder/Card";
 
 export default function Create() {
-  function handel_Fav(e) {
-    let hh = e.target;
-    if (hh.style.color === 'red') {
-      hh.style.cssText = 'color: none;';
-    } else {
-      hh.style.cssText = 'color: red;';
-    }
-  }
+  // function handel_Fav(e) {
+  //   let hh = e.target;
+  //   if (hh.style.color === 'red') {
+  //     hh.style.cssText = 'color: none;';
+  //   } else {
+  //     hh.style.cssText = 'color: red;';
+  //   }
+  // }
+   let sort=localStorage.getItem('status2')
+   if(sort==' الوقت'||sort==' مجموعات'){
+sort=localStorage.setItem('status2','فرز حسب')
+   }
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
   const [value2, setValue2] = useState('');
   const [test, setTest] = useState('');
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
-  const handleClick = () => {
+       const handleClick = () => {
     if (value2 == 'فرز حسب' && value == 'فرز حسب') {
       setTest(' ');
       setValue2('');
@@ -48,26 +53,22 @@ export default function Create() {
   const handleClick2 = (item) => {
     setValue(item);
     setTest(item);
-    if (item == ' جاري' || item == ' منتهي' || item == ' قادم') {
-      setValue1(' الوقت');
-      setValue2('فرز حسب');
-    }
-    if (value == ' الوقت' || value == ' مجموعات') {
-      setValue2('فرز حسب');
-    }
+    // if(value==' مقبول'){
+    //   setTest(' مقبول')
+    // }
     if (
-      item == ' عقارات' ||
-      item == ' إلكترونيات' ||
-      item == ' سيارات' ||
-      item == ' أثاث' ||
-      item == ' إكسسوار' ||
-      item == ' ملابس' ||
-      item == ' أخرى'
+      item == ' جاري' ||
+      item == ' منتهي' ||
+      item == ' قادم' ||
+      item == 'الكل'
     ) {
-      setValue1(' مجموعات');
+      setValue1(' مقبول');
       setValue2('فرز حسب');
     }
-  };
+    if (value == ' مقبول' || value == ' مرفوض' || value == ' قيد الانتظار') {
+      setValue2('فرز حسب');
+    }
+  };  
   return (
     <>
       <Profile />
@@ -84,159 +85,99 @@ export default function Create() {
             المزادات التي أنشأتها
           </h3>
           <div className="test-con">
+             <Search/>
+             <button
+          className="sort sort-share pos1"
+          onMouseEnter={() => {
+            setHover(true);
+          }}
+          onMouseLeave={() => {
+            setHover(false);
+          }}
+          onClick={handleClick}
+        >
+          <div>{value}</div>
+          <i
+            className={`fas fa-chevron-left ${
+              hover == true ? 'white' : 'black'
+            } ${
+              value.includes('فرز حسب') || value.includes(' مقبول')
+                ? 'sort1'
+                : 'sort2'
+            }`}
+          ></i>
+        </button>
+
+        <div
+          className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}
+        >
+          <div className="buttonSort so11 sortp">
             <button
-              className="sort21"
-              type="text"
-              onMouseEnter={() => {
-                setHover(true);
+              className="button1"
+              onClick={() => {
+                handleClick2(' مقبول');
               }}
-              onMouseLeave={() => {
-                setHover(false);
-              }}
-              onClick={handleClick}
-              value={value}
             >
-              <div>{value}</div>
-              <i
-                className={`fas fa-chevron-left fas1 ${
-                  hover == true ? 'white' : 'black'
-                } ${
-                  value.includes(' مجموعات') ||
-                  value.includes(' الوقت') ||
-                  value.includes('فرز حسب')
-                    ? 'sort1'
-                    : 'sort2'
-                }`}
-                onclick={handleClick}
-              ></i>
+              مقبول
             </button>
 
-            <div
-              className={`listSort  ${
-                test.includes('فرز حسب') ? 'visable21' : ''
-              }`}
+            <button
+              onClick={() => {
+                handleClick2(' مرفوض');
+              }}
             >
-              <div className="buttonSort">
-                <button
-                  className="button1"
-                  onClick={() => {
-                    handleClick2(' مجموعات');
-                  }}
-                >
-                  المجموعة
-                </button>
-                <button
-                  className="button2"
-                  onClick={() => {
-                    handleClick2(' الوقت');
-                  }}
-                >
-                  الوقت
-                </button>
-              </div>
-            </div>
-            <div
-              className={`listSort ${
-                test.includes(' مجموعات') ? 'visable2' : ''
-              }`}
+              مرفوض
+            </button>
+            <button
+              className="button2"
+              onClick={() => {
+                handleClick2(' قيد الانتظار');
+              }}
             >
-              <div className="buttonSort">
-                <button
-                  className="button1"
-                  onClick={() => {
-                    handleClick2(' سيارات');
-                  }}
-                >
-                  سيارات
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' عقارات');
-                  }}
-                >
-                  عقارات
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' إلكترونيات');
-                  }}
-                >
-                  إلكترونيات
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' أثاث');
-                  }}
-                >
-                  أثاث
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' إكسسوار');
-                  }}
-                >
-                  إكسسوار
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' ملابس');
-                  }}
-                >
-                  ملابس
-                </button>
-                <button
-                  className="button2"
-                  onClick={() => {
-                    handleClick2(' أخرى');
-                  }}
-                >
-                  أخرى
-                </button>
-              </div>
-            </div>
-            <div
-              className={`listSort  ${
-                test.includes(' الوقت') ? 'visable2' : ''
-              }`}
-            >
-              <div className="buttonSort">
-                <button
-                  className="button1"
-                  onClick={() => {
-                    handleClick2(' جاري');
-                  }}
-                >
-                  جاري
-                </button>
-                <button
-                  onClick={() => {
-                    handleClick2(' قادم');
-                  }}
-                >
-                  قادم
-                </button>
-                <button
-                  className="button2"
-                  onClick={() => {
-                    handleClick2(' منتهي');
-                  }}
-                >
-                  منتهي
-                </button>
-              </div>
-            </div>
+              قيد الانتظار
+            </button>
           </div>
         </div>
+        <div
+          className={`listSort  ${test.includes(' مقبول') ? 'visable' : ''}`}
+        >
+          <div className="buttonSort so11 sortp">
+            <button
+              className="button1"
+              onClick={() => {
+                handleClick2('الكل');
+              }}
+            >
+              الكل
+            </button>
+            <button
+              onClick={() => {
+                handleClick2(' جاري');
+              }}
+            >
+              جاري
+            </button>
+            <button
+              onClick={() => {
+                handleClick2(' قادم');
+              }}
+            >
+              قادم
+            </button>
+            <button
+              className="button2"
+              onClick={() => {
+                handleClick2(' منتهي');
+              }}
+            >
+              منتهي
+            </button>
+          </div>
+        </div>
+        </div></div>
       </div>
-      <div className="flexible">
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-        <Auction />
-      </div>
+     
+      <Cards page="create"/>
       <Footer />
     </>
   );

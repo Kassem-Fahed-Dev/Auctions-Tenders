@@ -9,9 +9,43 @@ import im3 from '../../image/bil.jpg';
 import im4 from '../../image/car.jpg';
 import Footer from '../privacy policy/Footer';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import axiosInstance from '../AxiosInterceptors';
+import { useState } from 'react';
 export default function Home() {
-  const tok = localStorage.getItem('jwt'); 
-  
+  const [all, setAll] = useState([]);
+  const [errorMessage, setErrorMessage] = useState({});
+  const token = localStorage.getItem('jwt');
+  useEffect(() => {
+  if(token!='null'){
+      axiosInstance
+      .get('/api/v1/notifications/stats', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setAll(res.data.data);
+        console.log('create');
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }
+  }, []);
   return (
     <div>
       <div className="header">
@@ -33,12 +67,13 @@ export default function Home() {
           <Link to="/fav" className="heart">
             <i className="fas fa-heart icon1"></i>
           </Link>
-          <button className="bell">
+          <Link to="/not" className="bell">
             <div className="num-message">
-              <p>90</p>
+              {/* <p>99+</p> */}
+              <p>{token !='null' & all?.unread<100?all?.unread:token=='null'?'0':'99+'}</p>
             </div>
             <i className="fas fa-bell icon2"></i>
-          </button>
+          </Link>
           <div>
             <button className="button-tell">
               <i className="fas fa-phone icon-phone"></i>

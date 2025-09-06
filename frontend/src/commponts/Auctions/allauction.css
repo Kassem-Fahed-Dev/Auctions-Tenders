@@ -2,15 +2,27 @@
   background-color: #ffd700;
   display: flex;
   border: none;
-  gap: 40px;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  height: 53px;
+  width: 220px;
+  margin-left: 3%;
+  margin-top: 20px;
+  padding: 10px;
+  /* background-color: #ffd700;
+  display: flex;
+  border: none;
+  gap: 15px;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  height: 65px;
-  width: 250px;
+  height: 64px;
+  width: 204px;
   margin-left: 3%;
   margin-top: 20px;
-  padding: 15px;
+  padding: 15px; */
 }
 .createauction p {
   margin-bottom: 0px;
@@ -27,24 +39,46 @@
   font-weight: bold;
 }
 .sort {
-  width: 250px;
+  width: 214px;
+  height: 42px;
   background-color: #fff;
   border-radius: 22px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
   justify-content: center;
   text-align: end;
   padding: 10px;
   padding-left: 20px;
   font-size: 24px;
   position: absolute;
-  top: 230px;
-  /* right: 25%; */
+  top: 210px;
+
   left: 75%;
   outline: none;
   caret-color: transparent;
+  /* jjjjjjjjjjjjjjjjjjjjjjjjjjjj  for profile*/
+  /* width: 214px;
+  height: 42px;
+  background-color: #fff;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 40px;
+  justify-content: center;
+  text-align: end;
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 24px;
+  position: absolute;
+  top: 710px;
+  right: 25%;
+  left: 4%;
+  outline: none;
+  caret-color: transparent; */
+  /* jjjjjjjjjjjjjjjjjjjjjjjjjjjj */
 }
 .sort p {
   margin-bottom: 0px;
@@ -101,24 +135,35 @@
 }
 .listSort .buttonSort button {
   position: relative;
-  width: 250px;
+  width: 196px;
   background-color: #fff;
-  padding: 10px;
+  /* padding: 10px; */
   display: block;
-  font-size: 24px;
+  font-size: 23px;
   /* left: 463px; */
-  left: 185%;
-  /* right:-90%; */
-}
-.listSort .but  {
+  left: 229%;
+  /* top: 4px; */
+
+  /* right: -90%;
   position: relative;
   width: 250px;
   background-color: #fff;
   padding: 10px;
   display: block;
   font-size: 24px;
-  left: 43%;
-  top: -40px;
+  /* left: 463px; */
+  /* left: 185%; */
+  /* right:-90%; */
+}
+.listSort .but {
+  position: relative;
+  width: 250px;
+  background-color: #fff;
+  padding: 10px;
+  display: block;
+  font-size: 24px;
+  left: 38%;
+  top: -65px;
   /* left: -80%; */
   /* right:90%; */
 }
@@ -133,6 +178,9 @@
 .listSort .buttonSort .button2 {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+.listSort .so11 button {
+  left: 1020px;
 }
 /* ---------auction---------- */
 .oneAuction {
@@ -182,7 +230,7 @@
   gap: 10px;
 }
 .product2 {
-  margin-right: 22px;
+  margin-right: -2px;
 }
 .oneAuction .userName .userAuction,
 .oneAuction .product .tableAuction,
@@ -209,7 +257,9 @@
 .many span {
   color: #00cc66;
 }
-.ditales {
+.ditales,
+.acceptAuction,
+.rejectAuction {
   background-color: #003366;
   color: #fff;
   text-decoration: none;
@@ -366,7 +416,7 @@ p.upload {
 }
 .create-auction-button .createp {
   direction: rtl;
-  margin-top: 90px;
+  margin-top: 40px;
   /* margin-top: 60px; */
   margin-right: 10%;
   font-size: 38px;
@@ -378,16 +428,18 @@ p.upload {
   position: relative;
   margin-right: -35px;
   margin-bottom: 50px;
+  width: 309px;
 }
 .auction22 {
   position: relative;
-  top: 0px;
+  top: 46px;
   right: 0px;
 }
 .create-auction-button .fas.fa-chevron-left {
   position: absolute;
   left: 10%;
-  top: 190px;
+  top: 125px;
+  /* top: 190px; */
   /* top: 170px; */
 
   border: none;
@@ -408,8 +460,9 @@ p.upload {
 }
 .create-auction-data1 {
   width: 680px;
-  min-height: 500px;
-  /* height: 840px; */
+  /* min-height: 500px; */
+  min-height: 610px;
+  height: 657px;
   margin-top: 20px;
   margin-bottom: 20px;
   /* padding-left: 50px; */
@@ -458,13 +511,14 @@ p.upload {
   margin-right: -68px;
 }
 .create-auction-button {
-  padding-bottom: 100px;
+  padding-bottom: 110px;
 }
 .group2 {
   /* padding-right: 20px; */
-  border: #000000 solid 3px;
+  border: #000000 solid 1px;
+  outline: none;
   direction: rtl;
-  width: 150px;
+  width: 155px;
   height: 31px;
   border-radius: 8px;
   /* left: 120px;
@@ -476,6 +530,7 @@ p.upload {
   font-weight: 500;
   /* margin-right: -40px; */
   margin-bottom: 6px;
+  background-color: #f2f2f2;
 }
 .group22 {
   border: none;
@@ -495,6 +550,7 @@ p.upload {
 .tri3 {
   position: relative;
   right: 280px;
+  background-color: #000;
   top: -25px;
   /* top: 323px;
   left: 755px; */
@@ -667,14 +723,15 @@ input [type='date'] {
   border-radius: 8px;
 }
 
-.de{
+.de {
   height: 50px;
   width: 90px;
   height: 50px;
   width: 90px;
-    text-align: center;
+  text-align: center;
   margin-top: 10px;
-    padding-top: 10px;
+  padding-top: 10px;
+  cursor: pointer;
 }
 .list-data div.back {
   background-color: #003366;
@@ -684,7 +741,7 @@ input [type='date'] {
   width: 90px;
   text-align: center;
   padding-top: 10px;
- height: 50px;
+  height: 50px;
   width: 90px;
   font-weight: bold;
 }
@@ -710,7 +767,7 @@ input [type='date'] {
 .group-con {
   padding-top: 30px;
   padding-bottom: 50px;
-  padding-left: 10%;
+  padding-left: 7%;
   display: flex;
 
   flex-wrap: wrap;
@@ -781,6 +838,7 @@ input [type='date'] {
 .create-auction-button .createp1 {
   font-size: 48px;
   margin-right: 8%;
+  margin-top: 26px;
 }
 /* ----- */
 .create-auction-button .fas1 {
@@ -788,7 +846,9 @@ input [type='date'] {
 }
 
 .so {
-  top: 375px;
+  /* top: 375px; */
+  left: 1040px;
+  top: 295px;
 }
 .createauction-group {
   margin-top: -108px;
@@ -796,9 +856,10 @@ input [type='date'] {
 .sort-ten {
   gap: 25px;
 }
-.Navul li.p-ten a:hover {
+/* .Navul li.p-ten a:hover {
   font-size: 35px;
-}
+  color: red;
+} */
 .error-title {
   top: 30px;
   right: 45px;
@@ -912,4 +973,224 @@ input [type='date'] {
   background-color: #003366;
   color: #fff;
   cursor: pointer;
+}
+.deleteAuction {
+  background-color: #b90909;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  font-size: 17px;
+  width: 100px;
+  text-align: center;
+  height: 40px;
+  display: block;
+  margin-top: 30px;
+  /* padding-top: 6px; */
+  margin-right: 10px;
+}
+.cotainerptn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deleteAuction:hover {
+  font-size: 20px;
+}
+input.position {
+  background: #fff;
+  border: #000 solid 2px;
+  width: 255px;
+  position: absolute;
+  left: 70px;
+  top: 213px;
+  height: 40px;
+}
+i.position {
+  position: absolute;
+  color: #000;
+  left: 80px;
+  z-index: 3;
+  top: 220px;
+}
+input.position1 {
+  background: #fff;
+  border: #000 solid 1px;
+  width: 255px;
+  position: absolute;
+  left: 95px;
+  top: 295px;
+  height: 40px;
+}
+i.position1 {
+  position: absolute;
+  color: #000;
+  left: 100px;
+  z-index: 3;
+  top: 305px;
+}
+input.position2 {
+  background: #fff;
+  border: #000 solid 1px;
+  width: 255px;
+  position: relative;
+  right: -70px;
+  bottom: 25px;
+  height: 40px;
+}
+i.position2 {
+  position: relative;
+  color: #000;
+  left: -150px;
+  z-index: 3;
+  bottom: -7px;
+}
+input.position3 {
+  background: #fff;
+  border: #000 solid 1px;
+  width: 255px;
+  position: relative;
+  right: -90px;
+  bottom: 25px;
+  height: 40px;
+}
+i.position3 {
+  position: relative;
+  color: #000;
+  left: -140px;
+  z-index: 3;
+  bottom: -7px;
+}
+button.pos {
+  top: 686px;
+  left: 50px;
+}
+button.pos1 {
+  top: 725px;
+  left: 50px;
+}
+.listSort .buttonSort .buttonpos1 {
+  position: absolute;
+  /* top: 800px; */
+  top: 740px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos2 {
+  position: absolute;
+  /* top: 800px; */
+  top: 780px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos3 {
+  position: absolute;
+  /* top: 800px; */
+  top: 780px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos4 {
+  position: absolute;
+  /* top: 800px; */
+  top: 820px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos5 {
+  position: absolute;
+  /* top: 800px; */
+  top: 860px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos6 {
+  position: absolute;
+  /* top: 800px; */
+  top: 900px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos7 {
+  position: absolute;
+  /* top: 800px; */
+  top: 940px;
+  left: 60px;
+}
+.listSort .buttonSort .buttonpos8 {
+  position: absolute;
+  /* top: 800px; */
+  top: 980px;
+  left: 60px;
+}
+.poscre {
+  top: 343px;
+  left: 150px;
+}
+.visable1 {
+  height: 50px;
+  display: block;
+}
+.visable2 {
+  height: 240px;
+  display: block;
+}
+.visable3 {
+  height: 100px;
+  display: block;
+}
+.visable4 {
+  height: 155px;
+  display: block;
+}
+.listSort .sortp button {
+  left: -105px;
+  top: -20px;
+}
+button.pos2 {
+  left: 40px;
+}
+div.margin {
+  margin-top: 55px;
+}
+input.alluser {
+  background: #fff;
+  border: #000 solid 2px;
+  width: 255px;
+  position: absolute;
+  left: -290px;
+  top: 100px;
+  height: 40px;
+}
+i.alluser {
+  color: #000;
+  z-index: 3;
+  position: absolute;
+  left: -280px;
+  top: 110px;
+}
+.alotofAuction {
+  margin-top: 70px;
+}
+.alotof {
+  margin-top: 125px;
+}
+.listSort .buttonSort .buttonpos1cre {
+  /* position:absolute; */
+  /* top: 800px; */
+  top: 65px;
+  left: 80px;
+}
+/* .listSort .buttonSort .buttonpos2cre{ */
+
+/* position:absolute; */
+/* top: 800px; */
+/* top: 65px;
+  left: 60px;
+} */
+.listSort .buttonSort .buttonpos2cre {
+  /* position:absolute; */
+  /* top: 800px; */
+  top: 70px;
+  left: 450px;
+}
+.listSort .buttonSort .buttonpos3cre {
+  /* position:absolute; */
+  /* top: 800px; */
+  top: 70px;
+  left: 442px;
 }

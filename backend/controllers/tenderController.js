@@ -6,11 +6,11 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const TenderOffer = require('../models/TenderOffer');
-
+const notificationService = require('../utils/notificationService');
 // Helper function to add favorites to tenders
 const addFavoritesToTenders = async (tenders, userId) => {
   const tenderIds = tenders.map((tender) => tender._id);
-  
+
   const favorites = await Favorite.find({
     user: userId,
     type: 'tender',
@@ -18,7 +18,7 @@ const addFavoritesToTenders = async (tenders, userId) => {
   });
 
   const favoritedTenderIds = new Set(
-    favorites.map((fav) => fav.referenceId.toString())
+    favorites.map((fav) => fav.referenceId.toString()),
   );
 
   return tenders.map((tender) => {
@@ -30,9 +30,7 @@ const addFavoritesToTenders = async (tenders, userId) => {
 
 // Helper function to build tender query with filters
 const buildTenderQuery = (filters = {}) => {
-  return Tender.find(filters)
-    .populate('item')
-    .populate('user');
+  return Tender.find(filters).populate('item').populate('user');
 };
 
 // Helper function to execute query with API features
@@ -81,7 +79,7 @@ const applyCategoryFilter = (req, filterProperty) => {
 exports.filterTendersByCategory = catchAsync(async (req, res, next) => {
   const categoryName = req.query.categoryName;
   req.query = (({ categoryName, ...rest }) => rest)(req.query);
-  
+
   if (!categoryName) {
     return next();
   }
@@ -93,7 +91,7 @@ exports.filterTendersByCategory = catchAsync(async (req, res, next) => {
 
   const itemsInCategory = await Item.find({ category: category._id });
   const itemIds = itemsInCategory.map((item) => item._id);
-  
+
   req.itemTender = { item: { $in: itemIds } };
   next();
 });
@@ -129,7 +127,38 @@ exports.createTenderWithItem = catchAsync(async (req, res, next) => {
     const populatedTender = await Tender.findById(newTender._id)
       .populate('item')
       .populate('user');
+    // send notification to user that add category tender to their fav
+    try {
+      const categoryId = populatedTender.item.category;
+      if (categoryId) {
+        const category = await Category.findById(categoryId);
 
+        if (category) {
+          const favoritedUsers = await Favorite.find({
+            referenceId: category._id,
+            type: 'category',
+          }).populate('user');
+
+          for (const fav of favoritedUsers) {
+            await notificationService.createNotification({
+              userId: fav.user._id,
+              title: 'مفضلتك',
+              message: `تم إضافة مناقصة جديدة إلى ${category.name}`,
+              type: 'category',
+              referenceId: category._id,
+            });
+            console.log(
+              ` Notification sent to favorite user: ${fav.user.name} for new tender in category ${category.name}`,
+            );
+          }
+        }
+      }
+    } catch (notificationError) {
+      console.error(
+        'Error sending category favorite notification:',
+        notificationError,
+      );
+    }
     res.status(201).json({
       status: req.t('fields:success'),
       message: req.t('successes:createTender'),
@@ -152,8 +181,8 @@ exports.getTenderWithItem = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         req.t('errors:notFound', { doc: req.t('fields:tender') }),
-        404
-      )
+        404,
+      ),
     );
   }
 
@@ -173,15 +202,15 @@ exports.updateTenderWithItem = catchAsync(async (req, res, next) => {
   const tender = await Tender.findByIdAndUpdate(
     req.params.id,
     req.body.tender,
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   );
 
   if (!tender) {
     return next(
       new AppError(
         req.t('errors:notFound', { doc: req.t('fields:tender') }),
-        404
-      )
+        404,
+      ),
     );
   }
 
@@ -194,7 +223,7 @@ exports.updateTenderWithItem = catchAsync(async (req, res, next) => {
   }
 
   const tenderAndItem = await Tender.findById(req.params.id).populate('item');
-  
+
   res.status(200).json({
     status: req.t('fields:success'),
     message: req.t('successes:updateTender'),
@@ -204,13 +233,13 @@ exports.updateTenderWithItem = catchAsync(async (req, res, next) => {
 
 exports.deleteTenderWithItem = catchAsync(async (req, res, next) => {
   const tender = await Tender.findById(req.params.id);
-  
+
   if (!tender) {
     return next(
       new AppError(
         req.t('errors:notFound', { doc: req.t('fields:tender') }),
-        404
-      )
+        404,
+      ),
     );
   }
 
@@ -227,24 +256,32 @@ exports.deleteTenderWithItem = catchAsync(async (req, res, next) => {
 
 exports.getAllTendersWithItems = catchAsync(async (req, res, next) => {
   const filters = applyCategoryFilter(req, 'itemTender');
-  const tenders = await getTendersWithFavorites(filters, req.query, req.user.id);
+  const tenders = await getTendersWithFavorites(
+    filters,
+    req.query,
+    req.user.id,
+  );
   sendTenderResponse(res, req, tenders);
 });
 
 exports.getMyTenders = catchAsync(async (req, res, next) => {
-  const filters = { 
-    ...applyCategoryFilter(req, 'itemTender'), 
-    user: req.user.id 
+  const filters = {
+    ...applyCategoryFilter(req, 'itemTender'),
+    user: req.user.id,
   };
-  
-  const tenders = await getTendersWithFavorites(filters, req.query, req.user.id);
+
+  const tenders = await getTendersWithFavorites(
+    filters,
+    req.query,
+    req.user.id,
+  );
   sendTenderResponse(res, req, tenders);
 });
 
 exports.getUserParticipateTenders = catchAsync(async (req, res, next) => {
   const participateTenders = await TenderOffer.find({ user: req.user.id });
   const participateTenderIds = participateTenders.map(
-    (participateTender) => participateTender.tender
+    (participateTender) => participateTender.tender,
   );
 
   const filters = {
@@ -252,6 +289,10 @@ exports.getUserParticipateTenders = catchAsync(async (req, res, next) => {
     _id: { $in: participateTenderIds },
   };
 
-  const tenders = await getTendersWithFavorites(filters, req.query, req.user.id);
+  const tenders = await getTendersWithFavorites(
+    filters,
+    req.query,
+    req.user.id,
+  );
   sendTenderResponse(res, req, tenders);
 });
