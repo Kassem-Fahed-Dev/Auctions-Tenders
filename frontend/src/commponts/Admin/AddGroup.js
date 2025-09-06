@@ -12,18 +12,18 @@ export default function AddGroup() {
       setCover(URL.createObjectURL(file));
     }
   };
-  const goBack=()=>{
- window.history.back();
-  }
-    const [formCheck, setFormCheck] = useState({
-      check1: false,
-      check2: false,
-    });
-      const handleChange1 = (e) => {
+  const goBack = () => {
+    window.history.back();
+  };
+  const [formCheck, setFormCheck] = useState({
+    check1: false,
+    check2: false,
+  });
+  const handleChange1 = (e) => {
     const { name, checked } = e.target;
     setFormCheck({ ...formCheck, [name]: checked });
   };
-    const [errorMessage, setErrorMessage] = useState({});
+  const [errorMessage, setErrorMessage] = useState({});
   return (
     <>
       <div className="con-admin">
@@ -100,13 +100,13 @@ export default function AddGroup() {
                     </div>
                     <div className="name_input">
                       <p>نوع المجموعة:</p>
-                    
+
                       {/* <div > */}
-                  {/* <label >
+                      {/* <label >
                     مزاد
                   </label> */}
-                  {/* <i className="fas fa-check"></i> */}
-                  {/* <input
+                      {/* <i className="fas fa-check"></i> */}
+                      {/* <input
                     type="checkbox"
                  
                     name="check1"
@@ -119,8 +119,8 @@ export default function AddGroup() {
                   <label >
                     مناقصة
                   </label> */}
-                  {/* <i className="fas fa-check "></i> */}
-                  {/* <input
+                      {/* <i className="fas fa-check "></i> */}
+                      {/* <input
                     type="checkbox"
                   
                     name="check2"
@@ -130,14 +130,25 @@ export default function AddGroup() {
                 </div> */}
                       {/* <input type="text" /> */}
                     </div>
-                      <div>
-                        <label className='aulabel'>مزاد</label>
-                       <input  type="radio" value={'auction'}  name="check1" className='auinput'/>
-                      </div>
-                         <div>
-                        <label className='telabel'>مناقصة</label>
-                       <input  type="radio" value={'tender'}  name="check1" className='teinput'/>
-                      </div>
+                    <div>
+                      <label className="aulabel">مزاد</label>
+                      <input
+                        type="radio"
+                        value={'auction'}
+                        name="check1"
+                        className="auinput"
+                      />
+                    </div>
+                    <div>
+                      <label className="telabel">مناقصة</label>
+                      <input
+                        type="radio"
+                        value={'tender'}
+                        name="check1"
+                        className="teinput"
+                      />
+                    </div>
+
                     <div className="name_input">
                       <p>صورة غلاف المجموعة</p>
 
@@ -161,20 +172,56 @@ export default function AddGroup() {
                         />
                       )}
                     </div>
+                    <div className="leftsideGroup">
+                      <div className="buttom_side">
+                        <p className="qustion1">?</p>
+                      </div>
+                      <div className="circlediv">
+                        <p className="qustion">?</p>
+                      </div>
+                    </div>
                     <div className="ptn_group2">
                       <button>حفظ</button>
-                      <button className="reject" onClick={()=>{goBack()}}>تراجع</button>
+                      <button
+                        className="reject"
+                        onClick={() => {
+                          goBack();
+                        }}
+                      >
+                        تراجع
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div className="leftsideGroup">
+                <div className="fixdisplay">
+                  <div className="second_name_Admin">
+                    <p>عدد الحقول الاضافية </p>
+                    <input type="number" className="name_in" />
+                  </div>
+                  <div className="second_name_Admin">
+                    <p>اسم الحقل </p>
+                    <input type="text" className="name_in" />
+                  </div>
+                  <div className="con_radios2">
+                    <p>النمط :</p>
+                    <div>
+                      <label className="rad2">نص</label>
+                      <input type="radio" value="" name="" className="r2" />
+                    </div>
+                    <div>
+                      <label className="rad2">حقل</label>
+                      <input type="radio" value="" name="" className="r2" />
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="leftsideGroup">
                   <div className="buttom_side">
                     <p className="qustion1">?</p>
                   </div>
                   <div className="circlediv">
                     <p className="qustion">?</p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

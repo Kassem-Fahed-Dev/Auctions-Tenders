@@ -144,7 +144,75 @@ export default function Auction({
     console.log(o);
   }
   // 6800cdb36e155b2e04089fbd
-
+// =======================
+const acceptAu=()=>{
+ const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/auctions/${data._id}`, JSON.stringify({"auction":{"status": 'مقبول'}}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+            //  alert('تم تغيير كلمة المرور بنجاح')
+          // setHoverAuction('spinner');
+          // window.location.reload();
+        
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
+}
+const regectAu=()=>{
+   const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/auctions/${data._id}`, JSON.stringify({"auction":{"status": 'مرفوض'}}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+            //  alert('تم تغيير كلمة المرور بنجاح')
+          // setHoverAuction('spinner');
+          // window.location.reload();
+        
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
+}
   return (
     <div className="oneAuction">
       <p
@@ -234,9 +302,9 @@ export default function Auction({
             حذف
           </button>
         )}
-        {showAccept && <button className="acceptAuction">قبول</button>}
+        {showAccept && <button className="acceptAuction" onClick={()=>{acceptAu()}}>قبول</button>}
 
-        {showReject && <button className="rejectAuction">رفض</button>}
+        {showReject && <button className="rejectAuction" onClick={()=>{regectAu()}}>رفض</button>}
       </div>
     </div>
   );

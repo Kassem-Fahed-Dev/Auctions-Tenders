@@ -8,6 +8,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 export default function TenderAdmin() {
   const [all, setAll] = useState([]);
+   const [yes, setYes] = useState('true');
+    const [yes1, setYes1] = useState('true');
+  const [type,setType] =useState('مرفوعة للطلب')
   let sort;
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
@@ -42,6 +45,47 @@ export default function TenderAdmin() {
         }
       });
   }, []);
+    const sortTen=(e,type1)=>{
+    const {value}= e.target
+    setType(value)
+if(type=='قيد الانتظار'){
+  setYes('true')
+  setYes1('true')
+}else{
+    setYes('false')
+  setYes1('false')
+}
+console.log(type)
+axiosInstance
+      .get(
+        `/api/v1/tenders?status=${type1} `,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setAll(res.data.data.data);
+        console.log(res.data.data.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }
   return (
     <>
       <div className="con-admin">
@@ -103,11 +147,11 @@ export default function TenderAdmin() {
               <i class="far fa-handshake"></i> مدير المناقصات{' '}
             </h1>
             <div className="ten_ptn_control">
-              <button className="ptn_Gr1">مرفوع للطلب </button>
-              <button className="ptn_Gr1">مقبول </button>
-              <button className="ptn_Gr1">مرفوض </button>
+              <button className="ptn_Gr1" value={'مرفوعة للطلب'} onClick={(e)=>{sortTen(e,'قيد الانتظار')}}>مرفوع للطلب </button>
+              <button className="ptn_Gr1" value={'مقبولة'} onClick={(e)=>{sortTen(e,'مقبول')}}>مقبول </button>
+              <button className="ptn_Gr1"  value={'مرفوضة'} onClick={(e)=>{sortTen(e,'مرفوض')}}>مرفوض </button>
             </div>
-            <p className="t2">المناقصات المرفوعة للطلب </p>
+            <p className="t2">المناقصات {type} </p>
             <div className="con_Adminsort">
               {/* <SortDropdown /> */}
               {/* <div className="sdsd">
@@ -118,11 +162,11 @@ export default function TenderAdmin() {
           </div>
         </div>
         <div className="fflex">
-          {/* {all.map((auc) => (
-            <Tender data={auc} />
-          ))} */}
-          <Tender />
-          <Tender showAccept="true" showReject="true" />
+          {all.map((auc) => (
+            <Tender data={auc} showAccept={yes} showReject={yes1} />
+          ))}
+          {/* <Tender />
+          <Tender showAccept="true" showReject="true" /> */}
         </div>
       </div>
     </>

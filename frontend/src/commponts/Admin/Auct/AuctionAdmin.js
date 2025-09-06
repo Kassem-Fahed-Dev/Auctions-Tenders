@@ -8,13 +8,16 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 export default function AuctionAdmin() {
   const [all, setAll] = useState([]);
+  const [yes, setYes] = useState('true');
+    const [yes1, setYes1] = useState('true');
+  const [type,setType] =useState('مرفوعة للطلب')
   let sort;
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
   useEffect(() => {
     axiosInstance
       .get(
-        `/api/v1/auctions?status=قيد الانتظار`,
+        `/api/v1/auctions?status=قيد الانتظار `,
 
         {
           headers: {
@@ -42,6 +45,47 @@ export default function AuctionAdmin() {
         }
       });
   }, []);
+  const sortAu=(e,type1)=>{
+    const {value}= e.target
+    setType(value)
+if(type=='قيد الانتظار'){
+  setYes('true')
+  setYes1('true')
+}else{
+    setYes('false')
+  setYes1('false')
+}
+console.log(type)
+axiosInstance
+      .get(
+        `/api/v1/auctions?status=${type1} `,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setAll(res.data.data.data);
+        console.log(res.data.data.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }
   return (
     <>
       <div className="con-admin">
@@ -103,11 +147,11 @@ export default function AuctionAdmin() {
               <i class="fa-solid fa-gavel"></i> مدير المزادات{' '}
             </h1>
             <div className="ten_ptn_control">
-              <button className="ptn_Gr1">مرفوع للطلب </button>
-              <button className="ptn_Gr1">مقبول </button>
-              <button className="ptn_Gr1">مرفوض </button>
+              <button className="ptn_Gr1" value={'مرفوعة للطلب'} onClick={(e)=>{sortAu(e,'قيد الانتظار')}}> مرفوعة للطلب  </button>
+              <button className="ptn_Gr1" value={'مقبولة'} onClick={(e)=>{sortAu(e,'مقبول')}}>مقبول </button>
+              <button className="ptn_Gr1" value={'مرفوضة'} onClick={(e)=>{sortAu(e,'مرفوض')}}>مرفوض </button>
             </div>
-            <p className="t2">المزادات المرفوعة للطلب </p>
+            <p className="t2">مزادات {type}  </p>
             <div className="con_Adminsort">
               {/* <SortDropdown />
               <div className="sdsd">
@@ -118,10 +162,10 @@ export default function AuctionAdmin() {
           </div>
         </div>
         <div className="fflex">
-          {/* {all.map((auc) => (
-            <Auction data={auc} />
-          ))} */}
-          <Auction showAccept="true" showReject="true" />
+          {all.map((auc) => (
+            <Auction data={auc} showAccept={yes} showReject={yes1} />
+          ))}
+          {/* <Auction showAccept="true" showReject="true" /> */}
         </div>
       </div>
     </>
