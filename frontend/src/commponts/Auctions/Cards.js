@@ -36,10 +36,10 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب' || sort == ' الوقت' || sort == ' مجموعات'
-              ? '/api/v1/auctions'
+              ? '/api/v1/auctions/status=مقبول'
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/auctions?activeStatus=${sort.trim()}`
-              : `/api/v1/auctions?categoryName=${sort.trim()}`
+              ? `/api/v1/auctions/staus=مقبول?activeStatus=${sort.trim()}`
+              : `/api/v1/auctions/staus=مقبول?categoryName=${sort.trim()}`
           }`,
           {
             headers: {
@@ -183,10 +183,10 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب' || sort == ' الوقت' || sort == ' مجموعات'
-              ? `/api/v1/auctions`
+              ? `/api/v1/auctions/status=مقبول`
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/auctions?activeStatus=${sort.trim()}`
-              : `/api/v1/auctions?categoryName=${sort.trim()}`
+              ? `/api/v1/auctionsstatus=مقبول?activeStatus=${sort.trim()}`
+              : `/api/v1/auctionsstatus=مقبول?categoryName=${sort.trim()}`
           }`,
           {
             headers: {

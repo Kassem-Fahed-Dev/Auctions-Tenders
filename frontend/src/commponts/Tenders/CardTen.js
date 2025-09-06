@@ -47,10 +47,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           '/api/v1/tenders'
+           '/api/v1/tenders/status=مقبول'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/status=مقبول?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/status=مقبول?categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -209,10 +209,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders`
+          `/api/v1/tenders/status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/status=مقبول?activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/status=مقبول?categoryName=${sort.trim()}`
       }`
       ,
       {

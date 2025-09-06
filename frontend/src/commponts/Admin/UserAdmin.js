@@ -118,10 +118,17 @@ export default function UserAdmin() {
     setFormData2({ name: value.trim() });
     console.log(formData2);
   };
-  const addAdmin = () => {
+  const edit = (e,id,role) => {
+    console.log('iiiiiiiiiiiii')
     const valdition = {};
+    // if (role=='admin'){
+    //   role='user'
+    // }else{
+    //   role='user'
+    // }
+     console.log(role)
     axiosInstance
-      .patch(`/api/v1/users/updateMe`, JSON.stringify({ role: 'admin' }), {
+      .patch(`/api/v1/users/${id}`, JSON.stringify({ role: role }), {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
@@ -134,6 +141,7 @@ export default function UserAdmin() {
         // alert('تم تغيير الرقم بنجاح')
         // setHoverAuction('spinner');
         window.location.reload();
+        setUserToEdit(null);
         console.log(res);
       })
       .catch((error) => {
@@ -413,8 +421,8 @@ export default function UserAdmin() {
 
               <button
                 className="btn-confirm"
-                onClick={() => {
-                  setUserToEdit(null);
+                   onClick={(e) => {
+                  edit(e, userToEdit?.id,userToEdit?.role=='admin'?'user':'admin');
                 }}
               >
                 نعم

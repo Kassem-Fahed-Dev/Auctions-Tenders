@@ -139,6 +139,75 @@ export default function Tender({
       });
     console.log(o);
   }
+  // ================
+  const acceptTen=()=>{
+ const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/tenders/${data._id}`, JSON.stringify({"tender":{"status": 'مقبول'}}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+            //  alert('تم تغيير كلمة المرور بنجاح')
+          // setHoverAuction('spinner');
+          window.location.reload();
+        
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
+}
+const regectTen=()=>{
+   const token = localStorage.getItem('jwt');
+      const valdition={}
+      axiosInstance.patch(`/api/v1/tenders/${data._id}`, JSON.stringify({"tender":{"status": 'مرفوض'}}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+            //  alert('تم تغيير كلمة المرور بنجاح')
+          // setHoverAuction('spinner');
+          window.location.reload();
+        
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
+}
   return (
     <div className="oneAuction">
       <p
@@ -207,9 +276,9 @@ export default function Tender({
             حذف
           </button>
         )}
-        {showAccept && <button className="acceptAuction">قبول</button>}
+        {showAccept && <button className="acceptAuction" onClick={()=>{acceptTen()}}>قبول</button>}
 
-        {showReject && <button className="rejectAuction">رفض</button>}
+        {showReject && <button className="rejectAuction" onClick={()=>{regectTen()}}>رفض</button>}
       </div>
     </div>
   );
