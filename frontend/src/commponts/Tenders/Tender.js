@@ -101,11 +101,11 @@ export default function Tender({
     e.preventDefault();
     let hh = e.target;
     console.log(token);
-    if (hh.style.color === 'red') {
-      hh.style.cssText = 'color: black;';
+   if (col === 'red') {
+      // hh.style.cssText = 'color: black;';
       setcol('black');
-    } else {
-      hh.style.cssText = 'color: red;';
+    } else if(col === 'black'){
+      // hh.style.cssText = 'color: red;';
       setcol('red');
     }
     const o = axiosInstance
@@ -223,7 +223,7 @@ const regectTen=()=>{
       </p>
       <button
         className={`fas fa-heart ${
-          data?.favorite == false ? 'black1' : 'red1'
+   col
         }`}
         onClick={(e) => handel_Fav(e, data)}
       ></button>

@@ -3,7 +3,7 @@ import axiosInstance from '../AxiosInterceptors';
 import Tender from './Tender';
 
 export default function CardTen({page,item,id,showDelete}) {
-  console.log(id)
+  // console.log(id)
   const [all, setAll] = useState([]);
   let sort;
     const token = localStorage.getItem('jwt'); 
@@ -47,10 +47,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           '/api/v1/tenders/status=مقبول'
+           '/api/v1/tenders?status=مقبول'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/status=مقبول?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/status=مقبول?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -169,8 +169,8 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'
           ? 
-          `/api/v1/tenders?categoryName=${item}`
-          : `/api/v1/auctions?categoryName=${item}&activeStatus=${sort.trim()}`
+          `/api/v1/tenders?status=مقبول&categoryName=${item}`
+          : `/api/v1/auctions?status=مقبول&categoryName=${item}&activeStatus=${sort.trim()}`
           
       }`
       ,
@@ -209,10 +209,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders/status=مقبول`
+          `/api/v1/tenders?status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/status=مقبول?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/status=مقبول?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -255,10 +255,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders`
+          `/api/v1/tenders?status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -299,10 +299,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders/participateTenders`
+          `/api/v1/tenders/participateTenders?status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/participateTenders?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/participateTenders?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/participateTenders?status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/participateTenders?status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -339,10 +339,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders/participateTenders`
+          `/api/v1/tenders/participateTenders?status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/participateTenders?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/participateTenders?categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/participateTenders?status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/participateTenders?status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {

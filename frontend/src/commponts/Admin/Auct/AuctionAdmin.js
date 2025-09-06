@@ -8,8 +8,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 export default function AuctionAdmin() {
   const [all, setAll] = useState([]);
-  const [yes, setYes] = useState('true');
-    const [yes1, setYes1] = useState('true');
+  const [yes, setYes] = useState(true);
+    const [yes1, setYes1] = useState(true);
   const [type,setType] =useState('مرفوعة للطلب')
   let sort;
   const token = localStorage.getItem('jwt');
@@ -48,14 +48,16 @@ export default function AuctionAdmin() {
   const sortAu=(e,type1)=>{
     const {value}= e.target
     setType(value)
-if(type=='قيد الانتظار'){
-  setYes('true')
-  setYes1('true')
+if(type1=='قيد الانتظار '){
+  setYes(true)
+  setYes1(true)
 }else{
-    setYes('false')
-  setYes1('false')
+    setYes(null)
+  setYes1(null)
 }
-console.log(type)
+console.log(type1)
+console.log(yes)
+console.log(yes1)
 axiosInstance
       .get(
         `/api/v1/auctions?status=${type1} `,
