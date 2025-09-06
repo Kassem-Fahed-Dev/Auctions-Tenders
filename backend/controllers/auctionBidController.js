@@ -59,7 +59,7 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   // Only block amount if this is the user's first bid on this auction
   if (!existingBid) {
     let blockedAmount = 0.1 * auction.startingPrice;
-    blockedAmount = wallet.availableAmount;
+    //blockedAmount = wallet.availableAmount; // fortesting
     if (wallet.availableAmount < blockedAmount) {
       return next(
         new AppError(
