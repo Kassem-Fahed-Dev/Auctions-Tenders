@@ -148,8 +148,8 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب'
-              ? `/api/v1/auctions?categoryName=${item}`
-              : `/api/v1/auctions?categoryName=${item}&activeStatus=${sort.trim()}`
+              ? `/api/v1/auctions/status=مقبول?categoryName=${item}`
+              : `/api/v1/auctions/status=مقبول?categoryName=${item}&activeStatus=${sort.trim()}`
           }`,
           {
             headers: {
