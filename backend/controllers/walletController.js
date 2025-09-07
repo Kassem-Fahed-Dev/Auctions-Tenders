@@ -20,7 +20,7 @@ exports.getAllWalletActivities = catchAsync(async (req, res, next) => {
 });
 
 exports.getMyWalletActivities = catchAsync(async (req, res, next) => {
-  const query = WalletActivity.find({partner:req.user.id});
+  const query = WalletActivity.find({ partner: req.user.id });
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()
@@ -35,7 +35,7 @@ exports.getMyWalletActivities = catchAsync(async (req, res, next) => {
 });
 
 exports.getWallet = catchAsync(async (req, res, next) => {
-  const partner = req.user.id
+  const partner = req.user.id;
   let wallet = await Wallet.findOne({ partner });
   if (!wallet) {
     wallet = await Wallet.create({ partner });
