@@ -14,6 +14,7 @@ const auctionRouter = require('./routs/auctionRoutes');
 const categoryRouter = require('./routs/categoryRoutes');
 const tenderRouter = require('./routs/tenderRoutes');
 const favoriteRouter = require('./routs/favoriteRoutes');
+const cloudinaryRouter = require('./routs/cloudinary');
 const notificationRouter = require('./routs/notificationRoutes');
 const searchRouter = require('./routs/searchRoutes');
 if (process.env.ENABLE_CRON == 'true') {
@@ -42,6 +43,7 @@ app.use('/api/v1/categories', categoryRouter);
 
 app.use('/api/v1/tenders', tenderRouter);
 app.use('/api/v1/payments', paymentRouter);
+app.use('/api/v1/cloudinary', cloudinaryRouter);
 app.use('/api/v1/favorites', favoriteRouter);
 app.use('/api/v1/notifications', notificationRouter);
 app.use('/api/v1/tenders', tenderRouter);

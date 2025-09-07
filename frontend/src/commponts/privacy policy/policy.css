@@ -16,6 +16,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
   border: 3px solid #cccccc;
 }
 /* التعداد */
@@ -26,7 +27,7 @@
   margin-top: 19px;
   margin: 20px;
 }
- ul {
+ul {
   list-style-type: disc;
 }
 
@@ -39,7 +40,7 @@
   color: #cccccc;
 }
 /* ايقونة القلم */
- .box-up .far.fa-edit {
+.box-up .far.fa-edit {
   text-align: center;
   font-size: 70px;
   color: #cccccc;
@@ -48,11 +49,13 @@
 /* ايقونة القفل */
 .circle .fa-lock {
   text-align: center;
-  font-size: 60px;
+  font-size: 55px;
+  padding: 12px;
   color: #cccccc;
 }
 /* العنوان */
 .box-up .title {
+  margin-top: 8px;
   text-align: center;
   font-weight: 400;
   font-size: 36px;
