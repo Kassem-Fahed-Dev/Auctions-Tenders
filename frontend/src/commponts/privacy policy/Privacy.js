@@ -29,7 +29,7 @@ export default function Privacy1() {
         </p>
         <ol>
           <div className="div_ol">
-            <li className="title-ul">المعلومات التي نجمعها:</li>
+            <li className="title-ul">1 . المعلومات التي نجمعها:</li>
             <ul>
               قد نقوم بجمع الأنواع التالية من المعلومات:
               <li>
@@ -57,7 +57,7 @@ export default function Privacy1() {
             </ul>
           </div>
           <div className="div_ol">
-            <li className="title-ul">كيفية استخدام معلوماتك:</li>
+            <li className="title-ul">2 . كيفية استخدام معلوماتك:</li>
             <ul>
               نستخدم المعلومات التي نجمعها للأغراض التالية:
               <li>
@@ -72,7 +72,7 @@ export default function Privacy1() {
             </ul>
           </div>
           <div className="div_ol">
-            <li className="title-ul">الإفصاح عن معلوماتك:</li>
+            <li className="title-ul">3 . الإفصاح عن معلوماتك:</li>
             <ul>
               قد نشارك معلوماتك مع:
               <li>
@@ -94,7 +94,7 @@ export default function Privacy1() {
             </ul>
           </div>{' '}
           <div className="div_ol">
-            <li className="title-ul">الاحتفاظ بالبيانات:</li>
+            <li className="title-ul">4 . الاحتفاظ بالبيانات:</li>
             <ul>
               نحتفظ بمعلوماتك طالما كان ذلك ضروريًا لتحقيق الأغراض الموضحة في
               سياسة الخصوصية هذه ما لم يكن مطلوبًا أو مسموحًا بفترة احتفاظ أطول
@@ -102,7 +102,7 @@ export default function Privacy1() {
             </ul>
           </div>{' '}
           <div className="div_ol">
-            <li className="title-ul">أمان معلوماتك:</li>
+            <li className="title-ul">5 . أمان معلوماتك:</li>
             <ul>
               نطبق تدابير إدارية وتقنية ومادية معقولة لحماية معلوماتك. ومع ذلك،
               لا توجد طريقة نقل أو تخزين آمنة تمامًا، ولا يمكننا ضمان الأمان
@@ -110,7 +110,7 @@ export default function Privacy1() {
             </ul>
           </div>{' '}
           <div className="div_ol">
-            <li className="title-ul">حقوقك واختياراتك:</li>
+            <li className="title-ul">6 . حقوقك واختياراتك:</li>
             <ul>
               حسب موقعك، قد تكون لديك الحقوق التالية:
               <li>الوصول إلى المعلومات الشخصية التي نحتفظ بها عنك.</li>
@@ -124,7 +124,7 @@ export default function Privacy1() {
           <div className="div_ol">
             <li className="title-ul">
               {' '}
-              ملفات تعريف الارتباط والتقنيات المماثلة:
+              7 . ملفات تعريف الارتباط والتقنيات المماثلة:
             </li>
             <ul>
               نستخدم ملفات تعريف الارتباط لتحسين تجربتك على الموقع. يمكنك إدارة
@@ -133,7 +133,7 @@ export default function Privacy1() {
             </ul>
           </div>{' '}
           <div className="div_ol">
-            <li className="title-ul">الروابط الخارجية:</li>
+            <li className="title-ul">8 . الروابط الخارجية:</li>
             <ul>
               قد يحتوي الموقع على روابط لمواقع ويب تابعة لأطراف ثالثة. نحن لسنا
               مسؤولين عن ممارسات الخصوصية لهذه المواقع. يرجى مراجعة سياسات
@@ -142,7 +142,7 @@ export default function Privacy1() {
             </ul>
           </div>
           <div className="div_ol">
-            <li className="title-ul">تغييرات على سياسة الخصوصية هذه:</li>
+            <li className="title-ul">9 . تغييرات على سياسة الخصوصية هذه:</li>
             <ul>
               قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. ستكون أي تغييرات
               سارية المفعول فور نشر السياسة المعدلة. نشجعك على مراجعة سياسة
@@ -150,18 +150,22 @@ export default function Privacy1() {
             </ul>
           </div>
           <div className="div_ol">
-            <li className="title-ul">تواصل معنا:</li>
+            <li className="title-ul">10 .تواصل معنا:</li>
             <ul>
               إذا كانت لديك أي أسئلة أو مخاوف بشأن سياسة الخصوصية هذه، يرجى
               التواصل معنا عبر:
             </ul>
             <ul>
               smart_world@gmail.com
-              <span className="fas fa-envelope-open"></span>{' '}
+              <span className="dsa">
+                <i className="fas fa-envelope-open"></i>
+              </span>{' '}
             </ul>
             <ul>
               123-456-789
-              <span className="fas fa-phone"></span>
+              <span className="dsa">
+                <i className="fas fa-phone"></i>
+              </span>
             </ul>
           </div>
           باستخدامك للموقع، فإنك توافق على شروط سياسة الخصوصية هذه.

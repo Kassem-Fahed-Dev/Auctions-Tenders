@@ -283,18 +283,18 @@
   border: none;
   z-index: 555;
 }
- .red{
+.red {
   color: red;
   margin-left: 10px;
 }
- .black {
+.black {
   color: #000000;
-   margin-left: 10px
+  margin-left: 10px;
+  margin: 10px;
 }
- .black1 {
+.black1 {
   color: #000000;
- }
-  .red1 {
+}
+.red1 {
   color: red;
- 
 }

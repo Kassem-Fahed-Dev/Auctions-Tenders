@@ -6,6 +6,8 @@
   width: 550px;
   height: 500px;
   background-color: #cccccc;
+  height: 500px;
+  font-size: 19px;
 }
 /* for the title details "between the nav and details" */
 .title-1 {

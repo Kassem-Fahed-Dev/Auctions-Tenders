@@ -291,6 +291,24 @@
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
 }
+.eee {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 12px;
+  background-color: #666666;
+}
+.eee2 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  background-color: #666666;
+}
+.eee2 i {
+  margin: 12px;
+  font-size: 18px;
+}
 .timedet {
   color: #00cc66;
 }
@@ -463,8 +481,10 @@ p.upload {
   /* min-height: 500px; */
   min-height: 610px;
   height: 692px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  /* margin-top: 20px; */
+  /* margin-bottom: 20px; */
   /* padding-left: 50px; */
   background-color: #ccc;
 }
@@ -820,7 +840,7 @@ input [type='date'] {
   background-image: url('../../image/question.jpeg');
 }
 .group-div .link {
-  background-color: #f2f2f298;
+  background-color: #cccccc;
 
   display: inline-block;
   height: 75px;
@@ -1066,7 +1086,7 @@ button.pos {
   left: 50px;
 }
 button.pos1 {
-  top: 725px;
+  top: 687px;
   left: 50px;
 }
 .listSort .buttonSort .buttonpos1 {

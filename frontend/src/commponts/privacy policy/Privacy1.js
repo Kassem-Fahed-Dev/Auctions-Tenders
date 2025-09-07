@@ -35,13 +35,13 @@ export default function Privacy() {
           من خلال الموقع. باستخدامك للموقع، فإنك توافق على الالتزام بهذه الشروط.
         </p>
         <ol>
-          <li className="title-ul"> القبول بالشروط:</li>
+          <li className="title-ul"> 1 . القبول بالشروط:</li>
           <ul>
             بدخولك إلى الموقع أو استخدامه، فإنك توافق على الالتزام بالشروط
             والأحكام وسياسة الخصوصية الخاصة بنا. إذا كنت لا توافق على أي جزء من
             الشروط، يُرجى التوقف عن استخدام الموقع.
           </ul>
-          <li className="title-ul"> الأهلية:</li>
+          <li className="title-ul">2 . الأهلية:</li>
           <ul>
             <li> يجب أن تكون قد بلغت السن القانوني في بلدك للتعاقد.</li>
             <li>
@@ -49,7 +49,7 @@ export default function Privacy() {
               بالمشاركة في المزادات والمناقصات.
             </li>
           </ul>
-          <li className="title-ul"> إنشاء الحساب:</li>
+          <li className="title-ul">3 . إنشاء الحساب:</li>
           <ul>
             <li>يجب على المستخدمين إنشاء حساب للوصول إلى بعض ميزات الموقع.</li>
             <li> يُطلب منك تقديم معلومات دقيقة ومحدثة عند التسجيل.</li>
@@ -58,7 +58,7 @@ export default function Privacy() {
               الخاصة بك.
             </li>
           </ul>
-          <li className="title-ul">استخدام الموقع:</li>
+          <li className="title-ul">4 . استخدام الموقع:</li>
           <ul>
             <li>
               {' '}
@@ -72,7 +72,7 @@ export default function Privacy() {
             <li> يحظر استخدام تقنيات الاحتيال أو تقديم معلومات مضللة.</li>
           </ul>
 
-          <li className="title-ul">العمليات والمزادات:</li>
+          <li className="title-ul">5 . العمليات والمزادات:</li>
           <ul>
             <li>
               تُعرض المنتجات أو الخدمات على الموقع من قبل مزودين أو أطراف ثالثة.
@@ -80,7 +80,7 @@ export default function Privacy() {
             <li> يلتزم المشاركون بالمزايدة أو تقديم العطاءات بحسن نية.</li>
             <li> جميع العطاءات أو المزايدات المقدمة تُعتبر ملزمة.</li>
           </ul>
-          <li className="title-ul"> الرسوم والمدفوعات:</li>
+          <li className="title-ul">6 . الرسوم والمدفوعات:</li>
           <ul>
             <li> قد يتطلب استخدام بعض الخدمات دفع رسوم.</li>
             <li> جميع المدفوعات تتم وفقًا للسياسات الموضحة على الموقع.</li>
@@ -89,7 +89,7 @@ export default function Privacy() {
               مسبق.
             </li>
           </ul>
-          <li className="title-ul">حقوق الملكية الفكرية:</li>
+          <li className="title-ul">7 . حقوق الملكية الفكرية:</li>
           <ul>
             <li>
               جميع المحتويات المتاحة على الموقع، بما في ذلك النصوص والصور
@@ -100,7 +100,7 @@ export default function Privacy() {
               مسبق.
             </li>
           </ul>
-          <li className="title-ul">حدود المسؤولية:</li>
+          <li className="title-ul">8 . حدود المسؤولية:</li>
           <ul>
             <li>
               نحن لا نتحمل أي مسؤولية عن الخسائر الناجمة عن الاستخدام غير الصحيح
@@ -108,17 +108,17 @@ export default function Privacy() {
             </li>
             <li> يُستخدم الموقع على مسؤوليتك الشخصية.</li>
           </ul>
-          <li className="title-ul">الإنهاء:</li>
+          <li className="title-ul">9 . الإنهاء:</li>
           <ul>
             <li> نحتفظ بالحق في تعليق أو إنهاء حسابك إذا خالفت الشروط.</li>
             <li> يمكنك إغلاق حسابك في أي وقت عبر التواصل معنا.</li>
           </ul>
-          <li className="title-ul">تعديلات على الشروط:</li>
+          <li className="title-ul">10 . تعديلات على الشروط:</li>
           <ul>
             قد نقوم بتعديل هذه الشروط من وقت لآخر. يُعتبر استمرارك في استخدام
             الموقع بعد التعديلات موافقة منك على الشروط الجديدة.
           </ul>
-          <li className="title-ul">القانون المُطبق:</li>
+          <li className="title-ul">11 . القانون المُطبق:</li>
           <ul>
             <li> تخضع هذه الشروط لقوانين [دولتك/منطقتك].</li>
             <li>
@@ -126,16 +126,20 @@ export default function Privacy() {
               المختصة.
             </li>
           </ul>
-          <li className="title-ul">تواصل معنا:</li>
+          <li className="title-ul">12 . تواصل معنا:</li>
           <ul>
             إذا كانت لديك أي استفسارات حول هذه الشروط، يُرجى التواصل معنا عبر:
             <ul>
-              123-456-789
-              <span className="fas fa-phone"></span>
+              smart_world@gmail.com
+              <span className="dsa">
+                <i className="		fas fa-envelope-open"></i>
+              </span>
             </ul>
             <ul>
-              smart_world@gmail.com
-              <span className="		fas fa-envelope-open"></span>
+              123-456-789
+              <span className="dsa">
+                <i className="fas fa-phone"></i>
+              </span>
             </ul>
             باستخدامك للموقع، فإنك توافق على الالتزام بهذه الشروط والأحكام.
           </ul>

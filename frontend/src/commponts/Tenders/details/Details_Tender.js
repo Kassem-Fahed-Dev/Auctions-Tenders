@@ -85,12 +85,10 @@ export default function Details_Tender() {
       return;
     }
 
-
     setAmount(value);
   }
   let Allow;
   let TimeRun = false;
-
 
   function handelTesting() {
     setShowParticipation(true);
@@ -155,10 +153,11 @@ export default function Details_Tender() {
                 <p>اسم المناقصة : </p>
                 <h4>{data?.tenderTitle}</h4>
               </div>
-
-              <i
-                className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
-              ></i>
+              <div className="eee2">
+                <i
+                  className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
+                ></i>
+              </div>
             </div>
             <hr />
             <div className="div-con11">

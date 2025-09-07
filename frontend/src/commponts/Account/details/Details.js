@@ -125,10 +125,11 @@ export default function Details() {
                 <p>اسم المزاد : </p>
                 <h4>{data?.auctionTtile}</h4>
               </div>
-
-              <i
-                className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
-              ></i>
+              <div className="eee">
+                <i
+                  className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
+                ></i>
+              </div>
             </div>
             <hr />
             <div className="div-con">

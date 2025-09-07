@@ -43,15 +43,15 @@ export default function Account() {
       })
       .then((res) => {
         setDataUser(res.data.data.data);
-// <<<<<<< Updated upstream
+        // <<<<<<< Updated upstream
         console.log(res.data.data.data);
-// =======
-//<<<<<<< HEAD
-        console.log(res.data.data.data)
-//=======
+        // =======
+        //<<<<<<< HEAD
+        console.log(res.data.data.data);
+        //=======
         console.log(res.data.data.data.role, 'this is roleeeeeeeeeee');
-//>>>>>>> 42860e0546031cd070d2dac1719f619f3897bc39
-// >>>>>>> Stashed changes
+        //>>>>>>> 42860e0546031cd070d2dac1719f619f3897bc39
+        // >>>>>>> Stashed changes
       })
 
       .catch((error) => {
@@ -115,12 +115,11 @@ export default function Account() {
           {/* <Side /> */}
           <Side role={DataUser.role} />
           <div className="con-prof">
-            {currentPath === '/create' && (
-              <div className="PersonalData">
-                <span className="far fa-edit"></span>
-                <div>البيانات الشخصية</div>
-              </div>
-            )}
+            <div className="PersonalData">
+              <span className="far fa-edit"></span>
+              <div>البيانات الشخصية</div>
+            </div>
+
             <div className="con-img-info">
               <div className="con-img-ptn">
                 <div className={`img-profile ${isActive ? 'active' : ''}`}>
