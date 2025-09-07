@@ -125,13 +125,58 @@ const updateAuctionStatuses = async () => {
               })
               .catch((err) => console.error('Notification error:', err));
 
-            // Notify others
             const allBiddersIds = new Set(
               bids.map((bid) => bid.user._id.toString()),
             );
-            // console.log('😀all biders ', allBiddersIds);
             const winnerId = winner.user._id.toString();
+
+            //  خصم المبلغ النهائي من الفائز
+            const winnerWallet = await Wallet.findOne({
+              partner: winner.user._id,
+            });
+            if (winnerWallet) {
+              const finalPrice = winner.amount;
+              const blockedAmount = 0.1 * auction.startingPrice;
+
+              // إضافة المبلغ المقتطع أولاً إلى المبلغ المتاح
+              winnerWallet.availableAmount += blockedAmount;
+              winnerWallet.blockedAmount -= blockedAmount;
+
+              // خصم المبلغ النهائي للمزاد
+              winnerWallet.availableAmount -= finalPrice;
+              await winnerWallet.save();
+              console.log(
+                ` Deducted final bid amount ${finalPrice} from winner's wallet.`,
+              );
+            }
+
+            //   إعادة المبلغ المقتطع لغير الفائزين
             const otherBiddersIds = [...allBiddersIds].filter(
+              (bidderId) => bidderId !== winnerId,
+            );
+
+            // Fetch wallets for all non-winning bidders and return their blocked amount
+            const otherBiddersWallets = await Wallet.find({
+              partner: { $in: otherBiddersIds },
+            });
+
+            const blockedAmountToReturn = 0.1 * auction.startingPrice;
+            for (const wallet of otherBiddersWallets) {
+              if (wallet.blockedAmount >= blockedAmountToReturn) {
+                wallet.availableAmount += blockedAmountToReturn;
+                wallet.blockedAmount -= blockedAmountToReturn;
+                await wallet.save();
+                console.log(
+                  ` Returned blocked amount to non-winner: ${wallet.partner}`,
+                );
+              }
+            }
+
+            // Notify others
+            allBiddersIds = new Set(bids.map((bid) => bid.user._id.toString()));
+            // console.log('😀all biders ', allBiddersIds);
+            winnerId = winner.user._id.toString();
+            otherBiddersIds = [...allBiddersIds].filter(
               (bidderId) => bidderId !== winnerId,
             );
 
