@@ -167,7 +167,7 @@ export default function Details() {
               </div>
               <div>
                 السعر الحالي:
-                <span>{data?.startingPrice}</span>
+                <span>{data?.highestPrice}</span>
               </div>
               <div>
                 خطوة المزايدة :<span>{data?.minimumIncrement}</span>

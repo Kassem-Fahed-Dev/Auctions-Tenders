@@ -172,7 +172,7 @@ export default function AddGroup() {
 // }
 // count=0
 // }
-const newProperties = [];
+
 
 for (let index = 0; index < num; index++) {
 
@@ -180,57 +180,42 @@ for (let index = 0; index < num; index++) {
  <>
    <div className="second_name_Admin">
                     <p>اسم الحقل </p>
-                    <input type="text" name='key' value={formData1.properties[index]?.key} className="name_in" id={index} onChange={(e)=>{handelFild(e)}}/>
+                    <input type="text" name='key' value={formData1.properties[index].key} className="name_in" id={index} onChange={(e)=>{handelFild(e,'key')}}/>
                   </div>
                   <div className="con_radios2">
                     <p>النمط :</p>
                     <div>
                       <label className="rad2">نص</label>
-                      <input type="radio" value="string" name="dataType" className="r2" id={index} onChange={(e)=>{handelFild(e)}}/>
+                      <input type="radio" value="string" checked={formData1.properties[index].dataType==='string'} name={`dataType${index}`} className="r2" id={index} onChange={(e)=>{handelFild(e,'dataType')}}/>
                     </div>
                     <div>
                       <label className="rad2">رقم</label>
-                      <input type="radio" value="number" name="dataType" className="r2" id={index} onChange={(e)=>{handelFild(e)}}/>
+                      <input type="radio" value="number" checked={formData1.properties[index].dataType==='number'} name={`dataType${index}`} className="r2" id={index} onChange={(e)=>{handelFild(e,'dataType')}}/>
                     </div>
                   </div></>
   );
 }
-for (let i = 0; i < num; i++) {
-    newProperties.push({ key: "", dataType: "", required: "true" });
-}
-
-// setFormData1({
-//     ...formData1,
-//     properties: [
-//         ...formData1.properties,
-//         ...newProperties
-//     ]
-// });
+// =============
 const [repet,setRepet]=useState('1')
-// useEffect(()=>{
-// let   count=1;}
-// ,[])
-if (repet=='1') {
-    setFormData1(prevFormData => ({
-        ...prevFormData,
-        properties: [
-            ...prevFormData.properties,
-            ...newProperties
-        ]
-    }));
-   setRepet('0')
-  }
-// const handelFild=(e)=>{
-//   const {name,value,id}=e.target
-//   setFormData1(prevFormData => ({
-//         ...prevFormData,
-//         properties: [
-//             ...prevFormData.properties,
-//             {...prevFormData.properties[id],[name]:value}
-//         ]
-//     }));
-// }
-const handelFild = (e) => {
+ const handleChange3 = (event) => {
+        const newNum = event.target.value;
+        setNum(newNum);
+        setRepet('1');
+
+        // إعادة تعيين properties إلى مصفوفة فارغة عند تغيير num
+        const newProperties = [];
+        for (let i = 0; i < newNum; i++) {
+            newProperties.push({ key: "", dataType: "", required: "true" });
+        }
+
+        // تحديث formData1
+        setFormData1(prevFormData => ({
+            ...prevFormData,
+            properties: newProperties // تعيين newProperties الجديدة
+        }));
+    };
+
+const handelFild = (e,x) => {
     const { name, value, id } = e.target;
 
     setFormData1(prevFormData => {
@@ -239,7 +224,7 @@ const handelFild = (e) => {
             if (index === parseInt(id)) {
                 return {
                     ...property,
-                    [name]: value // تحديث القيمة بناءً على الاسم
+                    [x]: value // تحديث القيمة بناءً على الاسم
                 };
             }
             return property; // إرجاع الكائن كما هو إذا لم يكن هو الكائن المستهدف
@@ -253,10 +238,7 @@ const handelFild = (e) => {
     console.log(formData1)
 };
 
-  const handleChange3 = (event) => {
-        setNum(event.target.value);
-        setRepet('1')
-    };
+ 
     console.log(formData1.properties)
   const [errorMessage, setErrorMessage] = useState({});
       const [hoverAuction, setHoverAuction] = useState('spinner');
@@ -305,14 +287,9 @@ const uploadImages = (files) => {
     .then((res) => {
       console.log("Upload successful:",res.data);
       const urls=res.data.data.urls[0]
-      //     setFormData1(prevState => ({
-      //   ...prevState,
-      //   image: res.data.data.urls[0], // تعيين رابط الصورة في الحقل image
-      // }));
+    
   return urls
-      // const publicIds = res.data.data.files.map((file) => file.public_id);
-      // console.log("All public IDs:", publicIds);
-      // return publicIds;
+  
     })
     .catch((error) => {
       if (error.response) {
@@ -329,64 +306,7 @@ const uploadImages = (files) => {
     });
 };
 
-//   let pic;
-//    const handleSubmit = async (e) => {
 
-//      e.preventDefault();
-
-//   console.log(selectedFiles);
-   
-// const valditionErrerorsAuction={}
-//  try {
- 
-// pic= await uploadImages(selectedFiles)
-//  setFormData1((prevState) => ({
-//       ...prevState,
-//       image: String(pic), // ✅ حط أول صورة أو عدل حسب حاجتك
-//     }));
-//   }  catch (uploadError) {
- 
-//     console.error('خطأ أثناء رفع الصور:', uploadError);
-//     setHoverAuction('spinner');
-//     return;
-//   }
-//   console.log(String(pic))
-
-//     setHoverAuction('spinner-Auction');
-
-//       setHoverAuction('spinner-Auction');
-  
-//        const categoriesResponse = await  axiosInstance
-//         .post('/api/v1/categories/', JSON.stringify(formData1), {
-//           withCredentials: true,
-//           headers: {
-//             'Content-Type': 'application/json',
-//             'Accept-Language': 'ar',
-//             credentials: 'include',
-//             Authorization: `Bearer ${token}`,
-//           },
-//         })
-//         .then((res) => {
-//           setHoverAuction('spinner');
-//           console.log(res);
-          
-//         })
-//         .catch((error) => {
-//           setHoverAuction('spinner');
-//           if (error.response) {
-//             valditionErrerorsAuction.messageBackend =
-//               error.response.data.message;
-//             setErrorMessageAuc(valditionErrerorsAuction);
-//             console.log('p3');
-//           } else {
-//             console.log('An unexpected error occurred:', error.message);
-//             setErrorMessageAuc({
-//               messageBackend: 'An unexpected error occurred.',
-//             });
-//           }
-//         });
-
-//   };
   // ===================
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -593,13 +513,13 @@ const uploadImages = (files) => {
                         />
                       )}
                     </div>
-                    <div className="leftsideGroup" style={{ backgroundImage: images!=null?`url(${images})`:'?',zIndex:'3', backgroundSize: 'cover', backgroundPosition: 'center', padding: '0px', color: 'white' }}>
+                    <div className="leftsideGroup" style={{ backgroundImage: images.length!=0?`url(${images})`:'?',zIndex:'3', backgroundSize: 'cover', backgroundPosition: 'center', padding: '0px', color: 'white' }}>
                       <div className="buttom_side">
                         <p className="qustion1">{formData1?.name==''?'?':formData1?.name}</p>
                       </div>
-                      <div className="circlediv" style={{backgroundColor:images!=null?'transparent':'rgb(177, 177, 177)'}}>
+                      <div className="circlediv" style={{backgroundColor:images.length!=0?'transparent':'rgb(177, 177, 177)'}}>
                         
-                        <p className="qustion" style={{color:images!=null?'transparent':'#cccccc'}}>?</p>
+                        <p className="qustion" style={{color:images.length!=0?'transparent':'#cccccc'}}>?</p>
                       </div>
                     </div>
                     <div className="ptn_group2">

@@ -66,7 +66,6 @@ exports.createOne = (Model) =>
     }
     const doc = await Model.create({
       ...req.body,
-      image: req.file ? req.body.image : null,
     });
 
     res.status(201).json({
