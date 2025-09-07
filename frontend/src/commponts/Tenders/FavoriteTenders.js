@@ -12,6 +12,7 @@ import Search from '../Auctions/Serach';
 import ButtonSortTen from './ButtonSortten';
 
 export default function FavoriteTenders() {
+    const navegate = useNavigate();
   // const [value, setValue] = useState('فرز حسب');
   // const [value1, setValue1] = useState('فرز حسب');
   // const [value2, setValue2] = useState('');
@@ -62,6 +63,15 @@ export default function FavoriteTenders() {
          <Search page={"all"}/>
         <Navbar wordBlod={'tenders'} />
         <TendersNavbar wordBlod={'Auctions3'} />
+        <button
+        className="createauction"
+        onClick={() => {
+          navegate('/Create_Tender');
+        }}
+      >
+        <p>إنشاء مناقصة</p>
+        <i className="fas fa-plus"></i>
+      </button>
         {/* <button
           className="createauction"
           onClick={() => {

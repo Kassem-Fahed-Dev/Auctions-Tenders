@@ -16,7 +16,7 @@ export default function CreateAuction() {
   const navegate = useNavigate();
   const [formData1, setFormData1] = useState({
     auction: {
-      auctionTtile: '',
+      auctionTitle: '',
       startTime: '',
       endTime: '',
       minimumIncrement: '',
@@ -522,16 +522,16 @@ console.log(formData1)
                   <label className="product-name-label">اسم المزاد</label>
                   <input
                     type="text"
-                    name="auction.auctionTtile"
-                    value={formData1.auction.auctionTtile}
+                    name="auction.auctionTitle"
+                    value={formData1.auction.auctionTitle}
                     onChange={handleChange1}
                     autoComplete="off"
                   />
-                  {errorMessageAuc.auction?.auctionTtile && (
+                  {errorMessageAuc.auction?.auctionTitle && (
                     <span className="error0 error-title">
                       {' '}
                       <span className="fa fa-warning"></span>
-                      {errorMessageAuc.auction.auctionTtile}
+                      {errorMessageAuc.auction.auctionTitle}
                     </span>
                   )}
                 </div>

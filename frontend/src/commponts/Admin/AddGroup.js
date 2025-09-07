@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import imag from '../../image/logo.png';
-
+import axiosInstance from '../AxiosInterceptors';
 export default function AddGroup() {
   const [showDiv, setShowDiv] = useState(null);
   const [cover, setCover] = useState(null);
@@ -10,13 +10,18 @@ export default function AddGroup() {
      type:'',
       name:'' ,
       properties: [],
-      image:'', 
+      image:null, 
   });
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setCover(URL.createObjectURL(file));
-    }
+     const file = e.target.files[0];
+   if (file) {
+            setFormData1(prevFormData => ({
+                ...prevFormData,
+                image: file // تحديث حالة الصورة
+            }));
+            setCover(URL.createObjectURL(file)); // إنشاء رابط للصورة
+        }
+        console.log(formData1)
   };
   const goBack = () => {
     window.history.back();
@@ -59,17 +64,17 @@ for (let index = 0; index < num; index++) {
  <>
    <div className="second_name_Admin">
                     <p>اسم الحقل </p>
-                    <input type="text" className="name_in" />
+                    <input type="text" name='key' value={formData1.properties[index]?.key} className="name_in" id={index} onChange={(e)=>{handelFild(e)}}/>
                   </div>
                   <div className="con_radios2">
                     <p>النمط :</p>
                     <div>
                       <label className="rad2">نص</label>
-                      <input type="radio" value="" name="" className="r2" />
+                      <input type="radio" value="string" name="dataType" className="r2" id={index} onChange={(e)=>{handelFild(e)}}/>
                     </div>
                     <div>
-                      <label className="rad2">حقل</label>
-                      <input type="radio" value="" name="" className="r2" />
+                      <label className="rad2">رقم</label>
+                      <input type="radio" value="number" name="dataType" className="r2" id={index} onChange={(e)=>{handelFild(e)}}/>
                     </div>
                   </div></>
   );
@@ -99,6 +104,37 @@ if (repet=='1') {
     }));
    setRepet('0')
   }
+// const handelFild=(e)=>{
+//   const {name,value,id}=e.target
+//   setFormData1(prevFormData => ({
+//         ...prevFormData,
+//         properties: [
+//             ...prevFormData.properties,
+//             {...prevFormData.properties[id],[name]:value}
+//         ]
+//     }));
+// }
+const handelFild = (e) => {
+    const { name, value, id } = e.target;
+
+    setFormData1(prevFormData => {
+        const updatedProperties = prevFormData.properties.map((property, index) => {
+            // تحقق مما إذا كان هذا هو الكائن الذي نريد تحديثه
+            if (index === parseInt(id)) {
+                return {
+                    ...property,
+                    [name]: value // تحديث القيمة بناءً على الاسم
+                };
+            }
+            return property; // إرجاع الكائن كما هو إذا لم يكن هو الكائن المستهدف
+        });
+
+        return {
+            ...prevFormData,
+            properties: updatedProperties // تحديث الخصائص بالمصفوفة الجديدة
+        };
+    });
+};
 
   const handleChange3 = (event) => {
         setNum(event.target.value);
@@ -106,6 +142,60 @@ if (repet=='1') {
     };
     console.log(formData1.properties)
   const [errorMessage, setErrorMessage] = useState({});
+      const [hoverAuction, setHoverAuction] = useState('spinner');
+
+    const [errorMessageAuc, setErrorMessageAuc] = useState({});
+  // ================
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+  
+    // باقي منطق التحقق من البيانات...
+    setHoverAuction('spinner-Auction');
+    // const valditionErrerorsAuction = { item: {}, tender: {} };
+  
+    // استكمال التحقق من صحة البيانات هنا (كما في الكود السابق)
+    // ...
+  
+    // if (
+    //   Object.keys(valditionErrerorsAuction.tender).length === 0 &&
+    //   Object.keys(valditionErrerorsAuction.item).length === 0
+    // ) {
+      const token = localStorage.getItem('jwt');
+      setHoverAuction('spinner-Auction');
+     const valditionErrerorsAuction={}
+      axiosInstance
+        .post('/api/v1/categories/', JSON.stringify(formData1), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setHoverAuction('spinner');
+          console.log(res);
+          // navegate('/createTender');
+        })
+        .catch((error) => {
+          setHoverAuction('spinner');
+          if (error.response) {
+            valditionErrerorsAuction.messageBackend =
+              error.response.data.message;
+            setErrorMessageAuc(valditionErrerorsAuction);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessageAuc({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    // }
+  };
+  
   return (
     <>
       <div className="con-admin">
@@ -258,14 +348,16 @@ if (repet=='1') {
                     </div>
                     <div className="leftsideGroup">
                       <div className="buttom_side">
-                        <p className="qustion1">?</p>
+                        <p className="qustion1">{formData1?.name==''?'?':formData1?.name}</p>
                       </div>
                       <div className="circlediv">
-                        <p className="qustion">?</p>
+                        
+                        {/* <p className="qustion"><img  src={cover}
+                          alt="?"/></p> */}
                       </div>
                     </div>
                     <div className="ptn_group2">
-                      <button>حفظ</button>
+                      <button onClick={(e)=>{handleSubmit(e)}}>حفظ</button>
                       <button
                         className="reject"
                         onClick={() => {

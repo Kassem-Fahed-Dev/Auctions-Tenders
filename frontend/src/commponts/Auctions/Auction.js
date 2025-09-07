@@ -251,7 +251,7 @@ const regectAu=()=>{
         }
         alt="Error"
       />
-      <p className="nameCube">{data?.auctionTtile}</p>
+      <p className="nameCube">{data?.auctionTitle}</p>
 
       <div className="userName">
         <i className="fas fa-user userAuction"></i>
