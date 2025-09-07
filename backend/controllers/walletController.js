@@ -87,7 +87,8 @@ exports.approveDeposit = catchAsync(async (req, res, next) => {
   if (
     !activity ||
     activity.status !== 'pending' ||
-    activity.descriptionTransaction !== 'Deposit requested'
+    (activity.descriptionTransaction !== 'Deposit requested' &&
+      activity.descriptionTransaction !== 'Transfer')
   ) {
     return next(new AppError('Invalid or non-pending deposit activity', 400));
   }

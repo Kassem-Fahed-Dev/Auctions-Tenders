@@ -61,7 +61,9 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   if (wallet.availableAmount + wallet.blockedAmount < amount) {
     return next(
       new AppError(
-        req.t(`errors:insufficientFunds`), // يمكنك إضافة رسالة خطأ جديدة
+        req.t(
+          `errors:You do not have enough funds in your wallet for this transaction.insufficientFunds`,
+        ),
         400,
       ),
     );
