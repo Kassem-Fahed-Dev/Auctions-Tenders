@@ -5,7 +5,8 @@ const AuctionBid = require('../models/AuctionBid');
 const notificationService = require('./notificationService');
 const Favorite = require('../models/Favorite');
 const TenderOffer = require('../models/TenderOffer');
-
+const Wallet = require('../models/Wallet');
+const WalletActivity = require('../models/WalletActivity');
 // Function to update auction statuses automatically
 const updateAuctionStatuses = async () => {
   try {
@@ -125,13 +126,76 @@ const updateAuctionStatuses = async () => {
               })
               .catch((err) => console.error('Notification error:', err));
 
-            // Notify others
-            const allBiddersIds = new Set(
+            let allBiddersIds = new Set(
               bids.map((bid) => bid.user._id.toString()),
             );
-            // console.log('😀all biders ', allBiddersIds);
             const winnerId = winner.user._id.toString();
+            const finalPrice = winner.amount;
+
+            // إذا لم يكن لصاحب المزاد محفظة، قم بإنشاء واحدة له
+            const auctionOwnerWallet = await Wallet.findOneAndUpdate(
+              { partner: auction.user._id },
+              {}, // لا توجد تحديثات مبدئية، فقط البحث أو الإنشاء
+              { upsert: true, new: true }, // upsert:true لإنشاء المحفظة إذا لم تكن موجودة. new:true لإعادة المحفظة المحدثة أو الجديدة
+            );
+            //  خصم المبلغ النهائي من الفائز
+            const winnerWallet = await Wallet.findOne({
+              partner: winner.user._id,
+            });
+            if (winnerWallet) {
+              const blockedAmount = 0.1 * auction.startingPrice;
+
+              // إضافة المبلغ المقتطع أولاً إلى المبلغ المتاح
+              winnerWallet.availableAmount += blockedAmount;
+              winnerWallet.blockedAmount -= blockedAmount;
+
+              // خصم المبلغ النهائي للمزاد
+              winnerWallet.availableAmount -= finalPrice;
+              await winnerWallet.save();
+              console.log(
+                ` Deducted final bid amount ${finalPrice} from winner's wallet.`,
+              );
+            }
+            //اضافة المبلغ الماخوذ من حساب الفائز الى حساب صاحب المزاد
+            auctionOwnerWallet.blockedAmount += finalPrice;
+            // اضافة نشاط لحادثة التحويل من حساب لاخر
+            await WalletActivity.create({
+              partner: auction.user._id,
+              descriptionTransaction: 'Transfer',
+              amount: finalPrice, // positive
+              status: 'pending',
+            });
+            await auctionOwnerWallet.save();
+            console.log(
+              ` Deposited final bid amount ${finalPrice} into auction owner's wallet.`,
+            );
+            //   إعادة المبلغ المقتطع لغير الفائزين
             const otherBiddersIds = [...allBiddersIds].filter(
+              (bidderId) => bidderId !== winnerId,
+            );
+
+            // Fetch wallets for all non-winning bidders and return their blocked amount
+            const otherBiddersWallets = await Wallet.find({
+              partner: { $in: otherBiddersIds },
+            });
+
+            const blockedAmountToReturn = 0.1 * auction.startingPrice;
+            for (const wallet of otherBiddersWallets) {
+              if (wallet.blockedAmount >= blockedAmountToReturn) {
+                wallet.availableAmount += blockedAmountToReturn;
+                wallet.blockedAmount -= blockedAmountToReturn;
+                await wallet.save();
+                console.log(
+                  ` Returned blocked amount to non-winner: ${wallet.partner}`,
+                );
+              }
+            }
+
+            // Notify others
+            allBiddersIds = new Set(bids.map((bid) => bid.user._id.toString()));
+            // console.log('😀all biders ', allBiddersIds);
+            winnerId = winner.user._id.toString();
+            otherBiddersIds = [...allBiddersIds].filter(
               (bidderId) => bidderId !== winnerId,
             );
 
@@ -344,7 +408,7 @@ const updateTenderStatuses = async () => {
               .catch((err) => console.error('Notification error:', err));
 
             // Notify all bidders
-            const allBiddersIds = new Set(
+            allBiddersIds = new Set(
               offers.map((offer) => offer.user._id.toString()),
             );
 

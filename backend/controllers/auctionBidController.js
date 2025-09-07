@@ -56,6 +56,19 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   if (!wallet) {
     wallet = await Wallet.create({ partner: userId });
   }
+
+  // This check now ensures the user has enough available funds for the new bid, considering the blocked amount as available for bidding purposes
+  if (wallet.availableAmount + wallet.blockedAmount < amount) {
+    return next(
+      new AppError(
+        req.t(
+          `errors:You do not have enough funds in your wallet for this transaction.insufficientFunds`,
+        ),
+        400,
+      ),
+    );
+  }
+
   // Only block amount if this is the user's first bid on this auction
   if (!existingBid) {
     let blockedAmount = 0.1 * auction.startingPrice;
