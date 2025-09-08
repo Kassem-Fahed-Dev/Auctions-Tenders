@@ -7,6 +7,7 @@ const AppError = require('../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const TenderOffer = require('../models/TenderOffer');
 const notificationService = require('../utils/notificationService');
+const Wallet = require('../models/Wallet');
 // Helper function to add favorites to tenders
 const addFavoritesToTenders = async (tenders, userId) => {
   const tenderIds = tenders.map((tender) => tender._id);
@@ -104,6 +105,18 @@ exports.getUserId = (req, res, next) => {
 exports.createTenderWithItem = catchAsync(async (req, res, next) => {
   let newItem = null;
   let newTender = null;
+
+  // تحقق من رصيد صاحب المناقصة
+  const tenderOwnerWallet = await Wallet.findOne({
+    partner: req.user.id,
+  });
+  console.log('🎆🎆tenderOwnerWallet', tenderOwnerWallet);
+  if (
+    !tenderOwnerWallet ||
+    tenderOwnerWallet.availableAmount < req.body.tender.startingPrice
+  ) {
+    return next(new AppError(req.t('errors:insufficientBalance'), 400));
+  }
 
   try {
     // Create Item first
