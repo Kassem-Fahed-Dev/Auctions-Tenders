@@ -36,8 +36,8 @@
 }
 .con_notif {
   margin-top: 100px;
-    margin-bottom: 100px;
-    cursor: pointer;
+  margin-bottom: 100px;
+  cursor: pointer;
   /* background-color: aqua; */
 }
 .imgnot {
@@ -59,24 +59,25 @@
 .p222 {
   margin-right: 200px;
 }
-div.read{
+div.read {
   background-color: transparent;
   border-bottom: #000 solid 1px;
 }
-div.unread{
+div.unread {
   background-color: #00000015;
   /* background-color: aqua; */
   border-bottom: #000 solid 1px;
 }
-.dis{
+.dis {
   border-bottom: #000 solid 1px;
   display: none;
 }
-.deletNotification{
+.deletNotification {
   border-radius: 50%;
   background-color: red;
   width: 30px;
   height: 30px;
+  border: none;
   position: relative;
   left: -1150px;
 }

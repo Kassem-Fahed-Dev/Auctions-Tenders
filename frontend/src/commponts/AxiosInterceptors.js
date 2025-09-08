@@ -8,19 +8,19 @@ const axiosInstance = axios.create({
 
 // إضافة interceptor للتعامل مع الأخطاء
 axiosInstance.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     // افحص الحالة هنا
-    alert(error.response.data.message)
-    console.error('Error encountered:', error.response.data.message)
+    alert(error.response.data.message);
+    console.error('Error encountered:', error.response.data.message);
     if (error.response && error.response.status === 401) {
       // إذا كانت هناك حالة 401، قم بتسجيل الخروج
-      console.error('Error encountered:', error)
-      localStorage.setItem('jwt',null)
-      localStorage.setItem('name','حساب الدخول')
-      window.location.href='/'
+      console.error('Error encountered:', error);
+      localStorage.setItem('jwt', null);
+      localStorage.setItem('name', 'حساب الدخول');
+      window.location.href = '/';
       // alert("يُرجى تسجيل الدخول أولاً")
-      alert(error.response.data.message)
+      alert(error.response.data.message);
     }
     return Promise.reject(error); // إعادة الخطأ لكي تتمكن من معالجته في أماكن أخرى إذا لزم الأمر
   }

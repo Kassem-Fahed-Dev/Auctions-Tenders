@@ -6,12 +6,20 @@ import Auction from '../../Auctions/Auction';
 import axiosInstance from '../../AxiosInterceptors';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import fat from '../../../image/tend.jpg';
+import fat2 from '../../../image/tend2.jpg';
+import fat3 from '../../../image/tend3.jpg';
 export default function AuctionAdmin() {
   const [all, setAll] = useState([]);
   const [yes, setYes] = useState(true);
+<<<<<<< HEAD
     const [yes1, setYes1] = useState(true);
     
   const [type,setType] =useState('مرفوعة للطلب')
+=======
+  const [yes1, setYes1] = useState(true);
+  const [type, setType] = useState('مرفوعة للطلب');
+>>>>>>> 44a8a784ec28f0f09a5dd4ff50fbd5c89d6105fc
   let sort;
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
@@ -46,29 +54,29 @@ export default function AuctionAdmin() {
         }
       });
   }, []);
-  const sortAu=async(e,type1)=>{
-    const {value}= e.target
-    setType(value)
-if(type1=='قيد الانتظار'){
-  console.log('o')
-  setYes(true)
-  setYes1(true)
-  console.log(yes)
-console.log(yes1)
-}else{
-   console.log('o1')
-    setYes(null)
-  setYes1(null)
-  console.log(yes)
-console.log(yes1)
-}
-   await new Promise(resolve => setTimeout(resolve, 0));
-     console.log(yes)
-console.log(yes1)
-console.log(type1)
-// console.log(yes)
-// console.log(yes1)
-axiosInstance
+  const sortAu = async (e, type1) => {
+    const { value } = e.target;
+    setType(value);
+    if (type1 == 'قيد الانتظار') {
+      console.log('o');
+      setYes(true);
+      setYes1(true);
+      console.log(yes);
+      console.log(yes1);
+    } else {
+      console.log('o1');
+      setYes(null);
+      setYes1(null);
+      console.log(yes);
+      console.log(yes1);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    console.log(yes);
+    console.log(yes1);
+    console.log(type1);
+    // console.log(yes)
+    // console.log(yes1)
+    axiosInstance
       .get(
         `/api/v1/auctions?status=${type1} `,
 
@@ -97,7 +105,7 @@ axiosInstance
           });
         }
       });
-  }
+  };
   return (
     <>
       <div className="con-admin">
@@ -159,11 +167,70 @@ axiosInstance
               <i class="fa-solid fa-gavel"></i> مدير المزادات{' '}
             </h1>
             <div className="ten_ptn_control">
-              <button className="ptn_Gr1" value={'مرفوعة للطلب'} onClick={(e)=>{sortAu(e,'قيد الانتظار')}}> مرفوعة للطلب  </button>
-              <button className="ptn_Gr1" value={'مقبولة'} onClick={(e)=>{sortAu(e,'مقبول')}}>مقبول </button>
-              <button className="ptn_Gr1" value={'مرفوضة'} onClick={(e)=>{sortAu(e,'مرفوض')}}>مرفوض </button>
+              <button
+                className="ptn_Gr1"
+                value={'مرفوعة للطلب'}
+                onClick={(e) => {
+                  sortAu(e, 'قيد الانتظار');
+                }}
+              >
+                {' '}
+                مرفوعة للطلب{' '}
+              </button>
+              <button
+                className="ptn_Gr1"
+                value={'مقبولة'}
+                onClick={(e) => {
+                  sortAu(e, 'مقبول');
+                }}
+              >
+                مقبول{' '}
+              </button>
+              <button
+                className="ptn_Gr1"
+                value={'مرفوضة'}
+                onClick={(e) => {
+                  sortAu(e, 'مرفوض');
+                }}
+              >
+                مرفوض{' '}
+              </button>
             </div>
-            <p className="t2">مزادات {type}  </p>
+            <p
+              className="t2"
+              style={{
+                color:
+                  type === 'مرفوعة للطلب'
+                    ? '#000000ff'
+                    : type === 'مقبولة'
+                    ? '#27ae60' // أخضر
+                    : '#e74c3c', // أحمر
+              }}
+            >
+              {' '}
+              {type === 'مرفوعة للطلب' && (
+                <img
+                  src={fat}
+                  alt=" err"
+                  style={{ color: '#000000', width: '40px', marginLeft: '5px' }}
+                />
+              )}
+              {type === 'مقبولة' && (
+                <img
+                  src={fat3}
+                  alt=" err"
+                  style={{ color: 'green', width: '40px', marginLeft: '5px' }}
+                />
+              )}
+              {type === 'مرفوضة' && (
+                <img
+                  src={fat2}
+                  alt="err"
+                  style={{ color: 'red', width: '40px', marginLeft: '5px' }}
+                />
+              )}
+              مزادات {type}
+            </p>
             <div className="con_Adminsort">
               {/* <SortDropdown />
               <div className="sdsd">

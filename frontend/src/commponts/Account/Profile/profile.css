@@ -310,7 +310,7 @@
 
 /* for the flex the side and other componant such as create */
 .con-flex {
-  padding-top: 60px;
+  padding-top: 40px;
   gap: 40px;
   margin: 10px;
 
@@ -782,6 +782,6 @@
   text-align: center;
   display: inline-block;
 }
-.color{
+.color {
   background-color: #00000095;
 }

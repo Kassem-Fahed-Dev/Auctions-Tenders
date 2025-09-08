@@ -6,11 +6,14 @@ import Tender from '../Tenders/Tender';
 import axiosInstance from '../AxiosInterceptors';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import fat from '../.././image/tend.jpg';
+import fat2 from '../.././image/tend2.jpg';
+import fat3 from '../.././image/tend3.jpg';
 export default function TenderAdmin() {
   const [all, setAll] = useState([]);
-   const [yes, setYes] = useState(true);
-    const [yes1, setYes1] = useState(true);
-  const [type,setType] =useState('مرفوعة للطلب')
+  const [yes, setYes] = useState(true);
+  const [yes1, setYes1] = useState(true);
+  const [type, setType] = useState('مرفوعة للطلب');
   let sort;
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
@@ -30,7 +33,7 @@ export default function TenderAdmin() {
       )
       .then((res) => {
         setAll(res.data.data.data);
-        
+
         console.log(res.data.data.data);
       })
       .catch((error) => {
@@ -46,19 +49,19 @@ export default function TenderAdmin() {
         }
       });
   }, []);
-    const sortTen=async(e,type1)=>{
-    const {value}= e.target
-    setType(value)
-if(type1=='قيد الانتظار'){
-  setYes(true)
-  setYes1(true)
-}else{
-    setYes(null)
-  setYes1(null)
-}
-await new Promise(resolve => setTimeout(resolve, 0));
-console.log(type1)
-axiosInstance
+  const sortTen = async (e, type1) => {
+    const { value } = e.target;
+    setType(value);
+    if (type1 == 'قيد الانتظار') {
+      setYes(true);
+      setYes1(true);
+    } else {
+      setYes(null);
+      setYes1(null);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    console.log(type1);
+    axiosInstance
       .get(
         `/api/v1/tenders?status=${type1} `,
 
@@ -87,7 +90,7 @@ axiosInstance
           });
         }
       });
-  }
+  };
   return (
     <>
       <div className="con-admin">
@@ -149,11 +152,69 @@ axiosInstance
               <i class="far fa-handshake"></i> مدير المناقصات{' '}
             </h1>
             <div className="ten_ptn_control">
-              <button className="ptn_Gr1" value={'مرفوعة للطلب'} onClick={(e)=>{sortTen(e,'قيد الانتظار')}}>مرفوع للطلب </button>
-              <button className="ptn_Gr1" value={'مقبولة'} onClick={(e)=>{sortTen(e,'مقبول')}}>مقبول </button>
-              <button className="ptn_Gr1"  value={'مرفوضة'} onClick={(e)=>{sortTen(e,'مرفوض')}}>مرفوض </button>
+              <button
+                className="ptn_Gr1"
+                value={'مرفوعة للطلب'}
+                onClick={(e) => {
+                  sortTen(e, 'قيد الانتظار');
+                }}
+              >
+                مرفوع للطلب{' '}
+              </button>
+              <button
+                className="ptn_Gr1"
+                value={'مقبولة'}
+                onClick={(e) => {
+                  sortTen(e, 'مقبول');
+                }}
+              >
+                مقبول{' '}
+              </button>
+              <button
+                className="ptn_Gr1"
+                value={'مرفوضة'}
+                onClick={(e) => {
+                  sortTen(e, 'مرفوض');
+                }}
+              >
+                مرفوض{' '}
+              </button>
             </div>
-            <p className="t2">المناقصات {type} </p>
+            <p
+              className="t2"
+              style={{
+                color:
+                  type === 'مرفوعة للطلب'
+                    ? '#000000ff'
+                    : type === 'مقبولة'
+                    ? '#27ae60' // أخضر
+                    : '#e74c3c', // أحمر
+              }}
+            >
+              {' '}
+              {type === 'مرفوعة للطلب' && (
+                <img
+                  src={fat}
+                  alt=" err"
+                  style={{ color: '#000000', width: '40px', marginLeft: '5px' }}
+                />
+              )}
+              {type === 'مقبولة' && (
+                <img
+                  src={fat3}
+                  alt=" err"
+                  style={{ color: 'green', width: '40px', marginLeft: '5px' }}
+                />
+              )}
+              {type === 'مرفوضة' && (
+                <img
+                  src={fat2}
+                  alt="err"
+                  style={{ color: 'red', width: '40px', marginLeft: '5px' }}
+                />
+              )}
+              مناقصات {type}
+            </p>
             <div className="con_Adminsort">
               {/* <SortDropdown /> */}
               {/* <div className="sdsd">

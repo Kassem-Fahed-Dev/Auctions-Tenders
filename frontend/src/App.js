@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Result from './commponts/Home/Result';
 import Home from './commponts/Home/Home';
 import Favorite from './commponts/Home/Favorite';
 import { Routes, Route } from 'react-router-dom';
@@ -159,7 +160,11 @@ function App() {
         <Route path="/not" element={<Notification />} />
         <Route path="/notread" element={<UnReadnotification />} />
         <Route path="/read" element={<Readnotification />} />
+<<<<<<< HEAD
          {/* <Route path="/group" element={<Group/>}/> */}
+=======
+        <Route path="/result" element={<Result />} />
+>>>>>>> 44a8a784ec28f0f09a5dd4ff50fbd5c89d6105fc
       </Routes>
     </div>
   );

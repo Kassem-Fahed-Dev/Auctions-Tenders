@@ -62,7 +62,6 @@ export default function CreateAcount() {
     email: '',
     phone: '',
     passwordConfirm: '',
-    
   });
   //   تسجيل الدخول
   const [formData1, setFormData1] = useState({
@@ -75,16 +74,16 @@ export default function CreateAcount() {
     check2: false,
   });
   // الانتقال من لوغو
-  const goToHome=()=>{
-    navegate2('/')
-  }
+  const goToHome = () => {
+    navegate2('/');
+  };
   //   تطبيق الحركة على مربع الادخال
   const hoverItems1 = (items) => {
     if (namePass.includes(items) == false) {
       setNamePase([...namePass, items.trim()]);
     }
   };
-    localStorage.setItem('status','فرز حسب');
+  localStorage.setItem('status', 'فرز حسب');
   //   اختيار الموقع
 
   // const hoverItems2 = (items) => {
@@ -109,11 +108,11 @@ export default function CreateAcount() {
     setFormData1({ ...formData1, [name]: value.trim() });
   };
   //   دالة الارسال و اظهار الاخطاء في انشاء الحساب
-  
+
   // console.log(tok)
   const handleSubmit1 = (e) => {
-    setHover('spinner-click-tow')
-    console.log('rr')
+    setHover('spinner-click-tow');
+    console.log('rr');
     e.preventDefault();
     const valditionErrerors = {};
     if (!formData.name.trim()) {
@@ -170,36 +169,31 @@ export default function CreateAcount() {
     //   setHover('spinner');
     // }
     setErrorMessage(valditionErrerors);
-    console.log(formData)
+    console.log(formData);
     // const tok=''
     if (Object.keys(valditionErrerors).length === 0) {
       setHover('spinner-click-tow');
-      console.log(formData)
-      axiosInstance .post(
-         '/api/v1/users/signup',
-          JSON.stringify(formData),
-          {
-            withCredentials: true,
-            headers: {
-              
-              'Content-Type': 'application/json',
-              'Accept-Language': 'ar',
-                'credentials': 'include',
-                //  'Authorization': `Bearer ${tok}`
-            },
-          }
-        )
+      console.log(formData);
+      axiosInstance
+        .post('/api/v1/users/signup', JSON.stringify(formData), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            //  'Authorization': `Bearer ${tok}`
+          },
+        })
         .then((res) => {
           setHover('spinner');
-          console.log(res)
-          localStorage.setItem('name',res.data.data.user.name)
-          localStorage.setItem('jwt',res.data.token)
+          console.log(res);
+          localStorage.setItem('name', res.data.data.user.name);
+          localStorage.setItem('jwt', res.data.token);
           //  tok = localStorage.getItem('jwt');
           navegate('/confirm');
-   
         })
         .catch((error) => {
-          console.log('error')
+          console.log('error');
           setHover('spinner');
           if (error.response) {
             const validationErrors = {};
@@ -228,7 +222,7 @@ export default function CreateAcount() {
     if (!formData1.password.trim()) {
       valditionErrerors1.password = 'هذا الحقل مطلوب.';
       setHover('spinner');
-    } 
+    }
     // else if (
     //   !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{9,}$/.test(
     //     formData1.password
@@ -239,30 +233,25 @@ export default function CreateAcount() {
     //   setHover('spinner');
     // }
     setErrorMessage1(valditionErrerors1);
-      // const tok1=''
+    // const tok1=''
     if (Object.keys(valditionErrerors1).length === 0) {
       setHover('spinner-click');
       axiosInstance
-        .post(
-          '/api/v1/users/login',
-          JSON.stringify(formData1),
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept-Language': 'ar',
-                'credentials': 'include',
-                // 'credentials': 'include',
-                //  'Authorization': `Bearer ${tok1}`
-             
-            },
-          }
-        )
+        .post('/api/v1/users/login', JSON.stringify(formData1), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            // 'credentials': 'include',
+            //  'Authorization': `Bearer ${tok1}`
+          },
+        })
         .then((res) => {
           setHover('spinner');
-          console.log(res)
-          localStorage.setItem('name',res.data.data.user.name)
-          localStorage.setItem('jwt',res.data.token)
+          console.log(res);
+          localStorage.setItem('name', res.data.data.user.name);
+          localStorage.setItem('jwt', res.data.token);
           // tok1 = localStorage.getItem('jwt');
           navegate('/confirm1');
         })
@@ -302,17 +291,13 @@ export default function CreateAcount() {
     setErrorMessage2(valditionErrerors2);
     if (Object.keys(valditionErrerors2).length === 0) {
       axiosInstance
-        .post(
-          '/api/v1/users/forgotPassword',
-          JSON.stringify(formData2),
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept-Language': 'ar',
-            },
-          }
-        )
+        .post('/api/v1/users/forgotPassword', JSON.stringify(formData2), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+          },
+        })
         .then((res) => {
           setHover2('spinner');
           setHover3('no');
@@ -388,16 +373,12 @@ export default function CreateAcount() {
     };
     const valditionErrerors4 = {};
     axiosInstance
-      .post(
-        '/api/v1/users/checkResetCode',
-        JSON.stringify(dataToSubmit),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-          },
-        }
-      )
+      .post('/api/v1/users/checkResetCode', JSON.stringify(dataToSubmit), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+        },
+      })
       .then((res) => {
         setHover4('spinner');
         setHover5('no1');
@@ -451,16 +432,12 @@ export default function CreateAcount() {
     if (Object.keys(valditionErrerors4).length === 0) {
       setHover6('spinner-click5');
       axiosInstance
-        .patch(
-          '/api/v1/users/resetPassword',
-          JSON.stringify(dataToSubmit2),
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept-Language': 'ar',
-            },
-          }
-        )
+        .patch('/api/v1/users/resetPassword', JSON.stringify(dataToSubmit2), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+          },
+        })
         .then((res) => {
           setHover6('spinner');
           setHover7('no');
@@ -482,8 +459,6 @@ export default function CreateAcount() {
     }
   };
   // =====================
-   
-  
 
   return (
     <div className="account1">

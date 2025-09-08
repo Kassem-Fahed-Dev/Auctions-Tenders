@@ -68,6 +68,7 @@ export default function AucParticiped() {
   return (
     <div>
       <Profile />
+
       <div className="con-flex">
         <div className="nn">
           <h3>
@@ -81,8 +82,8 @@ export default function AucParticiped() {
             />
             المزادات التي شاركت بها
           </h3>{' '}
-         <div className="test-con">
-                    {/* <button
+          <div className="test-con">
+            {/* <button
                       className="sort21"
                       type="text"
                       onMouseEnter={() => {
@@ -223,13 +224,13 @@ export default function AucParticiped() {
                         </button>
                       </div>
                     </div> */}
-                    <Search page="participped"/>
-                    <ButtonSort test2={'sharep'} position={"profile"}/>
-                  </div>
+            <Search page="participped" />
+            <ButtonSort test2={'sharep'} position={'profile'} />
+          </div>
         </div>
       </div>
-   
-      <Cards page={'sharep'}/>
+
+      <Cards page={'sharep'} />
       <Footer />
     </div>
   );
