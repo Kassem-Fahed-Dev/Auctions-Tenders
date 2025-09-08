@@ -10,6 +10,7 @@ export default function AuctionAdmin() {
   const [all, setAll] = useState([]);
   const [yes, setYes] = useState(true);
     const [yes1, setYes1] = useState(true);
+    
   const [type,setType] =useState('مرفوعة للطلب')
   let sort;
   const token = localStorage.getItem('jwt');

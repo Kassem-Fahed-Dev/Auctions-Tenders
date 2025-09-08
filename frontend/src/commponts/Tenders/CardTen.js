@@ -64,7 +64,7 @@ export default function CardTen({page,item,id,showDelete}) {
     )
     .then((res) => {
       setAll(res.data.data.data);
-      console.log(all);
+      console.log(res.data.data.data);
     })
     .catch((error) => {
       if (error.response) {

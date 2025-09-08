@@ -58,7 +58,8 @@ const deleteUser = (e, id) => {
   // ةةةةةةةةةةةةةةة
   const [showDiv, setShowDiv] = useState(null);
   const [cover, setCover] = useState(null);
- const [all,setALL]=useState([])
+ const [allTender,setALLTender]=useState([])
+ const [allAuction,setALLAuction]=useState([])
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -69,7 +70,7 @@ const deleteUser = (e, id) => {
   const [errorMessage, setErrorMessage] = useState({});
     useEffect(() => {
       axiosInstance
-        .get(`/api/v1/categories`, {
+        .get(`/api/v1/categories?type=auction`, {
           headers: {
             'Content-Type': 'application/json',
             'Accept-Language': 'ar',
@@ -78,7 +79,36 @@ const deleteUser = (e, id) => {
           },
         })
         .then((res) => {
-          setALL(res.data.data.data)
+          setALLAuction(res.data.data.data)
+          // setWalletActivity(res.data.data);
+          console.log(res.data.data.data);
+          // console.log(walletActivity);
+        })
+        .catch((error) => {
+          console.log('error');
+          // setHover('spinner');
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+         axiosInstance
+        .get(`/api/v1/categories?type=tender`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setALLTender(res.data.data.data)
           // setWalletActivity(res.data.data);
           console.log(res.data.data.data);
           // console.log(walletActivity);
@@ -98,6 +128,10 @@ const deleteUser = (e, id) => {
           }
         });
     }, []);
+
+    const group=()=>{
+
+    }
   return (
     <>
       <div className="con-admin">
@@ -420,8 +454,8 @@ const deleteUser = (e, id) => {
 {/* ================================================ */}
 
 
-{all.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
-            <Link className="link">
+{allAuction.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
+            <Link className="link" to='/group'  state={{ group }} >
               <button
                 className="ptndelgroup"
                 // onClick={() => handleDeleteClick(group?.name)}
@@ -437,9 +471,13 @@ const deleteUser = (e, id) => {
                 <span>x</span>
               </button>
               {group?.name}
-              <Link to="/edit" className="ptneditgroup">
-                <i className="fa-solid fa-pen-to-square"></i>
-              </Link>
+             <Link 
+  to="/edit" 
+  state={{ group }} 
+  className="ptneditgroup"
+>
+  <i className="fa-solid fa-pen-to-square"></i>
+</Link>
             </Link>
           </div>))}
       </div>
@@ -448,6 +486,34 @@ const deleteUser = (e, id) => {
           <p className="nametit">
             <i class="far fa-handshake"></i> مجموعة المناقصات{' '}
           </p>
+          <div className="group-con2">
+          {allTender.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
+            <Link className="link" to='/group'  state={{ group }} >
+              <button
+                className="ptndelgroup"
+                // onClick={() => handleDeleteClick(group?.name)}
+                //  onClick={() =>
+                  // handleDeleteClick(group?.name,group?._id)}
+                   onClick={() =>
+                      setGroupToDelete({
+                        name: group?.name,
+                        id: group?._id,
+                      })}
+                    
+              >
+                <span>x</span>
+              </button>
+              {group?.name}
+             <Link 
+  to="/edit" 
+  state={{ group }} 
+  className="ptneditgroup"
+>
+  <i className="fa-solid fa-pen-to-square"></i>
+</Link>
+            </Link>
+          </div>))}
+          </div>
 {/* 
           <div className="group-con2">
             <div className="group-div div11">

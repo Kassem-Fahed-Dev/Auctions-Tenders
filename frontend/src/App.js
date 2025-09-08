@@ -59,59 +59,20 @@ import AddGroup from './commponts/Admin/AddGroup';
 import Notification from './commponts/Home/Notifiction/Notification';
 import UnReadnotification from './commponts/Home/Notifiction/UnReadnotification';
 import Readnotification from './commponts/Home/Notifiction/Readnotification';
+import Group from './commponts/Group'
 
-// >>>>>>> Stashed changes
 function App() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGJhZDAyYzc5NDU0MDA1YmQ0NmEwZiIsImlhdCI6MTc0NDk2ODA3OSwiZXhwIjoxNzUyNzQ0MDc5fQ.Y2jTAwwKl9aFmB56wX3CzluGi7E88T5Tsd8FIDMJRIU"
-  // <<<<<<< HEAD
+
   const tok = localStorage.getItem('jwt');
-  // console.log(tok)
-  // =======
-  // const tok = localStorage.getItem('jwt');
-  // >>>>>>> f84a1459e3c7971148b91fcd2fe9795a8b8ebddb
-  // useEffect(() => {
-  //   const checkLoginStatus = async () => {
-  //     try {
-  //       const response = await axios.get('https://auctions-tenders-38sx.onrender.com/api/v1/users/checkLogin', {
-  //         withCredentials: true,  // تأكد من أن هذه هنا
-  //         headers: {
-  //             'Authorization': `Bearer ${tok}` // تأكد من وجود التوكن
-  //         }
-  // إضافة credentials إلى الكود
-  // هذه السطر هنا
-  // });
-
-  // افترض أن الخادم يعيد حالة تسجيل الدخول في data
-  //       if (response.data.loggedIn) {
-  //         setIsLoggedIn(true);
-  //         console.log('1')
-  //       } else {
-  //         navigate('/acount');
-  //         console.log('2')
-  //       }
-  //     } catch (error) {
-  //       console.error('Error checking login status:', error);
-  //       navigate('/acount');
-  //       console.log('3')
-  //     } finally {
-  //       setIsLoading(false);
-  //       console.log('4')
-  //     }
-  //   };
-
-  //   checkLoginStatus();
-  // }, [navigate]);
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>; // عرض شاشة تحميل أثناء التحقق من حالة تسجيل الدخول
-  // }
+  
 
   return (
     <div className="App">
       <Routes>
+        <Route path='/group' element={<Group/>}/>
         <Route path="/" element={<Home />} />
         <Route path="/fav" element={<Favorite />} />
         <Route path="/privacy" element={<Privacy />} />
@@ -198,6 +159,7 @@ function App() {
         <Route path="/not" element={<Notification />} />
         <Route path="/notread" element={<UnReadnotification />} />
         <Route path="/read" element={<Readnotification />} />
+         {/* <Route path="/group" element={<Group/>}/> */}
       </Routes>
     </div>
   );
