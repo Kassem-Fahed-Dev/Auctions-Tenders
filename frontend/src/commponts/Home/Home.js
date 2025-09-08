@@ -17,34 +17,34 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState({});
   const token = localStorage.getItem('jwt');
   useEffect(() => {
-  if(token!='null'){
+    if (token != 'null') {
       axiosInstance
-      .get('/api/v1/notifications/stats', {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept-Language': 'ar',
-          credentials: 'include',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setAll(res.data.data);
-        console.log('create');
-        console.log(res.data.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          const validationErrors = {};
-          validationErrors.messageBackend = error.response.data.message;
-          setErrorMessage(validationErrors);
-        } else {
-          console.log('An unexpected error occurred:', error.message);
-          setErrorMessage({
-            messageBackend: 'An unexpected error occurred.',
-          });
-        }
-      });
-  }
+        .get('/api/v1/notifications/stats', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setAll(res.data.data);
+          console.log('create');
+          console.log(res.data.data);
+        })
+        .catch((error) => {
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    }
   }, []);
   return (
     <div>
@@ -57,7 +57,7 @@ export default function Home() {
           <p className="smart-world">Smart World</p>
           <form>
             <div className="serach-container">
-              <i className="fas fa-search icon"></i>
+              <Link to="/result" className="fas fa-search icon"></Link>
               <input type="serach" />
             </div>
           </form>
@@ -70,7 +70,13 @@ export default function Home() {
           <Link to="/not" className="bell">
             <div className="num-message">
               {/* <p>99+</p> */}
-              <p>{token !='null' & all?.unread<100?all?.unread:token=='null'?'0':'99+'}</p>
+              <p>
+                {(token != 'null') & (all?.unread < 100)
+                  ? all?.unread
+                  : token == 'null'
+                  ? '0'
+                  : '99+'}
+              </p>
             </div>
             <i className="fas fa-bell icon2"></i>
           </Link>

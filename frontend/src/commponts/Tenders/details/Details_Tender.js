@@ -14,7 +14,7 @@ function back() {
 }
 
 export default function Details_Tender() {
-  const scroll1 = useEffect(() => window.scrollTo(0, 0));
+  const scroll1 = useEffect(() => window.scrollTo(0, 0), []);
   const [errorMessage5, setErrorMessage5] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
   const [amount, setAmount] = useState({ amount: '' });
@@ -38,7 +38,10 @@ export default function Details_Tender() {
   }
 
   const [showParticipation, setShowParticipation] = useState(false);
-
+  const [loadingParticipation, setLoadingParticipation] = useState(false);
+  const [successParticipation, setSuccessParticipation] = useState(false);
+  //  const [showParticipation, setShowParticipation] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const token = localStorage.getItem('jwt');
   const submitAmount = (e) => {
     // e.preventDefault();
@@ -217,8 +220,48 @@ export default function Details_Tender() {
                 </div>
               </div>
               <div className="kk">
-                <div>
+                <div className="aaaa">
                   <button
+                    className="ptn-particip"
+                    onClick={() => {
+                      if (
+                        data?.activeStatus !== 'منتهي' &&
+                        !loadingParticipation
+                      ) {
+                        setShowParticipation(true);
+                        setLoadingParticipation(true);
+                        setTimeout(() => {
+                          setLoadingParticipation(false);
+                          setSuccessParticipation(false);
+                        }, 2000);
+                      }
+                    }}
+                    onMouseLeave={() => setShowHint(false)}
+                    onMouseEnter={() => setShowHint(true)}
+                    disabled={
+                      data?.activeStatus === 'منتهي' || loadingParticipation
+                    }
+                    style={{
+                      backgroundColor:
+                        data?.activeStatus === 'منتهي' ? 'gray' : '',
+                      cursor:
+                        data?.activeStatus === 'منتهي' || loadingParticipation
+                          ? 'not-allowed'
+                          : 'pointer',
+                    }}
+                  >
+                    {loadingParticipation ? (
+                      <div className="spinner-border " role="status"></div>
+                    ) : successParticipation ? (
+                      'تمت المشاركة بنجاح'
+                    ) : (
+                      <>
+                        <div className="fas fa-hand-point-up"></div>
+                        شارك يالمناقصة
+                      </>
+                    )}
+                  </button>
+                  {/* <button
                     className="ptn-particip"
                     onClick={() => {
                       if (data?.activeStatus !== 'منتهي') {
@@ -238,8 +281,17 @@ export default function Details_Tender() {
                   >
                     <div className="fas fa-hand-point-up"></div>
                     شارك بالمناقصة
-                  </button>
-
+                  </button> */}
+                  {showHint && (
+                    <div className="hint-box">
+                      <i className="	fas fa-exclamation"></i>
+                      {data?.activeStatus === 'قادم'
+                        ? 'للمشاركة بالمناقصة يتوجب عليك الانتظار الى أن تصبح جارية وسوف نقوم بارسال إشعار لك ان كنت مهتم'
+                        : data?.activeStatus === 'جاري'
+                        ? 'للمشاركة بالمناقصة  يجب أن تدفع السعر الابتدائي'
+                        : 'هذه المناقصة منتهية، لا يمكنك المشاركة'}
+                    </div>
+                  )}
                   {/* <button
                     className="ptn-particip"
                     onClick={() => {

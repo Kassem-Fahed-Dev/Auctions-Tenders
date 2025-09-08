@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Result from './commponts/Home/Result';
 import Home from './commponts/Home/Home';
 import Favorite from './commponts/Home/Favorite';
 import { Routes, Route } from 'react-router-dom';
@@ -198,6 +199,7 @@ function App() {
         <Route path="/not" element={<Notification />} />
         <Route path="/notread" element={<UnReadnotification />} />
         <Route path="/read" element={<Readnotification />} />
+        <Route path="/result" element={<Result />} />
       </Routes>
     </div>
   );

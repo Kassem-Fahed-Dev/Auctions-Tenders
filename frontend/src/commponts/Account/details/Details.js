@@ -7,6 +7,7 @@ import Navbar from '../../Home/Navbar';
 import AuctionsNavbar from '../../Auctions/AuctionsNavbar';
 import Footer from '../../privacy policy/Footer';
 import { useLocation } from 'react-router-dom';
+import { useActionState } from 'react';
 // function handel_Fav(e) {
 //   let hh = e.target;
 //   if (hh.style.color === 'red') {
@@ -35,6 +36,7 @@ export default function Details() {
     // setAmount(value);
   }
   const [showParticipation, setShowParticipation] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const token = localStorage.getItem('jwt');
   const submitAmount = (e) => {
@@ -86,6 +88,10 @@ export default function Details() {
 
   console.log(data);
   console.log(heart);
+
+  const [loadingParticipation, setLoadingParticipation] = useState(false);
+  const [successParticipation, setSuccessParticipation] = useState(false);
+
   return (
     <div className="All-con-det">
       <Navbar wordBlod={'auctions'} />
@@ -217,7 +223,7 @@ export default function Details() {
                   المدينة : <span> {data.city}</span>
                 </div>
               </div>
-              <div>
+              <div className="aaaa">
                 {/* <button
                   className="ptn-particip"
                   onClick={() => setShowParticipation(true)}
@@ -226,7 +232,73 @@ export default function Details() {
                   شارك بالمزاد
                 </button> */}
 
+                {/* <button
+                  className={`ptn_ed ${isDisabled1 == true ? 'color' : ''} ${
+                    successWithdraw ? 'bg-green-500' : ''
+                  }`}
+                  disabled={isDisabled1 || loadingWithdraw}
+                  onClick={submitWith}
+                >
+                  {loadingWithdraw ? (
+                    <i className="fa fa-spinner fa-spin"></i>
+                  ) : successWithdraw ? (
+                    'تم السحب بنجاح'
+                  ) : (
+                    'سحب'
+                  )}
+                </button> */}
                 <button
+                  className="ptn-particip"
+                  onClick={() => {
+                    if (
+                      data?.activeStatus !== 'منتهي' &&
+                      !loadingParticipation
+                    ) {
+                      setShowParticipation(true);
+                      setLoadingParticipation(true);
+                      setTimeout(() => {
+                        setLoadingParticipation(false);
+                        // setSuccessParticipation(true);
+                        setSuccessParticipation(false);
+                      }, 2000);
+                    }
+                  }}
+                  onMouseEnter={() => setShowHint(true)}
+                  onMouseLeave={() => setShowHint(false)}
+                  disabled={
+                    data?.activeStatus === 'منتهي' || loadingParticipation
+                  }
+                  style={{
+                    backgroundColor:
+                      data?.activeStatus === 'منتهي' ? 'gray' : '',
+                    cursor:
+                      data?.activeStatus === 'منتهي' || loadingParticipation
+                        ? 'not-allowed'
+                        : 'pointer',
+                  }}
+                >
+                  {loadingParticipation ? (
+                    <div className="spinner-border " role="status"></div>
+                  ) : successParticipation ? (
+                    'تمت المشاركة بنجاح'
+                  ) : (
+                    <>
+                      <div className="fas fa-hand-point-up"></div>
+                      شارك بالمزاد
+                    </>
+                  )}
+                </button>
+                {showHint && (
+                  <div className="hint-box">
+                    <i className="	fas fa-exclamation"></i>
+                    {data?.activeStatus === 'قادم'
+                      ? 'للمشاركة بالمزاد يتوجب عليك الانتظار الى أن يصبح جاري وسوف نقوم بارسال إشعار لك ان كنت مهتم'
+                      : data?.activeStatus === 'جاري'
+                      ? 'للمشاركة بالمزاد يجب أن تدفع السعر الابتدائي'
+                      : 'هذا المزاد منتهي، لا يمكنك المشاركة'}
+                  </div>
+                )}
+                {/* <button
                   className="ptn-particip"
                   onClick={() => {
                     if (data?.activeStatus !== 'منتهي') {
@@ -245,9 +317,10 @@ export default function Details() {
                 >
                   <div className="fas fa-hand-point-up"></div>
                   شارك بالمزاد
-                </button>
+                </button> */}
               </div>
             </div>
+
             {showParticipation && (
               <div className="model-particip">
                 <div className="con-poop">
