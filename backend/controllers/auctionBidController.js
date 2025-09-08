@@ -1,5 +1,6 @@
 const Auction = require('../models/Auction');
 const AuctionBid = require('../models/AuctionBid');
+const WalletActivity = require('../models/WalletActivity'); // Add this import
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -50,73 +51,90 @@ exports.placeBid = catchAsync(async (req, res, next) => {
     auction: auctionId,
   });
 
-  // block 10% of startingPrice to participate in the auction
-
   let wallet = await Wallet.findOne({ partner: userId });
   if (!wallet) {
     wallet = await Wallet.create({ partner: userId });
   }
 
-  // This check now ensures the user has enough available funds for the new bid, considering the blocked amount as available for bidding purposes
-  if (wallet.availableAmount + wallet.blockedAmount < amount) {
+  let blockedAmount = 0;
+  let isFirstBid = false;
+  
+  if (!existingBid) {
+    blockedAmount = amount;
+    isFirstBid = true;
+  } else {
+    blockedAmount = amount - existingBid.amount;
+  }
+
+  // This check now ensures the user has enough available funds for the new bid
+  if (wallet.availableAmount < blockedAmount) {
+    // Log failed wallet activity
+    await WalletActivity.create({
+      partner: userId,
+      descriptionTransaction: `فشل المزايدة على المزاد "${auction.auctionTitle}" - رصيد غير كافي`,
+      amount: blockedAmount,
+      status: 'failed',
+    });
+
     return next(
       new AppError(
-        req.t(
-          `errors:You do not have enough funds in your wallet for this transaction.insufficientFunds`,
-        ),
+        req.t(`errors:blockedAmount`, {
+          blockedAmount,
+          doc: req.t('fields:auction'),
+        }),
         400,
       ),
     );
   }
 
-  // Only block amount if this is the user's first bid on this auction
-  if (!existingBid) {
-    let blockedAmount = 0.1 * auction.startingPrice;
-    //blockedAmount = wallet.availableAmount; // fortesting
-    if (wallet.availableAmount < blockedAmount) {
-      return next(
-        new AppError(
-          req.t(`errors:blockedAmount`, {
-            blockedAmount,
-            doc: req.t('fields:auction'),
-          }),
-          400,
-        ),
-      );
-    }
+  // Block the amount
+  wallet.availableAmount -= blockedAmount;
+  wallet.blockedAmount += blockedAmount;
 
-    // Block the amount for first-time bidder
-    wallet.availableAmount -= blockedAmount;
-    wallet.blockedAmount += blockedAmount;
-    await wallet.save();
-  }
-
-  // 5. Create the bid
+  // 6. Create the bid
   const bid = new AuctionBid({
     user: userId,
     auction: auctionId,
     amount,
   });
 
-  // 8. Update auction's highest bid
+  // 7. Update auction's highest bid
   auction.highestPrice = amount;
 
-  // 9. Save both bid and auction (using Promise.all for better performance)
-  await Promise.all([bid.save(), auction.save()]);
+  
+    // 8. Save wallet, bid and auction (using Promise.all for better performance)
+    await Promise.all([
+      wallet.save(),
+      bid.save(),
+      auction.save()
+    ]);
 
-  // Send notification to auction owner
-  const nogif = await notificationService.createNotification({
-    userId: auction.user,
-    title: 'مزايدة جديدة على مزادك',
-    message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك ${auction.auctionTitle}`,
-    type: 'auction',
-    referenceId: auction._id,
-  });
+    // 9. Log successful wallet activity
+    const activityDescription = isFirstBid 
+      ? `مزايدة جديدة على المزاد "${auction.auctionTitle}" بمبلغ ${amount}`
+      : `تعديل المزايدة على المزاد "${auction.auctionTitle}" من ${existingBid.amount} إلى ${amount}`;
 
-  console.log('notification created', nogif);
+    await WalletActivity.create({
+      partner: userId,
+      descriptionTransaction: activityDescription,
+      amount: blockedAmount,
+      status: 'completed',
+    });
 
-  res.status(201).json({
-    status: req.t(`fields:success`),
-    message: req.t(`successes:bid`),
-  });
+    // 10. Send notification to auction owner
+    const nogif = await notificationService.createNotification({
+      userId: auction.user,
+      title: 'مزايدة جديدة على مزادك',
+      message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك ${auction.auctionTitle}`,
+      type: 'auction',
+      referenceId: auction._id,
+    });
+
+    console.log('notification created', nogif);
+
+    res.status(201).json({
+      status: req.t(`fields:success`),
+      message: req.t(`successes:bid`),
+    });
+
 });
