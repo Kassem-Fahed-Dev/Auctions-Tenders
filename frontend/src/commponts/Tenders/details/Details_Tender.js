@@ -85,17 +85,17 @@ export default function Details_Tender() {
       return;
     }
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
     setAmount(value);
   }
-   let Allow;
-   let TimeRun = false;
-=======
+  //  let Allow;
+  //  let TimeRun = false;
+// =======
   //   setAmount(value);
   // }
   let Allow;
   let TimeRun = false;
->>>>>>> cdb545b4c4988f977a8b15a1d2c98924e8e0d2fa
+// >>>>>>> cdb545b4c4988f977a8b15a1d2c98924e8e0d2fa
   function handelTesting() {
     setShowParticipation(true);
     if (state === 'قادم' && !TimeRun) {

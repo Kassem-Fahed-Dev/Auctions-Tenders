@@ -371,7 +371,7 @@ export default function UserAdmin() {
         {userToDelete && (
           <div className="confirm-modal">
             <div className="modal-content">
-              {userToDelete.role === 'مدير' ? (
+              {userToDelete.role ==='admin'? (
                 <p>
                   هل أنت متأكد أنك تريد حذف <b>المدير "{userToDelete.name}"</b>{' '}
                   ؟<br />

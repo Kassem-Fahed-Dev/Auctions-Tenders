@@ -9,7 +9,7 @@ export default function WalletAdmin() {
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
   const status = 'pending';
-  // /api/v1/payment/walletActivities?descriptionTransaction=Deposit requested&status=completed
+
   useEffect(() => {
     axiosInstance
       .get(`/api/v1/payments/walletActivities?status=${status}`, {

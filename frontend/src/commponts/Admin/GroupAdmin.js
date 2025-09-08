@@ -2,17 +2,54 @@ import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import axiosInstance from '../AxiosInterceptors';
+import { useEffect } from 'react';
 export default function GroupAdmin() {
   const [groupToDelete, setGroupToDelete] = useState(null);
 
-  const handleDeleteClick = (groupName) => {
-    setGroupToDelete(groupName);
+  // const handleDeleteClick = (groupName,id) => {
+    // setGroupToDelete(groupName);
+  //   setGroupToDelete({name:groupName,id:id})
+  
+  // };
+const deleteUser = (e, id) => {
+    console.log('del');
+    axiosInstance
+      .delete(`/api/v1/categories/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // console.log('تم الحذف:', userToDelete);
+        setGroupToDelete(null);
+        window.location.reload();
+        //  e.preventDefault();
+        //       let parentElement = e.target.closest('.delee')
+        //       if (parentElement) {
+        //           parentElement.style.display = 'none'; }
+        console.log(res);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
   };
-
-  const confirmDelete = () => {
-    console.log('تم حذف:', groupToDelete);
-    setGroupToDelete(null);
-  };
+  // const confirmDelete = () => {
+  //   console.log('تم حذف:', groupToDelete);
+  //   setGroupToDelete(null);
+  // };
 
   const cancelDelete = () => {
     setGroupToDelete(null);
@@ -21,13 +58,46 @@ export default function GroupAdmin() {
   // ةةةةةةةةةةةةةةة
   const [showDiv, setShowDiv] = useState(null);
   const [cover, setCover] = useState(null);
-
+ const [all,setALL]=useState([])
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setCover(URL.createObjectURL(file));
     }
   };
+ const token = localStorage.getItem('jwt');
+  const [errorMessage, setErrorMessage] = useState({});
+    useEffect(() => {
+      axiosInstance
+        .get(`/api/v1/categories`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setALL(res.data.data.data)
+          // setWalletActivity(res.data.data);
+          console.log(res.data.data.data);
+          // console.log(walletActivity);
+        })
+        .catch((error) => {
+          console.log('error');
+          // setHover('spinner');
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    }, []);
   return (
     <>
       <div className="con-admin">
@@ -132,7 +202,7 @@ export default function GroupAdmin() {
           </p>
         </div>
         <div className="group-con2">
-          <div className="group-div div1">
+          {/* <div className="group-div div1">
             <span className="link">
               <button
                 className="ptndelgroup"
@@ -145,9 +215,9 @@ export default function GroupAdmin() {
                 <i className="fa-solid fa-pen-to-square"></i>
               </Link>
             </span>
-          </div>
+          </div> */}
           {/* ممممم */}
-          {groupToDelete && (
+          {/* {groupToDelete && (
             <div className="confirm-modal">
               <div className="modal-content">
                 <p>
@@ -162,9 +232,9 @@ export default function GroupAdmin() {
                 </button>
               </div>
             </div>
-          )}
+          )} */}
           {/* ممممم */}
-          <div className="group-div div2">
+          {/* <div className="group-div div2">
             <Link className="link">
               <button
                 className="ptndelgroup"
@@ -207,8 +277,8 @@ export default function GroupAdmin() {
                 <i className="fa-solid fa-pen-to-square"></i>
               </Link>
             </Link>
-          </div>
-          {groupToDelete && (
+          </div> */}
+          {/* {groupToDelete && (
             <div className="confirm-modal">
               <div className="modal-content">
                 <p>
@@ -267,8 +337,8 @@ export default function GroupAdmin() {
                 <i className="fa-solid fa-pen-to-square"></i>
               </Link>
             </Link>
-          </div>
-          {groupToDelete && (
+          </div> */}
+          {/* {groupToDelete && (
             <div className="confirm-modal">
               <div className="modal-content">
                 <p>
@@ -297,8 +367,8 @@ export default function GroupAdmin() {
                 <i className="fa-solid fa-pen-to-square"></i>
               </Link>
             </Link>
-          </div>
-          {groupToDelete && (
+          </div> */}
+          {/* {groupToDelete && (
             <div className="confirm-modal">
               <div className="modal-content">
                 <p>
@@ -313,8 +383,8 @@ export default function GroupAdmin() {
                 </button>
               </div>
             </div>
-          )}
-          <div className="group-div div7">
+          )} */}
+          {/* <div className="group-div div7">
             <Link className="link">
               <button
                 className="ptndelgroup"
@@ -327,15 +397,17 @@ export default function GroupAdmin() {
                 <i className="fa-solid fa-pen-to-square"></i>
               </Link>
             </Link>
-          </div>
+          </div> */}
           {groupToDelete && (
             <div className="confirm-modal">
               <div className="modal-content">
                 <p>
-                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete}" من
+                  هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete?.name}" من
                   مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
                 </p>
-                <button className="btn-confirm" onClick={confirmDelete}>
+                <button className="btn-confirm" onClick={(e) => {
+                  deleteUser(e, groupToDelete?.id);
+                }}>
                   نعم
                 </button>
                 <button className="btn-cancel" onClick={cancelDelete}>
@@ -344,13 +416,39 @@ export default function GroupAdmin() {
               </div>
             </div>
           )}
-        </div>
+  
+{/* ================================================ */}
 
+
+{all.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
+            <Link className="link">
+              <button
+                className="ptndelgroup"
+                // onClick={() => handleDeleteClick(group?.name)}
+                //  onClick={() =>
+                  // handleDeleteClick(group?.name,group?._id)}
+                   onClick={() =>
+                      setGroupToDelete({
+                        name: group?.name,
+                        id: group?._id,
+                      })}
+                    
+              >
+                <span>x</span>
+              </button>
+              {group?.name}
+              <Link to="/edit" className="ptneditgroup">
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            </Link>
+          </div>))}
+      </div>
+{/* ================================================= */}
         <div>
           <p className="nametit">
             <i class="far fa-handshake"></i> مجموعة المناقصات{' '}
           </p>
-
+{/* 
           <div className="group-con2">
             <div className="group-div div11">
               <div className="sss">
@@ -509,7 +607,7 @@ export default function GroupAdmin() {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

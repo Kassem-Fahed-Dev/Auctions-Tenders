@@ -231,9 +231,10 @@
 .qustion1 {
   font-size: 37px;
   color: #000000;
-  position: absolute;
+  text-align: center;
+  /* position: absolute;
   top: 0px;
-  left: 139px;
+  left: 139px; */
 }
 
 .circlediv {
@@ -798,6 +799,6 @@ input.teinput {
   width: 200px;
   margin-top: -13px;
 }
-img.qustion{
+/* img.qustion{
   width: ;
-}
+} */

@@ -1,28 +1,144 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import imag from '../../image/logo.png';
+import React from 'react';
 import axiosInstance from '../AxiosInterceptors';
 export default function AddGroup() {
   const [showDiv, setShowDiv] = useState(null);
   const [cover, setCover] = useState(null);
    const [num, setNum] = useState('');
+      const token = localStorage.getItem('jwt');
   const [formData1, setFormData1] = useState({
      type:'',
       name:'' ,
       properties: [],
-      image:null, 
+      image:'', 
   });
-  const handleImageChange = (e) => {
-     const file = e.target.files[0];
-   if (file) {
-            setFormData1(prevFormData => ({
-                ...prevFormData,
-                image: file // تحديث حالة الصورة
-            }));
-            setCover(URL.createObjectURL(file)); // إنشاء رابط للصورة
-        }
-        console.log(formData1)
-  };
+   const [photo, setPhoto] = useState({
+    files: []
+  });
+  // const [selectedFiles, setSelectedFiles] = React.useState([]);
+  // const [cover, setCover] = useState(null); // إذا كنت ترغب في تخزين رابط الصورة
+// const formData=new FormData()
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//      setSelectedFiles(file);
+//     if (file) {
+//       formData.append("files",selectedFiles)
+//         console.log('ss',formData);
+      // تحديث حالة الصورة بشكل صحيح
+      // setPhoto(prevPhoto => ({
+      //   ...prevPhoto,
+      //   files: [...prevPhoto.files, file] // إضافة الملف الجديد إلى القائمة
+      // }));
+  //     setCover(URL.createObjectURL(file)); // إنشاء رابط للصورة
+  //   }
+  //   console.log(selectedFiles);
+  // };
+//    const [images, setImages] = useState([]);
+//     const [fileInputKey, setFileInputKey] = useState(Date.now());
+//   const [selectedFiles, setSelectedFiles] = useState([]);
+//   const handleImageChange = (event) => {
+//   const files = Array.from(event.target?.files);
+//   if (files.length > 5) {
+//     alert('يرجى اختيار 5 صور أو أقل.');
+//     setFileInputKey(Date.now());
+//     setImages([]);
+//     setSelectedFiles([]); 
+//     return;
+//   }
+//   setSelectedFiles(files);
+//   const newImages = files.map((file) => URL.createObjectURL(file));
+//   setImages(newImages);
+// };
+
+  // const handleImageChange = (e) => {
+  //   const files = Array.from(e.target.files); // تحويل الملفات إلى مصفوفة
+  //   setSelectedFiles(files); // تحديث الحالة بالملفات المحددة
+
+  //   if (files.length > 0) {
+  //     const file = files[0]; // الحصول على أول ملف
+  //     const formData = new FormData();
+  //     formData.append("files", file); // إضافة الملف إلى FormData
+
+  //     console.log('FormData:', formData);
+
+  //     // إذا كنت ترغب في إنشاء رابط للصورة
+  //     setCover(URL.createObjectURL(file)); 
+  //   }
+  // };
+
+  // const uploadPromises = async () => {
+  //   const formData = new FormData();
+  //   selectedFiles.forEach(file => {
+  //     formData.append("files", file); // إضافة جميع الملفات إلى FormData
+  //   });
+
+  //   try {
+  //     const response = await axiosInstance.post('/api/v1/cloudinary/upload-multiple', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  //     console.log('Upload successful:', response.data);
+  //   } catch (error) {
+  //     console.error('Error uploading files:', error);
+  //   }
+  // };
+//  const uploadImages = (files) => {
+//   if (!files || !Array.isArray(files)) {
+//     console.error('الملفات غير صحيحة أو غير موجودة');
+//     return Promise.reject('Invalid files');
+//   }
+
+//   const uploadPromises = files.map((file) => {
+//   const formData = new FormData();
+//   formData.append('files', file);
+
+//   console.log(formData)
+//   return axiosInstance
+//     .post(
+//       '/api/v1/cloudinary/upload-multiple',
+//       formData,{
+//           withCredentials: true,
+//           headers: {
+//             'Content-Type': 'application/json',
+//             'Accept-Language': 'ar',
+//             credentials: 'include',
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//     )
+//     .then((res) => {
+//       console.log('Upload successful:', res.data);
+//       const public_id = res.data.public_id;
+//       console.log(public_id);
+//       return public_id; 
+//     })
+//     .catch((error) => {
+//       if (error.response) {
+//         const validationErrors = {};
+//         validationErrors.messageBackend = error.response.data.message;
+//         setErrorMessage(validationErrors);
+//       } else {
+//         console.log('An unexpected error occurred:', error.message);
+//         setErrorMessage({
+//           messageBackend: 'حدث خطأ غير متوقع.',
+//         });
+//       }
+//       throw error;
+//     });
+// });
+
+// استخدام Promise.all لانتظار جميع عمليات الرفع وإرجاع مصفوفة من public_id
+// return Promise.all(uploadPromises)
+//   .then((publicIds) => {
+//     console.log('All public IDs:', publicIds);
+//     return publicIds; // إرجاع مصفوفة من جميع public_id
+//   });
+
+// };
+
   const goBack = () => {
     window.history.back();
   };
@@ -134,6 +250,7 @@ const handelFild = (e) => {
             properties: updatedProperties // تحديث الخصائص بالمصفوفة الجديدة
         };
     });
+    console.log(formData1)
 };
 
   const handleChange3 = (event) => {
@@ -145,57 +262,187 @@ const handelFild = (e) => {
       const [hoverAuction, setHoverAuction] = useState('spinner');
 
     const [errorMessageAuc, setErrorMessageAuc] = useState({});
+      // console.log(selectedFiles);
   // ================
-   const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [images, setImages] = useState([]);
+const [fileInputKey, setFileInputKey] = useState(Date.now());
+const [selectedFiles, setSelectedFiles] = useState([]);
 
-  
-    // باقي منطق التحقق من البيانات...
-    setHoverAuction('spinner-Auction');
-    // const valditionErrerorsAuction = { item: {}, tender: {} };
-  
-    // استكمال التحقق من صحة البيانات هنا (كما في الكود السابق)
-    // ...
-  
-    // if (
-    //   Object.keys(valditionErrerorsAuction.tender).length === 0 &&
-    //   Object.keys(valditionErrerorsAuction.item).length === 0
-    // ) {
-      const token = localStorage.getItem('jwt');
-      setHoverAuction('spinner-Auction');
-     const valditionErrerorsAuction={}
-      axiosInstance
-        .post('/api/v1/categories/', JSON.stringify(formData1), {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
+const handleImageChange = (event) => {
+  const files = Array.from(event.target?.files);
+  if (files.length > 5) {
+    alert("يرجى اختيار 5 صور أو أقل.");
+    setFileInputKey(Date.now());
+    setImages([]);
+    setSelectedFiles([]);
+    return;
+  }
+  setSelectedFiles(files);
+  const newImages = files.map((file) => URL.createObjectURL(file));
+  setImages(newImages);
+};
+const [url,setUrl]=useState(null)
+const uploadImages = (files) => {
+  if (!files || !Array.isArray(files)) {
+    console.error("الملفات غير صحيحة أو غير موجودة");
+    return Promise.reject("Invalid files");
+  }
+
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append("files", file); // 🔑 same key "files" for all files
+  });
+
+  return axiosInstance
+    .post("/api/v1/cloudinary/upload-multiple", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+         'Accept-Language': 'ar',
             credentials: 'include',
             Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setHoverAuction('spinner');
-          console.log(res);
-          // navegate('/createTender');
-        })
-        .catch((error) => {
-          setHoverAuction('spinner');
-          if (error.response) {
-            valditionErrerorsAuction.messageBackend =
-              error.response.data.message;
-            setErrorMessageAuc(valditionErrerorsAuction);
-            console.log('p3');
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            setErrorMessageAuc({
-              messageBackend: 'An unexpected error occurred.',
-            });
-          }
+      },
+    })
+    .then((res) => {
+      console.log("Upload successful:",res.data);
+      const urls=res.data.data.urls[0]
+      //     setFormData1(prevState => ({
+      //   ...prevState,
+      //   image: res.data.data.urls[0], // تعيين رابط الصورة في الحقل image
+      // }));
+  return urls
+      // const publicIds = res.data.data.files.map((file) => file.public_id);
+      // console.log("All public IDs:", publicIds);
+      // return publicIds;
+    })
+    .catch((error) => {
+      if (error.response) {
+        setErrorMessage({
+          messageBackend: error.response.data.message,
         });
-    // }
-  };
+      } else {
+        console.log("An unexpected error occurred:", error.message);
+        setErrorMessage({
+          messageBackend: "حدث خطأ غير متوقع.",
+        });
+      }
+      throw error;
+    });
+};
+
+//   let pic;
+//    const handleSubmit = async (e) => {
+
+//      e.preventDefault();
+
+//   console.log(selectedFiles);
+   
+// const valditionErrerorsAuction={}
+//  try {
+ 
+// pic= await uploadImages(selectedFiles)
+//  setFormData1((prevState) => ({
+//       ...prevState,
+//       image: String(pic), // ✅ حط أول صورة أو عدل حسب حاجتك
+//     }));
+//   }  catch (uploadError) {
+ 
+//     console.error('خطأ أثناء رفع الصور:', uploadError);
+//     setHoverAuction('spinner');
+//     return;
+//   }
+//   console.log(String(pic))
+
+//     setHoverAuction('spinner-Auction');
+
+//       setHoverAuction('spinner-Auction');
   
+//        const categoriesResponse = await  axiosInstance
+//         .post('/api/v1/categories/', JSON.stringify(formData1), {
+//           withCredentials: true,
+//           headers: {
+//             'Content-Type': 'application/json',
+//             'Accept-Language': 'ar',
+//             credentials: 'include',
+//             Authorization: `Bearer ${token}`,
+//           },
+//         })
+//         .then((res) => {
+//           setHoverAuction('spinner');
+//           console.log(res);
+          
+//         })
+//         .catch((error) => {
+//           setHoverAuction('spinner');
+//           if (error.response) {
+//             valditionErrerorsAuction.messageBackend =
+//               error.response.data.message;
+//             setErrorMessageAuc(valditionErrerorsAuction);
+//             console.log('p3');
+//           } else {
+//             console.log('An unexpected error occurred:', error.message);
+//             setErrorMessageAuc({
+//               messageBackend: 'An unexpected error occurred.',
+//             });
+//           }
+//         });
+
+//   };
+  // ===================
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const valditionErrerorsAuction = {};
+  let pic;
+
+  try {
+    // رفع الصور ورجوع الروابط
+    pic = await uploadImages(selectedFiles);
+    console.log("Returned URLs:", pic);
+
+    // خزّن بالرابط أول صورة (أو كل الصور حسب حاجتك)
+    const imageUrl = pic;
+
+    // حدّث الـ state (اختياري للعرض)
+    setFormData1((prevState) => ({
+      ...prevState,
+      image: imageUrl,
+    }));
+
+    // ابعث البيانات مباشرة مع الرابط
+    const payload = {
+      ...formData1,
+      image: imageUrl, // ✅ هون بنضيف الرابط بشكل أكيد
+    };
+
+    setHoverAuction("spinner-Auction");
+
+    await axiosInstance.post("/api/v1/categories/", JSON.stringify(payload), {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        "Accept-Language": "ar",
+        credentials: "include",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setHoverAuction("spinner");
+    console.log("تم إنشاء التصنيف بنجاح ✅");
+  } catch (error) {
+    setHoverAuction("spinner");
+    console.error("خطأ أثناء العملية:", error);
+
+    if (error.response) {
+      valditionErrerorsAuction.messageBackend = error.response.data.message;
+      setErrorMessageAuc(valditionErrerorsAuction);
+    } else {
+      setErrorMessageAuc({
+        messageBackend: "An unexpected error occurred.",
+      });
+    }
+  }
+};
+
   return (
     <>
       <div className="con-admin">
@@ -268,7 +515,7 @@ const handelFild = (e) => {
                   <div>
                     <div className="name_input">
                       <p>اسم المجموعة</p>
-                      <input type="text" name={'name'}   value={formData1.name} onChange={(e)=>{handleChange(e)}}/>
+                      <input type="text" name={'name'}  autoComplete='off' value={formData1.name} onChange={(e)=>{handleChange(e)}}/>
                     </div>
                     <div className="name_input">
                       <p>نوع المجموعة:</p>
@@ -346,14 +593,13 @@ const handelFild = (e) => {
                         />
                       )}
                     </div>
-                    <div className="leftsideGroup">
+                    <div className="leftsideGroup" style={{ backgroundImage: images!=null?`url(${images})`:'?',zIndex:'3', backgroundSize: 'cover', backgroundPosition: 'center', padding: '0px', color: 'white' }}>
                       <div className="buttom_side">
                         <p className="qustion1">{formData1?.name==''?'?':formData1?.name}</p>
                       </div>
-                      <div className="circlediv">
+                      <div className="circlediv" style={{backgroundColor:images!=null?'transparent':'rgb(177, 177, 177)'}}>
                         
-                        {/* <p className="qustion"><img  src={cover}
-                          alt="?"/></p> */}
+                        <p className="qustion" style={{color:images!=null?'transparent':'#cccccc'}}>?</p>
                       </div>
                     </div>
                     <div className="ptn_group2">
