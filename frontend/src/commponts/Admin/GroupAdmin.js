@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import { useEffect } from 'react';
+import grgr from '../../image/group.jpg';
 export default function GroupAdmin() {
   const [groupToDelete, setGroupToDelete] = useState(null);
 
   // const handleDeleteClick = (groupName,id) => {
-    // setGroupToDelete(groupName);
+  // setGroupToDelete(groupName);
   //   setGroupToDelete({name:groupName,id:id})
-  
+
   // };
-const deleteUser = (e, id) => {
+  const deleteUser = (e, id) => {
     console.log('del');
     axiosInstance
       .delete(`/api/v1/categories/${id}`, {
@@ -58,80 +59,78 @@ const deleteUser = (e, id) => {
   // ةةةةةةةةةةةةةةة
   const [showDiv, setShowDiv] = useState(null);
   const [cover, setCover] = useState(null);
- const [allTender,setALLTender]=useState([])
- const [allAuction,setALLAuction]=useState([])
+  const [allTender, setALLTender] = useState([]);
+  const [allAuction, setALLAuction] = useState([]);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setCover(URL.createObjectURL(file));
     }
   };
- const token = localStorage.getItem('jwt');
+  const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
-    useEffect(() => {
-      axiosInstance
-        .get(`/api/v1/categories?type=auction`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setALLAuction(res.data.data.data)
-          // setWalletActivity(res.data.data);
-          console.log(res.data.data.data);
-          // console.log(walletActivity);
-        })
-        .catch((error) => {
-          console.log('error');
-          // setHover('spinner');
-          if (error.response) {
-            const validationErrors = {};
-            validationErrors.messageBackend = error.response.data.message;
-            setErrorMessage(validationErrors);
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            setErrorMessage({
-              messageBackend: 'An unexpected error occurred.',
-            });
-          }
-        });
-         axiosInstance
-        .get(`/api/v1/categories?type=tender`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setALLTender(res.data.data.data)
-          // setWalletActivity(res.data.data);
-          console.log(res.data.data.data);
-          // console.log(walletActivity);
-        })
-        .catch((error) => {
-          console.log('error');
-          // setHover('spinner');
-          if (error.response) {
-            const validationErrors = {};
-            validationErrors.messageBackend = error.response.data.message;
-            setErrorMessage(validationErrors);
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            setErrorMessage({
-              messageBackend: 'An unexpected error occurred.',
-            });
-          }
-        });
-    }, []);
+  useEffect(() => {
+    axiosInstance
+      .get(`/api/v1/categories?type=auction`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setALLAuction(res.data.data.data);
+        // setWalletActivity(res.data.data);
+        console.log(res.data.data.data);
+        // console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+    axiosInstance
+      .get(`/api/v1/categories?type=tender`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setALLTender(res.data.data.data);
+        // setWalletActivity(res.data.data);
+        console.log(res.data.data.data);
+        // console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }, []);
 
-    const group=()=>{
-
-    }
+  const group = () => {};
   return (
     <>
       <div className="con-admin">
@@ -169,7 +168,8 @@ const deleteUser = (e, id) => {
               </Link>
               <Link to="/Gr">
                 <span>
-                  <i class="fa-solid fa-users"></i>{' '}
+                  {/* <i class="fa-solid fa-users"></i>{' '} */}
+                  <img src={grgr} alt="err" />
                 </span>
                 مدير المجموعات{' '}
               </Link>
@@ -190,7 +190,9 @@ const deleteUser = (e, id) => {
           <div className="side2">
             <h1 className="h1tit">
               {' '}
-              <i className="fa-solid fa-people-group"></i>مدير المجموعات{' '}
+              <i className="fa-solid fa-people-group"></i>
+              {/* <img src={grgr} alt="err" style={{ color: 'blue' }} /> */}
+              مدير المجموعات{' '}
             </h1>
             <div className="con_AdminGroup2">
               {/* <button
@@ -439,9 +441,12 @@ const deleteUser = (e, id) => {
                   هل انت متاكد من انك تريد حذف مجموعة "{groupToDelete?.name}" من
                   مجموعة المزادات علما انه سيتم حذف كل العناصر الموجودة فيها ؟
                 </p>
-                <button className="btn-confirm" onClick={(e) => {
-                  deleteUser(e, groupToDelete?.id);
-                }}>
+                <button
+                  className="btn-confirm"
+                  onClick={(e) => {
+                    deleteUser(e, groupToDelete?.id);
+                  }}
+                >
                   نعم
                 </button>
                 <button className="btn-cancel" onClick={cancelDelete}>
@@ -450,71 +455,73 @@ const deleteUser = (e, id) => {
               </div>
             </div>
           )}
-  
-{/* ================================================ */}
 
+          {/* ================================================ */}
 
-{allAuction.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
-            <Link className="link" to='/group'  state={{ group }} >
-              <button
-                className="ptndelgroup"
-                // onClick={() => handleDeleteClick(group?.name)}
-                //  onClick={() =>
+          {allAuction.map((group) => (
+            <div
+              className="group-div div7"
+              style={{ backgroundImage: `url(${group.image})` }}
+            >
+              <Link className="link">
+                <button
+                  className="ptndelgroup"
+                  // onClick={() => handleDeleteClick(group?.name)}
+                  //  onClick={() =>
                   // handleDeleteClick(group?.name,group?._id)}
-                   onClick={() =>
-                      setGroupToDelete({
-                        name: group?.name,
-                        id: group?._id,
-                      })}
-                    
-              >
-                <span>x</span>
-              </button>
-              {group?.name}
-             <Link 
-  to="/edit" 
-  state={{ group }} 
-  className="ptneditgroup"
->
-  <i className="fa-solid fa-pen-to-square"></i>
-</Link>
-            </Link>
-          </div>))}
-      </div>
-{/* ================================================= */}
+                  onClick={() =>
+                    setGroupToDelete({
+                      name: group?.name,
+                      id: group?._id,
+                    })
+                  }
+                >
+                  <span>x</span>
+                </button>
+                {group?.name}
+                <Link to="/edit" state={{ group }} className="ptneditgroup">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </Link>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {/* ==== عامة===========================================     == */}
         <div>
           <p className="nametit">
             <i class="far fa-handshake"></i> مجموعة المناقصات{' '}
           </p>
           <div className="group-con2">
-          {allTender.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
-            <Link className="link" to='/group'  state={{ group }} >
-              <button
-                className="ptndelgroup"
-                // onClick={() => handleDeleteClick(group?.name)}
-                //  onClick={() =>
-                  // handleDeleteClick(group?.name,group?._id)}
-                   onClick={() =>
+            {allTender.map((group) => (
+              <div
+                className="group-div div7"
+                style={{ backgroundImage: `url(${group.image})` }}
+              >
+                <Link className="link">
+                  <button
+                    className="ptndelgroup"
+                    // onClick={() => handleDeleteClick(group?.name)}
+                    //  onClick={() =>
+                    // handleDeleteClick(group?.name,group?._id)}
+                    onClick={() =>
                       setGroupToDelete({
                         name: group?.name,
                         id: group?._id,
-                      })}
-                    
-              >
-                <span>x</span>
-              </button>
-              {group?.name}
-             <Link 
-  to="/edit" 
-  state={{ group }} 
-  className="ptneditgroup"
->
-  <i className="fa-solid fa-pen-to-square"></i>
-</Link>
-            </Link>
-          </div>))}
+                      })
+                    }
+                  >
+                    <span>x</span>
+                  </button>
+                  {group?.name}
+                  <Link to="/edit" state={{ group }} className="ptneditgroup">
+                    <i className="fa-solid fa-pen-to-square"></i>
+                  </Link>
+                </Link>
+              </div>
+            ))}
           </div>
-{/* 
+          {/* 
           <div className="group-con2">
             <div className="group-div div11">
               <div className="sss">

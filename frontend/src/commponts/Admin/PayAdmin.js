@@ -1,6 +1,7 @@
 import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
+import grgr from '../../image/group.jpg';
 export default function PayAdmin() {
   return (
     <>
@@ -39,7 +40,7 @@ export default function PayAdmin() {
               </Link>
               <Link to="/Gr">
                 <span>
-                  <i class="fa-solid fa-users"></i>{' '}
+                  <img src={grgr} alt="err" />
                 </span>
                 مدير المجموعات{' '}
               </Link>

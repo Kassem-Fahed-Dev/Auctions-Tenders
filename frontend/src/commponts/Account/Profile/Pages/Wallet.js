@@ -566,7 +566,7 @@ export default function Wallet() {
 
   for (let index = 0; index < walletActivity.length; index++) {
     const { day, hours, minutes, ampm } = extractDateTime(
-      walletActivity[index]?.createdAt
+      walletActivity[index]?.date
     );
   }
 

@@ -9,9 +9,9 @@ import { useEffect } from 'react';
 export default function Notification() {
   const location = useLocation();
   const currentPath = location.pathname;
-    const [all, setAll] = useState([]);
+  const [all, setAll] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
-  
+
   const token = localStorage.getItem('jwt');
   useEffect(() => {
     axiosInstance
@@ -42,11 +42,11 @@ export default function Notification() {
       });
   }, []);
   //  const [col, setcol] = useState(all.read == true ? 'read' : 'unread');
-     function handel_Fav(e, da) {
+  function handel_Fav(e, da) {
     e.preventDefault();
     let hh = e.target;
     console.log(token);
-    if (hh.style.backgroundColor=== 'transparent') {
+    if (hh.style.backgroundColor === 'transparent') {
       hh.style.cssText = 'backgroundColor: transparent;';
       // setcol('read');
     } else {
@@ -85,43 +85,39 @@ export default function Notification() {
     console.log(o);
   }
   // =============
-    const deletenot=(e,da)=>{
-      
-    console.log('del')
+  const deletenot = (e, da) => {
+    console.log('del');
     axiosInstance
-    .delete(
-      `/api/v1/notifications/${da._id}`
-      ,
-      {
+      .delete(`/api/v1/notifications/${da._id}`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
-           'credentials': 'include',
-            'Authorization': `Bearer ${token}`,
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
         },
-      }
-    )
-    .then((res) => {
-      
-       e.preventDefault(); 
-            let parentElement = e.target.closest('.unread') || e.target.closest('.read');
-            if (parentElement) {
-                parentElement.style.display = 'none'; }
-                console.log(res)
-    })
-    .catch((error) => {
-      if (error.response) {
-        const validationErrors = {};
-        validationErrors.messageBackend = error.response.data.message;
-        setErrorMessage(validationErrors);
-      } else {
-        console.log('An unexpected error occurred:', error.message);
-        setErrorMessage({
-          messageBackend: 'An unexpected error occurred.',
-        });
-      }
-    });
-   }
+      })
+      .then((res) => {
+        e.preventDefault();
+        let parentElement =
+          e.target.closest('.unread') || e.target.closest('.read');
+        if (parentElement) {
+          parentElement.style.display = 'none';
+        }
+        console.log(res);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  };
   return (
     <>
       <Navbar />
@@ -142,32 +138,27 @@ export default function Notification() {
             المقروءة
           </Link> */}
         </div>
-         <div className="con_notif">
-         {
-          all.map((notification)=>(
-           
-          <div className={notification?.read?'read':'unread'} onClick={(e) => handel_Fav(e, notification)}>
-            {/* <img src={immm} alt="err" className="imgnot" /> */}
-            <div className='fas fa-bell icon2 icon_bell imgnot'></div>
-            <button
-            onClick={(e) => deletenot(e, notification)}
+        <div className="con_notif">
+          {all.map((notification) => (
+            <div
+              className={notification?.read ? 'read' : 'unread'}
+              onClick={(e) => handel_Fav(e, notification)}
+            >
+              {/* <img src={immm} alt="err" className="imgnot" /> */}
+              <div className="fas fa-bell icon2 icon_bell imgnot"></div>
+              <button
+                onClick={(e) => deletenot(e, notification)}
                 // className="ptndelgroup"
-               className='deletNotification'
+                className="deletNotification"
               >
                 <span>x</span>
               </button>
-            <p className="p111">{notification?.title}</p>
-            <p className="p222">
-              {' '}
-              {notification?.message}
-            </p>
-            
-          </div> 
-     
-          ))
-         }
+              <p className="p111">{notification?.title}</p>
+              <p className="p222"> {notification?.message}</p>
             </div>
-          {/* <div>
+          ))}
+        </div>
+        {/* <div>
             <img src={immm} alt="err" className="imgnot" />
             <p className="p111">سيارة افالون للبيع</p>
             <p className="p222">مزايدة جديدة</p>

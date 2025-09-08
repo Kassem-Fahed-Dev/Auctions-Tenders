@@ -9,17 +9,15 @@ import { useEffect } from 'react';
 import fat from '../../../image/tend.jpg';
 import fat2 from '../../../image/tend2.jpg';
 import fat3 from '../../../image/tend3.jpg';
+import grgr from '../../../image/group.jpg';
+
 export default function AuctionAdmin() {
   const [all, setAll] = useState([]);
   const [yes, setYes] = useState(true);
-<<<<<<< HEAD
-    const [yes1, setYes1] = useState(true);
-    
-  const [type,setType] =useState('مرفوعة للطلب')
-=======
+
   const [yes1, setYes1] = useState(true);
   const [type, setType] = useState('مرفوعة للطلب');
->>>>>>> 44a8a784ec28f0f09a5dd4ff50fbd5c89d6105fc
+
   let sort;
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
@@ -143,7 +141,8 @@ export default function AuctionAdmin() {
               </Link>
               <Link to="/Gr">
                 <span>
-                  <i class="fa-solid fa-users"></i>{' '}
+                  <img src={grgr} alt="err" />
+                  {/* <i class="fa-solid fa-users"></i>{' '} */}
                 </span>
                 مدير المجموعات{' '}
               </Link>
