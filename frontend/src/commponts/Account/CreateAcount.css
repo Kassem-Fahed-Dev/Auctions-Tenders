@@ -7,7 +7,18 @@
 }
 
 .side-right {
-  height: 597px;
+  height: 545px;
+  width: 390px;
+  background-color: #f2f2f2;
+  margin-top: 83px;
+  margin-bottom: 8px;
+  padding-top: 90px;
+  position: relative;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 597px;
   width: 390px;
   background-color: #f2f2f2;
   margin-top: 12px;
@@ -17,9 +28,9 @@
   right: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
 }
-.side-right button{
+.side-right button {
   border: none;
   outline: none;
 }
