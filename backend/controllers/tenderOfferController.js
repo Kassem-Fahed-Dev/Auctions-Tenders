@@ -41,7 +41,7 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
 
   if (!existingOffer) {
     let blockedAmount = 0.1 * tender.startingPrice;
-    wallet.availableAmount = blockedAmount + 10; // for testing
+    // wallet.availableAmount = blockedAmount + 10; // for testing
     if (wallet.availableAmount < blockedAmount) {
       return next(
         new AppError(
@@ -56,7 +56,7 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
 
     wallet.availableAmount -= blockedAmount;
     wallet.blockedAmount += blockedAmount;
-    wallet.save();
+    await wallet.save();
   }
   const offer = new TenderOffer({
     user: userId,

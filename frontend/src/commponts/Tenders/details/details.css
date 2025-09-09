@@ -392,3 +392,25 @@
   bottom: 20px;
   left: 36px;
 }
+.hint-box {
+  font-size: 9px;
+  position: relative;
+  border: 1px solid #444444cc;
+  background-color: #ffffff;
+  width: 269px;
+  height: 33px;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 3px;
+}
+.aaaa {
+  /* background-color: aqua; */
+  height: 90px;
+}
+.hint-box i {
+  position: absolute;
+  top: 0px;
+  left: 7px;
+  font-size: 30px;
+  color: red;
+}

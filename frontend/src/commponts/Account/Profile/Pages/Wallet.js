@@ -566,7 +566,7 @@ export default function Wallet() {
 
   for (let index = 0; index < walletActivity.length; index++) {
     const { day, hours, minutes, ampm } = extractDateTime(
-      walletActivity[index]?.createdAt
+      walletActivity[index]?.date
     );
   }
 
@@ -647,7 +647,7 @@ export default function Wallet() {
               disabled={isDisabled || loadingDeposit}
             >
               {loadingDeposit ? (
-                <i className="fa fa-spinner fa-spin"></i>
+                <div className="spinner-border " role="status"></div>
               ) : successDeposit ? (
                 'تم الايداع بنجاح'
               ) : (
@@ -680,7 +680,7 @@ export default function Wallet() {
               onClick={submitWith}
             >
               {loadingWithdraw ? (
-                <i className="fa fa-spinner fa-spin"></i>
+                <div className="spinner-border " role="status"></div>
               ) : successWithdraw ? (
                 'تم السحب بنجاح'
               ) : (

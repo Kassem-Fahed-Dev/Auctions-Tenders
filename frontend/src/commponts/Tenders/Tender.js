@@ -57,22 +57,22 @@ export default function Tender({
     const date1 = new Date(dateString1);
     let day = date1.toLocaleDateString('ar-EG', { weekday: 'long' }); // اليوم باللغة العربية
     // الحصول على الساعة
-    if (day == 'السبت') {
-      day = 'الأحد';
-    } else if (day == 'الجمعة') {
-      day = 'السبت';
-    } else if (day == 'الأحد') {
-      day = 'الاثنين';
-    } else if (day == 'الاثنين') {
-      day = 'الثلاثاء';
-    } else if (day == 'الثلاثاء') {
-      day = 'الأربعاء';
-    } else if (day == 'الأربعاء') {
-      day = 'الخميس';
-    } else if (day == 'الخميس') {
-      day = 'الجمعة';
-    }
-    let hours = date.getUTCHours();
+    // if (day == 'السبت') {
+    //   day = 'الأحد';
+    // } else if (day == 'الجمعة') {
+    //   day = 'السبت';
+    // } else if (day == 'الأحد') {
+    //   day = 'الاثنين';
+    // } else if (day == 'الاثنين') {
+    //   day = 'الثلاثاء';
+    // } else if (day == 'الثلاثاء') {
+    //   day = 'الأربعاء';
+    // } else if (day == 'الأربعاء') {
+    //   day = 'الخميس';
+    // } else if (day == 'الخميس') {
+    //   day = 'الجمعة';
+    // }
+    let hours = date.getUTCHours() + 3;
     const minutes = date.getUTCMinutes().toString().padStart(2, '0'); // يمكن استخدام getMinutes() إذا كنت تريد التوقيت المحلي
 
     // تحديد AM أو PM
@@ -101,10 +101,10 @@ export default function Tender({
     e.preventDefault();
     let hh = e.target;
     console.log(token);
-   if (col === 'red') {
+    if (col === 'red') {
       // hh.style.cssText = 'color: black;';
       setcol('black');
-    } else if(col === 'black'){
+    } else if (col === 'black') {
       // hh.style.cssText = 'color: red;';
       setcol('red');
     }
@@ -140,10 +140,14 @@ export default function Tender({
     console.log(o);
   }
   // ================
-  const acceptTen=()=>{
- const token = localStorage.getItem('jwt');
-      const valdition={}
-      axiosInstance.patch(`/api/v1/tenders/${data._id}`, JSON.stringify({"tender":{"status": 'مقبول'}}), {
+  const acceptTen = () => {
+    const token = localStorage.getItem('jwt');
+    const valdition = {};
+    axiosInstance
+      .patch(
+        `/api/v1/tenders/${data._id}`,
+        JSON.stringify({ tender: { status: 'مقبول' } }),
+        {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -151,33 +155,37 @@ export default function Tender({
             credentials: 'include',
             Authorization: `Bearer ${token}`,
           },
-        })
-        .then((res) => {
-            //  alert('تم تغيير كلمة المرور بنجاح')
-          // setHoverAuction('spinner');
-          window.location.reload();
-        
-          console.log(res);
-        })
-        .catch((error) => {
-          // setHoverAuction('spinner');
-          if (error.response) {
-            valdition.messageBackend =
-              error.response.data.message;
-            // setErrorMessageupdate(valdition);
-            console.log('p3');
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            // setErrorMessageupdate({
-            //   messageBackend: 'An unexpected error occurred.',
-            // });
-          }
-        })
-}
-const regectTen=()=>{
-   const token = localStorage.getItem('jwt');
-      const valdition={}
-      axiosInstance.patch(`/api/v1/tenders/${data._id}`, JSON.stringify({"tender":{"status": 'مرفوض'}}), {
+        }
+      )
+      .then((res) => {
+        //  alert('تم تغيير كلمة المرور بنجاح')
+        // setHoverAuction('spinner');
+        window.location.reload();
+
+        console.log(res);
+      })
+      .catch((error) => {
+        // setHoverAuction('spinner');
+        if (error.response) {
+          valdition.messageBackend = error.response.data.message;
+          // setErrorMessageupdate(valdition);
+          console.log('p3');
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          // setErrorMessageupdate({
+          //   messageBackend: 'An unexpected error occurred.',
+          // });
+        }
+      });
+  };
+  const regectTen = () => {
+    const token = localStorage.getItem('jwt');
+    const valdition = {};
+    axiosInstance
+      .patch(
+        `/api/v1/tenders/${data._id}`,
+        JSON.stringify({ tender: { status: 'مرفوض' } }),
+        {
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -185,29 +193,29 @@ const regectTen=()=>{
             credentials: 'include',
             Authorization: `Bearer ${token}`,
           },
-        })
-        .then((res) => {
-            //  alert('تم تغيير كلمة المرور بنجاح')
-          // setHoverAuction('spinner');
-          window.location.reload();
-        
-          console.log(res);
-        })
-        .catch((error) => {
-          // setHoverAuction('spinner');
-          if (error.response) {
-            valdition.messageBackend =
-              error.response.data.message;
-            // setErrorMessageupdate(valdition);
-            console.log('p3');
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            // setErrorMessageupdate({
-            //   messageBackend: 'An unexpected error occurred.',
-            // });
-          }
-        })
-}
+        }
+      )
+      .then((res) => {
+        //  alert('تم تغيير كلمة المرور بنجاح')
+        // setHoverAuction('spinner');
+        window.location.reload();
+
+        console.log(res);
+      })
+      .catch((error) => {
+        // setHoverAuction('spinner');
+        if (error.response) {
+          valdition.messageBackend = error.response.data.message;
+          // setErrorMessageupdate(valdition);
+          console.log('p3');
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          // setErrorMessageupdate({
+          //   messageBackend: 'An unexpected error occurred.',
+          // });
+        }
+      });
+  };
   return (
     <div className="oneAuction">
       <p
@@ -222,9 +230,7 @@ const regectTen=()=>{
         {data?.activeStatus}
       </p>
       <button
-        className={`fas fa-heart ${
-   col
-        }`}
+        className={`fas fa-heart ${col}`}
         onClick={(e) => handel_Fav(e, data)}
       ></button>
       <img className="imageAuction" src={im5} alt="Error" />
@@ -276,9 +282,27 @@ const regectTen=()=>{
             حذف
           </button>
         )}
-        {showAccept && <button className="acceptAuction" onClick={()=>{acceptTen()}}>قبول</button>}
+        {showAccept && (
+          <button
+            className="acceptAuction"
+            onClick={() => {
+              acceptTen();
+            }}
+          >
+            قبول
+          </button>
+        )}
 
-        {showReject && <button className="rejectAuction" onClick={()=>{regectTen()}}>رفض</button>}
+        {showReject && (
+          <button
+            className="rejectAuction"
+            onClick={() => {
+              regectTen();
+            }}
+          >
+            رفض
+          </button>
+        )}
       </div>
     </div>
   );

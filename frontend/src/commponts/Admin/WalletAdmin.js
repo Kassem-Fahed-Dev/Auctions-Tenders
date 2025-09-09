@@ -2,7 +2,8 @@ import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axiosInstance from '../AxiosInterceptors';
+import axiosInstance from '../AxiosInterceptors'; import grgr from '../../image/group.jpg';
+
 import { id } from '../Account/Profile/store/Redux';
 export default function WalletAdmin() {
   const [walletActivity, setWalletActivity] = useState([]);
@@ -164,7 +165,7 @@ export default function WalletAdmin() {
               </Link>
               <Link to="/Gr">
                 <span>
-                  <i class="fa-solid fa-users"></i>{' '}
+                  <img src={grgr} alt="err" />
                 </span>
                 مدير المجموعات{' '}
               </Link>

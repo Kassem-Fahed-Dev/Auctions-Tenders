@@ -3,6 +3,8 @@ import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
+import grgr from '../../image/group.jpg';
+
 export default function UserAdmin() {
   const [userToEdit, setUserToEdit] = useState(null);
   const [showDeleteUser, setShowDeleteUser] = useState(false);
@@ -118,15 +120,15 @@ export default function UserAdmin() {
     setFormData2({ name: value.trim() });
     console.log(formData2);
   };
-  const edit = (e,id,role) => {
-    console.log('iiiiiiiiiiiii')
+  const edit = (e, id, role) => {
+    console.log('iiiiiiiiiiiii');
     const valdition = {};
     // if (role=='admin'){
     //   role='user'
     // }else{
     //   role='user'
     // }
-     console.log(role)
+    console.log(role);
     axiosInstance
       .patch(`/api/v1/users/${id}`, JSON.stringify({ role: role }), {
         withCredentials: true,
@@ -195,7 +197,7 @@ export default function UserAdmin() {
               </Link>
               <Link to="/Gr">
                 <span>
-                  <i class="fa-solid fa-users"></i>{' '}
+                  <img src={grgr} alt="err" />
                 </span>
                 مدير المجموعات{' '}
               </Link>
@@ -371,7 +373,7 @@ export default function UserAdmin() {
         {userToDelete && (
           <div className="confirm-modal">
             <div className="modal-content">
-              {userToDelete.role ==='admin'? (
+              {userToDelete.role === 'admin' ? (
                 <p>
                   هل أنت متأكد أنك تريد حذف <b>المدير "{userToDelete.name}"</b>{' '}
                   ؟<br />
@@ -421,8 +423,12 @@ export default function UserAdmin() {
 
               <button
                 className="btn-confirm"
-                   onClick={(e) => {
-                  edit(e, userToEdit?.id,userToEdit?.role=='admin'?'user':'admin');
+                onClick={(e) => {
+                  edit(
+                    e,
+                    userToEdit?.id,
+                    userToEdit?.role == 'admin' ? 'user' : 'admin'
+                  );
                 }}
               >
                 نعم
