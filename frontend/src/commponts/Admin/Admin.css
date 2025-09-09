@@ -169,7 +169,8 @@
   padding: 10px;
   text-decoration: none;
   font-weight: 400;
-  margin-right: -737px;
+  /* margin-right: -737px; */
+  margin-left: -631px;
 }
 .ptn_Gr1 i {
   color: #ffffffff;
@@ -803,6 +804,6 @@ input.teinput {
 /* img.qustion{
   width: ;
 } */
-.link.curser{
+.link.curser {
   cursor: default;
 }

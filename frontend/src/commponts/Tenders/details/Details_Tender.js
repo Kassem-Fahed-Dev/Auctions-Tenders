@@ -17,7 +17,7 @@ export default function Details_Tender() {
   const scroll1 = useEffect(() => window.scrollTo(0, 0), []);
   const [errorMessage5, setErrorMessage5] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
-  const [amount, setAmount] = useState({ amount: '',message:'' });
+  const [amount, setAmount] = useState({ amount: '', message: '' });
 
   // const [amount, setAmount] = useState('');
   const location = useLocation();
@@ -25,15 +25,14 @@ export default function Details_Tender() {
   function back() {
     window.history.go(-1);
   }
-   function handleInputChange(e) {
+  function handleInputChange(e) {
     const { name, value } = e.target;
     setAmount({ ...amount, [name]: Number(value.trim()) });
     console.log(amount);
-   
   }
-function handleInputChange1(e) {
+  function handleInputChange1(e) {
     const { name, value } = e.target;
-    console.log(amount)
+    console.log(amount);
     //setAmount(false)
     setAmount({ ...amount, [name]: value });
     console.log(amount);
@@ -49,25 +48,21 @@ function handleInputChange1(e) {
   //  const [showParticipation, setShowParticipation] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const token = localStorage.getItem('jwt');
-  const submitAmount = (e,id) => {
+  const submitAmount = (e, id) => {
     // e.preventDefault();
     setAmount('');
     setShowParticipation(false);
 
     console.log('ppp');
     axiosInstance
-      .post(
-        `/api/v1/tenders/submitOffer/${id}`,
-        JSON.stringify(amount),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(`/api/v1/tenders/submitOffer/${id}`, JSON.stringify(amount), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         // setAmount({ amount: '' });
@@ -320,21 +315,30 @@ function handleInputChange1(e) {
                       أدخل ما تود اضافته من تفاصيل تملكها لتقديمها بالمناقصة
                     </h3>
 
-                    <textarea type="text"  value={amount.message}
-                      name='message' autoComplete='off' onChange={(e)=>{handleInputChange1(e)}}></textarea>
+                    <textarea
+                      type="text"
+                      value={amount.message}
+                      name="message"
+                      autoComplete="off"
+                      onChange={(e) => {
+                        handleInputChange1(e);
+                      }}
+                    ></textarea>
                     <h3>ادخل المبلغ الذي تود المشاركة به</h3>
                     <input
                       type="number "
-                      onChange={(e)=>{handleInputChange(e)}}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                      }}
                       value={amount.amount}
-                      name='amount'
-                      autoComplete='off'
+                      name="amount"
+                      autoComplete="off"
                       placeholder="أدخل أرقام فقط"
                     />
 
                     <button
                       onClick={(e) => {
-                        submitAmount(e,data?._id)
+                        submitAmount(e, data?._id);
                       }}
                       disabled={!amount}
                     >

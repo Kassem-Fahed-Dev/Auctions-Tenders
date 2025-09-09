@@ -94,13 +94,16 @@
 }
 .account {
   font-size: 14px;
-  width: 80px;
+  /* width: 80px; */
+  width: 100px;
 }
 .conLogOut {
   position: relative;
   direction: rtl;
   display: flex;
-  left: 5px;
+  /* left: 5px;
+   */
+  left: 23px;
 }
 /* for the position logout */
 .c_2 {
