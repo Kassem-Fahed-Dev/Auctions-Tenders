@@ -45,6 +45,7 @@
   position: absolute;
   top: 20px;
   right: 10px;
+  height: 100px;
   width: 100px;
   border-radius: 50%;
 }

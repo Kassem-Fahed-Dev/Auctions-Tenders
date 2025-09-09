@@ -16,7 +16,7 @@ export default function AllTenders() {
 
   return (
     <>
-     <Search page={"all"}/>
+      <Search page={"all"} type={"tenders"}/>
       <Navbar wordBlod={'tenders'} />
       <TendersNavbar wordBlod={'all'} />
       <button

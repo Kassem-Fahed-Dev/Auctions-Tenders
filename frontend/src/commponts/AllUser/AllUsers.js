@@ -75,18 +75,18 @@ export default function AllUsers() {
     //   setTest(' مقبول')
     // }
     if (
-      item == ' جاري' ||
-      item == ' منتهي' ||
-      item == ' قادم' ||
+      item == 'جاري' ||
+      item == 'منتهي' ||
+      item == 'قادم' ||
       item == 'الكل'
     ) {
       console.log('5');
       localStorage.setItem(st, item);
-      setValue1(' مقبول');
+      setValue1('مقبول');
       setValue2('فرز حسب');
       console.log('7');
     }
-    if (value == ' مقبول' || value == ' مرفوض' || value == ' قيد الانتظار') {
+    if (value == 'مقبول' || value == 'مرفوض' || value == 'قيد الانتظار') {
       // localStorage.setItem(st,value)
       setValue2('فرز حسب');
       console.log('8');
@@ -131,18 +131,18 @@ export default function AllUsers() {
     //   setTest(' مقبول')
     // }
     if (
-      item == ' جاري' ||
-      item == ' منتهي' ||
-      item == ' قادم' ||
+      item == 'جاري' ||
+      item == 'منتهي' ||
+      item == 'قادم' ||
       item == 'الكل'
     ) {
       console.log('5');
       localStorage.setItem(st, item);
-      setValue6(' مقبول');
+      setValue6('مقبول');
       setValue7('فرز حسب');
       console.log('7');
     }
-    if (value5 == ' مقبول' || value5 == ' مرفوض' || value5 == ' قيد الانتظار') {
+    if (value5 == 'مقبول' || value5 == 'مرفوض' || value5 == 'قيد الانتظار') {
       // localStorage.setItem(st,value)
       setValue7('فرز حسب');
       console.log('8');
@@ -240,7 +240,7 @@ export default function AllUsers() {
                           <div>
                             <img
                               className="picture1"
-                              src={ll}
+                             src={da.profileImg?da.profileImg:ll}
                               alt="Error"
                               style={{
                                 position: 'absolute',
@@ -349,7 +349,7 @@ export default function AllUsers() {
                     className={`fas fa-chevron-left ${
                       hover == true ? 'white' : 'black'
                     } ${
-                      value.includes('فرز حسب') || value.includes(' مقبول')
+                      value.includes('فرز حسب') || value.includes('مقبول')
                         ? 'sort1'
                         : 'sort2'
                     }`}
@@ -365,7 +365,7 @@ export default function AllUsers() {
                     <button
                       className="button1 buttonpos1cre"
                       onClick={() => {
-                        handleClick2(' مقبول');
+                        handleClick2('مقبول');
                       }}
                     >
                       مقبول
@@ -374,7 +374,7 @@ export default function AllUsers() {
                     <button
                       className="buttonpos1cre"
                       onClick={() => {
-                        handleClick2(' مرفوض');
+                        handleClick2('مرفوض');
                       }}
                     >
                       مرفوض
@@ -382,7 +382,7 @@ export default function AllUsers() {
                     <button
                       className="button2 buttonpos1cre"
                       onClick={() => {
-                        handleClick2(' قيد الانتظار');
+                        handleClick2('قيد الانتظار');
                       }}
                     >
                       قيد الانتظار
@@ -391,7 +391,7 @@ export default function AllUsers() {
                 </div>
                 <div
                   className={`listSort  ${
-                    test.includes(' مقبول') ? 'visable' : ''
+                    test.includes('مقبول') ? 'visable' : ''
                   }`}
                 >
                   <div className="buttonSort so11 poscre">
@@ -406,7 +406,7 @@ export default function AllUsers() {
                     <button
                       className="buttonpos1cre"
                       onClick={() => {
-                        handleClick2(' جاري');
+                        handleClick2('جاري');
                       }}
                     >
                       جاري
@@ -414,7 +414,7 @@ export default function AllUsers() {
                     <button
                       className="buttonpos1cre"
                       onClick={() => {
-                        handleClick2(' قادم');
+                        handleClick2('قادم');
                       }}
                     >
                       قادم
@@ -422,7 +422,7 @@ export default function AllUsers() {
                     <button
                       className="button2 buttonpos1cre"
                       onClick={() => {
-                        handleClick2(' منتهي');
+                        handleClick2('منتهي');
                       }}
                     >
                       منتهي

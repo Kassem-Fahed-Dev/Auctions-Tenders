@@ -18,7 +18,8 @@ function Data({ state1 }) {
   );
 }
 
-function Image() {
+function Image({state1}) {
+   console.log(state1?.item?.photo)
   return (
     <>
       <div id="carouselExample" class="carousel slide" data-bs-ride="false">
@@ -58,21 +59,22 @@ function Image() {
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src={im} class="d-block w-100" alt="..." height={'380px'} />
+            <img src={state1?.item?.photo[0]} class="d-block w-100" alt="لا يوجد صور أكثر" height={'380px'} />
           </div>
           <div class="carousel-item">
-            <img src={im2} class="d-block w-100" alt="..." height={'380px'} />
+            <img src={state1?.item?.photo[1]} class="d-block w-100" alt="لا يوجد صور أكثر" height={'380px'} />
           </div>
           <div class="carousel-item">
-            <img src={im3} class="d-block w-100" alt="..." height={'380px'} />
+            <img src={state1?.item?.photo[2]} class="d-block w-100" alt="لا يوجد صور أكثر" height={'380px'} />
           </div>
           <div class="carousel-item">
-            <img src={im} class="d-block w-100" alt="..." height={'380px'} />
+            <img src={state1?.item?.photo[3]} class="d-block w-100" alt="لا يوجد صور أكثر" height={'380px'} />
           </div>
           <div class="carousel-item">
-            <img src={im2} class="d-block w-100" alt="..." height={'380px'} />
+            <img src={state1?.item?.photo[4]} class="d-block w-100" alt="لا يوجد صور أكثر" height={'380px'} />
           </div>
         </div>
+        
         <button
           class="carousel-control-prev"
           type="button"
@@ -92,6 +94,26 @@ function Image() {
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+      {/* -------------- */}
+     
+      {/* {state1.item?.photo
+.map((pic)=>{
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src={pic} class="d-block w-100" alt="..." height={'380px'} />
+          </div>
+          </div>
+
+      })} */}
+    
+      {/* for (let index = 0 ; index < x ; index++) {
+       <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src={pic} class="d-block w-100" alt="..." height={'380px'} />
+          </div>
+          </div>
+        
+      } */}
     </>
   );
 }
@@ -113,7 +135,7 @@ export default function Navdata({ state }) {
     if (content === 'data') {
       return <Data state1={state} />;
     } else if (content === 'image') {
-      return <Image />;
+      return <Image state1={state}/>;
     } else if (content === 'vidio') {
       return <Vidio />;
     }

@@ -16,7 +16,7 @@ sort=localStorage.setItem('status1','فرز حسب')
    
   return (
     <div>
-      <Search page={"all"}/>
+      {/* <Search page={"all"}/> */}
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'Auctions3'} />
       <button

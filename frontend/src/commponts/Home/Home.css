@@ -409,3 +409,15 @@ div.icon_bell {
   text-decoration: none;
   font-size: 26px;
 }
+p.resultserach{
+  direction: rtl;
+  color: #66b2ff;
+  font-size: 35px;
+  font-weight: 400;
+  margin-right: 50px;
+  margin-top: 10px;
+}
+.alotofAuction.margin{
+  margin-bottom: 15px;
+    margin-top: 15px;
+}

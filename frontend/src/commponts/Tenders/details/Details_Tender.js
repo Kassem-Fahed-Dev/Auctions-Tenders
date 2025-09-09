@@ -17,7 +17,7 @@ export default function Details_Tender() {
   const scroll1 = useEffect(() => window.scrollTo(0, 0), []);
   const [errorMessage5, setErrorMessage5] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
-  const [amount, setAmount] = useState({ amount: '' });
+  const [amount, setAmount] = useState({ amount: '',message:'' });
 
   // const [amount, setAmount] = useState('');
   const location = useLocation();
@@ -36,7 +36,17 @@ export default function Details_Tender() {
 
     // setAmount(value);
   }
+function handleInputChange1(e) {
+    const { name, value } = e.target;
+    //setAmount(false)
+    setAmount({ ...amount, [name]: value });
+    console.log(amount);
+    // if (!/^\d+$/.test(value)) {
+    //   return;
+    // }
 
+    // setAmount(value);
+  }
   const [showParticipation, setShowParticipation] = useState(false);
   const [loadingParticipation, setLoadingParticipation] = useState(false);
   const [successParticipation, setSuccessParticipation] = useState(false);
@@ -257,7 +267,7 @@ export default function Details_Tender() {
                     ) : (
                       <>
                         <div className="fas fa-hand-point-up"></div>
-                        شارك يالمناقصة
+                        شارك بالمناقصة
                       </>
                     )}
                   </button>
@@ -314,19 +324,20 @@ export default function Details_Tender() {
                       أدخل ما تود اضافته من تفاصيل تملكها لتقديمها بالمناقصة
                     </h3>
 
-                    <textarea type="text"></textarea>
+                    <textarea type="text"  value={amount.message}
+                      name='message' onChange={(e)=>{handleInputChange1(e)}}></textarea>
                     <h3>ادخل المبلغ الذي تود المشاركة به</h3>
                     <input
                       type="number "
-                      onChange={handleInputChange}
-                      value={amount}
+                      onChange={(e)=>{handleInputChange(e)}}
+                      value={amount.amount}
+                      name='amount'
                       placeholder="أدخل أرقام فقط"
                     />
 
                     <button
-                      onClick={() => {
-                        setAmount('');
-                        setShowParticipation(false);
+                      onClick={(e) => {
+                        submitAmount(e)
                       }}
                       disabled={!amount}
                     >

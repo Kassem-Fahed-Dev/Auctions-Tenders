@@ -56,7 +56,7 @@ export default function AuctionNew() {
   };
   return (
     <div>
-      <Search page={"all"}/>
+      {/* <Search page={"all"}/> */}
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'Auctions2'} />
       <button

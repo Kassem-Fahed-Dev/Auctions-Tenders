@@ -50,7 +50,7 @@ export default function EditGroup() {
     };
       const handleChange = (e) => {
       const { name, value } = e.target;
-      setFormData1({ ...formData1, [name]: value.trim() });
+      setFormData1({ ...formData1, [name]: value });
       console.log(formData1)
     };
    const rows = [];
@@ -150,8 +150,8 @@ export default function EditGroup() {
   const handleImageChange = (event) => {
     setSent(true)
     const files = Array.from(event.target?.files);
-    if (files.length > 5) {
-      alert("يرجى اختيار 5 صور أو أقل.");
+    if (files.length > 1) {
+      alert("يرجى اختيار 1 صور أو أقل.");
       setFileInputKey(Date.now());
       setImages([]);
       setSelectedFiles([]);

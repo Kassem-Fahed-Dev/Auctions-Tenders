@@ -6,6 +6,7 @@ import axiosInstance from '../AxiosInterceptors';
 import { useNavigate } from 'react-router-dom';
 export default function CreateAuction() {
   const [formData, setFormData] = useState('');
+  const token = localStorage.getItem('jwt');
   const [hover, setHover] = useState('بيانات');
   const [namePass, setNamePase] = useState(['list1']);
   const [namePass1, setNamePase1] = useState('');
@@ -31,6 +32,7 @@ export default function CreateAuction() {
       description: '',
       properties: [],
       photo:[],
+      video:''
     },
   });
   function goback() {
@@ -55,8 +57,8 @@ export default function CreateAuction() {
     setHover(item);
   };
   //الصور
-  const [images, setImages] = useState([]);
-  const [fileInputKey, setFileInputKey] = useState(Date.now());
+  // const [images, setImages] = useState([]);
+  // const [fileInputKey, setFileInputKey] = useState(Date.now());
    //const [ selectedFiles,  setselectedFiles] = useState([]);
 //  const handleImageChange = (event) => {
 //     const selectedFiles = Array.from(event.target?.files);
@@ -102,81 +104,72 @@ export default function CreateAuction() {
 //       });
 //   };
 // عند اختيار الصور
-const [selectedFiles, setSelectedFiles] = React.useState([]);
+// ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+// const [selectedFiles, setSelectedFiles] = React.useState([]);
 
-// عند اختيار الصور
-const handleImageChange = (event) => {
-  const files = Array.from(event.target?.files);
-  if (files.length > 5) {
-    alert('يرجى اختيار 5 صور أو أقل.');
-    setFileInputKey(Date.now());
-    setImages([]);
-    setSelectedFiles([]); // تفريغ الملفات المختارة
-    return;
-  }
-  setSelectedFiles(files);
-  const newImages = files.map((file) => URL.createObjectURL(file));
-  setImages(newImages);
-};
-const uploadImages = (files) => {
-  if (!files || !Array.isArray(files)) {
-    console.error('الملفات غير صحيحة أو غير موجودة');
-    return Promise.reject('Invalid files');
-  }
 
-  const uploadPromises = files.map((file) => {
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('upload_preset', 'SmartWorld');
-  console.log(formData)
-  return axiosInstance
-    .post(
-      'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
-      formData
-    )
-    .then((res) => {
-      console.log('Upload successful:', res.data);
-      const public_id = res.data.public_id;
-      console.log(public_id);
+// const handleImageChange = (event) => {
+//   const files = Array.from(event.target?.files);
+//   if (files.length > 5) {
+//     alert('يرجى اختيار 5 صور أو أقل.');
+//     setFileInputKey(Date.now());
+//     setImages([]);
+//     setSelectedFiles([]); // تفريغ الملفات المختارة
+//     return;
+//   }
+//   setSelectedFiles(files);
+//   const newImages = files.map((file) => URL.createObjectURL(file));
+//   setImages(newImages);
+// };
+// const uploadImages = (files) => {
+//   if (!files || !Array.isArray(files)) {
+//     console.error('الملفات غير صحيحة أو غير موجودة');
+//     return Promise.reject('Invalid files');
+//   }
+
+//   const uploadPromises = files.map((file) => {
+//   const formData = new FormData();
+//   formData.append('file', file);
+//   formData.append('upload_preset', 'SmartWorld');
+//   console.log(formData)
+//   return axiosInstance
+//     .post(
+//       'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
+//       formData
+//     )
+//     .then((res) => {
+//       console.log('Upload successful:', res.data);
+//       const public_id = res.data.public_id;
+//       console.log(public_id);
       
-      // تحديث الحالة أو البيانات كما تريد
-      // setFormData1((prevData) => ({
-      //   ...prevData,
-      //   item: {
-      //     ...prevData.item,
-      //     photo: [...prevData.item.photo, public_id]
-      //   },
-      // }));
+//       return public_id; // هنا نعيد public_id
+//     })
+//     .catch((error) => {
+//       if (error.response) {
+//         const validationErrors = {};
+//         validationErrors.messageBackend = error.response.data.message;
+//         setErrorMessage(validationErrors);
+//       } else {
+//         console.log('An unexpected error occurred:', error.message);
+//         setErrorMessage({
+//           messageBackend: 'حدث خطأ غير متوقع.',
+//         });
+//       }
 
-      // إرجاع public_id
-      return public_id; // هنا نعيد public_id
-    })
-    .catch((error) => {
-      if (error.response) {
-        const validationErrors = {};
-        validationErrors.messageBackend = error.response.data.message;
-        setErrorMessage(validationErrors);
-      } else {
-        console.log('An unexpected error occurred:', error.message);
-        setErrorMessage({
-          messageBackend: 'حدث خطأ غير متوقع.',
-        });
-      }
-      // يمكن أن تعيد خطأ أو تكتفي
-      throw error;
-    });
-});
-
-// استخدام Promise.all لانتظار جميع عمليات الرفع وإرجاع مصفوفة من public_id
-return Promise.all(uploadPromises)
-  .then((publicIds) => {
-    console.log('All public IDs:', publicIds);
-    return publicIds; // إرجاع مصفوفة من جميع public_id
-  });
-
-};
+//       throw error;
+//     });
+// });
 
 
+// return Promise.all(uploadPromises)
+//   .then((publicIds) => {
+//     console.log('All public IDs:', publicIds);
+//     return publicIds; // إرجاع مصفوفة من جميع public_id
+//   });
+
+// };
+
+// ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
   // const upload = (e) => {
   //   console.log('up')
   //   const formData = new FormData();
@@ -198,10 +191,16 @@ return Promise.all(uploadPromises)
   //       }
   //     });
   // };
-  const removeImage = (index) => {
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
-  };
-
+  // const removeImage = (index , event) => {
+  //   const file = event.target.files[0];
+  //   setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  //   setSelectedFiles((prevImages) => prevImages.filter(() => i !== index));
+  // };
+const removeImage = (index,event) => {
+   event.preventDefault();
+  setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+};
   const handleReplaceImage = (index, event) => {
     const file = event.target.files[0];
     if (file) {
@@ -211,16 +210,26 @@ return Promise.all(uploadPromises)
         updatedImages[index] = newImage;
         return updatedImages;
       });
+       setSelectedFiles((prevImages) => {
+        const updatedImages = [...prevImages];
+       updatedImages[index] = file;
+        return updatedImages;
+      });
     }
   };
   //الفيديو
-  const handleDeleteVideo = () => {
+  const [fileInputKey1, setFileInputKey1] = useState(Date.now());
+const [selectedFiles1, setSelectedFiles1] = useState([]);
+  const handleDeleteVideo = (event) => {
+       event.preventDefault();
     setVideoSrc(null);
+    setSelectedFiles1(null);
   };
   const [videoSrc, setVideoSrc] = useState(null);
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+        setSelectedFiles1(file);
       setVideoSrc(null);
       const vid1 = URL.createObjectURL(file);
       setTimeout(() => {
@@ -278,78 +287,212 @@ return Promise.all(uploadPromises)
         }
       });
   };
-  // const [pic,setPic]=useState([])
+  // ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  const [url1,setUrl1]=useState(null)
+const uploadVideo = (files) => {
+  if (!files || !Array.isArray(files)) {
+    console.error("الملفات غير صحيحة أو غير موجودة");
+    return Promise.reject("Invalid files");
+  }
+
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append("files", file); // 🔑 same key "files" for all files
+  });
+
+  return axiosInstance
+    .post("/api/v1/cloudinary/upload-multiple", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+         'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log("Upload successful:",res.data);
+      const url1=res.data.data.urls
+    
+  return url1
+  
+    })
+    .catch((error) => {
+      if (error.response) {
+        setErrorMessage({
+          messageBackend: error.response.data.message,
+        });
+      } else {
+        console.log("An unexpected error occurred:", error.message);
+        setErrorMessage({
+          messageBackend: "حدث خطأ غير متوقع.",
+        });
+      }
+      throw error;
+    });
+};
+
+//  444444444444444444444444444
+  const [images, setImages] = useState([]);
+const [fileInputKey, setFileInputKey] = useState(Date.now());
+const [selectedFiles, setSelectedFiles] = useState([]);
+console.log(selectedFiles1)
+const handleImageChange = (event) => {
+  const files = Array.from(event.target?.files);
+  if (files.length > 5) {
+    alert("يرجى اختيار 5 صور أو أقل.");
+    setFileInputKey(Date.now());
+    setImages([]);
+    setSelectedFiles([]);
+    return;
+  }
+  setSelectedFiles(files);
+  const newImages = files.map((file) => URL.createObjectURL(file));
+  setImages(newImages);
+};
+const [url,setUrl]=useState(null)
+const uploadImages = (files) => {
+  if (!files || !Array.isArray(files)) {
+    console.error("الملفات غير صحيحة أو غير موجودة");
+    return Promise.reject("Invalid files");
+  }
+
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append("files", file); // 🔑 same key "files" for all files
+  });
+
+  return axiosInstance
+    .post("/api/v1/cloudinary/upload-multiple", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+         'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log("Upload successful:",res.data);
+      const urls=res.data.data.urls
+    
+  return urls
+  
+    })
+    .catch((error) => {
+      if (error.response) {
+        setErrorMessage({
+          messageBackend: error.response.data.message,
+        });
+      } else {
+        console.log("An unexpected error occurred:", error.message);
+        setErrorMessage({
+          messageBackend: "حدث خطأ غير متوقع.",
+        });
+      }
+      throw error;
+    });
+};
+
+
   let pic;
+  let video;
 console.log(selectedFiles);
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   console.log('cha');
   console.log(selectedFiles);
   setHoverAuction('spinner-Auction');
- try {
-    // انتظر انتهاء رفع الصور
-pic= await uploadImages(selectedFiles)
-    setFormData1({...formData1,item:{...formData1.item,photo:pic}})
-  //  setFormData1({...formData1,item:{...formData1.item,photo:x}})
-  }  catch (uploadError) {
+
+  try {
+    // رفع الصور ورجوع الروابط
+    const pic = await uploadImages(selectedFiles);
+    console.log("Returned URLs:", pic);
+
+    // خزّن بالرابط أول صورة (أو كل الصور حسب حاجتك)
+    const imageUrl = pic;
+
+    // حدّث الـ state (اختياري للعرض)
+    setFormData1((prevState) => ({
+      ...prevState,
+      item: { ...prevState.item, photo: imageUrl },
+    }));
+
+    // ابعث البيانات مباشرة مع الرابط
+    let payload1 = {
+      ...formData1,
+      item: { ...formData1.item, photo: imageUrl }, // ✅ هون بنضيف الرابط بشكل أكيد
+    };
+
+    // الآن نرفع الفيديو
+    // const video = await uploadVideo(selectedFiles1);
+    // console.log("Returned URLs:", video);
+
+    // خزّن بالرابط أول فيديو (أو كل الفيديوهات حسب حاجتك)
+    // const vid1Url = video;
+
+    // حدّث الـ state (اختياري للعرض)
+    // setFormData1((prevState) => ({
+    //   ...prevState,
+    //   item: { ...prevState.item, video: vid1Url },
+    // }));
+
+    // ابعث البيانات مباشرة مع الرابط
+    // const payload = {
+    //   ...payload1, // استخدم payload1 هنا
+    //   item: { ...payload1.item, video: vid1Url }, // ✅ هون بنضيف الرابط بشكل أكيد
+    // };
+
+    console.log("ll", pic);
+    // console.log("pp", video);
+
+    // باقي منطق التحقق من البيانات...
+    setHoverAuction('spinner-Auction');
+    const valditionErrerorsAuction = { item: {}, auction: {} };
+
+    // استكمال التحقق من صحة البيانات هنا (كما في الكود السابق)
+    // ...
+
+    if (
+      Object.keys(valditionErrerorsAuction.auction).length === 0 &&
+      Object.keys(valditionErrerorsAuction.item).length === 0
+    ) {
+      const token = localStorage.getItem('jwt');
+      setHoverAuction('spinner-Auction');
+
+      axiosInstance
+        .post('/api/v1/auctions', JSON.stringify(payload1), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization:` Bearer ${token}`, // تأكد من استخدام القيم الصحيحة هنا
+          },
+        })
+        .then((res) => {
+          setHoverAuction('spinner');
+          console.log(res);
+          navegate('/createAuctions');
+        })
+        .catch((error) => {
+          setHoverAuction('spinner');
+          if (error.response) {
+            valditionErrerorsAuction.messageBackend =
+              error.response.data.message;
+            setErrorMessageAuc(valditionErrerorsAuction);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessageAuc({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });
+    }
+  } catch (uploadError) {
     // معالجة أخطاء رفع الصور إذا كانت هناك حاجة
     console.error('خطأ أثناء رفع الصور:', uploadError);
     setHoverAuction('spinner');
     return;
-  }
-  console.log(pic)
- 
-// await  setFormData1((prevData) => ({
-//           ...prevData,
-//           item: {
-//             ...prevData.item,
-//            photo: [...pic],
-//           },
-//         }));
-console.log(formData1)
-  // باقي منطق التحقق من البيانات...
-  setHoverAuction('spinner-Auction');
-  const valditionErrerorsAuction = { item: {}, auction: {} };
-
-  // استكمال التحقق من صحة البيانات هنا (كما في الكود السابق)
-  // ...
-
-  if (
-    Object.keys(valditionErrerorsAuction.auction).length === 0 &&
-    Object.keys(valditionErrerorsAuction.item).length === 0
-  ) {
-    const token = localStorage.getItem('jwt');
-    setHoverAuction('spinner-Auction');
-
-    axiosInstance
-      .post('/api/v1/auctions', JSON.stringify(formData1), {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept-Language': 'ar',
-          credentials: 'include',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setHoverAuction('spinner');
-        console.log(res);
-        navegate('/createAuctions');
-      })
-      .catch((error) => {
-        setHoverAuction('spinner');
-        if (error.response) {
-          valditionErrerorsAuction.messageBackend =
-            error.response.data.message;
-          setErrorMessageAuc(valditionErrerorsAuction);
-          console.log('p3');
-        } else {
-          console.log('An unexpected error occurred:', error.message);
-          setErrorMessageAuc({
-            messageBackend: 'An unexpected error occurred.',
-          });
-        }
-      });
   }
 };
 
@@ -407,7 +550,7 @@ console.log(formData1)
       <Navbar wordBlod={'auctions'} />
       <p className="createp">إنشاء مزاد</p>
       <button className="	fas fa-chevron-left" onClick={goback}></button>
-      <form onSubmit={handleSubmit}>
+      <form >
         <div className="create-auction-data">
           <div className="create-auction-data1">
             <div className="create-auction-form">
@@ -719,6 +862,7 @@ console.log(formData1)
 
                 <button
                   disabled={isButtonDisabled}
+                  onClick={handleSubmit}
                   className={`send-auction ${
                     hoverAuc.includes('no') ? 'hidden-send' : ''
                   } ${
@@ -810,7 +954,7 @@ console.log(formData1)
                         />
                         <button
                           className="choose"
-                          onClick={() => removeImage(index)}
+                         onClick={(event) => removeImage(index, event)}
                         >
                           x
                         </button>

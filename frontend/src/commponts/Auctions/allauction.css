@@ -1026,11 +1026,12 @@ input.position {
   top: 213px;
   height: 40px;
 }
-i.position {
+a.position {
   position: absolute;
   color: #000;
   left: 80px;
   z-index: 3;
+  cursor: pointer;
   top: 220px;
 }
 input.position1 {
@@ -1193,7 +1194,7 @@ i.alluser {
   /* position:absolute; */
   /* top: 800px; */
   top: 65px;
-  left: 80px;
+  left: 156px;
 }
 /* .listSort .buttonSort .buttonpos2cre{ */
 

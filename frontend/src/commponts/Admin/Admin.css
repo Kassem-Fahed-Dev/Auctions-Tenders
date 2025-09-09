@@ -802,3 +802,6 @@ input.teinput {
 /* img.qustion{
   width: ;
 } */
+.link.curser{
+  cursor: default;
+}

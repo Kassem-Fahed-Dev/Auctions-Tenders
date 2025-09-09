@@ -455,7 +455,7 @@ const deleteUser = (e, id) => {
 
 
 {allAuction.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
-            <Link className="link" to='/group'  state={{ group }} >
+            <Link className="link curser"  >
               <button
                 className="ptndelgroup"
                 // onClick={() => handleDeleteClick(group?.name)}
@@ -488,7 +488,7 @@ const deleteUser = (e, id) => {
           </p>
           <div className="group-con2">
           {allTender.map((group)=>(  <div className="group-div div7" style={{backgroundImage:`url(${group.image})`}}>
-            <Link className="link" to='/group'  state={{ group }} >
+            <Link className="link curser" >
               <button
                 className="ptndelgroup"
                 // onClick={() => handleDeleteClick(group?.name)}

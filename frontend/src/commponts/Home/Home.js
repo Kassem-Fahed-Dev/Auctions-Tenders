@@ -14,6 +14,14 @@ import axiosInstance from '../AxiosInterceptors';
 import { useState } from 'react';
 export default function Home() {
   const [all, setAll] = useState([]);
+    const [result, setReesult] = useState({
+      serach:''
+    });
+      const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setReesult({  [name]: value });
+    console.log(result)
+  };
   const [errorMessage, setErrorMessage] = useState({});
   const token = localStorage.getItem('jwt');
   useEffect(() => {
@@ -57,8 +65,8 @@ export default function Home() {
           <p className="smart-world">Smart World</p>
           <form>
             <div className="serach-container">
-              <Link to="/result" className="fas fa-search icon"></Link>
-              <input type="serach" />
+              <Link to="/result" state={{data:result?.serach}} className="fas fa-search icon"></Link>
+              <input type="serach" autoComplete='off' value={result?.serach} name={'serach'} onChange={(e)=>{handleChange1(e)}}/>
             </div>
           </form>
         </div>

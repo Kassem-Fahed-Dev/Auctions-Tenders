@@ -77,7 +77,7 @@ export default function AllAuctions() {
 
   return (
     <div className="allauctions">
-      <Search page={"all"}/>
+      <Search page={"all"} type={"auctions"}/>
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'all'} />
       <button

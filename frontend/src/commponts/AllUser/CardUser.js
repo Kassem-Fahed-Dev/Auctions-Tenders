@@ -5,7 +5,7 @@ export default function CardUser({da}) {
   return (
     <>
       <div className="containerCard">
-        <img className="pic1" src={im} alt="Error" />
+        <img className="pic1" src={da.profileImg?da.profileImg:im} alt="Error" />
         <p className="userNamee"> {da?.name}</p>
         <Link to="/usersdetails" state={da} id="lin">
           {' '}

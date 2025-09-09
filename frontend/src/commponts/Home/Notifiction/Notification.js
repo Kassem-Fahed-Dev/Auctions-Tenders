@@ -69,6 +69,11 @@ export default function Notification() {
       )
       .then((res) => {
         console.log(res);
+         setAll(prev =>
+      prev.map(item =>
+        item._id === da._id ? { ...item, read: true } : item
+      )
+    );
       })
       .catch((error) => {
         if (error.response) {
@@ -102,11 +107,11 @@ export default function Notification() {
       }
     )
     .then((res) => {
-      
-       e.preventDefault(); 
-            let parentElement = e.target.closest('.unread') || e.target.closest('.read');
-            if (parentElement) {
-                parentElement.style.display = 'none'; }
+       setAll(prev => prev.filter(item => item._id !== da._id));
+      //  e.preventDefault(); 
+      //       let parentElement = e.target.closest('.unread') || e.target.closest('.read');
+      //       if (parentElement) {
+      //           parentElement.style.display = 'none'; }
                 console.log(res)
     })
     .catch((error) => {

@@ -82,31 +82,132 @@ export default function Account() {
     }
   };
   const nn = useSelector((state) => state.ptn_edit);
-  useEffect(() => {
-    const img = new Image();
-    img.src = ll;
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageLoaded(false);
-  }, []);
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem('img', reader.result); // تخزين الصورة بصيغة Data URL
-        setSelectedImage(reader.result); // عرض الصورة بعد الاختيار
-      };
-      reader.readAsDataURL(file);
+  // useEffect(() => {
+  //   const img = new Image();
+  //   img.src = ll;
+  //   img.onload = () => setImageLoaded(true);
+  //   img.onerror = () => setImageLoaded(false);
+  // }, []);
+  // // --------------
+const [url,setUrl]=useState(null)
+const uploadImages = (files) => {
+  if (!files || !Array.isArray(files)) {
+    console.error("الملفات غير صحيحة أو غير موجودة");
+    return Promise.reject("Invalid files");
+  }
+
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append("files", file); // 🔑 same key "files" for all files
+  });
+
+  return axiosInstance
+    .post("/api/v1/cloudinary/upload-multiple", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+         'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log("Upload successful:",res.data);
+      const urls=res.data.data.urls[0]
+       const valdition={}
+      axiosInstance.patch(`/api/v1/users/updateMe`, JSON.stringify({'profileImg':urls}), {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+             alert('تم تغييرالصورة بنجاح')
+          // setHoverAuction('spinner');
+          window.location.reload();
+        
+          console.log(res);
+        })
+        .catch((error) => {
+          // setHoverAuction('spinner');
+          if (error.response) {
+            valdition.messageBackend =
+              error.response.data.message;
+            // setErrorMessageupdate(valdition);
+            console.log('p3');
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            // setErrorMessageupdate({
+            //   messageBackend: 'An unexpected error occurred.',
+            // });
+          }
+        })
+  // return urls
+  //  "https://res.cloudinary.com/dfapg5zfo/image/upload/v1757364452/p1.jpg"
+    })
+    .catch((error) => {
+      if (error.response) {
+        setErrorMessage({
+          messageBackend: error.response.data.message,
+        });
+      } else {
+        console.log("An unexpected error occurred:", error.message);
+        setErrorMessage({
+          messageBackend: "حدث خطأ غير متوقع.",
+        });
+      }
+      throw error;
+    });
+};
+
+  // ========
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+     
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       // localStorage.setItem('img', reader.result); // تخزين الصورة بصيغة Data URL
+  //       setSelectedImage(reader.result); // عرض الصورة بعد الاختيار
+  //        uploadImages(file)
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+  const [images, setImages] = useState([]);
+const [fileInputKey, setFileInputKey] = useState(Date.now());
+const [selectedFiles1, setSelectedFiles1] = useState([]);
+
+  const handleImageChange = (event) => {
+    const files = Array.from(event.target?.files);
+    if (files.length > 1) {
+      alert("يرجى اختيار 1 صورة أو أقل.");
+      setFileInputKey(Date.now());
+      setImages([]);
+      setSelectedFiles1([]);
+      return;
     }
+    setSelectedFiles1(files);
+    const newImages = files.map((file) => URL.createObjectURL(file));
+    setImages(newImages);
   };
 
-  // لعرض الصورة عند تحميل الصفحة أو عند الحاجة
+  // استخدام useEffect لمراقبة selectedFiles1
   useEffect(() => {
-    const imgDataUrl = localStorage.getItem('img');
-    if (imgDataUrl) {
-      setSelectedImage(imgDataUrl);
+    if (selectedFiles1.length > 0) {
+      uploadImages(selectedFiles1);
     }
-  }, []);
+  }, [selectedFiles1]);
+
+  // لعرض الصورة عند تحميل الصفحة أو عند الحاجة
+  // useEffect(() => {
+  //   const imgDataUrl = localStorage.getItem('img');
+  //   if (imgDataUrl) {
+  //     setSelectedImage(imgDataUrl);
+  //   }
+  // }, []);
   return (
     <>
       <Navbar />
@@ -126,7 +227,7 @@ export default function Account() {
                   {selectedImage ? (
                     <img
                       className="picture1"
-                      src={selectedImage || ll}
+                      src={ll}
                       alt="Error"
                       style={{
                         width: '100%',
@@ -139,7 +240,7 @@ export default function Account() {
                     <div>
                       <img
                         className="picture1"
-                        src={ll}
+                        src={DataUser.profileImg?DataUser.profileImg:ll}
                         alt="Error"
                         style={{
                           position: 'absolute',
@@ -174,7 +275,7 @@ export default function Account() {
                     type="file"
                     id="fileInput"
                     style={{ display: 'none' }}
-                    onChange={handleFileChange}
+                    onChange={handleImageChange}
                   />
                 </div>
                 {isActive && showXButton && (

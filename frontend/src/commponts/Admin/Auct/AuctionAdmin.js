@@ -12,14 +12,10 @@ import fat3 from '../../../image/tend3.jpg';
 export default function AuctionAdmin() {
   const [all, setAll] = useState([]);
   const [yes, setYes] = useState(true);
-<<<<<<< HEAD
-    const [yes1, setYes1] = useState(true);
-    
-  const [type,setType] =useState('مرفوعة للطلب')
-=======
+
   const [yes1, setYes1] = useState(true);
   const [type, setType] = useState('مرفوعة للطلب');
->>>>>>> 44a8a784ec28f0f09a5dd4ff50fbd5c89d6105fc
+
   let sort;
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});

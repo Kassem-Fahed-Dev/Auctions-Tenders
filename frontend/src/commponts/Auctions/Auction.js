@@ -235,19 +235,7 @@ const regectAu=()=>{
       <img
         className="imageAuction"
         src={
-          data?.item?.category == '6800c48bc5246f1b240fa3c8'
-            ? im4
-            : data?.item?.category == '6800c4ccc5246f1b240fa3cd'
-            ? im1
-            : data?.item?.category == '6800d4090c7d9514e40218f0'
-            ? im2
-            : data?.item?.category == '6800cf48bdccd52594f29573'
-            ? im3
-            : data?.item?.category == '6800ce86aec6df25ccc63ff5'
-            ? im6
-            : data?.item?.category == '6800cdb36e155b2e04089fbd'
-            ? im7
-            : im8
+          data.item?.photo[0]
         }
         alt="Error"
       />
