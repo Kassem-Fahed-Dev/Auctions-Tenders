@@ -1,6 +1,7 @@
 const cron = require('node-cron');
 const Auction = require('../models/Auction');
 const Tender = require('../models/Tender');
+const User = require('../models/User');
 const AuctionBid = require('../models/AuctionBid');
 const notificationService = require('./notificationService');
 const Favorite = require('../models/Favorite');
@@ -10,7 +11,7 @@ const WalletActivity = require('../models/WalletActivity');
 // Function to update auction statuses automatically
 const updateAuctionStatuses = async () => {
   try {
-    const now = new Date();
+    const now = new Date(Date.now() + (3*60*60*1000));
     console.log(`[${now.toISOString()}] Updating auction statuses...`);
 
     // 1. Find and process auctions that should be starting now (قادم -> جاري)
@@ -143,14 +144,22 @@ const updateAuctionStatuses = async () => {
               partner: winner.user._id,
             });
             if (winnerWallet) {
-              const blockedAmount = 0.1 * auction.startingPrice;
-
-              // إضافة المبلغ المقتطع أولاً إلى المبلغ المتاح
-              winnerWallet.availableAmount += blockedAmount;
-              winnerWallet.blockedAmount -= blockedAmount;
-
-              // خصم المبلغ النهائي للمزاد
-              winnerWallet.availableAmount -= finalPrice;
+              // this 10% of final amount it should be transfer to admin wallet
+              const blockedAmount = 0.1 * finalPrice;
+              // cut the final price + 10% of final price form blockend amount
+              winnerWallet.blockedAmount -= finalPrice + blockedAmount;
+              // add 10% of final price to admin wallet
+              const admin = await User.findOne({
+                role: 'admin',
+              });
+              const adminWallet = await Wallet.findOne({
+                partner: admin._id,
+              });
+              if (!adminWallet) {
+                adminWallet = await Wallet.create({ partner: userId });
+              }
+              adminWallet.availableAmount+=blockedAmount;
+              await adminWallet.save();
               await winnerWallet.save();
               console.log(
                 ` Deducted final bid amount ${finalPrice} from winner's wallet.`,
@@ -313,7 +322,7 @@ const updateAuctionStatuses = async () => {
 // Function to update tender statuses automatically
 const updateTenderStatuses = async () => {
   try {
-    const now = new Date();
+    const now = new Date(Date.now() + (3*60*60*1000));
     console.log(` [${now.toISOString()}] Updating tender statuses...`);
 
     // 1. Find and process tenders that should be starting now (قادم -> جاري)

@@ -65,7 +65,7 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   } else {
     blockedAmount = amount - existingBid.amount;
   }
-
+  blockedAmount += (0.1*blockedAmount)
   // This check now ensures the user has enough available funds for the new bid
   if (wallet.availableAmount < blockedAmount) {
     // Log failed wallet activity
@@ -91,50 +91,56 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   wallet.availableAmount -= blockedAmount;
   wallet.blockedAmount += blockedAmount;
 
-  // 6. Create the bid
-  const bid = new AuctionBid({
-    user: userId,
-    auction: auctionId,
-    amount,
-  });
+  // 6. Create or update the bid
+  let bid;
+  if (existingBid) {
+    // Update existing bid
+    existingBid.amount = amount;
+    bid = existingBid;
+  } else {
+    // Create new bid
+    bid = new AuctionBid({
+      user: userId,
+      auction: auctionId,
+      amount,
+    });
+  }
 
   // 7. Update auction's highest bid
   auction.highestPrice = amount;
 
-  
-    // 8. Save wallet, bid and auction (using Promise.all for better performance)
-    await Promise.all([
-      wallet.save(),
-      bid.save(),
-      auction.save()
-    ]);
+  // 8. Save wallet, bid and auction (using Promise.all for better performance)
+  await Promise.all([
+    wallet.save(),
+    bid.save(),
+    auction.save()
+  ]);
 
-    // 9. Log successful wallet activity
-    const activityDescription = isFirstBid 
-      ? `مزايدة جديدة على المزاد "${auction.auctionTitle}" بمبلغ ${amount}`
-      : `تعديل المزايدة على المزاد "${auction.auctionTitle}" من ${existingBid.amount} إلى ${amount}`;
+  // 9. Log successful wallet activity
+  const activityDescription = isFirstBid 
+    ? `مزايدة جديدة على المزاد "${auction.auctionTitle}" بمبلغ ${amount}`
+    : `تعديل المزايدة على المزاد "${auction.auctionTitle}" من ${existingBid.amount} إلى ${amount}`;
 
-    await WalletActivity.create({
-      partner: userId,
-      descriptionTransaction: activityDescription,
-      amount: blockedAmount,
-      status: 'completed',
-    });
+  await WalletActivity.create({
+    partner: userId,
+    descriptionTransaction: activityDescription,
+    amount: blockedAmount,
+    status: 'completed',
+  });
 
-    // 10. Send notification to auction owner
-    const nogif = await notificationService.createNotification({
-      userId: auction.user,
-      title: 'مزايدة جديدة على مزادك',
-      message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك ${auction.auctionTitle}`,
-      type: 'auction',
-      referenceId: auction._id,
-    });
+  // 10. Send notification to auction owner
+  const nogif = await notificationService.createNotification({
+    userId: auction.user,
+    title: 'مزايدة جديدة على مزادك',
+    message: `قام ${req.user.name} بالمزايدة بقيمة ${amount} على مزادك ${auction.auctionTitle}`,
+    type: 'auction',
+    referenceId: auction._id,
+  });
 
-    console.log('notification created', nogif);
+  console.log('notification created', nogif);
 
-    res.status(201).json({
-      status: req.t(`fields:success`),
-      message: req.t(`successes:bid`),
-    });
-
+  res.status(201).json({
+    status: req.t(`fields:success`),
+    message: req.t(`successes:bid`),
+  });
 });

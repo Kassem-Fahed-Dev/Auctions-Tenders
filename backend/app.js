@@ -17,7 +17,7 @@ const favoriteRouter = require('./routs/favoriteRoutes');
 const cloudinaryRouter = require('./routs/cloudinary');
 const notificationRouter = require('./routs/notificationRoutes');
 const searchRouter = require('./routs/searchRoutes');
-if (process.env.ENABLE_CRON == 'true') {
+if (process.env.ENABLE_CRON === 'true') {
   require('./utils/scheduler');
 }
 console.log(process.env.NODE_ENV);
