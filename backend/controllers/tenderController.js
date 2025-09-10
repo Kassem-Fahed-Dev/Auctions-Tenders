@@ -31,7 +31,13 @@ const addFavoritesToTenders = async (tenders, userId) => {
 
 // Helper function to build tender query with filters
 const buildTenderQuery = (filters = {}) => {
-  return Tender.find(filters).populate('item').populate('user');
+  return Tender.find(filters).populate({
+    path: "item",
+    populate: {
+      path: "category", // populate category inside item
+    },
+  })
+  .populate("user"); // populate the auction's user;
 };
 
 // Helper function to execute query with API features
@@ -138,8 +144,13 @@ exports.createTenderWithItem = catchAsync(async (req, res, next) => {
     await newTender.save();
 
     const populatedTender = await Tender.findById(newTender._id)
-      .populate('item')
-      .populate('user');
+     .populate({
+    path: "item",
+    populate: {
+      path: "category", // populate category inside item
+    },
+  })
+  .populate("user"); // populate the auction's user
     // send notification to user that add category tender to their fav
     try {
       const categoryId = populatedTender.item.category;
@@ -187,8 +198,13 @@ exports.createTenderWithItem = catchAsync(async (req, res, next) => {
 
 exports.getTenderWithItem = catchAsync(async (req, res, next) => {
   const tender = await Tender.findById(req.params.id)
-    .populate('item')
-    .populate('user');
+    .populate({
+    path: "item",
+    populate: {
+      path: "category", // populate category inside item
+    },
+  })
+  .populate("user"); // populate the auction's user
 
   if (!tender) {
     return next(

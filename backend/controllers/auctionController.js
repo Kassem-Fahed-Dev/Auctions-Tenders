@@ -33,7 +33,15 @@ const addFavoritesToAuctions = async (auctions, userId) => {
 
 // Helper function to build auction query with filters
 const buildAuctionQuery = (filters = {}) => {
-  return Auction.find(filters).populate('item').populate('user');
+  return Auction.find(filters)
+  .populate({
+    path: "item",
+    populate: {
+      path: "category", // populate category inside item
+    },
+  })
+  .populate("user"); // populate the auction's user
+
 };
 
 // Helper function to execute query with API features
@@ -125,8 +133,14 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
     await newAuction.save();
 
     const populatedAuction = await Auction.findById(newAuction._id)
-      .populate('item')
-      .populate('user');
+  .populate({
+    path: "item",
+    populate: {
+      path: "category", // populate category inside item
+    },
+  })
+  .populate("user"); // populate the auction's user
+
     // send notification to user that add category ouction to their fav
     try {
       const categoryId = populatedAuction.item.category;
@@ -168,8 +182,13 @@ exports.createAuctionWithItem = catchAsync(async (req, res, next) => {
 
 exports.getAuctionWithItem = catchAsync(async (req, res, next) => {
   const auction = await Auction.findById(req.params.id)
-    .populate('item')
-    .populate('user');
+  .populate({
+    path: "item",
+    populate: {
+      path: "category", // populate category inside item
+    },
+  })
+  .populate("user"); // populate the auction's user
 
   if (!auction) {
     return next(
