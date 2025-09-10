@@ -1,6 +1,7 @@
 import Navbar from '../Home/Navbar';
 import { useState } from 'react';
 import React from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import axiosInstance from '../AxiosInterceptors';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +36,7 @@ export default function CreateAuction() {
       video:''
     },
   });
+    const [allAuction, setALLAuction] = useState([]);
   function goback() {
     window.history.go(-1);
   }
@@ -56,6 +58,44 @@ export default function CreateAuction() {
   const handleHover = (item) => {
     setHover(item);
   };
+    useEffect(() => {
+    axiosInstance
+      .get(`/api/v1/categories?type=auction`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // if (Array.isArray(res.data)) {
+        const x=res.data.data.data
+  const names = x.map((item) => item.name);
+  setALLAuction(names);
+         console.log(names);
+// } else {
+//   console.error("Expected res.data to be an array");
+// }
+        // setALLAuction(res.data.data.name);
+        // setWalletActivity(res.data.data);
+        
+        // console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });  }, []);
   //الصور
   // const [images, setImages] = useState([]);
   // const [fileInputKey, setFileInputKey] = useState(Date.now());
@@ -196,6 +236,7 @@ export default function CreateAuction() {
   //   setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   //   setSelectedFiles((prevImages) => prevImages.filter(() => i !== index));
   // };
+  
 const removeImage = (index,event) => {
    event.preventDefault();
   setImages((prevImages) => prevImages.filter((_, i) => i !== index));
@@ -265,7 +306,8 @@ const [selectedFiles1, setSelectedFiles1] = useState([]);
         console.log(res);
         const auctionId = res.data.data.data[0]._id;
         setIsButtonDisabled(false);
-        setKeyList(properties.map((property) => property.key));
+        setKeyList(res.data.data.data[0].properties)
+        // setKeyList(properties.map((property) => property.key));
         setFormData1((prevData) => ({
           ...prevData,
           item: {
@@ -544,7 +586,18 @@ const handleSubmit = async (e) => {
       });
     }
   };
-
+const rows=[]
+for(let i=1;i<allAuction?.length-2;i++){
+  rows.push( <>
+  <div></div>
+                  <p
+                    className="group-hover p2"
+                    onClick={() => hoverItems2(allAuction[i])}
+                  >
+                   {allAuction[i]}
+                  </p>
+                  <div></div></>)
+}
   return (
     <div className="create-auction-button">
       <Navbar wordBlod={'auctions'} />
@@ -594,29 +647,13 @@ const handleSubmit = async (e) => {
                   <div className={`${border === 'true' ? 'bor' : ''}`}>
                     {keyList.length > 0 &&
                       keyList.map((key) => (
-                        <div className="product-name" key={key}>
-                          <label className="product-name-label">{key}</label>
+                        <div className="product-name" key={key.key}>
+                          <label className="product-name-label">{key.key}</label>
                           <input
                             type={`${
-                              key == 'لون السيارة' ||
-                              key == 'الموقع' ||
-                              key == 'لون الإكسسوار' ||
-                              key == 'نوع الإكسسوار' ||
-                              key == ' لون الجهاز' ||
-                              key == 'النوع' ||
-                              key == 'المادة' ||
-                              key == 'اللون' ||
-                              key == 'العلامة التجارية' ||
-                              key == 'موديل الجهاز' ||
-                              key == 'نوع القطعة' ||
-                              key == 'لون الأثاث' ||
-                              key == 'المقاس' ||
-                              key == 'المجموعة التي ينتمي لها' ||
-                              key == 'اسم العنصر'
-                                ? 'text'
-                                : 'number'
+                              key.dataType
                             }`}
-                            onChange={handleChange2(key)}
+                            onChange={handleChange2(key.key)}
                             autoComplete="off"
                           />
                         </div>
@@ -692,13 +729,14 @@ const handleSubmit = async (e) => {
                 )}
                 <div
                   className={`triangle tri3  ${
-                    formData === 'سيارات' ||
-                    formData === 'عقارات' ||
-                    formData === 'إلكترونيات' ||
-                    formData === 'أثاث' ||
-                    formData === 'إكسسوارات' ||
-                    formData === 'ملابس' ||
-                    formData === 'أخرى'
+                    // formData === 'سيارات' ||
+                    // formData === 'عقارات' ||
+                    // formData === 'إلكترونيات' ||
+                    // formData === 'أثاث' ||
+                    // formData === 'إكسسوارات' ||
+                    // formData === 'ملابس' ||
+                    // formData === 'أخرى'
+                    allAuction?.includes(formData)
                       ? 'triangle1'
                       : ''
                   } `}
@@ -724,11 +762,11 @@ const handleSubmit = async (e) => {
                 >
                   <p
                     className="group-hover p1"
-                    onClick={() => hoverItems2('سيارات')}
+                    onClick={() => hoverItems2(allAuction && allAuction?.length > 0 ? allAuction[0] : '')}
                   >
-                    سيارات
+                  {allAuction && allAuction?.length > 0 ? allAuction[0] : 'لا توجد مجموعات'}
                   </p>
-                  <div></div>
+                  {/* <div></div>
                   <p
                     className="group-hover p2"
                     onClick={() => hoverItems2('عقارات')}
@@ -763,12 +801,13 @@ const handleSubmit = async (e) => {
                   >
                     ملابس
                   </p>
-                  <div></div>
+                  <div></div> */}
+                  {rows}
                   <p
                     className="group-hover p3"
-                    onClick={() => hoverItems2('أخرى')}
+                    onClick={() => hoverItems2(allAuction && allAuction?.length > 0 ? allAuction[allAuction?.length-1] : '')}
                   >
-                    أخرى
+                  {allAuction && allAuction?.length > 0 ? allAuction[allAuction?.length-1] : ''}
                   </p>
                 </div>
                 <div className="product-name">

@@ -60,7 +60,11 @@ import AddGroup from './commponts/Admin/AddGroup';
 import Notification from './commponts/Home/Notifiction/Notification';
 import UnReadnotification from './commponts/Home/Notifiction/UnReadnotification';
 import Readnotification from './commponts/Home/Notifiction/Readnotification';
+// <<<<<<< HEAD
 // import Group from './commponts/Group'
+// =======
+// import Group from './commponts/Group';
+// >>>>>>> c9cd868c13e655ef233463f5ebb7c81e546d1fa3
 
 function App() {
   const navigate = useNavigate();
@@ -68,12 +72,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const tok = localStorage.getItem('jwt');
-  
 
   return (
     <div className="App">
       <Routes>
+{/* <<<<<<< HEAD */}
        
+// =======
+        {/* <Route path="/group" element={<Group />} /> */}
+{/* >>>>>>> c9cd868c13e655ef233463f5ebb7c81e546d1fa3 */}
         <Route path="/" element={<Home />} />
         <Route path="/fav" element={<Favorite />} />
         <Route path="/privacy" element={<Privacy />} />
@@ -160,8 +167,15 @@ function App() {
         <Route path="/not" element={<Notification />} />
         <Route path="/notread" element={<UnReadnotification />} />
         <Route path="/read" element={<Readnotification />} />
+{/* <<<<<<< HEAD */}
         <Route path="/result" element={<Result />} />
 
+ {/* ======= */}
+
+        {/* <Route path="/group" element={<Group/>}/> */}
+
+        {/* <Route path="/result" element={<Result />} /> */}
+{/* >>>>>>> c9cd868c13e655ef233463f5ebb7c81e546d1fa3  */}
       </Routes>
     </div>
   );

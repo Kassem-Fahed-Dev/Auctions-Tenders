@@ -25,19 +25,15 @@ export default function Details_Tender() {
   function back() {
     window.history.go(-1);
   }
-  function handleInputChange(e) {
+   function handleInputChange(e) {
     const { name, value } = e.target;
-    //setAmount(false)
     setAmount({ ...amount, [name]: Number(value.trim()) });
     console.log(amount);
-    // if (!/^\d+$/.test(value)) {
-    //   return;
-    // }
-
-    // setAmount(value);
+   
   }
 function handleInputChange1(e) {
     const { name, value } = e.target;
+    console.log(amount)
     //setAmount(false)
     setAmount({ ...amount, [name]: value });
     console.log(amount);
@@ -53,7 +49,7 @@ function handleInputChange1(e) {
   //  const [showParticipation, setShowParticipation] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const token = localStorage.getItem('jwt');
-  const submitAmount = (e) => {
+  const submitAmount = (e,id) => {
     // e.preventDefault();
     setAmount('');
     setShowParticipation(false);
@@ -61,7 +57,7 @@ function handleInputChange1(e) {
     console.log('ppp');
     axiosInstance
       .post(
-        `/api/v1/tenders/submitOffer/${data?._id}`,
+        `/api/v1/tenders/submitOffer/${id}`,
         JSON.stringify(amount),
         {
           headers: {
@@ -74,8 +70,8 @@ function handleInputChange1(e) {
       )
       .then((res) => {
         console.log(res);
-        setAmount({ amount: '' });
-        window.location.reload();
+        // setAmount({ amount: '' });
+        // window.location.reload();
       })
       .catch((error) => {
         if (error.response) {
@@ -91,15 +87,15 @@ function handleInputChange1(e) {
       });
   };
 
-  function handleInputChange(e) {
-    const value = e.target.value;
+  // function handleInputChange(e) {
+  //   const value = e.target.value;
 
-    if (!/^\d+$/.test(value)) {
-      return;
-    }
+  //   if (!/^\d+$/.test(value)) {
+  //     return;
+  //   }
 
-    setAmount(value);
-  }
+  //   setAmount(value);
+  // }
   let Allow;
   let TimeRun = false;
 
@@ -148,7 +144,7 @@ function handleInputChange1(e) {
       <TendersNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مناقصة السيارات</h1>
+          <h1>مناقصة {data?.item?.category?.name}</h1>
           <button
             className="back"
             onClick={() => {
@@ -219,7 +215,7 @@ function handleInputChange1(e) {
 
                 <div>
                   التصنيف:
-                  <span>الكترونيات </span>
+                  <span>{data?.item?.category?.name} </span>
                 </div>
                 <div>
                   البلد:
@@ -298,7 +294,7 @@ function handleInputChange1(e) {
                       {data?.activeStatus === 'قادم'
                         ? 'للمشاركة بالمناقصة يتوجب عليك الانتظار الى أن تصبح جارية وسوف نقوم بارسال إشعار لك ان كنت مهتم'
                         : data?.activeStatus === 'جاري'
-                        ? 'للمشاركة بالمناقصة  يجب أن تدفع السعر الابتدائي'
+                        ? '   للمشاركة بالمناقصة  يتوجب عليك  المشاركة بمبلغ  قدره  ليرة سورية وهو يمثل السعر الحالي +خطوة المزايدة '
                         : 'هذه المناقصة منتهية، لا يمكنك المشاركة'}
                     </div>
                   )}
@@ -325,19 +321,20 @@ function handleInputChange1(e) {
                     </h3>
 
                     <textarea type="text"  value={amount.message}
-                      name='message' onChange={(e)=>{handleInputChange1(e)}}></textarea>
+                      name='message' autoComplete='off' onChange={(e)=>{handleInputChange1(e)}}></textarea>
                     <h3>ادخل المبلغ الذي تود المشاركة به</h3>
                     <input
                       type="number "
                       onChange={(e)=>{handleInputChange(e)}}
                       value={amount.amount}
                       name='amount'
+                      autoComplete='off'
                       placeholder="أدخل أرقام فقط"
                     />
 
                     <button
                       onClick={(e) => {
-                        submitAmount(e)
+                        submitAmount(e,data?._id)
                       }}
                       disabled={!amount}
                     >

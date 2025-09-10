@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 import fat from '../.././image/tend.jpg';
 import fat2 from '../.././image/tend2.jpg';
 import fat3 from '../.././image/tend3.jpg';
+import grgr from '../../image/group.jpg';
+
 export default function TenderAdmin() {
   const [all, setAll] = useState([]);
   const [yes, setYes] = useState(true);
@@ -128,7 +130,7 @@ export default function TenderAdmin() {
               </Link>
               <Link to="/Gr">
                 <span>
-                  <i class="fa-solid fa-users"></i>{' '}
+                  <img src={grgr} alt="err" />
                 </span>
                 مدير المجموعات{' '}
               </Link>

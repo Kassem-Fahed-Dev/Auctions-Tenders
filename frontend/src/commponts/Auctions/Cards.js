@@ -338,7 +338,7 @@ export default function Cards({ page, item, id, showDelete }) {
           }
         });
     }
-  }, [sort]);
+  }, [sort,token]);
   // }
   return (
     <>

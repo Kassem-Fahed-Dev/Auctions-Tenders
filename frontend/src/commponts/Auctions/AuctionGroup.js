@@ -7,8 +7,8 @@ import { useState } from 'react';
 import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
 import Search from './Serach';
-
-export default function AuctionGroup({ paragraph }) {
+import { useLocation } from 'react-router-dom';
+export default function AuctionGroup() {
   const navegaet = useNavigate();
   let sort;
   let st;
@@ -16,30 +16,31 @@ export default function AuctionGroup({ paragraph }) {
  
     navegaet('/auctionsgroup');
   }
-   if(paragraph=="سيارات"){
-        sort=localStorage.getItem('status4')
-      st='status4'
-   }
-   else if(paragraph=="عقارات"){
-        sort=localStorage.getItem('status5')
-      st='status5'
-   }else if(paragraph=="إلكترونيات"){
-        sort=localStorage.getItem('status6')
-      st='status6'
-   }else if(paragraph=="أثاث"){
-        sort=localStorage.getItem('status7')
-      st='status7'
-   }else if(paragraph=="ملابس"){
-        sort=localStorage.getItem('status8')
-      st='status8'
-   }else if(paragraph=="إكسسوار"){
-        sort=localStorage.getItem('status9')
-      st='status9'
-   }else if(paragraph=="أخرى"){
-        sort=localStorage.getItem('status10')
-      st='status10'
-   }
-
+  //  if(paragraph=="سيارات"){
+  //       sort=localStorage.getItem('status4')
+  //     st='status4'
+  //  }
+  //  else if(paragraph=="عقارات"){
+  //       sort=localStorage.getItem('status5')
+  //     st='status5'
+  //  }else if(paragraph=="إلكترونيات"){
+  //       sort=localStorage.getItem('status6')
+  //     st='status6'
+  //  }else if(paragraph=="أثاث"){
+  //       sort=localStorage.getItem('status7')
+  //     st='status7'
+  //  }else if(paragraph=="ملابس"){
+  //       sort=localStorage.getItem('status8')
+  //     st='status8'
+  //  }else if(paragraph=="إكسسوار"){
+  //       sort=localStorage.getItem('status9')
+  //     st='status9'
+  //  }else if(paragraph=="أخرى"){
+  //       sort=localStorage.getItem('status10')
+  //     st='status10'
+  //  }
+  const location = useLocation();
+  const { data} = location.state || {};
     const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
   const [value2, setValue2] = useState('');
@@ -89,7 +90,7 @@ export default function AuctionGroup({ paragraph }) {
       <Navbar wordBlod={'auctions'} />
       <AuctionsNavbar wordBlod={'group'} />
       <div className="create-auction-button">
-        <p className="createp createp1 ">مزادات {paragraph}</p>
+        <p className="createp createp1 ">مزادات {data}</p>
         <button className="fas fa-chevron-left fas1 " onClick={goback}></button>
       </div>
       <button
@@ -155,7 +156,7 @@ export default function AuctionGroup({ paragraph }) {
         </div>
       </div>
       
-      <Cards page="group" item={paragraph}/>
+      <Cards page="group" item={data}/>
       <Footer />
     </div>
   );

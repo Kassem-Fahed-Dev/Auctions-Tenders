@@ -395,8 +395,62 @@ const updateTenderStatuses = async () => {
           );
 
           if (offers.length > 0) {
-            // Notify owner
             // console.log('offers❤❤', offers.length);
+            // DETERMEN WINNER
+            const winner = offers.reduce(
+              (min, offer) => (offer.amount < min.amount ? offer : min),
+              offers[0],
+            );
+            console.log(
+              `Winner found: ${winner.user.name} with offer ${winner.amount}`,
+            );
+
+            //  خصم المبلغ من محفظة صاحب المناقصة
+            const tenderOwnerWallet = await Wallet.findOneAndUpdate(
+              { partner: tender.user._id },
+              { $inc: { availableAmount: -winner.amount } }, // خصم المبلغ من الرصيد المتاح
+              { new: true, upsert: true },
+            );
+            //  إضافة المبلغ إلى الرصيد المحجوز لدى الفائز
+            const winnerWallet = await Wallet.findOneAndUpdate(
+              { partner: winner.user._id },
+              { $inc: { blockedAmount: winner.amount } }, // إضافة المبلغ إلى الرصيد المحجوز
+              { new: true, upsert: true },
+            );
+
+            await WalletActivity.create({
+              partner: winner.user._id,
+              descriptionTransaction: 'Transfer',
+              amount: winner.amount,
+              status: 'pending',
+            });
+
+            // **5. إعادة المبلغ المحجوز لغير الفائزين**
+            const allBiddersIds = new Set(
+              offers.map((offer) => offer.user._id.toString()),
+            );
+            const winnerId = winner.user._id.toString();
+            const otherBiddersIds = [...allBiddersIds].filter(
+              (bidderId) => bidderId !== winnerId,
+            );
+
+            const blockedAmountToReturn = 0.1 * tender.startingPrice;
+            await Wallet.updateMany(
+              {
+                partner: { $in: otherBiddersIds },
+                blockedAmount: { $gte: blockedAmountToReturn },
+              },
+              {
+                $inc: {
+                  availableAmount: blockedAmountToReturn,
+                  blockedAmount: -blockedAmountToReturn,
+                },
+              },
+            );
+
+            console.log(`Returned blocked amount to all non-winners.`);
+
+            // Notify owner
             await notificationService
               .createNotification({
                 userId: tender.user._id,

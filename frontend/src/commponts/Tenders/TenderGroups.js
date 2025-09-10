@@ -82,7 +82,7 @@ export default function TenderGroups() {
         </div> */}
          {all.map((ten) => (
              <div className="group-div div7" style={{backgroundImage:`url(${ten?.image})`}}>
-          <Link className="link" to="/other">
+          <Link className="link" state={{data:ten.name}} to="/other_tender">
             {ten.name}
           </Link>
         </div>

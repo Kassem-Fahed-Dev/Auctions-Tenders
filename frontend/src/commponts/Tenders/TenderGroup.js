@@ -6,7 +6,7 @@ import Footer from '../privacy policy/Footer';
 import { useState } from 'react';
 import CardTen from './CardTen';
 import Search from '../Auctions/Serach';
-
+import { useLocation } from 'react-router-dom';
 export default function TenderGroup({ paragraph }) {
   const navegaet = useNavigate();
     let sort;
@@ -14,23 +14,25 @@ export default function TenderGroup({ paragraph }) {
   function goback() {
     navegaet('/tendersgroup');
   }
-     if(paragraph=="بناءواعمار"){
-        sort=localStorage.getItem('status4')
-      st='status4tn'
-   }
-   else if(paragraph=="خدمات لأماكن عامة"){
-        sort=localStorage.getItem('status5')
-      st='status5tn'
-   }else if(paragraph=="خدمات منوعة"){
-        sort=localStorage.getItem('status6')
-      st='status6tn'
-   }else if(paragraph=="مركبات واليات"){
-        sort=localStorage.getItem('status7')
-      st='status7tn'
-   }else if(paragraph=="أخرى"){
-        sort=localStorage.getItem('status10')
-      st='status10tn'
-   }
+   const location = useLocation();
+    const { data} = location.state || {};
+  //    if(paragraph=="بناءواعمار"){
+  //       sort=localStorage.getItem('status4')
+  //     st='status4tn'
+  //  }
+  //  else if(paragraph=="خدمات لأماكن عامة"){
+  //       sort=localStorage.getItem('status5')
+  //     st='status5tn'
+  //  }else if(paragraph=="خدمات منوعة"){
+  //       sort=localStorage.getItem('status6')
+  //     st='status6tn'
+  //  }else if(paragraph=="مركبات واليات"){
+  //       sort=localStorage.getItem('status7')
+  //     st='status7tn'
+  //  }else if(paragraph=="أخرى"){
+  //       sort=localStorage.getItem('status10')
+  //     st='status10tn'
+  //  }
 
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
@@ -79,7 +81,7 @@ export default function TenderGroup({ paragraph }) {
       <Navbar wordBlod={'tenders'} />
       <TendersNavbar wordBlod={'group'} />
       <div className="create-auction-button">
-        <p className="createp createp1 ">مناقصات {paragraph}</p>
+        <p className="createp createp1 ">مناقصات {data}</p>
         <button className="fas fa-chevron-left fas1 " onClick={goback}></button>
       </div>
       <button
@@ -145,7 +147,7 @@ export default function TenderGroup({ paragraph }) {
         </div>
       </div>
     
-        <CardTen page="group" item={paragraph}/>
+        <CardTen page="group" item={data}/>
       <Footer />
     </div>
   );

@@ -170,7 +170,7 @@ export default function CardTen({page,item,id,showDelete}) {
       sort=='فرز حسب'
           ? 
           `/api/v1/tenders?status=مقبول&categoryName=${item}`
-          : `/api/v1/auctions?status=مقبول&categoryName=${item}&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?status=مقبول&categoryName=${item}&activeStatus=${sort.trim()}`
           
       }`
       ,

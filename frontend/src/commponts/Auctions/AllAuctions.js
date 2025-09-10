@@ -21,59 +21,59 @@ export default function AllAuctions() {
   if (sort == ' الوقت' || sort == ' مجموعات') {
     sort = localStorage.setItem('status', 'فرز حسب');
   }
-  const handleClick = () => {
-    if (value2 == 'فرز حسب' && value == 'فرز حسب') {
-      setTest(' ');
-      setValue2('');
-      localStorage.setItem('status', value2);
-      console.log(value2);
-    } else if (value == 'فرز حسب' && test == 'فرز حسب') {
-      setTest(' ');
-      setValue1('فرز حسب');
+  // const handleClick = () => {
+  //   if (value2 == 'فرز حسب' && value == 'فرز حسب') {
+  //     setTest(' ');
+  //     setValue2('');
+  //     localStorage.setItem('status', value2);
+  //     console.log(value2);
+  //   } else if (value == 'فرز حسب' && test == 'فرز حسب') {
+  //     setTest(' ');
+  //     setValue1('فرز حسب');
 
-      setValue(value1);
-    } else if (value2 == 'فرز حسب') {
-      setValue1('فرز حسب');
-      setTest(value1);
-      console.log(value1);
-      setValue(value1);
-      localStorage.setItem('status', value1);
-    } else {
-      setTest(value1);
-      setValue(value1);
-    }
-  };
-  const handleClick2 = (item) => {
-    setValue(item);
-    setTest(item);
+  //     setValue(value1);
+  //   } else if (value2 == 'فرز حسب') {
+  //     setValue1('فرز حسب');
+  //     setTest(value1);
+  //     console.log(value1);
+  //     setValue(value1);
+  //     localStorage.setItem('status', value1);
+  //   } else {
+  //     setTest(value1);
+  //     setValue(value1);
+  //   }
+  // };
+  // const handleClick2 = (item) => {
+  //   setValue(item);
+  //   setTest(item);
 
-    if (item == ' جاري' || item == ' منتهي' || item == ' قادم') {
-      setTest1(item);
-      localStorage.setItem('status', item);
-      setValue1(' الوقت');
-      setValue2('فرز حسب');
-    }
-    if (value == ' الوقت' || value == ' مجموعات') {
-      setValue2('فرز حسب');
-    }
-    if (item == ' الوقت' || item == ' مجموعات') {
-      localStorage.setItem('status', item);
-    }
-    if (
-      item == ' عقارات' ||
-      item == ' إلكترونيات' ||
-      item == ' سيارات' ||
-      item == ' أثاث' ||
-      item == ' إكسسوار' ||
-      item == ' ملابس' ||
-      item == ' أخرى'
-    ) {
-      setValue1(' مجموعات');
-      setValue2('فرز حسب');
-      setTest1(item);
-      localStorage.setItem('status', item);
-    }
-  };
+  //   if (item == ' جاري' || item == ' منتهي' || item == ' قادم') {
+  //     setTest1(item);
+  //     localStorage.setItem('status', item);
+  //     setValue1(' الوقت');
+  //     setValue2('فرز حسب');
+  //   }
+  //   if (value == ' الوقت' || value == ' مجموعات') {
+  //     setValue2('فرز حسب');
+  //   }
+  //   if (item == ' الوقت' || item == ' مجموعات') {
+  //     localStorage.setItem('status', item);
+  //   }
+  //   if (
+  //     item == ' عقارات' ||
+  //     item == ' إلكترونيات' ||
+  //     item == ' سيارات' ||
+  //     item == ' أثاث' ||
+  //     item == ' إكسسوار' ||
+  //     item == ' ملابس' ||
+  //     item == ' أخرى'
+  //   ) {
+  //     setValue1(' مجموعات');
+  //     setValue2('فرز حسب');
+  //     setTest1(item);
+  //     localStorage.setItem('status', item);
+  //   }
+  // };
 
   return (
     <div className="allauctions">

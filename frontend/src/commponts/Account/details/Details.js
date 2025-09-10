@@ -26,14 +26,9 @@ export default function Details() {
   }
   function handleInputChange(e) {
     const { name, value } = e.target;
-    //setAmount(false)
     setAmount({ ...amount, [name]: Number(value.trim()) });
     console.log(amount);
-    // if (!/^\d+$/.test(value)) {
-    //   return;
-    // }
-
-    // setAmount(value);
+   
   }
   const [showParticipation, setShowParticipation] = useState(false);
   const [showHint, setShowHint] = useState(false);
@@ -100,19 +95,7 @@ export default function Details() {
         <div className="title-1">
           <h1>
             مزادات{' '}
-            {data?.item?.category == '6800c48bc5246f1b240fa3c8'
-              ? 'سيارات'
-              : data?.item?.category == '6800c4ccc5246f1b240fa3cd'
-              ? 'عقارات'
-              : data?.item?.category == '6800d4090c7d9514e40218f0'
-              ? 'أخرى'
-              : data?.item?.category == '6800cf48bdccd52594f29573'
-              ? 'ملابس'
-              : data?.item?.category == '6800ce86aec6df25ccc63ff5'
-              ? 'إكسسوار'
-              : data?.item?.category == '6800cdb36e155b2e04089fbd'
-              ? 'أثاث'
-              : 'إلكترونات'}
+            {data?.item?.category?.name}
           </h1>
           <button
             className="back"
@@ -200,19 +183,7 @@ export default function Details() {
                 <div>
                   التصنيف:
                   <span>
-                    {data?.item?.category == '6800c48bc5246f1b240fa3c8'
-                      ? 'سيارات'
-                      : data?.item?.category == '6800c4ccc5246f1b240fa3cd'
-                      ? 'عقارات'
-                      : data?.item?.category == '6800d4090c7d9514e40218f0'
-                      ? 'أخرى'
-                      : data?.item?.category == '6800cf48bdccd52594f29573'
-                      ? 'ملابس'
-                      : data?.item?.category == '6800ce86aec6df25ccc63ff5'
-                      ? 'إكسسوار'
-                      : data?.item?.category == '6800cdb36e155b2e04089fbd'
-                      ? 'أثاث'
-                      : 'إلكترونات'}{' '}
+                     {data?.item?.category?.name}{' '}
                   </span>
                 </div>
                 <div>
@@ -294,7 +265,7 @@ export default function Details() {
                     {data?.activeStatus === 'قادم'
                       ? 'للمشاركة بالمزاد يتوجب عليك الانتظار الى أن يصبح جاري وسوف نقوم بارسال إشعار لك ان كنت مهتم'
                       : data?.activeStatus === 'جاري'
-                      ? 'للمشاركة بالمزاد يجب أن تدفع السعر الابتدائي'
+                      ? '   للمشاركة بالمزاد يتوجب عليك  المشاركة بمبلغ  قدره  ليرة سورية وهو يمثل السعر الحالي +خطوة المزايدة '
                       : 'هذا المزاد منتهي، لا يمكنك المشاركة'}
                   </div>
                 )}

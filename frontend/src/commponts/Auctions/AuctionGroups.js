@@ -94,7 +94,7 @@ export default function AuctionGroups() {
         </div> */}
         {all.map((auc) => (
              <div className="group-div div7" style={{backgroundImage:`url(${auc?.image})`}}>
-          <Link className="link" to="/other">
+          <Link className="link" state={{data:auc.name}} to="/other">
             {auc.name}
           </Link>
         </div>

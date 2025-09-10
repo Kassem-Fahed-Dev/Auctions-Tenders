@@ -1,7 +1,7 @@
 import './Admin.css';
 import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
-
+import grgr from '../../image/group.jpg';
 import ControChart from './ControChart';
 
 import { useEffect } from 'react';
@@ -130,7 +130,8 @@ export default function ControlAdmin() {
               </Link>
               <Link to="/Gr">
                 <span>
-                  <i class="fa-solid fa-users"></i>{' '}
+                  {/* <i class="fa-solid fa-users"></i> */}
+                  <img src={grgr} alt="err" />
                 </span>
                 مدير المجموعات{' '}
               </Link>

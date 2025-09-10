@@ -3,6 +3,7 @@ import Navbar from '../Home/Navbar';
 import { useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import axios from 'axios';
+import { useEffect } from 'react';
 export default function Create_Tender() {
   const [formData, setFormData] = useState('');
   const [hover, setHover] = useState('بيانات');
@@ -32,6 +33,46 @@ export default function Create_Tender() {
       description: '',
     },
   });
+    const token = localStorage.getItem('jwt');
+    const [allTender, setAllTender] = useState([]);
+      useEffect(() => {
+      axiosInstance
+        .get(`/api/v1/categories?type=tender`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Language': 'ar',
+            credentials: 'include',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          // if (Array.isArray(res.data)) {
+          const x=res.data.data.data
+    const names = x.map((item) => item.name);
+    setAllTender(names);
+           console.log(names);
+  // } else {
+  //   console.error("Expected res.data to be an array");
+  // }
+          // setALLAuction(res.data.data.name);
+          // setWalletActivity(res.data.data);
+          
+          // console.log(walletActivity);
+        })
+        .catch((error) => {
+          console.log('error');
+          // setHover('spinner');
+          if (error.response) {
+            const validationErrors = {};
+            validationErrors.messageBackend = error.response.data.message;
+            setErrorMessage(validationErrors);
+          } else {
+            console.log('An unexpected error occurred:', error.message);
+            setErrorMessage({
+              messageBackend: 'An unexpected error occurred.',
+            });
+          }
+        });  }, []);
   const navegaet = useNavigate();
   function goback() {
     window.history.go(-1);
@@ -250,7 +291,18 @@ export default function Create_Tender() {
         });
     }
   };
-
+const rows=[]
+for(let i=1;i<allTender?.length-2;i++){
+  rows.push( <>
+  <div></div>
+                  <p
+                    className="group-hover p2"
+                    onClick={() => hoverItems2(allTender[i])}
+                  >
+                   {allTender[i]}
+                  </p>
+                  <div></div></>)
+}
   return (
     <div className="create-auction-button">
       <Navbar wordBlod={'tenders'} />
@@ -280,11 +332,12 @@ export default function Create_Tender() {
               <label className="group-label">حدد المجموعة</label>
               <div
                 className={`triangle tri33  ${
-                  formData === 'بناءواعمار' ||
-                  formData === 'خدمات لأماكن عامة' ||
-                  formData === 'خدمات منوعة' ||
-                  formData === 'مركبات واليات' ||
-                  formData === 'أخرى'
+                  // formData === 'بناءواعمار' ||
+                  // formData === 'خدمات لأماكن عامة' ||
+                  // formData === 'خدمات منوعة' ||
+                  // formData === 'مركبات واليات' ||
+                  // formData === 'أخرى'
+                   allTender?.includes(formData)
                     ? 'triangle1'
                     : ''
                 } `}
@@ -307,11 +360,11 @@ export default function Create_Tender() {
               >
                 <p
                   className="group-hover p1"
-                  onClick={() => hoverItems2('بناءوإعمار')}
+                  onClick={() => hoverItems2(allTender && allTender?.length > 0 ? allTender[0] : '')}
                 >
-                  بناء و إعمار
+                     {allTender && allTender?.length > 0 ? allTender[0] : 'لا توجد مجموعات'}
                 </p>
-                <div></div>
+                {/* <div></div>
                 <p
                   className="group-hover p2"
                   onClick={() => hoverItems2('خدمات لاماكن عامة')}
@@ -332,13 +385,13 @@ export default function Create_Tender() {
                 >
                   مركبات وآليات
                 </p>
-                <div></div>
-
+                <div></div> */}
+{rows}
                 <p
                   className="group-hover p3"
-                  onClick={() => hoverItems2('أخرى')}
+                  onClick={() => hoverItems2(allTender && allTender?.length > 0 ? allTender[allTender?.length-1] : '')}
                 >
-                  أخرى
+                  {allTender && allTender?.length > 0 ? allTender[allTender?.length-1] : ''}
                 </p>
               </div>
 
