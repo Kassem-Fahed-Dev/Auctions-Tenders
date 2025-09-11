@@ -187,7 +187,7 @@ export default function CreateAcount() {
         .then((res) => {
           setHover('spinner');
           console.log(res);
-          localStorage.setItem('name', res.data.data.user.name);
+          localStorage.setItem('my', res.data.data.user.name);
           localStorage.setItem('jwt', res.data.token);
           //  tok = localStorage.getItem('jwt');
           navegate('/confirm');
@@ -250,7 +250,7 @@ export default function CreateAcount() {
         .then((res) => {
           setHover('spinner');
           console.log(res);
-          localStorage.setItem('name', res.data.data.user.name);
+          localStorage.setItem('my', res.data.data.user.name);
           localStorage.setItem('jwt', res.data.token);
           // tok1 = localStorage.getItem('jwt');
           navegate('/confirm1');

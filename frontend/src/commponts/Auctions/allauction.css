@@ -499,11 +499,15 @@ p.upload {
 .create-auction-form {
   direction: rtl;
   display: flex;
+  height: fit-content;
+  background-color: #ccc;
   gap: 20px;
   flex-direction: row-reverse;
 }
 .create-auction-form2 {
   padding-top: 18px;
+   height: fit-content;
+  background-color: #ccc;
   direction: rtl;
   display: flex;
   gap: 20px;
@@ -1108,40 +1112,50 @@ button.pos1 {
   left: 60px;
 }
 .listSort .buttonSort .buttonpos3 {
-  position: absolute;
+  /* position: relative; */
   /* top: 800px; */
-  top: 780px;
+  top: 840px;
   left: 60px;
 }
 .listSort .buttonSort .buttonpos4 {
-  position: absolute;
+  /* position: relative; */
   /* top: 800px; */
-  top: 820px;
-  left: 60px;
+  top: 50px;
+  left:-100px ;
 }
 .listSort .buttonSort .buttonpos5 {
-  position: absolute;
+  /* position: relative; */
   /* top: 800px; */
-  top: 860px;
-  left: 60px;
+  top: 70px;
+  left: 118px;
+}
+.listSort .buttonSort .buttonpos5m {
+  /* position: relative; */
+  /* top: 800px; */
+  /* top: 70px;
+  
+  left: 118px; */
+  margin-bottom: 50px;
 }
 .listSort .buttonSort .buttonpos6 {
-  position: absolute;
+  /* position: relative; */
   /* top: 800px; */
-  top: 900px;
-  left: 60px;
+  top: 82px;
+  left: -93px;
 }
 .listSort .buttonSort .buttonpos7 {
-  position: absolute;
+  /* position: relative; */
   /* top: 800px; */
-  top: 940px;
-  left: 60px;
+  top: 45px;
+  left: -90px;
 }
-.listSort .buttonSort .buttonpos8 {
-  position: absolute;
+
+
+.listSort .buttonSort button.crpr {
+  /* position: relative; */
   /* top: 800px; */
-  top: 980px;
-  left: 60px;
+  top: 45px;
+  left: -102px;
 }
 .poscre {
   top: 343px;
@@ -1199,24 +1213,37 @@ i.alluser {
   /* position:absolute; */
   /* top: 800px; */
   top: 65px;
+  left: 80px;
+}
+.listSort .buttonSort .buttonpos4cre{
+  top: 65px;
   left: 156px;
 }
-/* .listSort .buttonSort .buttonpos2cre{ */
-
-/* position:absolute; */
-/* top: 800px; */
-/* top: 65px;
-  left: 60px;
-} */
-.listSort .buttonSort .buttonpos2cre {
-  /* position:absolute; */
-  /* top: 800px; */
+.listSort .buttonSort .buttonpos2cre{ 
   top: 70px;
   left: 450px;
 }
 .listSort .buttonSort .buttonpos3cre {
   /* position:absolute; */
   /* top: 800px; */
-  top: 70px;
+  /* top: 70px; */
   left: 442px;
+}
+.listSort .buttonSort .buttonpos6cre {
+  /* position:absolute; */
+  /* top: 800px; */
+  top: 70px;
+  left: 138px;
+}
+.listSort .buttonSort .buttonpos7cre{
+ top: 80px;
+  left: -74px;
+}
+.listSort .buttonSort .buttonpos8cre{
+ top: 50px;
+  left: -74px;
+}
+.listSort .buttonSort .buttonpos9cre{
+ top: 50px;
+  left: -85px;
 }

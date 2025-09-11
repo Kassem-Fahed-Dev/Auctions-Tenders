@@ -60,7 +60,7 @@ export default function FavoriteTenders() {
   return (
     <>
       <div>
-         <Search page={"all"}/>
+         {/* <Search page={"all"}/> */}
         <Navbar wordBlod={'tenders'} />
         <TendersNavbar wordBlod={'Auctions3'} />
         <button

@@ -223,8 +223,9 @@ export default function FavAuction() {
                 </button>
               </div>
             </div> */}
-            <Search/>
-            <ButtonSort test2={'favp'} position={"profile"}/>
+            {/* <Search/> */}
+            <div className='b'> <ButtonSort test2={'favp'} position={"profile"}/></div>
+           
           </div>
         </div>
       </div>

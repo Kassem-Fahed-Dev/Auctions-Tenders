@@ -213,7 +213,7 @@ export default function FavTender() {
                 </button>
               </div>
             </div> */}
-             <Search/>
+             {/* <Search/> */}
             <ButtonSortTen test2={'favp'} position={"profile"}/>
           </div>
         </div>

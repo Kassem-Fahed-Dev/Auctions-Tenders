@@ -15,27 +15,39 @@ export default function CreateTender() {
   const [value2, setValue2] = useState('');
   const [test, setTest] = useState('');
   const [hover, setHover] = useState(false);
+   let st='status2tn'
+  let sort=localStorage.getItem('status2tn')
   const navegate = useNavigate();
-  const handleClick = () => {
+   const handleClick = () => {
     if (value2 == 'فرز حسب' && value == 'فرز حسب') {
       setTest(' ');
+      console.log('1');
+      localStorage.setItem(st, value2);
       setValue2('');
     } else if (value == 'فرز حسب' && test == 'فرز حسب') {
       setTest(' ');
+      console.log('2');
+      localStorage.setItem(st, value);
       setValue1('فرز حسب');
       setValue(value1);
     } else if (value2 == 'فرز حسب') {
       setValue1('فرز حسب');
+      console.log('3');
       setTest(value1);
+      localStorage.setItem(st, value1);
       setValue(value1);
     } else {
       setTest(value1);
+      console.log('4');
+      localStorage.setItem(st, value1);
       setValue(value1);
     }
   };
   const handleClick2 = (item) => {
     setValue(item);
     setTest(item);
+    localStorage.setItem(st, item);
+    console.log('6');
     // if(value==' مقبول'){
     //   setTest(' مقبول')
     // }
@@ -45,17 +57,22 @@ export default function CreateTender() {
       item == ' قادم' ||
       item == 'الكل'
     ) {
+      console.log('5');
+      localStorage.setItem(st, item);
       setValue1(' مقبول');
       setValue2('فرز حسب');
+      console.log('7');
     }
     if (value == ' مقبول' || value == ' مرفوض' || value == ' قيد الانتظار') {
+      // localStorage.setItem(st,value)
       setValue2('فرز حسب');
+      console.log('8');
     }
   };
   return (
     <>
       <div>
-         <Search page={"all"}/>
+         {/* <Search page={"all"}/> */}
         <Navbar wordBlod={'tenders'} />
         <TendersNavbar wordBlod={'Auctions2'} />
         <button

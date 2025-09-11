@@ -224,7 +224,7 @@ export default function AucParticiped() {
                         </button>
                       </div>
                     </div> */}
-            <Search page="participped" />
+            {/* <Search page="participped" /> */}
             <ButtonSort test2={'sharep'} position={'profile'} />
           </div>
         </div>

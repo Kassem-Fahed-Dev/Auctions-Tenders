@@ -9,8 +9,7 @@ import Search from '../Auctions/Serach';
 import { useLocation } from 'react-router-dom';
 export default function TenderGroup({ paragraph }) {
   const navegaet = useNavigate();
-    let sort;
-  let st;
+   
   function goback() {
     navegaet('/tendersgroup');
   }
@@ -33,51 +32,57 @@ export default function TenderGroup({ paragraph }) {
   //       sort=localStorage.getItem('status10')
   //     st='status10tn'
   //  }
-
+let sort=localStorage.getItem(`group${data}`)
+   let st=`group${data}`
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
   const [value2, setValue2] = useState('');
   const [test, setTest] = useState('');
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
-    const handleClick = () => {
+  const handleClick = () => {
     if (value2 == 'فرز حسب' && value == 'فرز حسب') {
       setTest(' ');
       setValue2('');
       console.log('1')
+       localStorage.setItem(st, value2);
 
     } else if (value == 'فرز حسب' && test == 'فرز حسب') {
       setTest(' ');
       setValue1('فرز حسب');
       setValue(value1);
        console.log('2')
+       localStorage.setItem(st, value);
     } else if (value2 == 'فرز حسب') {
       setValue1('فرز حسب');
       setTest(value1);
+      localStorage.setItem(st, value1);
       setValue(value1);
        console.log('3')
         
     } else {
       setTest(value1);
       setValue(value1);
-       localStorage.setItem(st,value1)
+        localStorage.setItem(st, value1);
        console.log('4')
     }
   };
   const handleClick2 = (item) => {
     setValue(item);
     setTest(item);
-      localStorage.setItem(st,item)
+      localStorage.setItem(st, item);
      console.log('5')
     if (value == ' جاري' || value == ' منتهي' || value == ' قادم') {
       setValue2('فرز حسب');
-     
+      localStorage.setItem(st, item);
         console.log('6')
     }
   };
+
+
   return (
     <div>
-        <Search page={"group"}/>
+        {/* <Search page={"group"}/> */}
       <Navbar wordBlod={'tenders'} />
       <TendersNavbar wordBlod={'group'} />
       <div className="create-auction-button">
@@ -94,7 +99,7 @@ export default function TenderGroup({ paragraph }) {
         <i className="fas fa-plus"></i>
       </button>
 
-      <button
+     <button
         className="sort so"
         onMouseEnter={() => {
           setHover(true);
@@ -104,7 +109,7 @@ export default function TenderGroup({ paragraph }) {
         }}
         onClick={handleClick}
       >
-        <div>{value}</div>
+        <div>{sort}</div>
         <i
           className={`fas fa-chevron-left fas2 ${
             hover == true ? 'white' : 'black'

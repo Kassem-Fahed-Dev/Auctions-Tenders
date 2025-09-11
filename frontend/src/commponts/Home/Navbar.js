@@ -19,7 +19,7 @@ export default function Navbar({ wordBlod }) {
   };
   //   const tok = localStorage.getItem('jwt');
   const tok = localStorage.getItem('jwt');
-  const name = localStorage.getItem('name');
+  const name = localStorage.getItem('my');
   const [show, setshow] = useState(false);
   function hh() {
     if (show == false) {

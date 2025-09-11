@@ -84,7 +84,7 @@ export default function TenderParticiped() {
             المناقصات التي شاركت بها
           </h3>
           <div className="test-con">
-            <Search page="participped"/>
+            {/* <Search page="participped"/> */}
             <ButtonSortTen test2={'sharep'} position={"profile"}/>
             {/* <button
               className="sort21 sort-ten"

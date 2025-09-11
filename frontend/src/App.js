@@ -57,6 +57,7 @@ import PayAdmin from './commponts/Admin/PayAdmin';
 import WalletAdmin from './commponts/Admin/WalletAdmin';
 import EditGroup from './commponts/Admin/EditGroup';
 import AddGroup from './commponts/Admin/AddGroup';
+import axiosInstance from './commponts/AxiosInterceptors';
 import Notification from './commponts/Home/Notifiction/Notification';
 import UnReadnotification from './commponts/Home/Notifiction/UnReadnotification';
 import Readnotification from './commponts/Home/Notifiction/Readnotification';
@@ -70,9 +71,94 @@ function App() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const tok = localStorage.getItem('jwt');
-
+    const [errorMessage, setErrorMessage] = useState({});
+const [allAuction, setALLAuction] = useState([]);
+const [allTender, setALLTender] = useState([]);
+  const token = localStorage.getItem('jwt');
+ useEffect(() => {
+    axiosInstance
+      .get(`/api/v1/categories?type=auction`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // if (Array.isArray(res.data)) {
+        const x=res.data.data.data
+  const names = x.map((item) => item.name);
+  setALLAuction(names);
+         console.log(names);
+// } else {
+//   console.error("Expected res.data to be an array");
+// }
+        // setALLAuction(res.data.data.name);
+        // setWalletActivity(res.data.data);
+        
+        // console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      }); 
+     axiosInstance
+      .get(`/api/v1/categories?type=tender`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // if (Array.isArray(res.data)) {
+        const x=res.data.data.data
+  const names = x.map((item) => item.name);
+  setALLTender(names);
+         console.log(names);
+// } else {
+//   console.error("Expected res.data to be an array");
+// }
+        // setALLAuction(res.data.data.name);
+        // setWalletActivity(res.data.data);
+        
+        // console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+    }, []);
+    localStorage.setItem('allgroup',allAuction)
+    localStorage.setItem('allgroup1',allTender)
+  //     for(let i=0;i<allAuction.length;i++){
+  //       localStorage.setItem(`group${allAuction[i]}`,'فرز حسب')
+  //     }
+  // for(let i=0;i<allTender.length;i++){
+  //       localStorage.setItem(`group${allTender[i]}`,'فرز حسب')
+  //     }
   return (
     <div className="App">
       <Routes>

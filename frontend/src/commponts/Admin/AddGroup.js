@@ -348,6 +348,7 @@ const uploadImages = (files) => {
 
     setHoverAuction("spinner");
     console.log("تم إنشاء التصنيف بنجاح ✅");
+    window.location.reload()
   } catch (error) {
     setHoverAuction("spinner");
     console.error("خطأ أثناء العملية:", error);

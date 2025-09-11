@@ -10,8 +10,8 @@ import Search from './Serach';
 import { useLocation } from 'react-router-dom';
 export default function AuctionGroup() {
   const navegaet = useNavigate();
-  let sort;
-  let st;
+  // let sort;
+  // let st;
   function goback() {
  
     navegaet('/auctionsgroup');
@@ -39,8 +39,11 @@ export default function AuctionGroup() {
   //       sort=localStorage.getItem('status10')
   //     st='status10'
   //  }
+ 
   const location = useLocation();
   const { data} = location.state || {};
+   let sort=localStorage.getItem(`group${data}`)
+   let st=`group${data}`
     const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
   const [value2, setValue2] = useState('');
@@ -52,33 +55,36 @@ export default function AuctionGroup() {
       setTest(' ');
       setValue2('');
       console.log('1')
+       localStorage.setItem(st, value2);
 
     } else if (value == 'فرز حسب' && test == 'فرز حسب') {
       setTest(' ');
       setValue1('فرز حسب');
       setValue(value1);
        console.log('2')
+       localStorage.setItem(st, value);
     } else if (value2 == 'فرز حسب') {
       setValue1('فرز حسب');
       setTest(value1);
+      localStorage.setItem(st, value1);
       setValue(value1);
        console.log('3')
         
     } else {
       setTest(value1);
       setValue(value1);
-       localStorage.setItem(st,value1)
+        localStorage.setItem(st, value1);
        console.log('4')
     }
   };
   const handleClick2 = (item) => {
     setValue(item);
     setTest(item);
-      localStorage.setItem(st,item)
+      localStorage.setItem(st, item);
      console.log('5')
     if (value == ' جاري' || value == ' منتهي' || value == ' قادم') {
       setValue2('فرز حسب');
-     
+      localStorage.setItem(st, item);
         console.log('6')
     }
   };
@@ -156,7 +162,7 @@ export default function AuctionGroup() {
         </div>
       </div>
       
-      <Cards page="group" item={data}/>
+      <Cards page="group" item={data} />
       <Footer />
     </div>
   );

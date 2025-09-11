@@ -62,7 +62,7 @@ export default function Favorite() {
                 />
                 <div className={`${change === 'fav-act' ? 'vis' : 'hid'}`}>
                   <div>
-                      <Search page={"alluser"}/>
+                      {/* <Search page={"alluser"}/> */}
                     <div className="but-sor">
                        <ButtonSort test2={'favh'} position={"profile1"}/> 
                       {/* <ButtonSort test2={'favh'} /> */}
@@ -70,18 +70,18 @@ export default function Favorite() {
                     <p className="par">المزادات المفضلة</p>
                   </div>
                   <div className="dec">
-                    <Cards page={'fav'} />
+                    <Cards page={'favh'} />
                   </div>
                 </div>
                 <div className={`${change === 'fav-ten' ? 'vis' : 'hid'}`}>
-                    <Search page={"alluser"}/>
+                    {/* <Search page={"alluser"}/> */}
                   <div className="but-sor">
                   <ButtonSortTen   test2={'favh'} position={"profile1"}/> 
                   </div>
                   <p className="par">المناقصات المفضلة</p>
 
                   <div className="dec">
-                    <CardTen page={'fav'}/>
+                    <CardTen page={'favh'}/>
                   </div>
                 </div>
               </div>

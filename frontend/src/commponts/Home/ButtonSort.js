@@ -1,15 +1,57 @@
 import { useState } from 'react';
+import axiosInstance from '../AxiosInterceptors'
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 export default function ButtonSort({test2,position}) {
    const [value,setValue]=useState('فرز حسب');
     const [value1,setValue1]=useState('فرز حسب');
     const [value2,setValue2]=useState('');
     const [test,setTest]=useState('')
+      const [errorMessage, setErrorMessage] = useState({});
+      const token = localStorage.getItem('jwt');
     const [test1,setTest1]=useState('')
     const [hover,setHover]=useState(false)
      let sort;
      let st;
-     
+     const [allAuction, setALLAuction] = useState([]);
+   useEffect(() => {
+    axiosInstance
+      .get(`/api/v1/categories?type=auction`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // if (Array.isArray(res.data)) {
+        const x=res.data.data.data
+  const names = x.map((item) => item.name);
+  setALLAuction(names);
+         console.log(names);
+// } else {
+//   console.error("Expected res.data to be an array");
+// }
+        // setALLAuction(res.data.data.name);
+        // setWalletActivity(res.data.data);
+        
+        // console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });  }, []);     
      console.log(test2)
     const navegate=useNavigate()
    if(test2=='all'){
@@ -104,7 +146,7 @@ console.log(sort)
                console.log('000') 
 
         }
-        if(item==' عقارات'||item==' إلكترونيات'||item==' سيارات'||item==' أثاث'||item==' إكسسوار'||item==' ملابس'||item==' أخرى'){
+        if(allAuction.includes(item)){
             setValue1(' مجموعات')
             setValue2('فرز حسب')
                console.log('0000')
@@ -112,6 +154,14 @@ console.log(sort)
              localStorage.setItem(st,item)      
         }
     }
+    // ======
+    const rows=[]
+for(let i=1;i<allAuction?.length-2;i++){
+  rows.push( <>
+  <div></div>
+                    <button  className={`${position=="profile"&&test2=='sharep'?"buttonpos6cre":position=="profile"?`buttonpos5`:position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(allAuction[i])}}>{allAuction[i]}</button>
+                <div></div>  </>)
+}
     return(
         <>
          <div className="test-con">
@@ -130,20 +180,21 @@ console.log(sort)
             </div>
             <div className={`listSort  ${test.includes(' مجموعات')&&position=="profile"?'visable2':test.includes(' مجموعات')?'visable':""}`}>
             <div  className="buttonSort" >
-                <button className={`button1 ${position=="profile"?"buttonpos1":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' سيارات')}}>سيارات</button>
-                <button  className={`${position=="profile"?"buttonpos3":position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(' عقارات')}}>عقارات</button>
+                <button className={`button1 ${position=="profile"?"buttonpos1":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(allAuction && allAuction?.length > 0 ? allAuction[0] : '')}}>  {allAuction && allAuction?.length > 0 ? allAuction[0] : 'لا توجد مجموعات'}</button>
+                {/* <button  className={`${position=="profile"?"buttonpos3":position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(' عقارات')}}>عقارات</button>
                 <button  className={`${position=="profile"?"buttonpos4":position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(' إلكترونيات')}} >إلكترونيات</button>
                 <button className={`${position=="profile"?"buttonpos5":position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(' أثاث')}}>أثاث</button>
                 <button className={`${position=="profile"?"buttonpos6":position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(' إكسسوار')}}>إكسسوار</button>
-                <button className={`${position=="profile"?"buttonpos7":position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(' ملابس')}}>ملابس</button>
-                <button className={`button2 ${position=="profile"?"buttonpos8":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' أخرى')}}>أخرى</button>
+                <button className={`${position=="profile"?"buttonpos7":position=="profile1"?"buttonpos1cre":""}`}onClick={()=>{handleClick2(' ملابس')}}>ملابس</button> */}
+                {rows}
+                <button className={`button2 ${position=="profile"&&test2=='sharep'?"buttonpos6cre":position=="profile"?`buttonpos5`:position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(allAuction && allAuction?.length > 0 ? allAuction[allAuction?.length-1] : '')}}> {allAuction && allAuction?.length > 0 ? allAuction[allAuction?.length-1] : ''}</button>
             </div>
           </div>
           <div className={`listSort  ${test.includes(' الوقت')&&position=="profile"?'visable3':test.includes(' الوقت')?'visable':""}`}>
             <div  className="buttonSort" >
-                <button className={`button1 ${position=="profile"?"buttonpos1":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' جاري')}}>جاري</button>
-                <button  className={`${position=="profile"?"buttonpos3":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' قادم')}}>قادم</button>
-                <button className={`button2 ${position=="profile"?"buttonpos4":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' منتهي')}}>منتهي</button>
+                <button className={`button1 ${position=="profile"&&test2=='sharep'?"buttonpos9cre":position=="profile"?"buttonpos4":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' جاري')}}>جاري</button>
+                <button  className={`${position=="profile"&&test2=='sharep'?"buttonpos9cre":position=="profile"?"buttonpos4":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' قادم')}}>قادم</button>
+                <button className={`button2 ${position=="profile"&&test2=='sharep'?"buttonpos9cre":position=="profile"?"buttonpos4":position=="profile1"?"buttonpos1cre":""}`} onClick={()=>{handleClick2(' منتهي')}}>منتهي</button>
             </div>
           </div>
                       </div>

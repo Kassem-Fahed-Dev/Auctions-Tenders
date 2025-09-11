@@ -18,7 +18,7 @@ export default function ShareTenders() {
   return (
     <>
       <div>
-          <Search page={"all"}/>
+          {/* <Search page={"all"}/> */}
         <Navbar wordBlod={'tenders'} />
         <TendersNavbar wordBlod={'Auctions1'} />
         <button

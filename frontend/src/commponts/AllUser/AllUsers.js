@@ -75,18 +75,18 @@ export default function AllUsers() {
     //   setTest(' مقبول')
     // }
     if (
-      item == 'جاري' ||
-      item == 'منتهي' ||
-      item == 'قادم' ||
+      item == ' جاري' ||
+      item == ' منتهي' ||
+      item == ' قادم' ||
       item == 'الكل'
     ) {
       console.log('5');
       localStorage.setItem(st, item);
-      setValue1('مقبول');
+      setValue1(' مقبول');
       setValue2('فرز حسب');
       console.log('7');
     }
-    if (value == 'مقبول' || value == 'مرفوض' || value == 'قيد الانتظار') {
+    if (value == ' مقبول' || value == ' مرفوض' || value == ' قيد الانتظار') {
       // localStorage.setItem(st,value)
       setValue2('فرز حسب');
       console.log('8');
@@ -131,18 +131,18 @@ export default function AllUsers() {
     //   setTest(' مقبول')
     // }
     if (
-      item == 'جاري' ||
-      item == 'منتهي' ||
-      item == 'قادم' ||
+      item == ' جاري' ||
+      item == ' منتهي' ||
+      item == ' قادم' ||
       item == 'الكل'
     ) {
       console.log('5');
       localStorage.setItem(st, item);
-      setValue6('مقبول');
+      setValue6(' مقبول');
       setValue7('فرز حسب');
       console.log('7');
     }
-    if (value5 == 'مقبول' || value5 == 'مرفوض' || value5 == 'قيد الانتظار') {
+    if (value5 == ' مقبول' || value5 == ' مرفوض' || value5 == ' قيد الانتظار') {
       // localStorage.setItem(st,value)
       setValue7('فرز حسب');
       console.log('8');
@@ -349,7 +349,7 @@ export default function AllUsers() {
                     className={`fas fa-chevron-left ${
                       hover == true ? 'white' : 'black'
                     } ${
-                      value.includes('فرز حسب') || value.includes('مقبول')
+                      value.includes('فرز حسب') || value.includes(' مقبول')
                         ? 'sort1'
                         : 'sort2'
                     }`}
@@ -363,26 +363,26 @@ export default function AllUsers() {
                 >
                   <div className="buttonSort so11">
                     <button
-                      className="button1 buttonpos1cre"
+                      className="button1 buttonpos4cre"
                       onClick={() => {
-                        handleClick2('مقبول');
+                        handleClick2(' مقبول');
                       }}
                     >
                       مقبول
                     </button>
 
                     <button
-                      className="buttonpos1cre"
+                      className="buttonpos4cre"
                       onClick={() => {
-                        handleClick2('مرفوض');
+                        handleClick2(' مرفوض');
                       }}
                     >
                       مرفوض
                     </button>
                     <button
-                      className="button2 buttonpos1cre"
+                      className="button2 buttonpos4cre"
                       onClick={() => {
-                        handleClick2('قيد الانتظار');
+                        handleClick2(' قيد الانتظار');
                       }}
                     >
                       قيد الانتظار
@@ -391,12 +391,12 @@ export default function AllUsers() {
                 </div>
                 <div
                   className={`listSort  ${
-                    test.includes('مقبول') ? 'visable' : ''
+                    test.includes(' مقبول') ? 'visable' : ''
                   }`}
                 >
                   <div className="buttonSort so11 poscre">
                     <button
-                      className="button1 buttonpos1cre"
+                      className="button1 buttonpos4cre"
                       onClick={() => {
                         handleClick2('الكل');
                       }}
@@ -404,25 +404,25 @@ export default function AllUsers() {
                       الكل
                     </button>
                     <button
-                      className="buttonpos1cre"
+                      className="buttonpos4cre"
                       onClick={() => {
-                        handleClick2('جاري');
+                        handleClick2(' جاري');
                       }}
                     >
                       جاري
                     </button>
                     <button
-                      className="buttonpos1cre"
+                      className="buttonpos4cre"
                       onClick={() => {
-                        handleClick2('قادم');
+                        handleClick2(' قادم');
                       }}
                     >
                       قادم
                     </button>
                     <button
-                      className="button2 buttonpos1cre"
+                      className="button2 buttonpos4cre"
                       onClick={() => {
-                        handleClick2('منتهي');
+                        handleClick2(' منتهي');
                       }}
                     >
                       منتهي
@@ -481,7 +481,7 @@ export default function AllUsers() {
                   >
                     <div className="buttonSort so11">
                       <button
-                        className="button1 buttonpos1cre"
+                        className="button1 buttonpos4cre"
                         onClick={() => {
                           handleClick4(' مقبول');
                         }}
@@ -490,7 +490,7 @@ export default function AllUsers() {
                       </button>
 
                       <button
-                        className="buttonpos1cre"
+                        className="buttonpos4cre"
                         onClick={() => {
                           handleClick4(' مرفوض');
                         }}
@@ -498,7 +498,7 @@ export default function AllUsers() {
                         مرفوض
                       </button>
                       <button
-                        className="button2 buttonpos1cre"
+                        className="button2 buttonpos4cre"
                         onClick={() => {
                           handleClick4(' قيد الانتظار');
                         }}
@@ -514,7 +514,7 @@ export default function AllUsers() {
                   >
                     <div className="buttonSort so11 poscre">
                       <button
-                        className="button1 buttonpos1cre"
+                        className="button1 buttonpos4cre"
                         onClick={() => {
                           handleClick4('الكل');
                         }}
@@ -522,7 +522,7 @@ export default function AllUsers() {
                         الكل
                       </button>
                       <button
-                        className="buttonpos1cre"
+                        className="buttonpos4cre"
                         onClick={() => {
                           handleClick4(' جاري');
                         }}
@@ -530,7 +530,7 @@ export default function AllUsers() {
                         جاري
                       </button>
                       <button
-                        className="buttonpos1cre"
+                        className="buttonpos4cre"
                         onClick={() => {
                           handleClick4(' قادم');
                         }}
@@ -538,7 +538,7 @@ export default function AllUsers() {
                         قادم
                       </button>
                       <button
-                        className="button2 buttonpos1cre"
+                        className="button2 buttonpos4cre"
                         onClick={() => {
                           handleClick4(' منتهي');
                         }}
@@ -548,11 +548,13 @@ export default function AllUsers() {
                     </div>
                   </div>
                   {/* <ButtonSort test2={'alluserAuFav'} position={"profile1"}/>  */}
-                  <div className="alotof">
+                  {/* <div className="alotof">
                     <Cards id={da?._id} page={'id'} />
-                  </div>
+                  </div> */}
                 </div>
-                <CardTen id={da?._id} page={'id'} />
+                <div className="alotof">
+                  <CardTen id={da?._id} page={'id'} />
+                </div>
               </div>
             </div>
           )}

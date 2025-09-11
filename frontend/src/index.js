@@ -7,7 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
+import axiosInstance from './commponts/AxiosInterceptors';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { Store_App } from './commponts/Account/Profile/store/Store';
 localStorage.setItem('statusallAu', 'فرز حسب');
 localStorage.setItem('statusallTe', 'فرز حسب');
@@ -33,6 +35,7 @@ localStorage.setItem('status1tn', 'فرز حسب');
 localStorage.setItem('status1tnh', 'فرز حسب');
 localStorage.setItem('status1tnp', 'فرز حسب');
 localStorage.setItem('status2tn', 'فرز حسب');
+localStorage.setItem('status2ptn', 'فرز حسب');
 localStorage.setItem('status3tn', 'فرز حسب');
 localStorage.setItem('status3tnp', 'فرز حسب');
 localStorage.setItem('status4tn', 'فرز حسب');
@@ -42,6 +45,17 @@ localStorage.setItem('status7tn', 'فرز حسب');
 localStorage.setItem('status8tn', 'فرز حسب');
 localStorage.setItem('status9tn', 'فرز حسب');
 localStorage.setItem('status10tn', 'فرز حسب');
+const s=localStorage.getItem('allgroup')?.split(',')
+const s1=localStorage.getItem('allgroup1')?.split(',')
+// const item=s.
+console.log(s)
+  for(let i=0;i<s?.length;i++){
+        localStorage.setItem(`group${s[i]}`,'فرز حسب')
+      }
+  console.log(s1)
+  for(let i=0;i<s1?.length;i++){
+        localStorage.setItem(`group${s1[i]}`,'فرز حسب')
+      }  
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

@@ -8,37 +8,59 @@ export default function CardTen({page,item,id,showDelete}) {
   let sort;
     const token = localStorage.getItem('jwt'); 
   const [errorMessage, setErrorMessage] = useState({});
-     if(item=="سيارات"){
-        sort=localStorage.getItem('status4tn')
+  //    if(item=="سيارات"){
+  //       sort=localStorage.getItem('status4tn')
      
-   }
-   else if(item=="عقارات"){
-        sort=localStorage.getItem('status5tn')
+  //  }
+  //  else if(item=="عقارات"){
+  //       sort=localStorage.getItem('status5tn')
       
-   }else if(item=="إلكترونيات"){
-        sort=localStorage.getItem('status6tn')
+  //  }else if(item=="إلكترونيات"){
+  //       sort=localStorage.getItem('status6tn')
      
-   }else if(item=="أثاث"){
-        sort=localStorage.getItem('status7tn')
+  //  }else if(item=="أثاث"){
+  //       sort=localStorage.getItem('status7tn')
      
-   }else if(item=="ملابس"){
-        sort=localStorage.getItem('status8tn')
+  //  }else if(item=="ملابس"){
+  //       sort=localStorage.getItem('status8tn')
  
-   }else if(item=="إكسسوار"){
-        sort=localStorage.getItem('status9tn')
+  //  }else if(item=="إكسسوار"){
+  //       sort=localStorage.getItem('status9tn')
     
-   }else if(item=="أخرى"){
-        sort=localStorage.getItem('status10tn')
+  //  }else if(item=="أخرى"){
+  //       sort=localStorage.getItem('status10tn')
+
+  //  }else
+     if(page=="fav"){
+        sort=localStorage.getItem('status1tn')
+
+   }else if(page=="create"){
+        sort=localStorage.getItem('status2tn')
+
+   }else if(page=="createp"){
+        sort=localStorage.getItem('status2ptn')
+
+   }else if (page == 'group') {
+    sort = localStorage.getItem(`group${item}`);
+  } else if(page=="id"){
+        sort=localStorage.getItem('statusallTe')
 
    }else if(page=="favp"){
         sort=localStorage.getItem('status1tnp')
 
+   }else if(page=="favh"){
+        sort=localStorage.getItem('status1tnh')
+
    }else if(page=="sharep"){
         sort=localStorage.getItem('status3tnp')
+
+   }else if(page=="share"){
+        sort=localStorage.getItem('status3tn')
 
    }else{
     sort=localStorage.getItem('statustn')
    }
+   console.log(sort)
    useEffect(()=>{
     if(page=="all"){
           console.log(sort)
@@ -86,10 +108,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           `/api/v1/tenders?user=${id}`
+           `/api/v1/tenders?user=${id}&status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?user=${id}&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?user=${id}&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?user=${id}&status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?user=${id}&status=${sort.trim()}`
       }`
       ,
       {
@@ -120,7 +142,7 @@ export default function CardTen({page,item,id,showDelete}) {
   }
   // /api/v1/auctions
 
-    else if(page=="create"){
+    else if(page=="create"||page=='createp'){
   
     console.log(sort)
     axiosInstance
@@ -128,10 +150,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          '/api/v1/tenders/myTenders'
+          '/api/v1/tenders/myTenders?status=مقبول'
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
           ? `/api/v1/tenders/myTenders?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/myTenders?categoryName=${sort.trim()}`
+          : `/api/v1/tenders/myTenders?status=${sort.trim()}`
       }`
       ,
       {
@@ -201,7 +223,7 @@ export default function CardTen({page,item,id,showDelete}) {
       }
     });
   }
-   else if(page=="fav"){
+   else if(page=="fav"||page=='favh'){
   
     console.log(sort)
     axiosInstance
@@ -291,47 +313,7 @@ export default function CardTen({page,item,id,showDelete}) {
         });
       }
     });
-  } else if(page=="share"){
-  
-    console.log(sort)
-    axiosInstance
-    .get(
-      `${
-      sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
-          ? 
-          `/api/v1/tenders/participateTenders?status=مقبول`
-          : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/participateTenders?status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/participateTenders?status=مقبول&categoryName=${sort.trim()}`
-      }`
-      ,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept-Language': 'ar',
-           'credentials': 'include',
-            'Authorization': `Bearer ${token}`,
-        },
-      }
-    )
-    .then((res) => {
-      setAll(res.data.data.data);
-      console.log('create')
-      console.log(res.data.data.data);
-    })
-    .catch((error) => {
-      if (error.response) {
-        const validationErrors = {};
-        validationErrors.messageBackend = error.response.data.message;
-        setErrorMessage(validationErrors);
-      } else {
-        console.log('An unexpected error occurred:', error.message);
-        setErrorMessage({
-          messageBackend: 'An unexpected error occurred.',
-        });
-      }
-    });
-  }else if(page=="sharep"){
+  } else if(page=="share"||page=="sharep"){
   
     console.log(sort)
     axiosInstance
@@ -372,6 +354,47 @@ export default function CardTen({page,item,id,showDelete}) {
       }
     });
   }
+  // else if(page=="sharep"){
+  
+  //   console.log(sort)
+  //   axiosInstance
+  //   .get(
+  //     `${
+  //     sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
+  //         ? 
+  //         `/api/v1/tenders/participateTenders?status=مقبول`
+  //         : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
+  //         ? `/api/v1/tenders/participateTenders?status=مقبول&activeStatus=${sort.trim()}`
+  //         : `/api/v1/tenders/participateTenders?status=مقبول&categoryName=${sort.trim()}`
+  //     }`
+  //     ,
+  //     {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept-Language': 'ar',
+  //          'credentials': 'include',
+  //           'Authorization': `Bearer ${token}`,
+  //       },
+  //     }
+  //   )
+  //   .then((res) => {
+  //     setAll(res.data.data.data);
+  //     console.log('create')
+  //     console.log(res.data.data.data);
+  //   })
+  //   .catch((error) => {
+  //     if (error.response) {
+  //       const validationErrors = {};
+  //       validationErrors.messageBackend = error.response.data.message;
+  //       setErrorMessage(validationErrors);
+  //     } else {
+  //       console.log('An unexpected error occurred:', error.message);
+  //       setErrorMessage({
+  //         messageBackend: 'An unexpected error occurred.',
+  //       });
+  //     }
+  //   });
+  // }
 },[sort])
   return (
     <>
