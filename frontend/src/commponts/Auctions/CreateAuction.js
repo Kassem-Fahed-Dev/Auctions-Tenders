@@ -32,11 +32,11 @@ export default function CreateAuction() {
       status: '',
       description: '',
       properties: [],
-      photo:[],
-      video:''
+      photo: [],
+      video: '',
     },
   });
-    const [allAuction, setALLAuction] = useState([]);
+  const [allAuction, setALLAuction] = useState([]);
   function goback() {
     window.history.go(-1);
   }
@@ -58,7 +58,7 @@ export default function CreateAuction() {
   const handleHover = (item) => {
     setHover(item);
   };
-    useEffect(() => {
+  useEffect(() => {
     axiosInstance
       .get(`/api/v1/categories?type=auction`, {
         headers: {
@@ -70,16 +70,16 @@ export default function CreateAuction() {
       })
       .then((res) => {
         // if (Array.isArray(res.data)) {
-        const x=res.data.data.data
-  const names = x.map((item) => item.name);
-  setALLAuction(names);
-         console.log(names);
-// } else {
-//   console.error("Expected res.data to be an array");
-// }
+        const x = res.data.data.data;
+        const names = x.map((item) => item.name);
+        setALLAuction(names);
+        console.log(names);
+        // } else {
+        //   console.error("Expected res.data to be an array");
+        // }
         // setALLAuction(res.data.data.name);
         // setWalletActivity(res.data.data);
-        
+
         // console.log(walletActivity);
       })
       .catch((error) => {
@@ -95,121 +95,155 @@ export default function CreateAuction() {
             messageBackend: 'An unexpected error occurred.',
           });
         }
-      });  }, []);
+      });
+  }, []);
+  // test for required
+  useEffect(() => {
+    const checkFormComplete = () => {
+      const { name, properties } = formData1.item;
+      const {
+        numberOfItems,
+        auctionTitle,
+        city,
+        startTime,
+        endTime,
+        startingPrice,
+        minimumIncrement,
+      } = formData1.auction;
+
+      // تحقق من كل الحقول المطلوبة
+      const allRequiredFilled =
+        name.trim() &&
+        numberOfItems &&
+        auctionTitle.trim() &&
+        city.trim() &&
+        startTime &&
+        endTime &&
+        startingPrice &&
+        minimumIncrement &&
+        formData.trim() && // المجموعة
+        (properties.every((p) => p.value && p.value.trim() !== '') ||
+          properties.length === 0);
+
+      setIsButtonDisabled(!allRequiredFilled);
+    };
+
+    checkFormComplete();
+  }, [formData1, formData]);
+
+  // test for required
   //الصور
   // const [images, setImages] = useState([]);
   // const [fileInputKey, setFileInputKey] = useState(Date.now());
-   //const [ selectedFiles,  setselectedFiles] = useState([]);
-//  const handleImageChange = (event) => {
-//     const selectedFiles = Array.from(event.target?.files);
-  
-//     if (selectedFiles.length > 5) {
-//       alert('يرجى اختيار 5 صور أو أقل.');
-//       setFileInputKey(Date.now()); // لإعادة تعيين مدخل الملف
-//       setImages([]);
-//       return;
-//     }
+  //const [ selectedFiles,  setselectedFiles] = useState([]);
+  //  const handleImageChange = (event) => {
+  //     const selectedFiles = Array.from(event.target?.files);
 
-//     // تحديث الصور المصورة
-//     const newImages = selectedFiles.map((file) => URL.createObjectURL(file));
-//     setImages(newImages);
+  //     if (selectedFiles.length > 5) {
+  //       alert('يرجى اختيار 5 صور أو أقل.');
+  //       setFileInputKey(Date.now()); // لإعادة تعيين مدخل الملف
+  //       setImages([]);
+  //       return;
+  //     }
 
-//     // إرسال الملفات إلى Cloudinary
-//     const formData = new FormData();
-//     selectedFiles.forEach((file) => {
-//       formData.append('file', file);
-//     });
-//     formData.append('upload_preset', 'SmartWorld');
+  //     // تحديث الصور المصورة
+  //     const newImages = selectedFiles.map((file) => URL.createObjectURL(file));
+  //     setImages(newImages);
 
-//     axios
-//       .post(
-//         'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
-//         formData
-//       )
-//       .then((res) => {
-//         console.log('Upload successful:', res.data);
-//         // يمكنك هنا التعامل مع بيانات الرد إذا لزم الأمر
-//       })
-//       .catch((error) => {
-//         if (error.response) {
-//           const validationErrors = {};
-//           validationErrors.messageBackend = error.response.data.message;
-//           setErrorMessage(validationErrors);
-//         } else {
-//           console.log('An unexpected error occurred:', error.message);
-//           setErrorMessage({
-//             messageBackend: 'An unexpected error occurred.',
-//           });
-//         }
-//       });
-//   };
-// عند اختيار الصور
-// ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-// const [selectedFiles, setSelectedFiles] = React.useState([]);
+  //     // إرسال الملفات إلى Cloudinary
+  //     const formData = new FormData();
+  //     selectedFiles.forEach((file) => {
+  //       formData.append('file', file);
+  //     });
+  //     formData.append('upload_preset', 'SmartWorld');
 
+  //     axios
+  //       .post(
+  //         'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
+  //         formData
+  //       )
+  //       .then((res) => {
+  //         console.log('Upload successful:', res.data);
+  //         // يمكنك هنا التعامل مع بيانات الرد إذا لزم الأمر
+  //       })
+  //       .catch((error) => {
+  //         if (error.response) {
+  //           const validationErrors = {};
+  //           validationErrors.messageBackend = error.response.data.message;
+  //           setErrorMessage(validationErrors);
+  //         } else {
+  //           console.log('An unexpected error occurred:', error.message);
+  //           setErrorMessage({
+  //             messageBackend: 'An unexpected error occurred.',
+  //           });
+  //         }
+  //       });
+  //   };
+  // عند اختيار الصور
+  // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  // const [selectedFiles, setSelectedFiles] = React.useState([]);
 
-// const handleImageChange = (event) => {
-//   const files = Array.from(event.target?.files);
-//   if (files.length > 5) {
-//     alert('يرجى اختيار 5 صور أو أقل.');
-//     setFileInputKey(Date.now());
-//     setImages([]);
-//     setSelectedFiles([]); // تفريغ الملفات المختارة
-//     return;
-//   }
-//   setSelectedFiles(files);
-//   const newImages = files.map((file) => URL.createObjectURL(file));
-//   setImages(newImages);
-// };
-// const uploadImages = (files) => {
-//   if (!files || !Array.isArray(files)) {
-//     console.error('الملفات غير صحيحة أو غير موجودة');
-//     return Promise.reject('Invalid files');
-//   }
+  // const handleImageChange = (event) => {
+  //   const files = Array.from(event.target?.files);
+  //   if (files.length > 5) {
+  //     alert('يرجى اختيار 5 صور أو أقل.');
+  //     setFileInputKey(Date.now());
+  //     setImages([]);
+  //     setSelectedFiles([]); // تفريغ الملفات المختارة
+  //     return;
+  //   }
+  //   setSelectedFiles(files);
+  //   const newImages = files.map((file) => URL.createObjectURL(file));
+  //   setImages(newImages);
+  // };
+  // const uploadImages = (files) => {
+  //   if (!files || !Array.isArray(files)) {
+  //     console.error('الملفات غير صحيحة أو غير موجودة');
+  //     return Promise.reject('Invalid files');
+  //   }
 
-//   const uploadPromises = files.map((file) => {
-//   const formData = new FormData();
-//   formData.append('file', file);
-//   formData.append('upload_preset', 'SmartWorld');
-//   console.log(formData)
-//   return axiosInstance
-//     .post(
-//       'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
-//       formData
-//     )
-//     .then((res) => {
-//       console.log('Upload successful:', res.data);
-//       const public_id = res.data.public_id;
-//       console.log(public_id);
-      
-//       return public_id; // هنا نعيد public_id
-//     })
-//     .catch((error) => {
-//       if (error.response) {
-//         const validationErrors = {};
-//         validationErrors.messageBackend = error.response.data.message;
-//         setErrorMessage(validationErrors);
-//       } else {
-//         console.log('An unexpected error occurred:', error.message);
-//         setErrorMessage({
-//           messageBackend: 'حدث خطأ غير متوقع.',
-//         });
-//       }
+  //   const uploadPromises = files.map((file) => {
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  //   formData.append('upload_preset', 'SmartWorld');
+  //   console.log(formData)
+  //   return axiosInstance
+  //     .post(
+  //       'https://api.cloudinary.com/v1_1/dzq0odp1k/image/upload',
+  //       formData
+  //     )
+  //     .then((res) => {
+  //       console.log('Upload successful:', res.data);
+  //       const public_id = res.data.public_id;
+  //       console.log(public_id);
 
-//       throw error;
-//     });
-// });
+  //       return public_id; // هنا نعيد public_id
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         const validationErrors = {};
+  //         validationErrors.messageBackend = error.response.data.message;
+  //         setErrorMessage(validationErrors);
+  //       } else {
+  //         console.log('An unexpected error occurred:', error.message);
+  //         setErrorMessage({
+  //           messageBackend: 'حدث خطأ غير متوقع.',
+  //         });
+  //       }
 
+  //       throw error;
+  //     });
+  // });
 
-// return Promise.all(uploadPromises)
-//   .then((publicIds) => {
-//     console.log('All public IDs:', publicIds);
-//     return publicIds; // إرجاع مصفوفة من جميع public_id
-//   });
+  // return Promise.all(uploadPromises)
+  //   .then((publicIds) => {
+  //     console.log('All public IDs:', publicIds);
+  //     return publicIds; // إرجاع مصفوفة من جميع public_id
+  //   });
 
-// };
+  // };
 
-// ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  // ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
   // const upload = (e) => {
   //   console.log('up')
   //   const formData = new FormData();
@@ -236,12 +270,12 @@ export default function CreateAuction() {
   //   setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   //   setSelectedFiles((prevImages) => prevImages.filter(() => i !== index));
   // };
-  
-const removeImage = (index,event) => {
-   event.preventDefault();
-  setImages((prevImages) => prevImages.filter((_, i) => i !== index));
-  setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-};
+
+  const removeImage = (index, event) => {
+    event.preventDefault();
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
   const handleReplaceImage = (index, event) => {
     const file = event.target.files[0];
     if (file) {
@@ -251,18 +285,18 @@ const removeImage = (index,event) => {
         updatedImages[index] = newImage;
         return updatedImages;
       });
-       setSelectedFiles((prevImages) => {
+      setSelectedFiles((prevImages) => {
         const updatedImages = [...prevImages];
-       updatedImages[index] = file;
+        updatedImages[index] = file;
         return updatedImages;
       });
     }
   };
   //الفيديو
   const [fileInputKey1, setFileInputKey1] = useState(Date.now());
-const [selectedFiles1, setSelectedFiles1] = useState([]);
+  const [selectedFiles1, setSelectedFiles1] = useState([]);
   const handleDeleteVideo = (event) => {
-       event.preventDefault();
+    event.preventDefault();
     setVideoSrc(null);
     setSelectedFiles1(null);
   };
@@ -270,7 +304,7 @@ const [selectedFiles1, setSelectedFiles1] = useState([]);
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-        setSelectedFiles1(file);
+      setSelectedFiles1(file);
       setVideoSrc(null);
       const vid1 = URL.createObjectURL(file);
       setTimeout(() => {
@@ -306,7 +340,7 @@ const [selectedFiles1, setSelectedFiles1] = useState([]);
         console.log(res);
         const auctionId = res.data.data.data[0]._id;
         setIsButtonDisabled(false);
-        setKeyList(res.data.data.data[0].properties)
+        setKeyList(res.data.data.data[0].properties);
         // setKeyList(properties.map((property) => property.key));
         setFormData1((prevData) => ({
           ...prevData,
@@ -330,213 +364,210 @@ const [selectedFiles1, setSelectedFiles1] = useState([]);
       });
   };
   // ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  const [url1,setUrl1]=useState(null)
-const uploadVideo = (files) => {
-  if (!files || !Array.isArray(files)) {
-    console.error("الملفات غير صحيحة أو غير موجودة");
-    return Promise.reject("Invalid files");
-  }
+  const [url1, setUrl1] = useState(null);
+  const uploadVideo = (files) => {
+    if (!files || !Array.isArray(files)) {
+      console.error('الملفات غير صحيحة أو غير موجودة');
+      return Promise.reject('Invalid files');
+    }
 
-  const formData = new FormData();
-  files.forEach((file) => {
-    formData.append("files", file); // 🔑 same key "files" for all files
-  });
-
-  return axiosInstance
-    .post("/api/v1/cloudinary/upload-multiple", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-         'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      console.log("Upload successful:",res.data);
-      const url1=res.data.data.urls
-    
-  return url1
-  
-    })
-    .catch((error) => {
-      if (error.response) {
-        setErrorMessage({
-          messageBackend: error.response.data.message,
-        });
-      } else {
-        console.log("An unexpected error occurred:", error.message);
-        setErrorMessage({
-          messageBackend: "حدث خطأ غير متوقع.",
-        });
-      }
-      throw error;
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('files', file); // 🔑 same key "files" for all files
     });
-};
 
-//  444444444444444444444444444
+    return axiosInstance
+      .post('/api/v1/cloudinary/upload-multiple', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log('Upload successful:', res.data);
+        const url1 = res.data.data.urls;
+
+        return url1;
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrorMessage({
+            messageBackend: error.response.data.message,
+          });
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'حدث خطأ غير متوقع.',
+          });
+        }
+        throw error;
+      });
+  };
+
+  //  444444444444444444444444444
   const [images, setImages] = useState([]);
-const [fileInputKey, setFileInputKey] = useState(Date.now());
-const [selectedFiles, setSelectedFiles] = useState([]);
-console.log(selectedFiles1)
-const handleImageChange = (event) => {
-  const files = Array.from(event.target?.files);
-  if (files.length > 5) {
-    alert("يرجى اختيار 5 صور أو أقل.");
-    setFileInputKey(Date.now());
-    setImages([]);
-    setSelectedFiles([]);
-    return;
-  }
-  setSelectedFiles(files);
-  const newImages = files.map((file) => URL.createObjectURL(file));
-  setImages(newImages);
-};
-const [url,setUrl]=useState(null)
-const uploadImages = (files) => {
-  if (!files || !Array.isArray(files)) {
-    console.error("الملفات غير صحيحة أو غير موجودة");
-    return Promise.reject("Invalid files");
-  }
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  console.log(selectedFiles1);
+  const handleImageChange = (event) => {
+    const files = Array.from(event.target?.files);
+    if (files.length > 5) {
+      alert('يرجى اختيار 5 صور أو أقل.');
+      setFileInputKey(Date.now());
+      setImages([]);
+      setSelectedFiles([]);
+      return;
+    }
+    setSelectedFiles(files);
+    const newImages = files.map((file) => URL.createObjectURL(file));
+    setImages(newImages);
+  };
+  const [url, setUrl] = useState(null);
+  const uploadImages = (files) => {
+    if (!files || !Array.isArray(files)) {
+      console.error('الملفات غير صحيحة أو غير موجودة');
+      return Promise.reject('Invalid files');
+    }
 
-  const formData = new FormData();
-  files.forEach((file) => {
-    formData.append("files", file); // 🔑 same key "files" for all files
-  });
-
-  return axiosInstance
-    .post("/api/v1/cloudinary/upload-multiple", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-         'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      console.log("Upload successful:",res.data);
-      const urls=res.data.data.urls
-    
-  return urls
-  
-    })
-    .catch((error) => {
-      if (error.response) {
-        setErrorMessage({
-          messageBackend: error.response.data.message,
-        });
-      } else {
-        console.log("An unexpected error occurred:", error.message);
-        setErrorMessage({
-          messageBackend: "حدث خطأ غير متوقع.",
-        });
-      }
-      throw error;
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('files', file); // 🔑 same key "files" for all files
     });
-};
 
+    return axiosInstance
+      .post('/api/v1/cloudinary/upload-multiple', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log('Upload successful:', res.data);
+        const urls = res.data.data.urls;
+
+        return urls;
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrorMessage({
+            messageBackend: error.response.data.message,
+          });
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'حدث خطأ غير متوقع.',
+          });
+        }
+        throw error;
+      });
+  };
 
   let pic;
   let video;
-console.log(selectedFiles);
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log('cha');
   console.log(selectedFiles);
-  setHoverAuction('spinner-Auction');
-
-  try {
-    // رفع الصور ورجوع الروابط
-    const pic = await uploadImages(selectedFiles);
-    console.log("Returned URLs:", pic);
-
-    // خزّن بالرابط أول صورة (أو كل الصور حسب حاجتك)
-    const imageUrl = pic;
-
-    // حدّث الـ state (اختياري للعرض)
-    setFormData1((prevState) => ({
-      ...prevState,
-      item: { ...prevState.item, photo: imageUrl },
-    }));
-
-    // ابعث البيانات مباشرة مع الرابط
-    let payload1 = {
-      ...formData1,
-      item: { ...formData1.item, photo: imageUrl }, // ✅ هون بنضيف الرابط بشكل أكيد
-    };
-
-    // الآن نرفع الفيديو
-    // const video = await uploadVideo(selectedFiles1);
-    // console.log("Returned URLs:", video);
-
-    // خزّن بالرابط أول فيديو (أو كل الفيديوهات حسب حاجتك)
-    // const vid1Url = video;
-
-    // حدّث الـ state (اختياري للعرض)
-    // setFormData1((prevState) => ({
-    //   ...prevState,
-    //   item: { ...prevState.item, video: vid1Url },
-    // }));
-
-    // ابعث البيانات مباشرة مع الرابط
-    // const payload = {
-    //   ...payload1, // استخدم payload1 هنا
-    //   item: { ...payload1.item, video: vid1Url }, // ✅ هون بنضيف الرابط بشكل أكيد
-    // };
-
-    console.log("ll", pic);
-    // console.log("pp", video);
-
-    // باقي منطق التحقق من البيانات...
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('cha');
+    console.log(selectedFiles);
     setHoverAuction('spinner-Auction');
-    const valditionErrerorsAuction = { item: {}, auction: {} };
 
-    // استكمال التحقق من صحة البيانات هنا (كما في الكود السابق)
-    // ...
+    try {
+      // رفع الصور ورجوع الروابط
+      const pic = await uploadImages(selectedFiles);
+      console.log('Returned URLs:', pic);
 
-    if (
-      Object.keys(valditionErrerorsAuction.auction).length === 0 &&
-      Object.keys(valditionErrerorsAuction.item).length === 0
-    ) {
-      const token = localStorage.getItem('jwt');
+      // خزّن بالرابط أول صورة (أو كل الصور حسب حاجتك)
+      const imageUrl = pic;
+
+      // حدّث الـ state (اختياري للعرض)
+      setFormData1((prevState) => ({
+        ...prevState,
+        item: { ...prevState.item, photo: imageUrl },
+      }));
+
+      // ابعث البيانات مباشرة مع الرابط
+      let payload1 = {
+        ...formData1,
+        item: { ...formData1.item, photo: imageUrl }, // ✅ هون بنضيف الرابط بشكل أكيد
+      };
+
+      // الآن نرفع الفيديو
+      // const video = await uploadVideo(selectedFiles1);
+      // console.log("Returned URLs:", video);
+
+      // خزّن بالرابط أول فيديو (أو كل الفيديوهات حسب حاجتك)
+      // const vid1Url = video;
+
+      // حدّث الـ state (اختياري للعرض)
+      // setFormData1((prevState) => ({
+      //   ...prevState,
+      //   item: { ...prevState.item, video: vid1Url },
+      // }));
+
+      // ابعث البيانات مباشرة مع الرابط
+      // const payload = {
+      //   ...payload1, // استخدم payload1 هنا
+      //   item: { ...payload1.item, video: vid1Url }, // ✅ هون بنضيف الرابط بشكل أكيد
+      // };
+
+      console.log('ll', pic);
+      // console.log("pp", video);
+
+      // باقي منطق التحقق من البيانات...
       setHoverAuction('spinner-Auction');
+      const valditionErrerorsAuction = { item: {}, auction: {} };
 
-      axiosInstance
-        .post('/api/v1/auctions', JSON.stringify(payload1), {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization:` Bearer ${token}`, // تأكد من استخدام القيم الصحيحة هنا
-          },
-        })
-        .then((res) => {
-          setHoverAuction('spinner');
-          console.log(res);
-          navegate('/createAuctions');
-        })
-        .catch((error) => {
-          setHoverAuction('spinner');
-          if (error.response) {
-            valditionErrerorsAuction.messageBackend =
-              error.response.data.message;
-            setErrorMessageAuc(valditionErrerorsAuction);
-            console.log('p3');
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            setErrorMessageAuc({
-              messageBackend: 'An unexpected error occurred.',
-            });
-          }
-        });
+      // استكمال التحقق من صحة البيانات هنا (كما في الكود السابق)
+      // ...
+
+      if (
+        Object.keys(valditionErrerorsAuction.auction).length === 0 &&
+        Object.keys(valditionErrerorsAuction.item).length === 0
+      ) {
+        const token = localStorage.getItem('jwt');
+        setHoverAuction('spinner-Auction');
+
+        axiosInstance
+          .post('/api/v1/auctions', JSON.stringify(payload1), {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept-Language': 'ar',
+              credentials: 'include',
+              Authorization: ` Bearer ${token}`, // تأكد من استخدام القيم الصحيحة هنا
+            },
+          })
+          .then((res) => {
+            setHoverAuction('spinner');
+            console.log(res);
+            navegate('/createAuctions');
+          })
+          .catch((error) => {
+            setHoverAuction('spinner');
+            if (error.response) {
+              valditionErrerorsAuction.messageBackend =
+                error.response.data.message;
+              setErrorMessageAuc(valditionErrerorsAuction);
+              console.log('p3');
+            } else {
+              console.log('An unexpected error occurred:', error.message);
+              setErrorMessageAuc({
+                messageBackend: 'An unexpected error occurred.',
+              });
+            }
+          });
+      }
+    } catch (uploadError) {
+      // معالجة أخطاء رفع الصور إذا كانت هناك حاجة
+      console.error('خطأ أثناء رفع الصور:', uploadError);
+      setHoverAuction('spinner');
+      return;
     }
-  } catch (uploadError) {
-    // معالجة أخطاء رفع الصور إذا كانت هناك حاجة
-    console.error('خطأ أثناء رفع الصور:', uploadError);
-    setHoverAuction('spinner');
-    return;
-  }
-};
+  };
 
   const handleChange1 = (e) => {
     const { name, value } = e.target;
@@ -586,24 +617,27 @@ const handleSubmit = async (e) => {
       });
     }
   };
-const rows=[]
-for(let i=1;i<allAuction?.length-2;i++){
-  rows.push( <>
-  <div></div>
-                  <p
-                    className="group-hover p2"
-                    onClick={() => hoverItems2(allAuction[i])}
-                  >
-                   {allAuction[i]}
-                  </p>
-                  <div></div></>)
-}
+  const rows = [];
+  for (let i = 1; i < allAuction?.length - 2; i++) {
+    rows.push(
+      <>
+        <div></div>
+        <p
+          className="group-hover p2"
+          onClick={() => hoverItems2(allAuction[i])}
+        >
+          {allAuction[i]}
+        </p>
+        <div></div>
+      </>
+    );
+  }
   return (
     <div className="create-auction-button">
       <Navbar wordBlod={'auctions'} />
       <p className="createp">إنشاء مزاد</p>
       <button className="	fas fa-chevron-left" onClick={goback}></button>
-      <form >
+      <form>
         <div className="create-auction-data">
           <div className="create-auction-data1">
             <div className="create-auction-form">
@@ -648,11 +682,11 @@ for(let i=1;i<allAuction?.length-2;i++){
                     {keyList.length > 0 &&
                       keyList.map((key) => (
                         <div className="product-name" key={key.key}>
-                          <label className="product-name-label">{key.key}</label>
+                          <label className="product-name-label">
+                            {key.key}
+                          </label>
                           <input
-                            type={`${
-                              key.dataType
-                            }`}
+                            type={`${key.dataType}`}
                             onChange={handleChange2(key.key)}
                             autoComplete="off"
                           />
@@ -706,6 +740,7 @@ for(let i=1;i<allAuction?.length-2;i++){
                     value={formData1.auction.auctionTitle}
                     onChange={handleChange1}
                     autoComplete="off"
+                    required
                   />
                   {errorMessageAuc.auction?.auctionTitle && (
                     <span className="error0 error-title">
@@ -736,9 +771,7 @@ for(let i=1;i<allAuction?.length-2;i++){
                     // formData === 'إكسسوارات' ||
                     // formData === 'ملابس' ||
                     // formData === 'أخرى'
-                    allAuction?.includes(formData)
-                      ? 'triangle1'
-                      : ''
+                    allAuction?.includes(formData) ? 'triangle1' : ''
                   } `}
                   onClick={() => hoverItems1('list2')}
                 >
@@ -753,6 +786,7 @@ for(let i=1;i<allAuction?.length-2;i++){
                   value={formData}
                   onChange={handleChange}
                   autoComplete="off"
+                  required
                   title="بعد اختيار المجموعة ستظهر معلومات أخرى تحتاج إلى ملأها"
                 />
                 <div
@@ -762,9 +796,17 @@ for(let i=1;i<allAuction?.length-2;i++){
                 >
                   <p
                     className="group-hover p1"
-                    onClick={() => hoverItems2(allAuction && allAuction?.length > 0 ? allAuction[0] : '')}
+                    onClick={() =>
+                      hoverItems2(
+                        allAuction && allAuction?.length > 0
+                          ? allAuction[0]
+                          : ''
+                      )
+                    }
                   >
-                  {allAuction && allAuction?.length > 0 ? allAuction[0] : 'لا توجد مجموعات'}
+                    {allAuction && allAuction?.length > 0
+                      ? allAuction[0]
+                      : 'لا توجد مجموعات'}
                   </p>
                   {/* <div></div>
                   <p
@@ -805,9 +847,17 @@ for(let i=1;i<allAuction?.length-2;i++){
                   {rows}
                   <p
                     className="group-hover p3"
-                    onClick={() => hoverItems2(allAuction && allAuction?.length > 0 ? allAuction[allAuction?.length-1] : '')}
+                    onClick={() =>
+                      hoverItems2(
+                        allAuction && allAuction?.length > 0
+                          ? allAuction[allAuction?.length - 1]
+                          : ''
+                      )
+                    }
                   >
-                  {allAuction && allAuction?.length > 0 ? allAuction[allAuction?.length-1] : ''}
+                    {allAuction && allAuction?.length > 0
+                      ? allAuction[allAuction?.length - 1]
+                      : ''}
                   </p>
                 </div>
                 <div className="product-name">
@@ -818,6 +868,7 @@ for(let i=1;i<allAuction?.length-2;i++){
                     value={formData1.auction.city}
                     onChange={handleChange1}
                     autoComplete="off"
+                    required
                   />
                   {errorMessageAuc.auction?.city && (
                     <span className="error0 error-title">
@@ -872,6 +923,7 @@ for(let i=1;i<allAuction?.length-2;i++){
                     value={formData1.auction.startingPrice}
                     onChange={handleChange1}
                     autoComplete="off"
+                    required
                   />
                   {errorMessageAuc.auction?.startingPrice && (
                     <span className="error0 error-starting-price">
@@ -889,6 +941,7 @@ for(let i=1;i<allAuction?.length-2;i++){
                     value={formData1.auction.minimumIncrement}
                     onChange={handleChange1}
                     autoComplete="off"
+                    required
                   />
                   {errorMessageAuc.auction?.minimumIncrement && (
                     <span className="error0 error-minimumIncrement">
@@ -913,6 +966,10 @@ for(let i=1;i<allAuction?.length-2;i++){
                   }`}
                 >
                   إرسال
+                  <span className="hint">
+                    {' '}
+                    اضغط لإرسال بيانات المزاد بعد التأكد من ملء جميع الحقول
+                  </span>
                 </button>
                 <div
                   className={`spinn-Auc ${
@@ -993,7 +1050,7 @@ for(let i=1;i<allAuction?.length-2;i++){
                         />
                         <button
                           className="choose"
-                         onClick={(event) => removeImage(index, event)}
+                          onClick={(event) => removeImage(index, event)}
                         >
                           x
                         </button>

@@ -33,46 +33,71 @@ export default function Create_Tender() {
       description: '',
     },
   });
-    const token = localStorage.getItem('jwt');
-    const [allTender, setAllTender] = useState([]);
-      useEffect(() => {
-      axiosInstance
-        .get(`/api/v1/categories?type=tender`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          // if (Array.isArray(res.data)) {
-          const x=res.data.data.data
-    const names = x.map((item) => item.name);
-    setAllTender(names);
-           console.log(names);
-  // } else {
-  //   console.error("Expected res.data to be an array");
-  // }
-          // setALLAuction(res.data.data.name);
-          // setWalletActivity(res.data.data);
-          
-          // console.log(walletActivity);
-        })
-        .catch((error) => {
-          console.log('error');
-          // setHover('spinner');
-          if (error.response) {
-            const validationErrors = {};
-            validationErrors.messageBackend = error.response.data.message;
-            setErrorMessage(validationErrors);
-          } else {
-            console.log('An unexpected error occurred:', error.message);
-            setErrorMessage({
-              messageBackend: 'An unexpected error occurred.',
-            });
-          }
-        });  }, []);
+  // لللللللللللللللللللللل
+  useEffect(() => {
+    // تحقق من أن كل الحقول الرئيسية ممتلئة
+    const { tender, item } = formData1;
+    const allTenderFilled =
+      tender.tenderTitle?.trim() &&
+      tender.city?.trim() &&
+      tender.startTime &&
+      tender.endTime &&
+      tender.startingPrice;
+
+    const allItemFilled =
+      item.name?.trim() &&
+      item.category?.trim() &&
+      // تحقق من كل الخصائص الإضافية إذا موجودة
+      (!item.properties ||
+        item.properties.every((p) => p.value?.trim() !== ''));
+
+    setIsButtonDisabled(
+      !(allTenderFilled && allItemFilled && formData?.trim())
+    );
+  }, [formData1, formData]);
+
+  // لللللللللللللللللللللل
+  const token = localStorage.getItem('jwt');
+  const [allTender, setAllTender] = useState([]);
+  useEffect(() => {
+    axiosInstance
+      .get(`/api/v1/categories?type=tender`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          credentials: 'include',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // if (Array.isArray(res.data)) {
+        const x = res.data.data.data;
+        const names = x.map((item) => item.name);
+        setAllTender(names);
+        console.log(names);
+        // } else {
+        //   console.error("Expected res.data to be an array");
+        // }
+        // setALLAuction(res.data.data.name);
+        // setWalletActivity(res.data.data);
+
+        // console.log(walletActivity);
+      })
+      .catch((error) => {
+        console.log('error');
+        // setHover('spinner');
+        if (error.response) {
+          const validationErrors = {};
+          validationErrors.messageBackend = error.response.data.message;
+          setErrorMessage(validationErrors);
+        } else {
+          console.log('An unexpected error occurred:', error.message);
+          setErrorMessage({
+            messageBackend: 'An unexpected error occurred.',
+          });
+        }
+      });
+  }, []);
   const navegaet = useNavigate();
   function goback() {
     window.history.go(-1);
@@ -291,18 +316,18 @@ export default function Create_Tender() {
         });
     }
   };
-const rows=[]
-for(let i=1;i<allTender?.length-2;i++){
-  rows.push( <>
-  <div></div>
-                  <p
-                    className="group-hover p2"
-                    onClick={() => hoverItems2(allTender[i])}
-                  >
-                   {allTender[i]}
-                  </p>
-                  <div></div></>)
-}
+  const rows = [];
+  for (let i = 1; i < allTender?.length - 2; i++) {
+    rows.push(
+      <>
+        <div></div>
+        <p className="group-hover p2" onClick={() => hoverItems2(allTender[i])}>
+          {allTender[i]}
+        </p>
+        <div></div>
+      </>
+    );
+  }
   return (
     <div className="create-auction-button">
       <Navbar wordBlod={'tenders'} />
@@ -337,9 +362,7 @@ for(let i=1;i<allTender?.length-2;i++){
                   // formData === 'خدمات منوعة' ||
                   // formData === 'مركبات واليات' ||
                   // formData === 'أخرى'
-                   allTender?.includes(formData)
-                    ? 'triangle1'
-                    : ''
+                  allTender?.includes(formData) ? 'triangle1' : ''
                 } `}
                 onClick={() => hoverItems1('list1')}
               >
@@ -360,9 +383,15 @@ for(let i=1;i<allTender?.length-2;i++){
               >
                 <p
                   className="group-hover p1"
-                  onClick={() => hoverItems2(allTender && allTender?.length > 0 ? allTender[0] : '')}
+                  onClick={() =>
+                    hoverItems2(
+                      allTender && allTender?.length > 0 ? allTender[0] : ''
+                    )
+                  }
                 >
-                     {allTender && allTender?.length > 0 ? allTender[0] : 'لا توجد مجموعات'}
+                  {allTender && allTender?.length > 0
+                    ? allTender[0]
+                    : 'لا توجد مجموعات'}
                 </p>
                 {/* <div></div>
                 <p
@@ -386,12 +415,20 @@ for(let i=1;i<allTender?.length-2;i++){
                   مركبات وآليات
                 </p>
                 <div></div> */}
-{rows}
+                {rows}
                 <p
                   className="group-hover p3"
-                  onClick={() => hoverItems2(allTender && allTender?.length > 0 ? allTender[allTender?.length-1] : '')}
+                  onClick={() =>
+                    hoverItems2(
+                      allTender && allTender?.length > 0
+                        ? allTender[allTender?.length - 1]
+                        : ''
+                    )
+                  }
                 >
-                  {allTender && allTender?.length > 0 ? allTender[allTender?.length-1] : ''}
+                  {allTender && allTender?.length > 0
+                    ? allTender[allTender?.length - 1]
+                    : ''}
                 </p>
               </div>
 
@@ -460,6 +497,9 @@ for(let i=1;i<allTender?.length-2;i++){
                 }`}
               >
                 إرسال
+                <span className="hint">
+                  اضغط لإرسال بيانات المناقصة بعد التأكد من ملء جميع الحقول
+                </span>
               </button>
             </div>
             <div className="group1">

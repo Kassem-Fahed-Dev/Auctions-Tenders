@@ -506,7 +506,7 @@ p.upload {
 }
 .create-auction-form2 {
   padding-top: 18px;
-   height: fit-content;
+  height: fit-content;
   background-color: #ccc;
   direction: rtl;
   display: flex;
@@ -584,7 +584,7 @@ p.upload {
   z-index: 2;
 }
 .tri33 {
-   cursor: pointer;
+  cursor: pointer;
   position: relative;
   right: 300px;
   width: 15px;
@@ -1121,7 +1121,7 @@ button.pos1 {
   /* position: relative; */
   /* top: 800px; */
   top: 50px;
-  left:-100px ;
+  left: -100px;
 }
 .listSort .buttonSort .buttonpos5 {
   /* position: relative; */
@@ -1149,7 +1149,6 @@ button.pos1 {
   top: 45px;
   left: -90px;
 }
-
 
 .listSort .buttonSort button.crpr {
   /* position: relative; */
@@ -1215,11 +1214,11 @@ i.alluser {
   top: 65px;
   left: 80px;
 }
-.listSort .buttonSort .buttonpos4cre{
+.listSort .buttonSort .buttonpos4cre {
   top: 65px;
   left: 156px;
 }
-.listSort .buttonSort .buttonpos2cre{ 
+.listSort .buttonSort .buttonpos2cre {
   top: 70px;
   left: 450px;
 }
@@ -1235,15 +1234,71 @@ i.alluser {
   top: 70px;
   left: 138px;
 }
-.listSort .buttonSort .buttonpos7cre{
- top: 80px;
+.listSort .buttonSort .buttonpos7cre {
+  top: 80px;
   left: -74px;
 }
-.listSort .buttonSort .buttonpos8cre{
- top: 50px;
+.listSort .buttonSort .buttonpos8cre {
+  top: 50px;
   left: -74px;
 }
-.listSort .buttonSort .buttonpos9cre{
- top: 50px;
+.listSort .buttonSort .buttonpos9cre {
+  top: 50px;
   left: -85px;
+}
+
+.send-auction .hint {
+  visibility: hidden;
+  width: max-content;
+  background-color: rgb(204, 204, 204);
+  color: red;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 16px;
+  position: absolute;
+  z-index: 1;
+  top: 100%; /* يظهر فوق الزر */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none; /* حتى لا يمنع الضغط على الزر */
+}
+
+.send-auction:hover .hint {
+  visibility: visible;
+  opacity: 1;
+}
+.send-auction {
+  position: relative;
+}
+/* tender */
+.button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.button-wrapper .hint {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: -35px; /* فوق الزر */
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.button-wrapper:hover .hint {
+  visibility: visible;
+  opacity: 1;
 }
