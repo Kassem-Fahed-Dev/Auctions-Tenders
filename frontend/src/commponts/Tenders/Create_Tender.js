@@ -40,6 +40,7 @@ export default function Create_Tender() {
     const allTenderFilled =
       tender.tenderTitle?.trim() &&
       tender.city?.trim() &&
+      item.description?.trim() &&
       tender.startTime &&
       tender.endTime &&
       tender.startingPrice;
@@ -50,10 +51,8 @@ export default function Create_Tender() {
       // تحقق من كل الخصائص الإضافية إذا موجودة
       (!item.properties ||
         item.properties.every((p) => p.value?.trim() !== ''));
-
-    setIsButtonDisabled(
-      !(allTenderFilled && allItemFilled && formData?.trim())
-    );
+    const groupSelected = formData?.trim();
+    setIsButtonDisabled(!(allTenderFilled && allItemFilled && groupSelected));
   }, [formData1, formData]);
 
   // لللللللللللللللللللللل
@@ -487,6 +486,7 @@ export default function Create_Tender() {
               </div>
 
               <button
+                // type="button"
                 disabled={isButtonDisabled}
                 className={`send-auction ${
                   hoverAuc.includes('no') ? 'hidden-send' : ''
@@ -594,7 +594,8 @@ export default function Create_Tender() {
           <div className="list-data">
             <button
               onClick={() => handleHover('بيانات')}
-              className={hover == 'بيانات' ? 'back' : ''}
+              className="backf"
+              // className={hover == 'بيانات' ? 'back' : ''}
             >
               البيانات
             </button>

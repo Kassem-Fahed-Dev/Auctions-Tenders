@@ -307,7 +307,9 @@
   font-family: IBM Plex Sans Arabic;
   color: #000000;
 }
-
+/* .nn h3 {
+  padding-right: -50px;
+} */
 /* for the flex the side and other componant such as create */
 .con-flex {
   padding-top: 40px;

@@ -238,13 +238,7 @@ export default function Auction({
         className={`fas fa-heart ${col}`}
         onClick={(e) => handel_Fav(e, data)}
       ></button>
-      <img
-        className="imageAuction"
-        src={
-          data.item?.photo[0]
-        }
-        alt="Error"
-      />
+      <img className="imageAuction" src={data.item?.photo[0]} alt="Error" />
       <p className="nameCube">{data?.auctionTitle}</p>
 
       <div className="userName">

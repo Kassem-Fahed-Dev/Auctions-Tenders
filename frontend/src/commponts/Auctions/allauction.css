@@ -39,19 +39,22 @@
   font-weight: bold;
 }
 .sort {
-  width: 214px;
+  /* width: 214px; */
+  width: 232px;
   height: 42px;
   background-color: #fff;
   border-radius: 22px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  gap: 40px;
+  /* gap: 40px; */
   justify-content: center;
   text-align: end;
   padding: 10px;
-  padding-left: 20px;
-  font-size: 24px;
+  /* gap: 9px; */
+
+  /* padding-left: 20px; */
+  font-size: 23px;
   position: absolute;
   top: 210px;
 
@@ -85,6 +88,7 @@
 }
 .fas1:hover + .sort {
   background-color: #003366;
+  /* gap: 20px; */
 }
 .sort1.fas.fa-chevron-left {
   transform: rotate(-90deg);
@@ -94,6 +98,9 @@
   transform: rotate(90deg);
   color: black;
   font-size: 22px;
+}
+.sort:hover {
+  gap: 20px;
 }
 .sort:hover,
 .sort1:hover + .sort {
@@ -1165,7 +1172,7 @@ button.pos1 {
   display: block;
 }
 .visable2 {
-  height: 240px;
+  /* height: 240px; */
   display: block;
 }
 .visable3 {
@@ -1173,7 +1180,7 @@ button.pos1 {
   display: block;
 }
 .visable4 {
-  height: 155px;
+  /* height: 155px; */
   display: block;
 }
 .listSort .sortp button {
@@ -1301,4 +1308,20 @@ i.alluser {
 .button-wrapper:hover .hint {
   visibility: visible;
   opacity: 1;
+}
+.backf {
+  color: #fff;
+  border-radius: 8px;
+  height: 50px;
+  width: 90px;
+  text-align: center;
+  padding-top: 10px;
+  width: 90px;
+  height: 50px;
+  font-weight: bold;
+  background-color: #003366 !important;
+}
+.createauction {
+  position: relative;
+  z-index: 9999;
 }
