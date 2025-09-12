@@ -1,6 +1,7 @@
 import './AllUsers.css';
 import im from '../../image/user2.jpg';
 import { Link } from 'react-router-dom';
+import Pagination from '../Auctions/Pagination';
 export default function CardUser({da}) {
   return (
     <>
@@ -27,6 +28,7 @@ export default function CardUser({da}) {
           ></path>
         </svg>
       </div>
+
     </>
   );
 }

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import CardTen from './CardTen';
 import ButtonSortTen from './ButtonSortten';
 import Search from '../Auctions/Serach';
-
+import Pagination from '../Auctions/Pagination';
 export default function ShareTenders() {
 
   const [hover, setHover] = useState(false);
@@ -33,6 +33,7 @@ export default function ShareTenders() {
         <ButtonSortTen test2='share'/>
       
        <CardTen page={'share'}/>
+       <Pagination/>
         <Footer />
       </div>
     </>

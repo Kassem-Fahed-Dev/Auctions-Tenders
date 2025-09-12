@@ -9,6 +9,7 @@ import axiosInstance from '../AxiosInterceptors';
 import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
 import Search from './Serach';
+import Pagination from './Pagination';
 export default function AllAuctions() {
   const [value, setValue] = useState('فرز حسب');
   const [value1, setValue1] = useState('فرز حسب');
@@ -95,7 +96,7 @@ export default function AllAuctions() {
       </div>
        
       <Cards page="all" />
-
+     <Pagination count={'1'}/>
       <Footer />
     </div>
   );

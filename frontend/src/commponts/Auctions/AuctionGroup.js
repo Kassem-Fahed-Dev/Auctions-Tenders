@@ -8,6 +8,7 @@ import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
 import Search from './Serach';
 import { useLocation } from 'react-router-dom';
+import Pagination from './Pagination';
 export default function AuctionGroup() {
   const navegaet = useNavigate();
   // let sort;
@@ -163,6 +164,7 @@ export default function AuctionGroup() {
       </div>
       
       <Cards page="group" item={data} />
+      <Pagination/>
       <Footer />
     </div>
   );

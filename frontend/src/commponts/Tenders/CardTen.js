@@ -1,36 +1,15 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import Tender from './Tender';
-
+import { usePagination } from '../Auctions/PaginationContext';
 export default function CardTen({page,item,id,showDelete}) {
   // console.log(id)
   const [all, setAll] = useState([]);
   let sort;
     const token = localStorage.getItem('jwt'); 
   const [errorMessage, setErrorMessage] = useState({});
-  //    if(item=="سيارات"){
-  //       sort=localStorage.getItem('status4tn')
-     
-  //  }
-  //  else if(item=="عقارات"){
-  //       sort=localStorage.getItem('status5tn')
-      
-  //  }else if(item=="إلكترونيات"){
-  //       sort=localStorage.getItem('status6tn')
-     
-  //  }else if(item=="أثاث"){
-  //       sort=localStorage.getItem('status7tn')
-     
-  //  }else if(item=="ملابس"){
-  //       sort=localStorage.getItem('status8tn')
- 
-  //  }else if(item=="إكسسوار"){
-  //       sort=localStorage.getItem('status9tn')
-    
-  //  }else if(item=="أخرى"){
-  //       sort=localStorage.getItem('status10tn')
+  const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
 
-  //  }else
      if(page=="fav"){
         sort=localStorage.getItem('status1tn')
 
@@ -69,10 +48,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           '/api/v1/tenders?status=مقبول'
+           `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -87,6 +66,10 @@ export default function CardTen({page,item,id,showDelete}) {
     .then((res) => {
       setAll(res.data.data.data);
       console.log(res.data.data.data);
+          if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
     })
     .catch((error) => {
       if (error.response) {
@@ -108,10 +91,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           `/api/v1/tenders?user=${id}&status=مقبول`
+           `/api/v1/tenders?user=${id}&page=${currentPage}&limit=3&status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?user=${id}&status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?user=${id}&status=${sort.trim()}`
+          ? `/api/v1/tenders?user=${id}&page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?user=${id}&page=${currentPage}&limit=3&status=${sort.trim()}`
       }`
       ,
       {
@@ -126,6 +109,10 @@ export default function CardTen({page,item,id,showDelete}) {
     .then((res) => {
       setAll(res.data.data.data);
       console.log(res.data.data.data);
+          if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
     })
     .catch((error) => {
       if (error.response) {
@@ -150,10 +137,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          '/api/v1/tenders/myTenders?status=مقبول'
+          `/api/v1/tenders/myTenders?page=${currentPage}&limit=3&status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/myTenders?activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/myTenders?status=${sort.trim()}`
+          ? `/api/v1/tenders/myTenders?page=${currentPage}&limit=3&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/myTenders?page=${currentPage}&limit=3&status=${sort.trim()}`
       }`
       ,
       {
@@ -169,6 +156,10 @@ export default function CardTen({page,item,id,showDelete}) {
       setAll(res.data.data.data);
       console.log('create')
       console.log(res.data.data.data);
+          if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
     })
     .catch((error) => {
       if (error.response) {
@@ -191,8 +182,8 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'
           ? 
-          `/api/v1/tenders?status=مقبول&categoryName=${item}`
-          : `/api/v1/tenders?status=مقبول&categoryName=${item}&activeStatus=${sort.trim()}`
+          `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3&categoryName=${item}`
+          : `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3&categoryName=${item}&activeStatus=${sort.trim()}`
           
       }`
       ,
@@ -209,6 +200,10 @@ export default function CardTen({page,item,id,showDelete}) {
       setAll(res.data.data.data);
       console.log('create')
       console.log(res.data.data.data);
+          if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
     })
     .catch((error) => {
       if (error.response) {
@@ -231,10 +226,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders?status=مقبول`
+          `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -252,7 +247,10 @@ export default function CardTen({page,item,id,showDelete}) {
       // تعيين العناصر المفلترة إلى الحالة
       setAll(favorites);
       
-      
+          if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
       console.log(res.data.data.data);
     })
     .catch((error) => {
@@ -277,10 +275,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders?status=مقبول`
+          `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -294,7 +292,10 @@ export default function CardTen({page,item,id,showDelete}) {
     )
     .then((res) => {
       const favorites = res.data.data.data.filter(item => item.favorite === true);
-    
+        if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
       // تعيين العناصر المفلترة إلى الحالة
       setAll(favorites);
       
@@ -321,10 +322,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders/participateTenders?status=مقبول`
+          `/api/v1/tenders/participateTenders?page=${currentPage}&limit=3&status=مقبول`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/participateTenders?status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/participateTenders?status=مقبول&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/participateTenders?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
+          : `/api/v1/tenders/participateTenders?page=${currentPage}&limit=3&status=مقبول&categoryName=${sort.trim()}`
       }`
       ,
       {
@@ -340,6 +341,10 @@ export default function CardTen({page,item,id,showDelete}) {
       setAll(res.data.data.data);
       console.log('create')
       console.log(res.data.data.data);
+          if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
     })
     .catch((error) => {
       if (error.response) {
@@ -354,48 +359,8 @@ export default function CardTen({page,item,id,showDelete}) {
       }
     });
   }
-  // else if(page=="sharep"){
-  
-  //   console.log(sort)
-  //   axiosInstance
-  //   .get(
-  //     `${
-  //     sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
-  //         ? 
-  //         `/api/v1/tenders/participateTenders?status=مقبول`
-  //         : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-  //         ? `/api/v1/tenders/participateTenders?status=مقبول&activeStatus=${sort.trim()}`
-  //         : `/api/v1/tenders/participateTenders?status=مقبول&categoryName=${sort.trim()}`
-  //     }`
-  //     ,
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Accept-Language': 'ar',
-  //          'credentials': 'include',
-  //           'Authorization': `Bearer ${token}`,
-  //       },
-  //     }
-  //   )
-  //   .then((res) => {
-  //     setAll(res.data.data.data);
-  //     console.log('create')
-  //     console.log(res.data.data.data);
-  //   })
-  //   .catch((error) => {
-  //     if (error.response) {
-  //       const validationErrors = {};
-  //       validationErrors.messageBackend = error.response.data.message;
-  //       setErrorMessage(validationErrors);
-  //     } else {
-  //       console.log('An unexpected error occurred:', error.message);
-  //       setErrorMessage({
-  //         messageBackend: 'An unexpected error occurred.',
-  //       });
-  //     }
-  //   });
-  // }
-},[sort])
+
+},[sort,currentPage])
   return (
     <>
       <div className="alotofAuction">

@@ -10,6 +10,7 @@ import Tender from './Tender';
 import ButtonSortTen from './ButtonSortten';
 import CardTen from './CardTen';
 import Search from '../Auctions/Serach';
+import Pagination from '../Auctions/Pagination';
 export default function AllTenders() {
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
@@ -32,7 +33,7 @@ export default function AllTenders() {
       <ButtonSortTen test2={'all'} />
      
       <CardTen page={'all'} />
-
+<Pagination/>
       <Footer />
     </>
   );

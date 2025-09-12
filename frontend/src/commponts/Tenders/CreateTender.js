@@ -2,7 +2,7 @@
 import Footer from '../privacy policy/Footer';
 import Tender from './Tender';
 import TendersNavbar from './TendersNavbar';
-
+import Pagination from '../Auctions/Pagination'
 import Navbar from '../Home/Navbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -173,17 +173,8 @@ export default function CreateTender() {
             </button>
           </div>
         </div>
-        {/* <div className="flexible">
-          <Tender showDelete={true} />
-          <Tender showDelete={true} />
-          <Tender showDelete={true} />
-          <Tender showDelete={true} />
-          <Tender showDelete={true} />
-          <Tender showDelete={true} />
-          <Tender showDelete={true} />
-        </div> */}
-       
         <CardTen page={'create'} showDelete={true} />
+        <Pagination/>
         <Footer />
       </div>
     </>
