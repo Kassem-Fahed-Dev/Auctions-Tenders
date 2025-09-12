@@ -16,6 +16,8 @@ export default function CreateAuction() {
   const [errorMessage, setErrorMessage] = useState({});
   const [errorMessageAuc, setErrorMessageAuc] = useState({});
   const navegate = useNavigate();
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
   const [formData1, setFormData1] = useState({
     auction: {
       auctionTitle: '',
@@ -98,9 +100,42 @@ export default function CreateAuction() {
       });
   }, []);
   // test for required
+  // useEffect(() => {
+  //   const checkFormComplete = () => {
+  //     const { name, properties } = formData1.item;
+  //     const {
+  //       numberOfItems,
+  //       auctionTitle,
+  //       city,
+  //       startTime,
+  //       endTime,
+  //       startingPrice,
+  //       minimumIncrement,
+  //     } = formData1.auction;
+
+  //     // تحقق من كل الحقول المطلوبة
+  //     const allRequiredFilled =
+  //       name.trim() &&
+  //       numberOfItems &&
+  //       auctionTitle.trim() &&
+  //       city.trim() &&
+  //       startTime &&
+  //       endTime &&
+  //       selectedFiles==0&&
+  //       startingPrice &&
+  //       minimumIncrement &&
+  //       formData.trim() && // المجموعة
+  //       (properties.every((p) => p.value && p.value.trim() !== '') ||
+  //         properties.length === 0);
+
+  //     setIsButtonDisabled(!allRequiredFilled);
+  //   };
+
+  //   checkFormComplete();
+  // }, [formData1, formData]);
   useEffect(() => {
     const checkFormComplete = () => {
-      const { name, properties } = formData1.item;
+      const { name, properties, description, status } = formData1.item;
       const {
         numberOfItems,
         auctionTitle,
@@ -114,12 +149,14 @@ export default function CreateAuction() {
       // تحقق من كل الحقول المطلوبة
       const allRequiredFilled =
         name.trim() &&
+        description.trim() && // ✅ الوصف إلزامي
+        status.trim() && // ✅ الحالة إلزامية
         numberOfItems &&
         auctionTitle.trim() &&
         city.trim() &&
         startTime &&
         endTime &&
-        selectedFiles==0&&
+        selectedFiles.length > 0 && // ✅ لازم صورة واحدة على الأقل
         startingPrice &&
         minimumIncrement &&
         formData.trim() && // المجموعة
@@ -130,7 +167,7 @@ export default function CreateAuction() {
     };
 
     checkFormComplete();
-  }, [formData1, formData]);
+  }, [formData1, formData, selectedFiles]);
 
   // test for required
   //الصور
@@ -410,7 +447,7 @@ export default function CreateAuction() {
   //  444444444444444444444444444
   const [images, setImages] = useState([]);
   const [fileInputKey, setFileInputKey] = useState(Date.now());
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  // const [selectedFiles, setSelectedFiles] = useState([]);
   console.log(selectedFiles1);
   const handleImageChange = (event) => {
     const files = Array.from(event.target?.files);
@@ -967,10 +1004,12 @@ export default function CreateAuction() {
                   }`}
                 >
                   إرسال
-                  <span className="hint">
-                    {' '}
-                    اضغط لإرسال بيانات المزاد بعد التأكد من ملء جميع الحقول
-                  </span>
+                  {isButtonDisabled && (
+                    <span className="hint">
+                      {' '}
+                      اضغط لإرسال بيانات المزاد بعد التأكد من ملء جميع الحقول
+                    </span>
+                  )}
                 </button>
                 <div
                   className={`spinn-Auc ${

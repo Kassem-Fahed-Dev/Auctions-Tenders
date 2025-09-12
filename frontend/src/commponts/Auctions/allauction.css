@@ -485,8 +485,8 @@ p.upload {
 }
 .create-auction-data1 {
   width: 680px;
-  /* min-height: 500px; */
-  min-height: 610px;
+  height: fit-content;
+  /* min-height: 610px; */
   height: 692px;
   font-size: 20px;
   font-weight: 600;
@@ -517,6 +517,7 @@ p.upload {
   background-color: #ccc;
   direction: rtl;
   display: flex;
+  padding-bottom: 110px;
   gap: 20px;
   /* background-color: #1100ff; */
 }
@@ -690,6 +691,7 @@ p.upload {
   display: flex;
   position: relative;
 }
+/* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaucccccccccccccccccccccccccccccccc */
 .send-auction {
   background-color: #003366;
   color: #fff;
@@ -770,7 +772,8 @@ input [type='date'] {
   padding-top: 10px;
   cursor: pointer;
 }
-.list-data div.back ,.list-data button.back{
+.list-data div.back,
+.list-data button.back {
   background-color: #003366;
   color: #fff;
   border-radius: 8px;
@@ -1335,9 +1338,9 @@ i.alluser {
 }
 
 ul.pagination {
-/* ======= */
-/* ======= */
-/* ul.pagination{
+  /* ======= */
+  /* ======= */
+  /* ul.pagination{
 >>>>>>> Stashed changes */
   /* color: #fff; */
   width: 300px;
@@ -1353,9 +1356,29 @@ ul.pagination {
 } */
 li.page-item {
   background-color: #00000050;
-/* <<<<<<< Updated upstream */
+  /* <<<<<<< Updated upstream */
 }
 /* ======= */
- /* } */
+/* } */
 /* >>>>>>> Stashed changes
 >>>>>>> Stashed changes */
+.loading-spinner {
+  border: 3px solid #4d4d4d; /* خلفية فاتحة */
+  border-top: 3px solid #a8a8a8; /* اللون الأساسي */
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
