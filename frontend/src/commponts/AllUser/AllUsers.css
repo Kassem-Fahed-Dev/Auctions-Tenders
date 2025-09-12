@@ -27,11 +27,40 @@
 .conCards {
   margin-top: 80px;
   display: flex;
+  /* min-height: 1000vb; */
   justify-content: space-evenly;
   flex-wrap: wrap;
   flex-direction: row;
   gap: 40px;
 }
+ul.pagination{
+  /* color: #fff; */
+width: 300px;
+  /* margin: auto; */
+  /* background-color: #b90909; */
+  position: relative;
+    left: 620px;
+    bottom: 5px;
+  /* bottom: 100px; */
+}
+/* button.page-link{
+  background-color: #003366;
+} */
+ li.page-item{
+  background-color: #00000050;
+ }
+
+/* .high{
+  min-height: 1000px;
+} */
+ /* ul.pag{
+  position: absolute;
+  bottom: -300px;
+ } */
+ div.pag{
+  position: relative;
+  bottom: 5px;
+ }
 .containerCard {
   direction: rtl;
   background-color: #ebebeb;

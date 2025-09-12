@@ -61,6 +61,8 @@ import axiosInstance from './commponts/AxiosInterceptors';
 import Notification from './commponts/Home/Notifiction/Notification';
 import UnReadnotification from './commponts/Home/Notifiction/UnReadnotification';
 import Readnotification from './commponts/Home/Notifiction/Readnotification';
+import { PaginationProvider } from './commponts/Auctions/PaginationContext';
+import { useLocation } from 'react-router-dom';
 // <<<<<<< HEAD
 // import Group from './commponts/Group'
 // =======
@@ -153,6 +155,8 @@ const [allTender, setALLTender] = useState([]);
     }, []);
     localStorage.setItem('allgroup',allAuction)
     localStorage.setItem('allgroup1',allTender)
+    
+
   //     for(let i=0;i<allAuction.length;i++){
   //       localStorage.setItem(`group${allAuction[i]}`,'فرز حسب')
   //     }
@@ -161,7 +165,8 @@ const [allTender, setALLTender] = useState([]);
   //     }
   return (
     <div className="App">
-      <Routes>
+     <PaginationProvider>
+       <Routes>
 {/* <<<<<<< HEAD */}
        
 // =======
@@ -263,6 +268,7 @@ const [allTender, setALLTender] = useState([]);
         {/* <Route path="/result" element={<Result />} /> */}
 {/* >>>>>>> c9cd868c13e655ef233463f5ebb7c81e546d1fa3  */}
       </Routes>
+     </PaginationProvider>
     </div>
   );
 }

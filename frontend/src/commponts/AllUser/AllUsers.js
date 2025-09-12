@@ -14,6 +14,7 @@ import Serach from '../../commponts/Auctions/Serach';
 import { fetchUserFromAPI } from '../Account/Profile/store/Redux';
 import CardTen from '../Tenders/CardTen';
 import ButtonSortTen from '../../commponts/Tenders/ButtonSortten';
+import Pagination from '../Auctions/Pagination';
 export default function AllUsers() {
   const [change, setChange] = useState('personal');
   let sort;
@@ -555,6 +556,7 @@ export default function AllUsers() {
                 <div className="alotof">
                   <CardTen id={da?._id} page={'id'} />
                 </div>
+                
               </div>
             </div>
           )}

@@ -5,15 +5,18 @@ import Footer from '../privacy policy/Footer';
 import ButtonSort from '../Home/ButtonSort';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
+import { usePagination } from './PaginationContext';
+import Pagination from './Pagination';
 export default function AuctionGroups() {
   const navegate = useNavigate();
    const token = localStorage.getItem('jwt');
    const [all,setAll]=useState([])
+    const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
     const [errorMessage, setErrorMessage] = useState({});
  useEffect(()=>{axiosInstance
         .get(
           `${
-            '/api/v1/categories?type=auction'
+            `/api/v1/categories?type=auction&page=${currentPage}&limit=6`
              
           }`,
           {
@@ -27,6 +30,10 @@ export default function AuctionGroups() {
         )
         .then((res) => {
           setAll(res.data.data.data);
+           if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
           console.log('create');
           console.log(res.data.data.data);
         })
@@ -41,7 +48,7 @@ export default function AuctionGroups() {
               messageBackend: 'An unexpected error occurred.',
             });
           }
-        });},[])
+        });},[currentPage])
   return (
     <div>
       <Navbar wordBlod={'auctions'} />
@@ -57,41 +64,7 @@ export default function AuctionGroups() {
       </button>
      
       <div className="group-con">
-        {/* <div className="group-div div1">
-          <Link className="link" to="/car">
-            سيارات
-          </Link>
-        </div>
-        <div className="group-div div2">
-          <Link className="link" to="/bilding">
-            عقارات
-          </Link>
-        </div>
-        <div className="group-div div3">
-          <Link className="link" to="/elctron">
-            إلكترونيات
-          </Link>
-        </div>
-        <div className="group-div div4">
-          <Link className="link" to="/fir">
-            أثاث
-          </Link>
-        </div>
-        <div className="group-div div5">
-          <Link className="link" to="/clothe">
-            ملابس
-          </Link>
-        </div>
-        <div className="group-div div6">
-          <Link className="link" to="/jel">
-            إكسسوار
-          </Link>
-        </div>
-        <div className="group-div div7">
-          <Link className="link" to="/other">
-            أخرى
-          </Link>
-        </div> */}
+
         {all.map((auc) => (
              <div className="group-div div7" style={{backgroundImage:`url(${auc?.image})`}}>
           <Link className="link" state={{data:auc.name}} to="/other">
@@ -100,6 +73,8 @@ export default function AuctionGroups() {
         </div>
                 ))}
       </div>
+      
+      <div className='pag'><Pagination/></div>
       <Footer />
     </div>
   );

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Cards from './Cards';
 import ButtonSort from '../Home/ButtonSort';
 import Search from './Serach';
+import Pagination from './Pagination';
 export default function AuctionNew() {
   let st='status2'
   let sort=localStorage.getItem('status2')
@@ -166,19 +167,8 @@ export default function AuctionNew() {
           </button>
         </div>
       </div>
-      {/* <div className="flexible"> */}
-        {/* <Auction showDelete={true} />
-        <Auction showDelete={true} />
-        <Auction showDelete={true} />
-        <Auction showDelete={true} />
-        <Auction showDelete={true} />
-        <Auction showDelete={true} />
-        <Auction showDelete={true} />
-        <Auction showDelete={true} />
-      </div> */}
-      
       <Cards page="create"  showDelete={true}/>
-
+<Pagination/>
       <Footer />
     </div>
   );

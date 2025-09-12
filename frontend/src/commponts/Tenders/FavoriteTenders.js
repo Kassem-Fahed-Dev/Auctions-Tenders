@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import CardTen from './CardTen';
 import Search from '../Auctions/Serach';
 import ButtonSortTen from './ButtonSortten';
-
+import Pagination from '../Auctions/Pagination';
 export default function FavoriteTenders() {
     const navegate = useNavigate();
-  // const [value, setValue] = useState('فرز حسب');
+
   // const [value1, setValue1] = useState('فرز حسب');
   // const [value2, setValue2] = useState('');
   // const [test, setTest] = useState('');
@@ -72,139 +72,14 @@ export default function FavoriteTenders() {
         <p>إنشاء مناقصة</p>
         <i className="fas fa-plus"></i>
       </button>
-        {/* <button
-          className="createauction"
-          onClick={() => {
-            navegate('/Create_Tender');
-          }}
-        >
-          <p>إنشاء مناقصة</p>
-          <i className="fas fa-plus"></i>
-        </button>
-        <button
-          className="sort sort-ten"
-          type="text"
-          onMouseEnter={() => {
-            setHover(true);
-          }}
-          onMouseLeave={() => {
-            setHover(false);
-          }}
-          onClick={handleClick}
-          value={value}
-        >
-          <div>{value}</div>
-          <i
-            className={`fas fa-chevron-left fas1 ${
-              hover == true ? 'white' : 'black'
-            } ${
-              value.includes(' مجموعات') ||
-              value.includes(' الوقت') ||
-              value.includes('فرز حسب')
-                ? 'sort1'
-                : 'sort2'
-            }`}
-            onclick={handleClick}
-          ></i>
-        </button>
-        <div
-          className={`listSort  ${test.includes('فرز حسب') ? 'visable' : ''}`}
-        >
-          <div className="buttonSort">
-            <button
-              className="button1"
-              onClick={() => {
-                handleClick2(' مجموعات');
-              }}
-            >
-              المجموعة
-            </button>
-            <button
-              className="button2"
-              onClick={() => {
-                handleClick2(' الوقت');
-              }}
-            >
-              الوقت
-            </button>
-          </div>
-        </div>
-        <div
-          className={`listSort  ${test.includes(' مجموعات') ? 'visable' : ''}`}
-        >
-          <div className="buttonSort">
-            <button
-              className="button1"
-              onClick={() => {
-                handleClick2('بناء و إعمار');
-              }}
-            >
-              بناء و إعمار
-            </button>
-            <button
-              onClick={() => {
-                handleClick2(' خدمات لأماكن عامة ');
-              }}
-            >
-              خدمات لأماكن عامة{' '}
-            </button>
-            <button
-              onClick={() => {
-                handleClick2(' خدمات منوعة');
-              }}
-            >
-              خدمات منوعة
-            </button>
-            <button
-              onClick={() => {
-                handleClick2(' مركبات و آليات');
-              }}
-            >
-              مركبات و آليات
-            </button>
-            <button
-            className="button2"
-              onClick={() => {
-                handleClick2(' أخرى');
-              }}
-            >
-              أخرى
-            </button>
-          </div>
-        </div>
-        <div className={`listSort  ${test.includes(' الوقت') ? 'visable' : ''}`}>
-        <div className="buttonSort">
-          <button
-            className="button1"
-            onClick={() => {
-              handleClick2(' جاري');
-            }}
-          >
-           جاري
-          </button>
-          <button
-            onClick={() => {
-              handleClick2(' قادم');
-            }}
-          >
-            قادم
-          </button>
-          <button
-            className="button2"
-            onClick={() => {
-              handleClick2(' منتهي');
-            }}
-          >
-            منتهي
-          </button>
-        </div>
-      </div> */}
+       
       
 <ButtonSortTen test2={"fav"} position={"profile2"}/>
       
      <div className='margin'>
         <CardTen page={'fav'}/>
         </div>
+        <Pagination/>
         <Footer />
       </div>
     </>

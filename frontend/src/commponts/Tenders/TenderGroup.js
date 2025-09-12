@@ -7,6 +7,7 @@ import { useState } from 'react';
 import CardTen from './CardTen';
 import Search from '../Auctions/Serach';
 import { useLocation } from 'react-router-dom';
+import Pagination from '../Auctions/Pagination';
 export default function TenderGroup({ paragraph }) {
   const navegaet = useNavigate();
    
@@ -153,6 +154,7 @@ let sort=localStorage.getItem(`group${data}`)
       </div>
     
         <CardTen page="group" item={data}/>
+        <Pagination/>
       <Footer />
     </div>
   );

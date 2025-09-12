@@ -20,7 +20,7 @@ mongoose
   .then(() => console.log('done'))
   .catch((err) => console.log(err));
 const port = process.env.port * 1 || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('the server is running');
 });
 

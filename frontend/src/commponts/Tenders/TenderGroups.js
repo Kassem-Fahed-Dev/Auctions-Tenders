@@ -3,16 +3,19 @@ import Navbar from '../Home/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../privacy policy/Footer';
 import { useEffect, useState } from 'react';
+import { usePagination } from '../Auctions/PaginationContext';
 import axiosInstance from '../AxiosInterceptors';
+import Pagination from '../Auctions/Pagination';
 export default function TenderGroups() {
   const navegate = useNavigate();
      const token = localStorage.getItem('jwt');
      const [all,setAll]=useState([])
       const [errorMessage, setErrorMessage] = useState({});
+      const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
    useEffect(()=>{axiosInstance
           .get(
             `${
-              '/api/v1/categories?type=tender'
+              `/api/v1/categories?type=tender&page=${currentPage}&limit=6`
                
             }`,
             {
@@ -27,6 +30,10 @@ export default function TenderGroups() {
           .then((res) => {
             setAll(res.data.data.data);
             console.log('create');
+             if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
             console.log(res.data.data.data);
           })
           .catch((error) => {
@@ -40,7 +47,7 @@ export default function TenderGroups() {
                 messageBackend: 'An unexpected error occurred.',
               });
             }
-          });},[])
+          });},[currentPage])
   return (
     <div>
       <Navbar wordBlod={'tenders'} />
@@ -88,6 +95,7 @@ export default function TenderGroups() {
         </div>
                 ))}
       </div>
+      <Pagination/>
       <Footer />
     </div>
   );

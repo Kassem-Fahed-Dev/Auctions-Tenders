@@ -1210,7 +1210,7 @@ i.alluser {
   top: 110px;
 }
 .alotofAuction {
-  margin-top: 70px;
+  margin-top: 25x;
 }
 .alotof {
   margin-top: 125px;
@@ -1309,6 +1309,7 @@ i.alluser {
   visibility: visible;
   opacity: 1;
 }
+
 .backf {
   color: #fff;
   border-radius: 8px;
@@ -1324,4 +1325,21 @@ i.alluser {
 .createauction {
   position: relative;
   z-index: 9999;
+}
+
+ul.pagination {
+  /* color: #fff; */
+  width: 300px;
+  /* margin: auto; */
+  /* background-color: #b90909; */
+  position: relative;
+  left: 620px;
+  bottom: 5px;
+  /* bottom: 100px; */
+}
+/* button.page-link{
+  background-color: #003366;
+} */
+li.page-item {
+  background-color: #00000050;
 }
