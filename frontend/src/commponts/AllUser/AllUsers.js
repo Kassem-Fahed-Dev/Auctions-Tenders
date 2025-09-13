@@ -431,9 +431,10 @@ export default function AllUsers() {
                   </div>
                 </div>
                 {/* <ButtonSort test2={'alluserAuFav'} position={"profile1"}/>  */}
-                <div className="alotof">
+                <div className="alotof" style={{paddingTop:'50px'}}>
                   <Cards id={da?._id} page={'id'} />
                 </div>
+                <Pagination />
               </div>
             </div>
           )}
@@ -553,10 +554,10 @@ export default function AllUsers() {
                     <Cards id={da?._id} page={'id'} />
                   </div> */}
                 </div>
-                <div className="alotof">
+                <div className="alotof" style={{paddingTop:'50px'}}>
                   <CardTen id={da?._id} page={'id'} />
                 </div>
-                
+                <Pagination />
               </div>
             </div>
           )}

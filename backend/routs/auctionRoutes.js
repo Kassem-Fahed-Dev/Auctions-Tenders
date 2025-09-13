@@ -33,7 +33,7 @@ router.get(
   auctionController.getMyAuctions,
 );
 router
-  .get('/:id', auctionController.getAuctionWithItem)
+  .get('/:id', authController.protect,auctionController.getAuctionWithItem)
   .patch(
     '/:id',
     authController.protect,

@@ -10,6 +10,7 @@ import ButtonSort from './ButtonSort';
 import Search from '../Auctions/Serach';
 import ButtonSortTen from '../../commponts/Tenders/ButtonSortten'
 import CardTen from '../Tenders/CardTen';
+import Pagination from '../Auctions/Pagination';
 export default function Favorite() {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -69,9 +70,10 @@ export default function Favorite() {
                     </div>
                     <p className="par">المزادات المفضلة</p>
                   </div>
-                  <div className="dec">
+                  <div className="dec" style={{paddingTop:'50px'}}>
                     <Cards page={'favh'} />
                   </div>
+                  <Pagination pos={'wallet'}/>
                 </div>
                 <div className={`${change === 'fav-ten' ? 'vis' : 'hid'}`}>
                     {/* <Search page={"alluser"}/> */}
@@ -80,9 +82,10 @@ export default function Favorite() {
                   </div>
                   <p className="par">المناقصات المفضلة</p>
 
-                  <div className="dec">
+                  <div className="dec" style={{paddingTop:'50px'}}>
                     <CardTen page={'favh'}/>
                   </div>
+                  <Pagination pos={'wallet'}/>
                 </div>
               </div>
             }

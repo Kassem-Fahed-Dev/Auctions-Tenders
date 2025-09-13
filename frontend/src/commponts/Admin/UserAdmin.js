@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import grgr from '../../image/group.jpg';
-
+import { usePagination } from '../Auctions/PaginationContext';
+import Pagination from '../Auctions/Pagination';
 export default function UserAdmin() {
   const [userToEdit, setUserToEdit] = useState(null);
   const [showDeleteUser, setShowDeleteUser] = useState(false);
@@ -45,14 +46,14 @@ export default function UserAdmin() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showDeleteUser, showDeleteAdmin, showAddAdmin]);
-
+   const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
   const [userToDelete, setUserToDelete] = useState(null);
   const [all, setAll] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
   const token = localStorage.getItem('jwt');
   useEffect(() => {
     axiosInstance
-      .get(`/api/v1/users`, {
+      .get(`/api/v1/users?page=${currentPage}&limit=6`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
@@ -62,6 +63,10 @@ export default function UserAdmin() {
       })
       .then((res) => {
         setAll(res.data.data.data);
+         if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
         console.log(res.data.data.data);
       })
       .catch((error) => {
@@ -370,6 +375,7 @@ export default function UserAdmin() {
             ))}
           </tbody>
         </table>
+        <Pagination pos={'wallet'}/>
         {userToDelete && (
           <div className="confirm-modal">
             <div className="modal-content">

@@ -3,17 +3,18 @@ import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors'; import grgr from '../../image/group.jpg';
-
+import { usePagination } from '../Auctions/PaginationContext';
 import { id } from '../Account/Profile/store/Redux';
+import Pagination from '../Auctions/Pagination';
 export default function WalletAdmin() {
   const [walletActivity, setWalletActivity] = useState([]);
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
   const status = 'pending';
-
+ const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
   useEffect(() => {
     axiosInstance
-      .get(`/api/v1/payments/walletActivities?status=${status}`, {
+      .get(`/api/v1/payments/walletActivities?status=${status}&page=${currentPage}&limit=2`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
@@ -23,6 +24,10 @@ export default function WalletAdmin() {
       })
       .then((res) => {
         setWalletActivity(res.data.data);
+        if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
         console.log(res.data.data);
         console.log(walletActivity);
       })
@@ -301,6 +306,7 @@ export default function WalletAdmin() {
               </tr> */}
             </tbody>
           </table>
+          <Pagination pos={'wallet'}/>
         </div>
       </div>
     </>

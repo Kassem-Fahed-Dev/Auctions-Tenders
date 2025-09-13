@@ -31,7 +31,7 @@ router.get(
 );
 
 router
-  .get('/:id', tenderController.getTenderWithItem)
+  .get('/:id', authController.protect,tenderController.getTenderWithItem)
   .patch(
     '/:id',
     authController.protect,

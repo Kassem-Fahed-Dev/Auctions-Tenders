@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: 'https://auctions-tenders-38sx.onrender.com', // وضع عنوان API الخاص بك هنا
-  // baseURL: 'localhost:3000', // وضع عنوان API الخاص بك هنا
+  // baseURL: 'http://localhost:3000', // وضع عنوان API الخاص بك هنا
 });
 
 // إضافة interceptor للتعامل مع الأخطاء

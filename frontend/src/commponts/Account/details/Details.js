@@ -187,7 +187,7 @@ export default function Details() {
                   <span>سوريا </span>
                 </div>
                 <div>
-                  المدينة : <span> {data.city}</span>
+                  المدينة : <span> {data?.city}</span>
                 </div>
               </div>
               <div className="aaaa">
