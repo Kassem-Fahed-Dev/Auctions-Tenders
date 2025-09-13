@@ -81,19 +81,20 @@ exports.getUserFavorites = catchAsync(async (req, res, next) => {
   const query = Favorite.find({ user: req.user.id }).populate('user');
   console.log('query', query.length);
   console.log('user id ', req.user.name);
+  
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()
     .limitFields()
     .paginate();
-
+  
   const favorites = await features.query;
-
+  
   // Separate auction and tender IDs
   const auctionIds = [];
   const tenderIds = [];
   const categoryIds = [];
-
+  
   favorites.forEach((favorite) => {
     if (favorite.type === 'auction') {
       auctionIds.push(favorite.referenceId);
@@ -104,36 +105,54 @@ exports.getUserFavorites = catchAsync(async (req, res, next) => {
       console.log('😋 Iam here ');
     }
   });
+  
   console.log('😅categoryIds', categoryIds);
-
-  // Fetch all auctions and tenders and category in parallel
-  const [auctions, tenders, category] = await Promise.all([
-    auctionIds.length > 0 ? Auction.find({ _id: { $in: auctionIds } }) : [],
-    tenderIds.length > 0 ? Tender.find({ _id: { $in: tenderIds } }) : [],
-    categoryIds.length > 0 ? Category.find({ _id: { $in: categoryIds } }) : [],
+  
+  // Fetch all auctions and tenders and category in parallel with population
+  const [auctions, tenders, categories] = await Promise.all([
+    auctionIds.length > 0 
+      ? Auction.find({ _id: { $in: auctionIds } }).populate({
+          path: 'item',
+          populate: {
+            path: 'category',
+            model: 'Category' // Adjust model name as needed
+          }
+        })
+      : [],
+    tenderIds.length > 0 
+      ? Tender.find({ _id: { $in: tenderIds } }).populate({
+          path: 'item',
+          populate: {
+            path: 'category',
+            model: 'Category' // Adjust model name as needed
+          }
+        })
+      : [],
+    categoryIds.length > 0 
+      ? Category.find({ _id: { $in: categoryIds } }) 
+      : [],
   ]);
-
+  
   // Create maps for quick lookup
   const auctionMap = {};
   const tenderMap = {};
   const categoryMap = {};
-
+  
   auctions.forEach((auction) => {
     auctionMap[auction._id.toString()] = auction;
   });
-
+  
   tenders.forEach((tender) => {
     tenderMap[tender._id.toString()] = tender;
   });
-
-  category.forEach((category) => {
+  
+  categories.forEach((category) => {
     categoryMap[category._id.toString()] = category;
   });
-
+  
   // Attach the populated data
   const populatedFavorites = favorites.map((favorite) => {
     const favoriteObj = favorite.toObject();
-
     if (favorite.type === 'auction') {
       favoriteObj.referenceId = auctionMap[favorite.referenceId.toString()];
     } else if (favorite.type === 'tender') {
@@ -144,7 +163,7 @@ exports.getUserFavorites = catchAsync(async (req, res, next) => {
     console.log('😀😀😀😀favoriteObj', favoriteObj);
     return favoriteObj;
   });
-
+  
   res.status(200).json({
     status: req.t(`fields:success`),
     results: populatedFavorites.length,

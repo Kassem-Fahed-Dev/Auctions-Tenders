@@ -1246,7 +1246,6 @@ i.alluser {
   top: 50px;
   left: -85px;
 }
-<<<<<<< Updated upstream
 
 .send-auction .hint {
   visibility: hidden;
@@ -1303,7 +1302,6 @@ i.alluser {
   visibility: visible;
   opacity: 1;
 }
-=======
 ul.pagination{
   /* color: #fff; */
 width: 300px;
@@ -1320,4 +1318,3 @@ width: 300px;
  li.page-item{
   background-color: #00000050;
  }
->>>>>>> Stashed changes
