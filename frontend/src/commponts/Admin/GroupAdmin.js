@@ -81,13 +81,13 @@ export default function GroupAdmin() {
       })
       .then((res) => {
         setALLAuction(res.data.data.data);
-        // setWalletActivity(res.data.data);
+        
         console.log(res.data.data.data);
-        // console.log(walletActivity);
+       
       })
       .catch((error) => {
         console.log('error');
-        // setHover('spinner');
+        
         if (error.response) {
           const validationErrors = {};
           validationErrors.messageBackend = error.response.data.message;
