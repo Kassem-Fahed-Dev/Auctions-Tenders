@@ -549,6 +549,7 @@ p.upload {
   border: #000000 solid 1px;
   outline: none;
   direction: rtl;
+  font-size: 16px;
   width: 170px;
   height: 31px;
   border-radius: 8px;
@@ -983,6 +984,7 @@ input [type='date'] {
   border: none;
   direction: rtl;
   width: 175px;
+  font-size: 16px;
   height: 31px;
   padding-right: 12px;
   border-radius: 8px;
@@ -1161,7 +1163,7 @@ button.pos1 {
   /* position: relative; */
   /* top: 800px; */
   top: 45px;
-  left: -102px;
+  left: -97px;
 }
 .poscre {
   top: 343px;
@@ -1210,7 +1212,7 @@ i.alluser {
   top: 110px;
 }
 .alotofAuction {
-  margin-top: 25x;
+  padding-top: 30x;
 }
 .alotof {
   margin-top: 125px;
@@ -1253,10 +1255,10 @@ i.alluser {
   top: 50px;
   left: -85px;
 }
-<<<<<<< Updated upstream
+/* <<<<<<< Updated upstream
 =======
 /* <<<<<<< Updated upstream */
->>>>>>> Stashed changes
+/* >>>>>>> Stashed changes  */
 
 .send-auction .hint {
   visibility: hidden;
@@ -1313,7 +1315,7 @@ i.alluser {
   visibility: visible;
   opacity: 1;
 }
-<<<<<<< Updated upstream
+/* <<<<<<< Updated upstream */
 
 .backf {
   color: #fff;
@@ -1333,10 +1335,10 @@ i.alluser {
 }
 
 ul.pagination {
-=======
 /* ======= */
-ul.pagination{
->>>>>>> Stashed changes
+/* ======= */
+/* ul.pagination{
+>>>>>>> Stashed changes */
   /* color: #fff; */
   width: 300px;
   /* margin: auto; */
@@ -1351,9 +1353,9 @@ ul.pagination{
 } */
 li.page-item {
   background-color: #00000050;
-<<<<<<< Updated upstream
+/* <<<<<<< Updated upstream */
 }
-=======
- }
-/* >>>>>>> Stashed changes */
->>>>>>> Stashed changes
+/* ======= */
+ /* } */
+/* >>>>>>> Stashed changes
+>>>>>>> Stashed changes */

@@ -190,9 +190,9 @@ export default function TenderCreate() {
           </div>
         </div>
       </div>
-      
+      <div style={{paddingTop:'35px'}} >  
       <CardTen page={'createp'}/>
-
+</div>
       <Footer />
     </>
   );

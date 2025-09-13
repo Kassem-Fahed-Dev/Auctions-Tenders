@@ -216,9 +216,9 @@ export default function TenderParticiped() {
           </div>
         </div>
       </div>
-   
+   <div style={{paddingTop:'45px'}} >  
     <CardTen page={'sharep'}/>
-
+</div>
       <Footer />
     </>
   );

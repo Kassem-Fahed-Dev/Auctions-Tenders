@@ -194,7 +194,9 @@ sort=localStorage.setItem('status2','فرز حسب')
         </div></div>
       </div>
      
-      <Cards page="createp"/>
+    <div style={{paddingTop:'35px'}} >
+        <Cards page="createp"/>
+    </div>
       <Footer />
     </>
   );

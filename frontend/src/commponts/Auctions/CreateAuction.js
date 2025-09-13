@@ -119,6 +119,7 @@ export default function CreateAuction() {
         city.trim() &&
         startTime &&
         endTime &&
+        selectedFiles==0&&
         startingPrice &&
         minimumIncrement &&
         formData.trim() && // المجموعة

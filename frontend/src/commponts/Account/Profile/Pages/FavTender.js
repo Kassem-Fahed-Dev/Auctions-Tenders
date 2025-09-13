@@ -218,8 +218,8 @@ export default function FavTender() {
           </div>
         </div>
       </div>
-     
-     <CardTen page={'favp'}/>
+     <div style={{paddingTop:'45px'}} >   <CardTen page={'favp'}/></div>
+  
 
       <Footer />
     </>

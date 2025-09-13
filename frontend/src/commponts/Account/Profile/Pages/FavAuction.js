@@ -229,8 +229,8 @@ export default function FavAuction() {
           </div>
         </div>
       </div>
-      
-      <Cards page={'favp'}/>
+       <div style={{paddingTop:'35px'}} > <Cards page={'favp'}/></div>
+     
       <Footer />
     </>
   );

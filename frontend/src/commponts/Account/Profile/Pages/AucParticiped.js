@@ -229,8 +229,8 @@ export default function AucParticiped() {
           </div>
         </div>
       </div>
-
-      <Cards page={'sharep'} />
+      <div style={{paddingTop:'37px'}} > <Cards page={'sharep'} /></div>
+     
       <Footer />
     </div>
   );
