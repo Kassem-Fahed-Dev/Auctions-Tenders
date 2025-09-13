@@ -1,6 +1,6 @@
 import { usePagination } from "./PaginationContext";
 
-export default function Pagination({ count }) {
+export default function Pagination({ pos }) {
   const { currentPage, setCurrentPage } = usePagination();
 
   const goNext = () => {
@@ -15,7 +15,7 @@ export default function Pagination({ count }) {
 
   return (
     <nav aria-label="Page navigation example">
-      <ul className="pagination pag">
+      <ul className={`pagination pag ${pos=='alluser'?'pagin':pos=='wallet'?'paginwallet':''}`}>
         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
           <button className="page-link" onClick={goPrev} disabled={currentPage === 1}>
             &laquo;

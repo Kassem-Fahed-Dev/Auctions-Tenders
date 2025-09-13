@@ -27,8 +27,10 @@
 .conCards {
   margin-top: 80px;
   display: flex;
+  margin-left: 140px;
   /* min-height: 1000vb; */
-  justify-content: space-evenly;
+  min-height: 375px;
+  justify-content: flex-start;
   flex-wrap: wrap;
   flex-direction: row;
   gap: 40px;
@@ -53,6 +55,15 @@ width: 300px;
 /* .high{
   min-height: 1000px;
 } */
+ul.pagin{
+position: relative;
+top: 40px;
+}
+ul.paginwallet{
+  /* bottom: -1200px; */
+  position: relative;
+  left: -600px;
+}
  /* ul.pag{
   position: absolute;
   bottom: -300px;

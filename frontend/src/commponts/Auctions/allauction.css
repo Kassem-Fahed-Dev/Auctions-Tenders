@@ -549,7 +549,7 @@ p.upload {
   border: #000000 solid 1px;
   outline: none;
   direction: rtl;
-  width: 155px;
+  width: 170px;
   height: 31px;
   border-radius: 8px;
   cursor: default;
@@ -582,7 +582,7 @@ p.upload {
 }
 .tri3 {
   position: relative;
-  right: 280px;
+  right: 295px;
   cursor: pointer;
   background-color: #000;
   top: -25px;
@@ -626,7 +626,7 @@ p.upload {
 .list-group-m {
   direction: rtl;
   border: #000 solid 2px;
-  width: 150px;
+  width: 160px;
   border-radius: 8px;
   margin-right: 160px;
   margin-top: -40px;
@@ -655,7 +655,7 @@ p.upload {
 .list-group-m2 .p1,
 .list-group-m2 .p2,
 .list-group-m2 .p3 {
-  padding-right: 20px;
+  padding-right: 13px;
   cursor: pointer;
   padding-top: 2px;
   padding-bottom: 10px;
@@ -769,7 +769,7 @@ input [type='date'] {
   padding-top: 10px;
   cursor: pointer;
 }
-.list-data div.back {
+.list-data div.back ,.list-data button.back{
   background-color: #003366;
   color: #fff;
   border-radius: 8px;
@@ -1253,6 +1253,10 @@ i.alluser {
   top: 50px;
   left: -85px;
 }
+<<<<<<< Updated upstream
+=======
+/* <<<<<<< Updated upstream */
+>>>>>>> Stashed changes
 
 .send-auction .hint {
   visibility: hidden;
@@ -1277,9 +1281,9 @@ i.alluser {
   visibility: visible;
   opacity: 1;
 }
-.send-auction {
+/* .send-auction {
   position: relative;
-}
+} */
 /* tender */
 .button-wrapper {
   position: relative;
@@ -1309,6 +1313,7 @@ i.alluser {
   visibility: visible;
   opacity: 1;
 }
+<<<<<<< Updated upstream
 
 .backf {
   color: #fff;
@@ -1328,6 +1333,10 @@ i.alluser {
 }
 
 ul.pagination {
+=======
+/* ======= */
+ul.pagination{
+>>>>>>> Stashed changes
   /* color: #fff; */
   width: 300px;
   /* margin: auto; */
@@ -1342,4 +1351,9 @@ ul.pagination {
 } */
 li.page-item {
   background-color: #00000050;
+<<<<<<< Updated upstream
 }
+=======
+ }
+/* >>>>>>> Stashed changes */
+>>>>>>> Stashed changes

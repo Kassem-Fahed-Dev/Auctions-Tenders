@@ -372,6 +372,7 @@ export default function Create_Tender() {
                 className="group22"
                 type="text"
                 name="group"
+                autoComplete='off'
                 value={formData}
                 onChange={handleChange}
               />
