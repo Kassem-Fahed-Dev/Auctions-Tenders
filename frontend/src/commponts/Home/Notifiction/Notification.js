@@ -6,16 +6,19 @@ import immm from '../../../image/car.jpg';
 import Footer from '../../privacy policy/Footer';
 import axiosInstance from '../../AxiosInterceptors';
 import { useEffect } from 'react';
+import Pagination from '../../Auctions/Pagination';
+import { usePagination } from '../../Auctions/PaginationContext';
 export default function Notification() {
   const location = useLocation();
   const currentPath = location.pathname;
   const [all, setAll] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
 
+  const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
   const token = localStorage.getItem('jwt');
   useEffect(() => {
     axiosInstance
-      .get('/api/v1/notifications/my', {
+      .get(`/api/v1/notifications/my?page=${currentPage}&limit=5`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
@@ -25,6 +28,10 @@ export default function Notification() {
       })
       .then((res) => {
         setAll(res.data.data.data);
+        if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
         console.log('create');
         console.log(res.data.data.data);
       })
@@ -220,6 +227,7 @@ export default function Notification() {
             <p className="p222">مزايدة جديدة</p>
           </div> */}
         {/* </div> */}
+        <Pagination pos={'wallet'}/>
         <Footer />
       </div>
     </>

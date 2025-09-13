@@ -48,10 +48,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول`
+           `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {
@@ -91,10 +91,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ?
-           `/api/v1/tenders?user=${id}&page=${currentPage}&limit=3&status=مقبول`
+           `/api/v1/tenders?user=${id}&status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?user=${id}&page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?user=${id}&page=${currentPage}&limit=3&status=${sort.trim()}`
+          ? `/api/v1/tenders?user=${id}&status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/tenders?user=${id}&status=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {
@@ -137,10 +137,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders/myTenders?page=${currentPage}&limit=3&status=مقبول`
+          `/api/v1/tenders/myTenders?status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/myTenders?page=${currentPage}&limit=3&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/myTenders?page=${currentPage}&limit=3&status=${sort.trim()}`
+          ? `/api/v1/tenders/myTenders?activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/tenders/myTenders?status=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {
@@ -226,10 +226,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول`
+          `/api/v1/favouites?type=tender&status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3&categoryName=${sort.trim()}`
+          ? `/api/v1/favouites?type=tender&status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/favouites?type=tender&status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {
@@ -242,10 +242,10 @@ export default function CardTen({page,item,id,showDelete}) {
       }
     )
     .then((res) => {
-      const favorites = res.data.data.data.filter(item => item.favorite === true);
+      // const favorites = res.data.data.data.filter(item => item.favorite === true);
     
       // تعيين العناصر المفلترة إلى الحالة
-      setAll(favorites);
+      setAll(res.data.data.data);
       
           if (res.data.data.data.length === 0 && currentPage > 1) {
           setCurrentPage((prev) => prev - 1);
@@ -275,10 +275,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول`
+          `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders?page=${currentPage}&limit=3&status=مقبول&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {
@@ -322,10 +322,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders/participateTenders?page=${currentPage}&limit=3&status=مقبول`
+          `/api/v1/tenders/participateTenders?status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders/participateTenders?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
-          : `/api/v1/tenders/participateTenders?page=${currentPage}&limit=3&status=مقبول&categoryName=${sort.trim()}`
+          ? `/api/v1/tenders/participateTenders?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/tenders/participateTenders?status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {

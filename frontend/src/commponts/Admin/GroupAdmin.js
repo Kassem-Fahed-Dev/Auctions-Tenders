@@ -5,9 +5,13 @@ import { useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import { useEffect } from 'react';
 import grgr from '../../image/group.jpg';
+import { useNavigate } from 'react-router-dom';
 export default function GroupAdmin() {
   const [groupToDelete, setGroupToDelete] = useState(null);
-
+ const navegate = useNavigate();
+     function goback() {
+      navegate('/');
+    }
   // const handleDeleteClick = (groupName,id) => {
   // setGroupToDelete(groupName);
   //   setGroupToDelete({name:groupName,id:id})
@@ -136,7 +140,7 @@ export default function GroupAdmin() {
       <div className="con-admin">
         <div className="con_sides">
           <div className="sideAdmin">
-            <img className="logAdmin" src={imag} alt="logo" />
+            <img onClick={goback} className="logAdmin" src={imag} alt="logo" />
             <h1 className="side_Admin_h1">منصة Smart World</h1>
             <h6 className="side_Admin_h6">
               منصة تفاعلية رائدة في تقديم المزادات والمناقصات الإلكترونية

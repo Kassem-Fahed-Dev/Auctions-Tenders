@@ -3,11 +3,15 @@ import imag from '../../image/logo.png';
 import { Link } from 'react-router-dom';
 import grgr from '../../image/group.jpg';
 import ControChart from './ControChart';
-
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import { useState } from 'react';
 export default function ControlAdmin() {
+   const navegate = useNavigate();
+       function goback() {
+        navegate('/');
+      }
   const token = localStorage.getItem('jwt');
   const [numAu, setNumAu] = useState([]);
   const [numTn, setNumTn] = useState([]);
@@ -98,7 +102,7 @@ export default function ControlAdmin() {
       <div className="con-admin">
         <div className="con_sides">
           <div className="sideAdmin">
-            <img className="logAdmin" src={imag} alt="logo" />
+            <img onClick={goback} className="logAdmin" src={imag} alt="logo" />
             <h1 className="side_Admin_h1">منصة Smart World</h1>
             <h6 className="side_Admin_h6">
               منصة تفاعلية رائدة في تقديم المزادات والمناقصات الإلكترونية

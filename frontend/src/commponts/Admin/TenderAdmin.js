@@ -12,6 +12,7 @@ import fat3 from '../.././image/tend3.jpg';
 import grgr from '../../image/group.jpg';
 import { usePagination } from '../Auctions/PaginationContext';
 import Pagination from '../Auctions/Pagination';
+import { useNavigate } from 'react-router-dom';
 export default function TenderAdmin() {
   const [all, setAll] = useState([]);
   const [yes, setYes] = useState(true);
@@ -20,6 +21,10 @@ export default function TenderAdmin() {
   const [type, setType] = useState('مرفوعة للطلب');
   const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
   let sort;
+   const navegate = useNavigate();
+       function goback() {
+        navegate('/');
+      }
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
   useEffect(() => {
@@ -106,7 +111,7 @@ if (res.data.data.data.length === 0 && currentPage > 1) {
       <div className="con-admin">
         <div className="con_sides">
           <div className="sideAdmin">
-            <img className="logAdmin" src={imag} alt="logo" />
+            <img onClick={goback} className="logAdmin" src={imag} alt="logo" />
             <h1 className="side_Admin_h1">منصة Smart World</h1>
             <h6 className="side_Admin_h6">
               منصة تفاعلية رائدة في تقديم المزادات والمناقصات الإلكترونية

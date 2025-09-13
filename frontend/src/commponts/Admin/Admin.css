@@ -17,18 +17,21 @@
 }
 .logAdmin {
   width: 110px;
+  cursor: pointer;
   margin-right: 50px;
   margin-top: 14px;
 }
 .side_Admin_h1 {
   margin-right: 20px;
   font-size: 19px;
+  cursor: default;
 }
 .side_Admin_h6 {
   text-align: center;
   /* margin-right: 9px; */
   font-size: 12px;
   margin-top: -6px;
+    cursor: default;
 }
 .linksAdmin {
   /* display: flex;

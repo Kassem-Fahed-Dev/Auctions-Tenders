@@ -53,8 +53,8 @@ export default function Cards({ page, item, id, showDelete }) {
             sort == 'فرز حسب' || sort == ' الوقت' || sort == ' مجموعات'
               ? `/api/v1/auctions?status=مقبول&page=${currentPage}&limit=3`
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/auctions?status=مقبول&page=${currentPage}&limit=3&${itemsPerPage}&activeStatus=${sort.trim()}`
-              : `/api/v1/auctions?status=مقبول&page=${currentPage}&limit=3&${itemsPerPage}&categoryName=${sort.trim()}`
+              ? `/api/v1/auctions?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+              : `/api/v1/auctions?status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
           }`,
           {
             headers: {
@@ -96,10 +96,10 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب' || sort == 'الكل'
-              ? `/api/v1/auctions?user=${id}&page=${currentPage}&limit=3&status=مقبول`
+              ? `/api/v1/auctions?user=${id}&status=مقبول&page=${currentPage}&limit=3`
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/auctions?user=${id}&status=مقبول&page=${currentPage}&limit=3&activeStatus=${sort.trim()}`
-              : `/api/v1/auctions?user=${id}&page=${currentPage}&limit=3&status=${sort.trim()}`
+              ? `/api/v1/auctions?user=${id}&status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+              : `/api/v1/auctions?user=${id}&status=${sort.trim()}&page=${currentPage}&limit=3`
           }`,
           {
             headers: {
@@ -138,10 +138,10 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب' ||  sort == 'الكل'
-              ? `/api/v1/auctions/myAuctions?page=${currentPage}&limit=3&status=مقبول`
+              ? `/api/v1/auctions/myAuctions?status=مقبول&page=${currentPage}&limit=3`
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/auctions/myAuctions?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
-              : `/api/v1/auctions/myAuctions?page=${currentPage}&limit=3&status=${sort.trim()}`
+              ? `/api/v1/auctions/myAuctions?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+              : `/api/v1/auctions/myAuctions?&status=${sort.trim()}&page=${currentPage}&limit=3`
           }`,
           {
             headers: {
@@ -179,8 +179,8 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب'
-              ? `/api/v1/auctions?status=مقبول&page=${currentPage}&limit=3&categoryName=${item}`
-              : `/api/v1/auctions?status=مقبول&page=${currentPage}&limit=3&categoryName=${item}&activeStatus=${sort.trim()}`
+              ? `/api/v1/auctions?status=مقبول&categoryName=${item}&page=${currentPage}&limit=3`
+              : `/api/v1/auctions?status=مقبول&categoryName=${item}&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
           }`,
           {
             headers: {
@@ -218,10 +218,10 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب' || sort == ' الوقت' || sort == ' مجموعات'
-              ? `/api/v1/auctions?page=${currentPage}&limit=3&status=مقبول`
+              ? `/api/v1/favouites?type=auction&status=مقبول&page=${currentPage}&limit=3`
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/auctions?status=مقبول&page=${currentPage}&limit=3&activeStatus=${sort.trim()}`
-              : `/api/v1/auctions?status=مقبول&page=${currentPage}&limit=3&categoryName=${sort.trim()}`
+              ? `/api/v1/favouites?type=auction&status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+              : `/api/v1/favouites?type=auction&status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
           }`,
           {
             headers: {
@@ -233,12 +233,12 @@ export default function Cards({ page, item, id, showDelete }) {
           }
         )
         .then((res) => {
-          const favorites = res.data.data.data.filter(
-            (item) => item.favorite === true
-          );
+          // const favorites = res.data.data.data.filter(
+          //   (item) => item.favorite === true
+          // );
   
           // تعيين العناصر المفلترة إلى الحالة
-          setAll(favorites);
+          setAll(res.data.data.data);
  if (res.data.data.data.length === 0 && currentPage > 1) {
           setCurrentPage((prev) => prev - 1);
           return;
@@ -265,10 +265,10 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب' || sort == ' الوقت' || sort == ' مجموعات'
-              ? `/api/v1/auctions/participateAuctions?page=${currentPage}&limit=3&status=مقبول`
+              ? `/api/v1/auctions/participateAuctions?status=مقبول&page=${currentPage}&limit=3`
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/auctions/participateAuctions?page=${currentPage}&limit=3&status=مقبول&activeStatus=${sort.trim()}`
-              : `/api/v1/auctions/participateAuctions?status=مقبول&page=${currentPage}&limit=3&categoryName=${sort.trim()}`
+              ? `/api/v1/auctions/participateAuctions?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+              : `/api/v1/auctions/participateAuctions?status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
           }`,
           {
             headers: {

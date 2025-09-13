@@ -25,7 +25,7 @@ export default function Footer({ black }) {
               </button>
             </div>
             <div>
-              <a className="footer-email" href="mailto:smart-world@gmail.com">
+              <a className="footer-email" href="mailto:hadeelalhasan333@gmail.com">
                 <i className="fas fa-envelope footer-phone"></i>
                 <p className={`hov3 tell-email`}>smart-world@gmail.com</p>
               </a>

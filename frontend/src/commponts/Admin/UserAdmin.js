@@ -6,6 +6,7 @@ import axiosInstance from '../AxiosInterceptors';
 import grgr from '../../image/group.jpg';
 import { usePagination } from '../Auctions/PaginationContext';
 import Pagination from '../Auctions/Pagination';
+import { useNavigate } from 'react-router-dom';
 export default function UserAdmin() {
   const [userToEdit, setUserToEdit] = useState(null);
   const [showDeleteUser, setShowDeleteUser] = useState(false);
@@ -51,6 +52,10 @@ export default function UserAdmin() {
   const [all, setAll] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
   const token = localStorage.getItem('jwt');
+   const navegate = useNavigate();
+       function goback() {
+        navegate('/');
+      }
   useEffect(() => {
     axiosInstance
       .get(`/api/v1/users?page=${currentPage}&limit=6`, {
@@ -170,7 +175,7 @@ export default function UserAdmin() {
       <div className="con-admin">
         <div className="con_sides">
           <div className="sideAdmin">
-            <img className="logAdmin" src={imag} alt="logo" />
+            <img onClick={goback} className="logAdmin" src={imag} alt="logo" />
             <h1 className="side_Admin_h1">منصة Smart World</h1>
             <h6 className="side_Admin_h6">
               منصة تفاعلية رائدة في تقديم المزادات والمناقصات الإلكترونية
