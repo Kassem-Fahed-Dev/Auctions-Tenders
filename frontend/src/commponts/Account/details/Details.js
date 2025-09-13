@@ -18,6 +18,8 @@ import { useActionState } from 'react';
 // }
 
 export default function Details() {
+  const [loadingSubmit, setLoadingSubmit] = useState(false); // سبيـنر زر الإرسال
+
   const [errorMessage5, setErrorMessage5] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
   const [amount, setAmount] = useState({ amount: '' });
@@ -28,7 +30,6 @@ export default function Details() {
     const { name, value } = e.target;
     setAmount({ ...amount, [name]: Number(value.trim()) });
     console.log(amount);
-   
   }
   const [showParticipation, setShowParticipation] = useState(false);
   const [showHint, setShowHint] = useState(false);
@@ -93,10 +94,7 @@ export default function Details() {
       <AuctionsNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>
-            مزادات{' '}
-            {data?.item?.category?.name}
-          </h1>
+          <h1>مزادات {data?.item?.category?.name}</h1>
           <button
             className="back"
             onClick={() => {
@@ -182,9 +180,7 @@ export default function Details() {
 
                 <div>
                   التصنيف:
-                  <span>
-                     {data?.item?.category?.name}{' '}
-                  </span>
+                  <span>{data?.item?.category?.name} </span>
                 </div>
                 <div>
                   البلد:
@@ -248,16 +244,10 @@ export default function Details() {
                         : 'pointer',
                   }}
                 >
-                  {loadingParticipation ? (
-                    <div className="spinner-border " role="status"></div>
-                  ) : successParticipation ? (
-                    'تمت المشاركة بنجاح'
-                  ) : (
-                    <>
-                      <div className="fas fa-hand-point-up"></div>
-                      شارك بالمزاد
-                    </>
-                  )}
+                  <>
+                    <div className="fas fa-hand-point-up"></div>
+                    شارك بالمزاد
+                  </>
                 </button>
                 {showHint && (
                   <div className="hint-box">
@@ -269,26 +259,6 @@ export default function Details() {
                       : 'هذا المزاد منتهي، لا يمكنك المشاركة'}
                   </div>
                 )}
-                {/* <button
-                  className="ptn-particip"
-                  onClick={() => {
-                    if (data?.activeStatus !== 'منتهي') {
-                      setShowParticipation(true);
-                    }
-                  }}
-                  disabled={data?.activeStatus === 'منتهي'}
-                  style={{
-                    backgroundColor:
-                      data?.activeStatus === 'منتهي' ? 'gray' : '',
-                    cursor:
-                      data?.activeStatus === 'منتهي'
-                        ? 'not-allowed'
-                        : 'pointer',
-                  }}
-                >
-                  <div className="fas fa-hand-point-up"></div>
-                  شارك بالمزاد
-                </button> */}
               </div>
             </div>
 
@@ -306,8 +276,16 @@ export default function Details() {
                       autoComplete="off"
                       placeholder="أدخل أرقام فقط"
                     />
-                    <button onClick={submitAmount} disabled={!amount}>
-                      إرسال
+                    <button
+                      onClick={submitAmount}
+                      // disabled={!amount}
+                      disabled={!amount.amount || loadingSubmit}
+                    >
+                      {loadingSubmit ? (
+                        <i className="fa fa-spinner fa-spin"></i>
+                      ) : (
+                        'إرسال'
+                      )}
                     </button>
                     <button
                       id="exit_model"

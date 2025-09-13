@@ -251,16 +251,16 @@ export default function Details_Tender() {
                           : 'pointer',
                     }}
                   >
-                    {loadingParticipation ? (
+                    {/* {loadingParticipation ? (
                       <div className="spinner-border " role="status"></div>
                     ) : successParticipation ? (
                       'تمت المشاركة بنجاح'
                     ) : (
                       <>
                         <div className="fas fa-hand-point-up"></div>
-                        شارك بالمناقصة
                       </>
-                    )}
+                    )} */}
+                    شارك بالمناقصة
                   </button>
                   {/* <button
                     className="ptn-particip"
