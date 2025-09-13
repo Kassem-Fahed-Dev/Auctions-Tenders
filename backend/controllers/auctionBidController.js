@@ -30,9 +30,15 @@ exports.placeBid = catchAsync(async (req, res, next) => {
   }
 
   // 3. Check auction status
-  if (auction.activeStatus != 'جاري') {
+  if (auction.activeStatus == 'منتهي') {
     return next(new AppError(req.t(`errors:biddingClose`), 400));
   }
+  if (auction.activeStatus == 'قادم') {
+    return next(new AppError('المزاد لم يبدأ بعد', 400));
+  }
+  if (auction.status!='مقبول') {
+      return next(new AppError("المزاد لم يتم قبوله ", 400));
+    }
 
   // 4. Validate bid amount
   const minimumValidBid = auction.highestPrice + auction.minimumIncrement;

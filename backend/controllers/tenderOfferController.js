@@ -25,8 +25,11 @@ exports.submitOffer = catchAsync(async (req, res, next) => {
     return next(new AppError(req.t(`errors:offering`), 400));
   }
   // 3. Check tender status
-  if (tender.activeStatus !== 'جاري') {
+  if (tender.activeStatus !== 'جاري' ) {
     return next(new AppError(req.t(`errors:offeringClose`), 400));
+  }
+  if (tender.status!='مقبول') {
+    return next(new AppError("المناقصة لم يتم قبولها بعد", 400));
   }
 
   const existingOffer = await TenderOffer.findOne({

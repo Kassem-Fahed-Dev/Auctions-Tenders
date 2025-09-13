@@ -226,10 +226,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/favouites?type=tender&status=مقبول&page=${currentPage}&limit=3`
+          `/api/v1/favorites?type=tender&status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/favouites?type=tender&status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
-          : `/api/v1/favouites?type=tender&status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
+          ? `/api/v1/favorites?type=tender&status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/favorites?type=tender&status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {

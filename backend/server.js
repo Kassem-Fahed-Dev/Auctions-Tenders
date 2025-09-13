@@ -16,6 +16,8 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
+    // serverSelectionTimeoutMS: 60000,
+    // socketTimeoutMS: 60000,
   })
   .then(() => console.log('done'))
   .catch((err) => console.log(err));

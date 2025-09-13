@@ -151,19 +151,19 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   // 3) Send it to user's email
 
-  // const message = `Forgot your password? Submit Your password reset code ${resetCode}.\nIf you didn't forget your password, please ignore this email!`;
+   const message = `Forgot your password? Submit Your password reset code ${resetCode}.\nIf you didn't forget your password, please ignore this email!`;
 
   try {
     //sending the code by whatsapp
-    await sendOTP(user.phone, resetCode);
+//    await sendOTP(user.phone, resetCode);
 
     //sending the code by email
 
-    // await sendEmail({
-    //   email: user.email,
-    //   subject: 'Your password reset code (valid for 10 min)',
-    //   message,
-    //});
+    await sendEmail({
+      email: user.email,
+      subject: 'Your password reset code (valid for 10 min)',
+      message,
+    });
 
     res.status(200).json({
       status: req.t(`fields:success`),
@@ -174,7 +174,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
 
-    return next(new AppError(req.t(`errors:sendingCode`)), 500);
+    return next(new AppError(req.t(`errors:sendingEmail`)), 500);
   }
 });
 
