@@ -14,6 +14,7 @@ import Side from '../componants/Side';
 import CardTen from '../../../Tenders/CardTen';
 import ButtonSortTen from '../../../Tenders/ButtonSortten';
 import Search from '../../../Auctions/Serach';
+import Pagination from '../../../Auctions/Pagination';
 // import Card from "../../Auc-Folder/Card";
 // >>>>>>> 2b43e7c895dec329841e8800521ec7636eedf246
 export default function FavTender() {
@@ -218,8 +219,8 @@ export default function FavTender() {
           </div>
         </div>
       </div>
-     
-     <CardTen page={'favp'}/>
+     <div style={{paddingTop:'45px'}} >   <CardTen page={'favp'}/></div>
+  <Pagination/>
 
       <Footer />
     </>

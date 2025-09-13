@@ -12,6 +12,7 @@ import Side from '../componants/Side';
 import ButtonSortTen from '../../../Tenders/ButtonSortten';
 import CardTen from '../../../Tenders/CardTen';
 import Search from '../../../Auctions/Serach';
+import Pagination from '../../../Auctions/Pagination';
 // import Card from "../../Auc-Folder/Card";
 // >>>>>>> 2b43e7c895dec329841e8800521ec7636eedf246
 export default function TenderParticiped() {
@@ -216,9 +217,10 @@ export default function TenderParticiped() {
           </div>
         </div>
       </div>
-   
+   <div style={{paddingTop:'45px'}} >  
     <CardTen page={'sharep'}/>
-
+</div>
+<Pagination/>
       <Footer />
     </>
   );

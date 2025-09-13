@@ -12,6 +12,7 @@ import '../profile.css';
 // import "../../Auc-Folder/Auc.css";
 import Side from '../componants/Side';
 import Search from '../../../Auctions/Serach';
+import Pagination from '../../../Auctions/Pagination';
 // import Card from "../../Auc-Folder/Card";
 
 export default function Create() {
@@ -194,7 +195,10 @@ sort=localStorage.setItem('status2','فرز حسب')
         </div></div>
       </div>
      
-      <Cards page="createp"/>
+    <div style={{paddingTop:'35px'}} >
+        <Cards page="createp"/>
+    </div>
+    <Pagination/>
       <Footer />
     </>
   );

@@ -330,7 +330,7 @@ const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
             <tbody>{rows}</tbody>
           </table>
         </div>
-        <Pagination/>
+        <Pagination pos={'wallet'}/>
       </div>
     </>
   );

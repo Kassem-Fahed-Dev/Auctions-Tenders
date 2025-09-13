@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import '../profile.css';
 import CardTen from '../../../Tenders/CardTen';
 import Search from '../../../Auctions/Serach';
+import Pagination from '../../../Auctions/Pagination';
 // import "../../Auc-Folder/Auc.css";
 // import Side from "../componants/Side";
 // import Card from "../../Auc-Folder/Card";
@@ -190,9 +191,10 @@ export default function TenderCreate() {
           </div>
         </div>
       </div>
-      
+      <div style={{paddingTop:'35px'}} >  
       <CardTen page={'createp'}/>
-
+</div>
+<Pagination/>
       <Footer />
     </>
   );

@@ -10,21 +10,23 @@ import fat from '../../../image/tend.jpg';
 import fat2 from '../../../image/tend2.jpg';
 import fat3 from '../../../image/tend3.jpg';
 import grgr from '../../../image/group.jpg';
-
+import { usePagination } from '../../Auctions/PaginationContext';
+import Pagination from '../../Auctions/Pagination';
 export default function AuctionAdmin() {
   const [all, setAll] = useState([]);
   const [yes, setYes] = useState(true);
-
+ const [type1, setType1] = useState('قيد الانتظار')
   const [yes1, setYes1] = useState(true);
   const [type, setType] = useState('مرفوعة للطلب');
-
+const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
   let sort;
   const token = localStorage.getItem('jwt');
   const [errorMessage, setErrorMessage] = useState({});
   useEffect(() => {
+      console.log(currentPage)
     axiosInstance
       .get(
-        `/api/v1/auctions?status=قيد الانتظار `,
+        `/api/v1/auctions?status=${type1}&page=${currentPage}&limit=3 `,
 
         {
           headers: {
@@ -37,6 +39,10 @@ export default function AuctionAdmin() {
       )
       .then((res) => {
         setAll(res.data.data.data);
+         if (res.data.data.data.length === 0 && currentPage > 1) {
+          setCurrentPage((prev) => prev - 1);
+          return;
+        }
         console.log(res.data.data.data);
       })
       .catch((error) => {
@@ -51,8 +57,9 @@ export default function AuctionAdmin() {
           });
         }
       });
-  }, []);
+  }, [type1,currentPage]);
   const sortAu = async (e, type1) => {
+    setCurrentPage(1)
     const { value } = e.target;
     setType(value);
     if (type1 == 'قيد الانتظار') {
@@ -72,37 +79,42 @@ export default function AuctionAdmin() {
     console.log(yes);
     console.log(yes1);
     console.log(type1);
-    // console.log(yes)
+    console.log(currentPage)
     // console.log(yes1)
-    axiosInstance
-      .get(
-        `/api/v1/auctions?status=${type1} `,
+    // axiosInstance
+    //   .get(
+    //     `/api/v1/auctions?status=${type1}&page=${currentPage}&limit=3 `,
 
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar',
-            credentials: 'include',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setAll(res.data.data.data);
-        console.log(res.data.data.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          const validationErrors = {};
-          validationErrors.messageBackend = error.response.data.message;
-          setErrorMessage(validationErrors);
-        } else {
-          console.log('An unexpected error occurred:', error.message);
-          setErrorMessage({
-            messageBackend: 'An unexpected error occurred.',
-          });
-        }
-      });
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'Accept-Language': 'ar',
+    //         credentials: 'include',
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     setAll(res.data.data.data);
+    //      if (res.data.data.data.length === 0 && currentPage > 1) {
+    //       setCurrentPage((prev) => prev - 1);
+    //       return;
+    //     }
+    //     console.log(res.data.data.data);
+    //   })
+    //   .catch((error) => {
+    //     if (error.response) {
+    //       const validationErrors = {};
+    //       validationErrors.messageBackend = error.response.data.message;
+    //       setErrorMessage(validationErrors);
+    //     } else {
+    //       console.log('An unexpected error occurred:', error.message);
+    //       setErrorMessage({
+    //         messageBackend: 'An unexpected error occurred.',
+    //       });
+    //     }
+    //   });
+    setType1(type1)
   };
   return (
     <>
@@ -245,6 +257,7 @@ export default function AuctionAdmin() {
           ))}
           {/* <Auction showAccept="true" showReject="true" /> */}
         </div>
+        <Pagination pos={'wallet'}/>
       </div>
     </>
   );

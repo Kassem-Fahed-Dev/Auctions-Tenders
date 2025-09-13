@@ -24,6 +24,7 @@
 
 /* القائمة الاولى */
 .ul1 {
+  margin-left: -86px;
   width: 40%;
   padding: 4px;
   gap: 30px;

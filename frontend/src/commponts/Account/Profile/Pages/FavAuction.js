@@ -8,6 +8,7 @@ import Profile from './Profile';
 import Cards from '../../../Auctions/Cards';
 import ButtonSort from '../../../Home/ButtonSort';
 import Search from '../../../Auctions/Serach';
+import Pagination from '../../../Auctions/Pagination';
 
 export default function FavAuction() {
   function handel_Fav(e) {
@@ -229,8 +230,8 @@ export default function FavAuction() {
           </div>
         </div>
       </div>
-      
-      <Cards page={'favp'}/>
+       <div style={{paddingTop:'35px'}} > <Cards page={'favp'}/></div>
+     <Pagination/>
       <Footer />
     </>
   );

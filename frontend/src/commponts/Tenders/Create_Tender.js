@@ -19,6 +19,31 @@ export default function Create_Tender() {
   const [hoverAuction, setHoverAuction] = useState('spinner');
 
   const [errorMessageAuc, setErrorMessageAuc] = useState({});
+  // const [formData1, setFormData1] = useState({
+  //   tender: {
+  //     tenderTitle: '',
+  //     startTime: '',
+  //     endTime: '',
+  //     city: '',
+  //     startingPrice: '',
+  //   },
+  //   item: {
+  //     category: '',
+  //     name: '',
+  //     description: '',
+  //     properties: [],
+  //   },
+  //   auction: {
+  //     numberOfItems: '',
+  //     auctionTitle: '',
+  //     city: '',
+  //     startTime: '',
+  //     endTime: '',
+  //     startingPrice: '',
+  //     minimumIncrement: '',
+  //   },
+  // });
+
   const [formData1, setFormData1] = useState({
     tender: {
       tenderTitle: '',
@@ -33,10 +58,12 @@ export default function Create_Tender() {
       description: '',
     },
   });
-  // لللللللللللللللللللللل
+
+  const [selectedFiles, setSelectedFiles] = useState([]);
   useEffect(() => {
-    // تحقق من أن كل الحقول الرئيسية ممتلئة
     const { tender, item } = formData1;
+
+    // التحقق من بيانات المناقصة
     const allTenderFilled =
       tender.tenderTitle?.trim() &&
       tender.city?.trim() &&
@@ -44,18 +71,20 @@ export default function Create_Tender() {
       tender.endTime &&
       tender.startingPrice;
 
+    // التحقق من بيانات المنتج
     const allItemFilled =
       item.name?.trim() &&
+      item.description?.trim() && // الوصف لازم يتعبى
       item.category?.trim() &&
-      // تحقق من كل الخصائص الإضافية إذا موجودة
       (!item.properties ||
         item.properties.every((p) => p.value?.trim() !== ''));
 
-    setIsButtonDisabled(
-      !(allTenderFilled && allItemFilled && formData?.trim())
-    );
-  }, [formData1, formData]);
+    // التحقق من المجموعة المختارة
+    const groupSelected = formData?.trim();
 
+    // تعطيل أو تفعيل الزر
+    setIsButtonDisabled(!(allTenderFilled && allItemFilled && groupSelected));
+  }, [formData1, formData]);
   // لللللللللللللللللللللل
   const token = localStorage.getItem('jwt');
   const [allTender, setAllTender] = useState([]);
@@ -373,6 +402,7 @@ export default function Create_Tender() {
                 className="group22"
                 type="text"
                 name="group"
+                autoComplete="off"
                 value={formData}
                 onChange={handleChange}
               />
@@ -486,7 +516,8 @@ export default function Create_Tender() {
                 )}
               </div>
 
-              <button
+              {/* <button
+                // type="button"
                 disabled={isButtonDisabled}
                 className={`send-auction ${
                   hoverAuc.includes('no') ? 'hidden-send' : ''
@@ -497,9 +528,31 @@ export default function Create_Tender() {
                 }`}
               >
                 إرسال
-                <span className="hint">
-                  اضغط لإرسال بيانات المناقصة بعد التأكد من ملء جميع الحقول
-                </span>
+                {isButtonDisabled && (
+                  <span className="hint">
+                    اضغط لإرسال بيانات المناقصة بعد التأكد من ملء جميع الحقول
+                  </span>
+                )}
+              </button> */}
+              <button
+                disabled={
+                  isButtonDisabled || hoverAuction.includes('spinner-Auction')
+                }
+                className={`send-auction ${
+                  isButtonDisabled ? 'send-auction1' : 'send-auction'
+                }`}
+              >
+                {hoverAuction.includes('spinner-Auction') ? (
+                  <span className="loading-spinner"></span> // حط سبينر
+                ) : (
+                  'إرسال'
+                )}
+                {isButtonDisabled &&
+                  !hoverAuction.includes('spinner-Auction') && (
+                    <span className="hint">
+                      اضغط لإرسال بيانات المناقصة بعد التأكد من ملء جميع الحقول
+                    </span>
+                  )}
               </button>
             </div>
             <div className="group1">
@@ -594,7 +647,8 @@ export default function Create_Tender() {
           <div className="list-data">
             <button
               onClick={() => handleHover('بيانات')}
-              className={hover == 'بيانات' ? 'back' : ''}
+              className="backf"
+              // className={hover == 'بيانات' ? 'back' : ''}
             >
               البيانات
             </button>

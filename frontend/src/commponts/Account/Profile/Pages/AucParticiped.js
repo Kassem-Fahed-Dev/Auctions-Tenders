@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Profile from './Profile';
 import Cards from '../../../Auctions/Cards';
 import ButtonSort from '../../../Home/ButtonSort';
+import Pagination from '../../../Auctions/Pagination';
 import Search from '../../../Auctions/Serach';
 export default function AucParticiped() {
   // function handel_Fav(e) {
@@ -229,8 +230,8 @@ export default function AucParticiped() {
           </div>
         </div>
       </div>
-
-      <Cards page={'sharep'} />
+      <div style={{paddingTop:'37px'}} > <Cards page={'sharep'} /></div>
+     <Pagination/>
       <Footer />
     </div>
   );

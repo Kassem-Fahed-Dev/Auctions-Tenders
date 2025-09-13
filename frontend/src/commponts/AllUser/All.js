@@ -53,9 +53,9 @@ useEffect(()=>{  axiosInstance
                 ))}
                
       </div>
-    <div>
-         <Pagination/>
-    </div>
+    {/* <div> */}
+         <Pagination pos={'alluser'}/>
+    {/* </div> */}
     </div>
   );
 }

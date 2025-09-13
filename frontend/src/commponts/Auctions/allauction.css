@@ -39,19 +39,22 @@
   font-weight: bold;
 }
 .sort {
-  width: 214px;
+  /* width: 214px; */
+  width: 232px;
   height: 42px;
   background-color: #fff;
   border-radius: 22px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  gap: 40px;
+  /* gap: 40px; */
   justify-content: center;
   text-align: end;
   padding: 10px;
-  padding-left: 20px;
-  font-size: 24px;
+  /* gap: 9px; */
+
+  /* padding-left: 20px; */
+  font-size: 23px;
   position: absolute;
   top: 210px;
 
@@ -85,6 +88,7 @@
 }
 .fas1:hover + .sort {
   background-color: #003366;
+  /* gap: 20px; */
 }
 .sort1.fas.fa-chevron-left {
   transform: rotate(-90deg);
@@ -94,6 +98,9 @@
   transform: rotate(90deg);
   color: black;
   font-size: 22px;
+}
+.sort:hover {
+  gap: 20px;
 }
 .sort:hover,
 .sort1:hover + .sort {
@@ -478,8 +485,8 @@ p.upload {
 }
 .create-auction-data1 {
   width: 680px;
-  /* min-height: 500px; */
-  min-height: 610px;
+  height: fit-content;
+  /* min-height: 610px; */
   height: 692px;
   font-size: 20px;
   font-weight: 600;
@@ -510,6 +517,7 @@ p.upload {
   background-color: #ccc;
   direction: rtl;
   display: flex;
+  padding-bottom: 110px;
   gap: 20px;
   /* background-color: #1100ff; */
 }
@@ -542,7 +550,8 @@ p.upload {
   border: #000000 solid 1px;
   outline: none;
   direction: rtl;
-  width: 155px;
+  font-size: 16px;
+  width: 170px;
   height: 31px;
   border-radius: 8px;
   cursor: default;
@@ -575,7 +584,7 @@ p.upload {
 }
 .tri3 {
   position: relative;
-  right: 280px;
+  right: 295px;
   cursor: pointer;
   background-color: #000;
   top: -25px;
@@ -619,7 +628,7 @@ p.upload {
 .list-group-m {
   direction: rtl;
   border: #000 solid 2px;
-  width: 150px;
+  width: 160px;
   border-radius: 8px;
   margin-right: 160px;
   margin-top: -40px;
@@ -648,7 +657,7 @@ p.upload {
 .list-group-m2 .p1,
 .list-group-m2 .p2,
 .list-group-m2 .p3 {
-  padding-right: 20px;
+  padding-right: 13px;
   cursor: pointer;
   padding-top: 2px;
   padding-bottom: 10px;
@@ -682,6 +691,7 @@ p.upload {
   display: flex;
   position: relative;
 }
+/* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaucccccccccccccccccccccccccccccccc */
 .send-auction {
   background-color: #003366;
   color: #fff;
@@ -762,7 +772,8 @@ input [type='date'] {
   padding-top: 10px;
   cursor: pointer;
 }
-.list-data div.back {
+.list-data div.back,
+.list-data button.back {
   background-color: #003366;
   color: #fff;
   border-radius: 8px;
@@ -976,6 +987,7 @@ input [type='date'] {
   border: none;
   direction: rtl;
   width: 175px;
+  font-size: 16px;
   height: 31px;
   padding-right: 12px;
   border-radius: 8px;
@@ -1154,7 +1166,7 @@ button.pos1 {
   /* position: relative; */
   /* top: 800px; */
   top: 45px;
-  left: -102px;
+  left: -97px;
 }
 .poscre {
   top: 343px;
@@ -1165,7 +1177,7 @@ button.pos1 {
   display: block;
 }
 .visable2 {
-  height: 240px;
+  /* height: 240px; */
   display: block;
 }
 .visable3 {
@@ -1173,7 +1185,7 @@ button.pos1 {
   display: block;
 }
 .visable4 {
-  height: 155px;
+  /* height: 155px; */
   display: block;
 }
 .listSort .sortp button {
@@ -1203,7 +1215,7 @@ i.alluser {
   top: 110px;
 }
 .alotofAuction {
-  margin-top: 25x;
+  padding-top: 30x;
 }
 .alotof {
   margin-top: 125px;
@@ -1216,7 +1228,7 @@ i.alluser {
 }
 .listSort .buttonSort .buttonpos4cre {
   top: 65px;
-  left: 156px;
+  left: 165px;
 }
 .listSort .buttonSort .buttonpos2cre {
   top: 70px;
@@ -1246,6 +1258,10 @@ i.alluser {
   top: 50px;
   left: -85px;
 }
+/* <<<<<<< Updated upstream
+=======
+/* <<<<<<< Updated upstream */
+/* >>>>>>> Stashed changes  */
 
 .send-auction .hint {
   visibility: hidden;
@@ -1270,9 +1286,9 @@ i.alluser {
   visibility: visible;
   opacity: 1;
 }
-.send-auction {
+/* .send-auction {
   position: relative;
-}
+} */
 /* tender */
 .button-wrapper {
   position: relative;
@@ -1302,19 +1318,67 @@ i.alluser {
   visibility: visible;
   opacity: 1;
 }
-ul.pagination{
+/* <<<<<<< Updated upstream */
+
+.backf {
+  color: #fff;
+  border-radius: 8px;
+  height: 50px;
+  width: 90px;
+  text-align: center;
+  padding-top: 10px;
+  width: 90px;
+  height: 50px;
+  font-weight: bold;
+  background-color: #003366 !important;
+}
+.createauction {
+  position: relative;
+  z-index: 9999;
+}
+
+ul.pagination {
+  /* ======= */
+  /* ======= */
+  /* ul.pagination{
+>>>>>>> Stashed changes */
   /* color: #fff; */
-width: 300px;
+  width: 300px;
   /* margin: auto; */
   /* background-color: #b90909; */
   position: relative;
-    left: 620px;
-    bottom: 5px;
+  left: 620px;
+  bottom: 5px;
   /* bottom: 100px; */
 }
 /* button.page-link{
   background-color: #003366;
 } */
- li.page-item{
+li.page-item {
   background-color: #00000050;
- }
+  /* <<<<<<< Updated upstream */
+}
+/* ======= */
+/* } */
+/* >>>>>>> Stashed changes
+>>>>>>> Stashed changes */
+.loading-spinner {
+  border: 3px solid #4d4d4d; /* خلفية فاتحة */
+  border-top: 3px solid #a8a8a8; /* اللون الأساسي */
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
