@@ -221,10 +221,10 @@ export default function Cards({ page, item, id, showDelete }) {
         .get(
           `${
             sort == 'فرز حسب' || sort == ' الوقت' || sort == ' مجموعات'
-              ? `/api/v1/favorites?type=auction&status=مقبول&page=${currentPage}&limit=3`
+              ? `/api/v1/favorites?type=auction&page=${currentPage}&limit=3`
               : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-              ? `/api/v1/favorites?type=auction&status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
-              : `/api/v1/favorites?type=auction&status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
+              ? `/api/v1/favorites?type=auction&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+              : `/api/v1/favorites?type=auction&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
           }`,
           {
             headers: {
@@ -246,7 +246,7 @@ export default function Cards({ page, item, id, showDelete }) {
             setCurrentPage((prev) => prev - 1);
             return;
           }
-          console.log(res.data.data.data[0]?.favorite);
+          console.log(res.data.data.data);
         })
         .catch((error) => {
           if (error.response) {
