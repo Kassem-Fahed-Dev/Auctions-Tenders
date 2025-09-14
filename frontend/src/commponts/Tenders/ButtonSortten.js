@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import { all } from 'axios';
-export default function ButtonSortTen({test2,position}) {
+export default function ButtonSortTen({test2,position,onSortChange}) {
    const [value,setValue]=useState('فرز حسب');
     const [value1,setValue1]=useState('فرز حسب');
     const [value2,setValue2]=useState('');
@@ -85,7 +85,7 @@ export default function ButtonSortTen({test2,position}) {
         if(value2=='فرز حسب'&&value=='فرز حسب'){
         setTest(' ')
         setValue2('')
-        
+         onSortChange(value2)
          localStorage.setItem(st,value2)
         console.log(value2)
         
@@ -94,7 +94,7 @@ export default function ButtonSortTen({test2,position}) {
             setTest(' ')
             setValue1('فرز حسب')
              localStorage.setItem(st,value)
-         
+          onSortChange(value2)
             setValue(value1)
           }
         else if(value2=='فرز حسب'){
@@ -102,7 +102,7 @@ export default function ButtonSortTen({test2,position}) {
            setTest(value1)
            console.log(value1)
           setValue(value1)
-           
+            onSortChange(value1)
            localStorage.setItem(st,value1)
         
           
@@ -111,7 +111,7 @@ export default function ButtonSortTen({test2,position}) {
           setTest(value1)
               localStorage.setItem(st,value1)
           setValue(value1)
-           
+             onSortChange(value1)
        }
     }
     const handleClick2=(item)=>{
@@ -150,6 +150,7 @@ export default function ButtonSortTen({test2,position}) {
              setTest1(item)
              localStorage.setItem(st,item)      
         }
+         onSortChange(item)
     }
         const rows=[]
 for(let i=1;i<allTender?.length-2;i++){

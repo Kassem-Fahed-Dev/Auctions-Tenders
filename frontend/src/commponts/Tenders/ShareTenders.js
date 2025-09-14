@@ -14,7 +14,11 @@ export default function ShareTenders() {
 
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
- 
+    const [sort1,setSort]=useState(localStorage.getItem("status3tn"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
   return (
     <>
       <div>
@@ -30,9 +34,9 @@ export default function ShareTenders() {
           <p>إنشاء مناقصة</p>
           <i className="fas fa-plus"></i>
         </button>
-        <ButtonSortTen test2='share'/>
+        <ButtonSortTen test2='share' onSortChange={handle}/>
       
-       <CardTen page={'share'}/>
+       <CardTen page={'share'} sort1={sort1}/>
        <Pagination/>
         <Footer />
       </div>

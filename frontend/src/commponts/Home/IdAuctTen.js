@@ -15,7 +15,7 @@ export default function IdAuctTen(){
       axiosInstance
         .get(
           `${
-              `/api/v1/auctions/${id}?status=مقبول`
+              `/api/v1/auctions/${id}?`
           
           }`,
           {

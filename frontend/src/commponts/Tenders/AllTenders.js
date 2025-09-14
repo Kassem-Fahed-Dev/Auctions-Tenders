@@ -14,7 +14,11 @@ import Pagination from '../Auctions/Pagination';
 export default function AllTenders() {
   const [hover, setHover] = useState(false);
   const navegate = useNavigate();
-
+  const [sort1,setSort]=useState(localStorage.getItem("statustn"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
   return (
     <>
       <Search page={"all"} type={"tenders"}/>
@@ -30,9 +34,9 @@ export default function AllTenders() {
         <i className="fas fa-plus"></i>
       </button>
 
-      <ButtonSortTen test2={'all'} />
+      <ButtonSortTen test2={'all'} onSortChange={handle}/>
      
-      <CardTen page={'all'} />
+      <CardTen page={'all'} sort1={sort1}/>
 <Pagination/>
       <Footer />
     </>
