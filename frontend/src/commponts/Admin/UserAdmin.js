@@ -86,7 +86,7 @@ export default function UserAdmin() {
           });
         }
       });
-  }, []);
+  }, [currentPage]);
   // /api/v1/users/67d7b0f4cd667d344c9fb910
   const deleteUser = (e, id) => {
     console.log('del');

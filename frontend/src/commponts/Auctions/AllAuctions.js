@@ -19,9 +19,9 @@ export default function AllAuctions() {
   const [hover, setHover] = useState(false);
   let sort = localStorage.getItem('status');
   const navegate = useNavigate();
-  if (sort == ' الوقت' || sort == ' مجموعات') {
-    sort = localStorage.setItem('status', 'فرز حسب');
-  }
+  // if (sort == ' الوقت' || sort == ' مجموعات') {
+  //   sort = localStorage.setItem('status', 'فرز حسب');
+  // }
   // const handleClick = () => {
   //   if (value2 == 'فرز حسب' && value == 'فرز حسب') {
   //     setTest(' ');
@@ -75,7 +75,11 @@ export default function AllAuctions() {
   //     localStorage.setItem('status', item);
   //   }
   // };
-
+  const [sort1,setSort]=useState(localStorage.getItem("status"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
   return (
     <div className="allauctions">
       <Search page={"all"} type={"auctions"}/>
@@ -91,12 +95,12 @@ export default function AllAuctions() {
         <i className="fas fa-plus"></i>
       </button>
       <div className="vv">
-        <ButtonSort test2="all" />
+        <ButtonSort test2="all" onSortChange={handle}/>
       
       </div>
        
-      <Cards page="all" />
-     <Pagination count={'1'}/>
+      <Cards page="all" sort1={sort1}/>
+     <Pagination count={'1'} />
       <Footer />
     </div>
   );

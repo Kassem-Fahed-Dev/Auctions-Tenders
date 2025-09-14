@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import Auction from './Auction';
 import { usePagination } from './PaginationContext';
 import { current } from '@reduxjs/toolkit';
-export default function Cards({ page, item, id, showDelete }) {
+export default function Cards({ page, item, id, showDelete,sort1 }) {
   const [all, setAll] = useState([]);
   const [count, setCount] = useState([]);
   const n = localStorage.getItem('current');
@@ -302,13 +302,16 @@ export default function Cards({ page, item, id, showDelete }) {
           }
         });
     }
-  }, [sort, currentPage]);
+  }, [sort,sort1, currentPage]);
   // }
 
   return (
     <>
       <div className="alotofAuction">
-        {all.map((auc) => (
+        {page=='fav'||page=="favp"||page=="favh"?all.map((auc) => (
+          <Auction data={auc.referenceId
+} showDelete={showDelete} />
+        )):all.map((auc) => (
           <Auction data={auc} showDelete={showDelete} />
         ))}
       </div>

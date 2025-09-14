@@ -10,9 +10,14 @@ import Search from "./Serach";
 import Pagination from "./Pagination";
 export default function ShareAuction(){
      let sort=localStorage.getItem('status3')
-   if(sort==' الوقت'||sort==' مجموعات'){
-sort=localStorage.setItem('status3','فرز حسب')
-   }
+//    if(sort==' الوقت'||sort==' مجموعات'){
+// sort=localStorage.setItem('status3','فرز حسب')
+//    }
+    const [sort1,setSort]=useState(localStorage.getItem("status3"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
         const [hover,setHover]=useState(false)
         const navegate=useNavigate()
  
@@ -25,9 +30,9 @@ sort=localStorage.setItem('status3','فرز حسب')
              <p>إنشاء مزاد</p>
              <i className="fas fa-plus"></i>
             </button>
-            <ButtonSort test2={'share'}/>
+            <ButtonSort test2={'share'} onSortChange={handle}/>
           
-         <Cards page="share"/>
+         <Cards page="share" sort1={sort1}/>
           <Pagination/>
                         <Footer/>
         </div>

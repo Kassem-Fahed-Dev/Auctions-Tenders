@@ -46,7 +46,7 @@ export default function WalletAdmin() {
           });
         }
       });
-  }, []);
+  }, [currentPage]);
 
   const accept = (id, discription) => {
     console.log('lllllllllllllllllll');

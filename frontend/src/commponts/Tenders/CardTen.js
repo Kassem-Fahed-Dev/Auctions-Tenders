@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 import Tender from './Tender';
 import { usePagination } from '../Auctions/PaginationContext';
-export default function CardTen({page,item,id,showDelete}) {
+export default function CardTen({page,item,id,showDelete,sort1}) {
   // console.log(id)
   const [all, setAll] = useState([]);
   let sort;
@@ -360,7 +360,7 @@ export default function CardTen({page,item,id,showDelete}) {
     });
   }
 
-},[sort,currentPage])
+},[sort,sort1,currentPage])
   return (
     <>
       <div className="alotofAuction">

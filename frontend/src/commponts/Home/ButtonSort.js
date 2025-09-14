@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axiosInstance from '../AxiosInterceptors'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-export default function ButtonSort({test2,position}) {
+export default function ButtonSort({test2,position,onSortChange}) {
    const [value,setValue]=useState('فرز حسب');
     const [value1,setValue1]=useState('فرز حسب');
     const [value2,setValue2]=useState('');
@@ -87,37 +87,40 @@ export default function ButtonSort({test2,position}) {
    }
 
     const handleClick=()=>{
-      
+        
         if(value2=='فرز حسب'&&value=='فرز حسب'){
         setTest(' ')
         setValue2('')
-        
+        onSortChange(value2)
          localStorage.setItem(st,value2)
         console.log(value2)
-        
+        console.log('11110')
         }
         else if(value=='فرز حسب'&&test=='فرز حسب'){
             setTest(' ')
             setValue1('فرز حسب')
              localStorage.setItem(st,value)
-         
+           onSortChange(value2)
             setValue(value1)
+              console.log('10')
           }
         else if(value2=='فرز حسب'){
           setValue1('فرز حسب')
            setTest(value1)
            console.log(value1)
           setValue(value1)
-           
+             onSortChange(value1)
            localStorage.setItem(st,value1)
-        
+          console.log('110')
           
        }
        
        else{
           setTest(value1)
+            onSortChange(value1)
               localStorage.setItem(st,value1)
           setValue(value1)
+            console.log('1110')
            
        }
     }
@@ -131,6 +134,7 @@ console.log(sort)
         {
           setTest1(item)
           localStorage.setItem(st,item)
+
             setValue1(' الوقت')
             setValue2('فرز حسب')
             console.log('0')
@@ -153,6 +157,7 @@ console.log(sort)
              setTest1(item)
              localStorage.setItem(st,item)      
         }
+         onSortChange(item)
     }
     // ======
     const rows=[]
