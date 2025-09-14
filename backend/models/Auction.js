@@ -54,6 +54,7 @@ const auctionSchema = new mongoose.Schema(
 // To set the value of activeStatus based on startTime and endTime
 auctionSchema.pre('save', function (next) {
   const now = new Date();
+  if(this.highestPrice === 0)
   this.highestPrice=this.startingPrice;
   if (now > this.endTime) {
     this.activeStatus = 'منتهي';

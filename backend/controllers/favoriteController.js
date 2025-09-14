@@ -152,17 +152,26 @@ exports.getUserFavorites = catchAsync(async (req, res, next) => {
   
   // Attach the populated data
   const populatedFavorites = favorites.map((favorite) => {
-    const favoriteObj = favorite.toObject();
-    if (favorite.type === 'auction') {
-      favoriteObj.referenceId = auctionMap[favorite.referenceId.toString()];
-    } else if (favorite.type === 'tender') {
-      favoriteObj.referenceId = tenderMap[favorite.referenceId.toString()];
-    } else {
-      favoriteObj.referenceId = categoryMap[favorite.referenceId.toString()];
-    }
-    console.log('😀😀😀😀favoriteObj', favoriteObj);
-    return favoriteObj;
-  });
+  const favoriteObj = favorite.toObject();
+
+  let referenceDoc;
+  if (favorite.type === 'auction') {
+    referenceDoc = auctionMap[favorite.referenceId.toString()];
+  } else if (favorite.type === 'tender') {
+    referenceDoc = tenderMap[favorite.referenceId.toString()];
+  } else {
+    referenceDoc = categoryMap[favorite.referenceId.toString()];
+  }
+
+  // Convert to object (to avoid modifying Mongoose doc directly)
+  if (referenceDoc) {
+    referenceDoc = referenceDoc.toObject ? referenceDoc.toObject() : referenceDoc;
+    referenceDoc.favorite = true; // ✅ add favorite field
+  }
+
+  favoriteObj.referenceId = referenceDoc;
+  return favoriteObj;
+});
   
   res.status(200).json({
     status: req.t(`fields:success`),
