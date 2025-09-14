@@ -65,6 +65,11 @@ export default function FavAuction() {
       setValue2('فرز حسب');
     }
   };
+        const [sort1,setSort]=useState(localStorage.getItem("status1p"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
   return (
     <>
       <Profile />
@@ -225,12 +230,12 @@ export default function FavAuction() {
               </div>
             </div> */}
             {/* <Search/> */}
-            <div className='b'> <ButtonSort test2={'favp'} position={"profile"}/></div>
+            <div className='b'> <ButtonSort test2={'favp'} position={"profile"} onSortChange={handle}/></div>
            
           </div>
         </div>
       </div>
-       <div style={{paddingTop:'35px'}} > <Cards page={'favp'}/></div>
+       <div style={{paddingTop:'35px'}} > <Cards page={'favp'} sort1={sort1}/></div>
      <Pagination/>
       <Footer />
     </>

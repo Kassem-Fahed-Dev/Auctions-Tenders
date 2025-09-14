@@ -13,7 +13,11 @@ import ButtonSortTen from './ButtonSortten';
 import Pagination from '../Auctions/Pagination';
 export default function FavoriteTenders() {
     const navegate = useNavigate();
-
+    const [sort1,setSort]=useState(localStorage.getItem("status1tn"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+} 
   // const [value1, setValue1] = useState('فرز حسب');
   // const [value2, setValue2] = useState('');
   // const [test, setTest] = useState('');
@@ -74,10 +78,10 @@ export default function FavoriteTenders() {
       </button>
        
       
-<ButtonSortTen test2={"fav"} position={"profile2"}/>
+<ButtonSortTen test2={"fav"} position={"profile2"} onSortChange={handle}/>
       
      <div className='margin'>
-        <CardTen page={'fav'}/>
+        <CardTen page={'fav'} sort1={sort1}/>
         </div>
         <Pagination/>
         <Footer />

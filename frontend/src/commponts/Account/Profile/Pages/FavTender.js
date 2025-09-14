@@ -70,6 +70,11 @@ export default function FavTender() {
   //     setValue2('فرز حسب');
   //   }
   // };
+          const [sort1,setSort]=useState(localStorage.getItem("status1tnp"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
   return (
     <>
       <Profile />
@@ -215,11 +220,11 @@ export default function FavTender() {
               </div>
             </div> */}
              {/* <Search/> */}
-            <ButtonSortTen test2={'favp'} position={"profile"}/>
+            <ButtonSortTen test2={'favp'} position={"profile"} onSortChange={handle}/>
           </div>
         </div>
       </div>
-     <div style={{paddingTop:'45px'}} >   <CardTen page={'favp'}/></div>
+     <div style={{paddingTop:'45px'}} >   <CardTen page={'favp'} sort1={sort1}/></div>
   <Pagination/>
 
       <Footer />

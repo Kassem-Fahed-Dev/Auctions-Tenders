@@ -23,7 +23,13 @@ export default function Favorite() {
       hh.style.cssText = 'color: red;';
     }
   }
-
+    const [sort1,setSort]=useState(localStorage.getItem("status1h"))
+     const [sort2,setSort2]=useState(localStorage.getItem("status1tnh"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+setSort2(newsort)
+}
   return (
     <div>
       <Navbar />
@@ -65,25 +71,25 @@ export default function Favorite() {
                   <div>
                       {/* <Search page={"alluser"}/> */}
                     <div className="but-sor">
-                       <ButtonSort test2={'favh'} position={"profile1"}/> 
+                       <ButtonSort test2={'favh'} position={"profile1"} onSortChange={handle}/> 
                       {/* <ButtonSort test2={'favh'} /> */}
                     </div>
                     <p className="par">المزادات المفضلة</p>
                   </div>
                   <div className="dec" style={{paddingTop:'50px'}}>
-                    <Cards page={'favh'} />
+                    <Cards page={'favh'} sort1={sort1}/>
                   </div>
                   <Pagination pos={'wallet'}/>
                 </div>
                 <div className={`${change === 'fav-ten' ? 'vis' : 'hid'}`}>
                     {/* <Search page={"alluser"}/> */}
                   <div className="but-sor">
-                  <ButtonSortTen   test2={'favh'} position={"profile1"}/> 
+                  <ButtonSortTen   test2={'favh'} position={"profile1"} onSortChange={handle}/> 
                   </div>
                   <p className="par">المناقصات المفضلة</p>
 
                   <div className="dec" style={{paddingTop:'50px'}}>
-                    <CardTen page={'favh'}/>
+                    <CardTen page={'favh'} sort1={sort2}/>
                   </div>
                   <Pagination pos={'wallet'}/>
                 </div>

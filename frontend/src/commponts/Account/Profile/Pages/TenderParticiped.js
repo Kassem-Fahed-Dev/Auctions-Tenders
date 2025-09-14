@@ -68,6 +68,11 @@ export default function TenderParticiped() {
   //     setValue2('فرز حسب');
   //   }
   // };
+      const [sort1,setSort]=useState(localStorage.getItem("status3tnp"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
   return (
     <>
       <Profile />
@@ -86,7 +91,7 @@ export default function TenderParticiped() {
           </h3>
           <div className="test-con">
             {/* <Search page="participped"/> */}
-            <ButtonSortTen test2={'sharep'} position={"profile"}/>
+            <ButtonSortTen test2={'sharep'} position={"profile"} onSortChange={handle}/>
             {/* <button
               className="sort21 sort-ten"
               type="text"
@@ -218,7 +223,7 @@ export default function TenderParticiped() {
         </div>
       </div>
    <div style={{paddingTop:'45px'}} >  
-    <CardTen page={'sharep'}/>
+    <CardTen page={'sharep'} sort1={sort1}/>
 </div>
 <Pagination/>
       <Footer />

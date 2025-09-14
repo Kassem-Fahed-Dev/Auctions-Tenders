@@ -66,6 +66,11 @@ export default function AucParticiped() {
   //     setValue2('فرز حسب');
   //   }
   // };
+    const [sort1,setSort]=useState(localStorage.getItem("status3p"))
+const handle=(newsort)=>{
+setSort(newsort)
+// localStorage.setItem("status",)
+}
   return (
     <div>
       <Profile />
@@ -226,11 +231,11 @@ export default function AucParticiped() {
                       </div>
                     </div> */}
             {/* <Search page="participped" /> */}
-            <ButtonSort test2={'sharep'} position={'profile'} />
+            <ButtonSort test2={'sharep'} position={'profile'} onSortChange={handle}/>
           </div>
         </div>
       </div>
-      <div style={{paddingTop:'37px'}} > <Cards page={'sharep'} /></div>
+      <div style={{paddingTop:'37px'}} > <Cards page={'sharep'} sort1={sort1} /></div>
      <Pagination/>
       <Footer />
     </div>

@@ -94,7 +94,7 @@ localStorage.setItem('current',cu)
       <AuctionsNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مزادات {data?.item?.category?.name||da?.item?.category?.name}</h1>
+          <h1>مزادات {data?.item?.category?.name||da?.item?.category?.name||data?.auctions?.item?.category?.name}</h1>
           <button
             className="back"
             onClick={() => {
