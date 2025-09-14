@@ -63,6 +63,7 @@ import UnReadnotification from './commponts/Home/Notifiction/UnReadnotification'
 import Readnotification from './commponts/Home/Notifiction/Readnotification';
 import { PaginationProvider } from './commponts/Auctions/PaginationContext';
 import { useLocation } from 'react-router-dom';
+import IdAuctTen from './commponts/Home/IdAuctTen';
 // <<<<<<< HEAD
 // import Group from './commponts/Group'
 // =======
@@ -177,6 +178,7 @@ const [allTender, setALLTender] = useState([]);
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/privacy1" element={<Privacy1 />} />
         <Route path="/acount" element={<CreateAcount />} />
+        <Route path='/det-nof' element={<IdAuctTen/>}/>
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/auctions" element={<AllAuctions />} />
         {/* <Route path="/auctions/a" element={<Cards />}/> */}

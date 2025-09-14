@@ -7,6 +7,7 @@ import im7 from '../../image/furniture.jpeg';
 import im8 from '../../image/elctron.jpeg';
 import im5 from '../../image/alarm.png';
 import { Link } from 'react-router-dom';
+import { usePagination } from './PaginationContext';
 import { useState } from 'react';
 import axiosInstance from '../AxiosInterceptors';
 export default function Auction({
@@ -16,6 +17,7 @@ export default function Auction({
   showReject = false,
 }) {
   const [errorMessage, setErrorMessage] = useState({});
+   const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
   const x = 'جاري';
   const calculateDateDifference = (start, end) => {
     const startDate = new Date(start);
@@ -282,7 +284,7 @@ export default function Auction({
         سعر الافتتاح : <span>{data?.startingPrice}</span>
       </div>
       <div className="cotainerptn">
-        <Link to={`/det`} state={{ data, heart: col }} className="ditales">
+        <Link to={`/det`} state={{ data, heart: col,cu:currentPage }} className="ditales">
           التفاصيل
         </Link>
         {showDelete && (

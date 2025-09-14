@@ -150,6 +150,9 @@
 
   height: 100%;
 }
+.div-title h4{
+padding-top: 15px;
+}
 .div-con {
   display: flex;
   justify-content: space-around;

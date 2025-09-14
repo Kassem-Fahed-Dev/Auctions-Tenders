@@ -13,7 +13,7 @@ function Data({ state1 }) {
 
   return (
     <div>
-      <pre className="information-auction">{state1.item?.description}</pre>
+      <pre className="information-auction">{state1?.item?.description}</pre>
     </div>
   );
 }

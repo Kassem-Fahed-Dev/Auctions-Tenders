@@ -5,10 +5,12 @@ import immm from '../../../image/car.jpg';
 import { useState } from 'react';
 import Footer from '../../privacy policy/Footer';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../AxiosInterceptors';
 export default function UnReadnotification() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const navigate=useNavigate()
     const [all, setAll] = useState([]);
   const [errorMessage, setErrorMessage] = useState({});
   // const [col, setcol] = useState('unread');
@@ -49,10 +51,11 @@ export default function UnReadnotification() {
   }, []);
    function handel_Fav(e, da) {
               e.preventDefault(); 
-            let parentElement = e.target.closest('.unread');
-            if (parentElement) {
-                parentElement.style.display = 'none'; 
-            }
+            // let parentElement = e.target.closest('.unread');
+            // if (parentElement) {
+            //     parentElement.style.display = 'none'; 
+            // }
+            navigate('/det-nof', { state: { id:da?.referenceId,type:da?.type } });
     const o = axiosInstance
       .patch(
         `/api/v1/notifications/${da?._id}/read`,

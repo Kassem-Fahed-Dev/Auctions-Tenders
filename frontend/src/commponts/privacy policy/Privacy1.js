@@ -25,7 +25,7 @@ export default function Privacy() {
               borderRadius: '12px',
             }}
           />
-          <p clasclassNames="title">شروط الاستخدام وإخلاء المسؤولية</p>
+          <p className="title">شروط الاستخدام وإخلاء المسؤولية</p>
         </div>
         <span>تاريخ السريان: [00/00/0000]</span>
         <p className="phar">

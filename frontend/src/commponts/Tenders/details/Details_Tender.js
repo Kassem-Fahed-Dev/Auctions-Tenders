@@ -13,7 +13,7 @@ function back() {
   window.history.go(-1);
 }
 
-export default function Details_Tender() {
+export default function Details_Tender({da}) {
   const scroll1 = useEffect(() => window.scrollTo(0, 0), []);
   const [errorMessage5, setErrorMessage5] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
@@ -21,7 +21,8 @@ export default function Details_Tender() {
 
   // const [amount, setAmount] = useState('');
   const location = useLocation();
-  const { data, heart } = location.state || {};
+  const { data, heart ,cu} = location.state || {};
+  localStorage.setItem('current1',cu)
   function back() {
     window.history.go(-1);
   }
@@ -139,7 +140,7 @@ export default function Details_Tender() {
       <TendersNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مناقصة {data?.item?.category?.name}</h1>
+          <h1>مناقصة {data?.item?.category?.name||da?.item?.category?.name}</h1>
           <button
             className="back"
             onClick={() => {
@@ -155,11 +156,11 @@ export default function Details_Tender() {
             <div className="con-title">
               <div className="div-title">
                 <p>اسم المناقصة : </p>
-                <h4>{data?.tenderTitle}</h4>
+                <h4>{data?.tenderTitle||da?.tenderTitle}</h4>
               </div>
               <div className="eee2">
                 <i
-                  className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
+                  className={`fas fa-heart ${heart == 'red'||da?.favorite==true ? 'red' : 'black'}`}
                 ></i>
               </div>
             </div>
@@ -170,14 +171,14 @@ export default function Details_Tender() {
                 حالة المناقصة :
                 <span
                   className={
-                    data?.activeStatus === 'جاري'
+                    data?.activeStatus === 'جاري'||  da?.activeStatus === 'جاري'
                       ? 'timedet'
-                      : data?.activeStatus === 'قادم'
+                      : data?.activeStatus === 'قادم'|| da?.activeStatus === 'قادم'
                       ? 'time2det'
                       : 'time1det'
                   }
                 >
-                  {data?.activeStatus}
+                  {data?.activeStatus||da?.activeStatus}
                 </span>
               </div>
               {/* <div className="state_tender">
@@ -191,16 +192,16 @@ export default function Details_Tender() {
               <div className="dv1">
                 تاريخ البدء :
                 <span>
-                  {data?.startTime?.slice(0, 10).replaceAll('-', '/')}
+                  {data?.startTime?.slice(0, 10).replaceAll('-', '/')||da?.startTime?.slice(0, 10).replaceAll('-', '/')}
                 </span>
               </div>
               <div className="dv2">
                 تاريخ الانتهاء :
-                <span>{data?.endTime?.slice(0, 10).replaceAll('-', '/')}</span>
+                <span>{data?.endTime?.slice(0, 10).replaceAll('-', '/')||da?.endTime?.slice(0, 10).replaceAll('-', '/')}</span>
               </div>
               <div>
                 السعر الابتدائي:
-                <span>{data.startingPrice}</span>
+                <span>{data?.startingPrice||da?.startingPrice}</span>
               </div>
             </div>
             <hr />
@@ -210,14 +211,14 @@ export default function Details_Tender() {
 
                 <div>
                   التصنيف:
-                  <span>{data?.item?.category?.name} </span>
+                  <span>{data?.item?.category?.name||da?.item?.category?.name} </span>
                 </div>
                 <div>
                   البلد:
                   <span>سوريا </span>
                 </div>
                 <div>
-                  المدينة : <span> {data?.city}</span>
+                  المدينة : <span> {data?.city||da?.city}</span>
                 </div>
               </div>
               <div className="kk">
@@ -226,7 +227,7 @@ export default function Details_Tender() {
                     className="ptn-particip"
                     onClick={() => {
                       if (
-                        data?.activeStatus !== 'منتهي' &&
+                       ( data?.activeStatus !== 'منتهي'|| da?.activeStatus !== 'منتهي' )&&
                         !loadingParticipation
                       ) {
                         setShowParticipation(true);
@@ -240,13 +241,13 @@ export default function Details_Tender() {
                     onMouseLeave={() => setShowHint(false)}
                     onMouseEnter={() => setShowHint(true)}
                     disabled={
-                      data?.activeStatus === 'منتهي' || loadingParticipation
+                      data?.activeStatus === 'منتهي' ||da?.activeStatus === 'منتهي'|| loadingParticipation
                     }
                     style={{
                       backgroundColor:
-                        data?.activeStatus === 'منتهي' ? 'gray' : '',
+                        data?.activeStatus === 'منتهي' || da?.activeStatus === 'منتهي'? 'gray' : '',
                       cursor:
-                        data?.activeStatus === 'منتهي' || loadingParticipation
+                        data?.activeStatus === 'منتهي'||   da?.activeStatus === 'منتهي' || loadingParticipation
                           ? 'not-allowed'
                           : 'pointer',
                     }}
@@ -286,9 +287,9 @@ export default function Details_Tender() {
                   {showHint && (
                     <div className="hint-box">
                       <i className="	fas fa-exclamation"></i>
-                      {data?.activeStatus === 'قادم'
+                      {data?.activeStatus === 'قادم'||da?.activeStatus === 'قادم'
                         ? 'للمشاركة بالمناقصة يتوجب عليك الانتظار الى أن تصبح جارية وسوف نقوم بارسال إشعار لك ان كنت مهتم'
-                        : data?.activeStatus === 'جاري'
+                        : data?.activeStatus === 'جاري'||da?.activeStatus === 'جاري'
                         ? '   للمشاركة بالمناقصة  يتوجب عليك  المشاركة بمبلغ  قدره  ليرة سورية وهو يمثل السعر الحالي +خطوة المزايدة '
                         : 'هذه المناقصة منتهية، لا يمكنك المشاركة'}
                     </div>
@@ -338,7 +339,7 @@ export default function Details_Tender() {
 
                     <button
                       onClick={(e) => {
-                        submitAmount(e, data?._id);
+                        submitAmount(e, data?._id||da?._id);
                       }}
                       disabled={!amount}
                     >
@@ -390,7 +391,7 @@ export default function Details_Tender() {
             )}
           </div>
 
-          <Navdata state={data} />
+          <Navdata state={data||da} />
         </div>
       </div>{' '}
       <div style={{ marginTop: '80px' }}>

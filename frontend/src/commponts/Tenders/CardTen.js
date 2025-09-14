@@ -84,7 +84,7 @@ export default function CardTen({page,item,id,showDelete}) {
       }
     });
   }
-     if(page=="id"){
+   else  if(page=="id"){
           console.log(id)
     axiosInstance
     .get(
@@ -275,10 +275,10 @@ export default function CardTen({page,item,id,showDelete}) {
       `${
       sort=='فرز حسب'||sort==' الوقت'||sort==' مجموعات'
           ? 
-          `/api/v1/tenders?status=مقبول&page=${currentPage}&limit=3`
+          `/api/v1/favorites?type=tender?status=مقبول&page=${currentPage}&limit=3`
           : sort == ' جاري' || sort == ' منتهي' || sort == ' قادم'
-          ? `/api/v1/tenders?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
-          : `/api/v1/tenders?status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
+          ? `/api/v1/favorites?type=tender?status=مقبول&activeStatus=${sort.trim()}&page=${currentPage}&limit=3`
+          : `/api/v1/favorites?type=tender?status=مقبول&categoryName=${sort.trim()}&page=${currentPage}&limit=3`
       }`
       ,
       {
@@ -291,13 +291,13 @@ export default function CardTen({page,item,id,showDelete}) {
       }
     )
     .then((res) => {
-      const favorites = res.data.data.data.filter(item => item.favorite === true);
+      // const favorites = res.data.data.data.filter(item => item.favorite === true);
         if (res.data.data.data.length === 0 && currentPage > 1) {
           setCurrentPage((prev) => prev - 1);
           return;
         }
       // تعيين العناصر المفلترة إلى الحالة
-      setAll(favorites);
+      setAll(res.data.data.data);
       
       
       console.log(res.data.data.data);

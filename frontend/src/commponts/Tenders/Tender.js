@@ -2,6 +2,8 @@ import im4 from '../../image/alarm.png';
 import im5 from './image-Tenders/qwe.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { usePagination } from '../Auctions/PaginationContext';
 import axiosInstance from '../AxiosInterceptors';
 export default function Tender({
   data,
@@ -19,6 +21,7 @@ export default function Tender({
     const dayDifference = timeDifference / (1000 * 3600 * 24); // تحويل المللي ثانية إلى أيام
     return dayDifference;
   };
+  const { currentPage,setCurrentPage, itemsPerPage } = usePagination();
   const navegate = useNavigate();
   const deleteTen = () => {
     console.log('del');
@@ -273,7 +276,7 @@ export default function Tender({
         السعر الابتدائي : <span>{data?.startingPrice}</span>
       </div>
       <div className="cotainerptn">
-        <Link to="/det-tender" state={{ data, heart: col }} className="ditales">
+        <Link to="/det-tender" state={{ data, heart: col ,cu:currentPage}} className="ditales">
           التفاصيل
         </Link>
 

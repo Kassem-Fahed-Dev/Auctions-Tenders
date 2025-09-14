@@ -7,8 +7,10 @@ import Footer from '../../privacy policy/Footer';
 import axiosInstance from '../../AxiosInterceptors';
 import { useEffect } from 'react';
 import Pagination from '../../Auctions/Pagination';
+import { useNavigate } from 'react-router-dom';
 import { usePagination } from '../../Auctions/PaginationContext';
 export default function Notification() {
+  const navigate=useNavigate()
   const location = useLocation();
   const currentPath = location.pathname;
   const [all, setAll] = useState([]);
@@ -18,7 +20,7 @@ export default function Notification() {
   const token = localStorage.getItem('jwt');
   useEffect(() => {
     axiosInstance
-      .get(`/api/v1/notifications/my?page=${currentPage}&limit=5`, {
+      .get(`/api/v1/notifications/my?page=${currentPage}&limit=15`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
@@ -47,12 +49,14 @@ export default function Notification() {
           });
         }
       });
-  }, []);
+  }, [currentPage]);
   //  const [col, setcol] = useState(all.read == true ? 'read' : 'unread');
   function handel_Fav(e, da) {
     e.preventDefault();
+    
     let hh = e.target;
     console.log(token);
+     navigate('/det-nof', { state: { id:da?.referenceId,type:da?.type } });
     if (hh.style.backgroundColor === 'transparent') {
       hh.style.cssText = 'backgroundColor: transparent;';
       // setcol('read');

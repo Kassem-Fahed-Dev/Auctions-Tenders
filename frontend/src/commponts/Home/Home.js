@@ -81,9 +81,9 @@ export default function Home() {
               <p>
                 {(token != 'null') & (all?.unread < 100)
                   ? all?.unread
-                  : token == 'null'
-                  ? '0'
-                  : '99+'}
+                  : token != 'null' & (all?.unread >= 100)
+                  ? '99+'
+                  : '0'}
               </p>
             </div>
             <i className="fas fa-bell icon2"></i>

@@ -58,10 +58,10 @@ ul {
   color: #cccccc;
 }
 /* العنوان */
-.box-up .title {
+.box-up .title ,p.title{
   margin-top: 8px;
   text-align: center;
-  font-weight: 400;
+  font-weight: bold;
   font-size: 36px;
   color: #000000;
 }

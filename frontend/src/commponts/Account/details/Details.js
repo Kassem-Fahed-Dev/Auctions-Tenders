@@ -17,7 +17,7 @@ import { useActionState } from 'react';
 //   }
 // }
 
-export default function Details() {
+export default function Details({da}) {
   const [loadingSubmit, setLoadingSubmit] = useState(false); // سبيـنر زر الإرسال
 
   const [errorMessage5, setErrorMessage5] = useState({});
@@ -42,7 +42,7 @@ export default function Details() {
 
     console.log('ppp');
     axiosInstance
-      .post(`/api/v1/auctions/placeBid/${data?._id}`, JSON.stringify(amount), {
+      .post(`/api/v1/auctions/placeBid/${data?._id||da?._id}`, JSON.stringify(amount), {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'ar',
@@ -53,7 +53,7 @@ export default function Details() {
       .then((res) => {
         console.log(res);
         setAmount({ amount: '' });
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((error) => {
         if (error.response) {
@@ -80,8 +80,8 @@ export default function Details() {
   //   return {};
   // }
   const location = useLocation();
-  const { data, heart } = location.state || {};
-
+  const { data, heart,cu } = location.state || {};
+localStorage.setItem('current',cu)
   console.log(data);
   console.log(heart);
 
@@ -94,7 +94,7 @@ export default function Details() {
       <AuctionsNavbar />
       <div className="all">
         <div className="title-1">
-          <h1>مزادات {data?.item?.category?.name}</h1>
+          <h1>مزادات {data?.item?.category?.name||da?.item?.category?.name}</h1>
           <button
             className="back"
             onClick={() => {
@@ -110,11 +110,11 @@ export default function Details() {
             <div className="con-title">
               <div className="div-title">
                 <p>اسم المزاد : </p>
-                <h4>{data?.auctionTtile}</h4>
+                <h4>{data?.auctionTitle||da?.auctionTitle}</h4>
               </div>
               <div className="eee">
                 <i
-                  className={`fas fa-heart ${heart == 'red' ? 'red' : 'black'}`}
+                  className={`fas fa-heart ${heart == 'red'||da?.favorite ==true ? 'red' : 'black'}`}
                 ></i>
               </div>
             </div>
@@ -126,14 +126,14 @@ export default function Details() {
                 حالة المزاد :
                 <span
                   className={
-                    data?.activeStatus === 'جاري'
+                    data?.activeStatus === 'جاري'||da?.activeStatus==='جاري'
                       ? 'timedet'
-                      : data?.activeStatus === 'قادم'
+                      : data?.activeStatus === 'قادم'||da?.activeStatus==='قادم'
                       ? 'time2det'
                       : 'time1det'
                   }
                 >
-                  {data?.activeStatus}
+                  {data?.activeStatus||da?.activeStatus}
                 </span>
               </div>
             </div>
@@ -141,36 +141,40 @@ export default function Details() {
               <div>
                 تاريخ البدء :
                 <span>
-                  {data?.startTime?.slice(0, 10).replaceAll('-', '/')}
+                  {data?.startTime?.slice(0, 10).replaceAll('-', '/')||da?.startTime?.slice(0, 10).replaceAll('-', '/')}
                 </span>
               </div>
               <div>
                 تاريخ الانتهاء :
-                <span>{data?.endTime?.slice(0, 10).replaceAll('-', '/')}</span>
+                <span>{data?.endTime?.slice(0, 10).replaceAll('-', '/')||da?.endTime?.slice(0, 10).replaceAll('-', '/')}</span>
               </div>
               <div>
                 السعر الابتدائي:
-                <span>{data.startingPrice}</span>
+                <span>{data?.startingPrice||da?.startingPrice}</span>
               </div>
               <div>
                 السعر الحالي:
-                <span>{data?.highestPrice}</span>
+                <span>{data?.highestPrice||da?.highestPrice}</span>
               </div>
               <div>
-                خطوة المزايدة :<span>{data?.minimumIncrement}</span>
+                خطوة المزايدة :<span>{data?.minimumIncrement||da?.minimumIncrement}</span>
               </div>
               <div>
-                اسم المنتج:<span>{data?.item?.name}</span>
+                اسم المنتج:<span>{data?.item?.name||da?.item?.name}</span>
               </div>
               <div>
                 {data?.item?.properties.map((item) => (
-                  <div key={item.key}>
-                    {item.key}: <span>{item.value}</span>
+                  <div key={item?.key}>
+                    {item?.key}: <span>{item?.value}</span>
+                  </div>
+                ))||da?.item?.properties.map((item) => (
+                  <div key={item?.key}>
+                    {item?.key}: <span>{item?.value}</span>
                   </div>
                 ))}
               </div>
               <div>
-                حالة المنتج:<span>{data?.item?.status}</span>
+                حالة المنتج:<span>{data?.item?.status||da?.item?.status}</span>
               </div>
             </div>
             <hr />
@@ -180,14 +184,14 @@ export default function Details() {
 
                 <div>
                   التصنيف:
-                  <span>{data?.item?.category?.name} </span>
+                  <span>{data?.item?.category?.name||da?.item?.category?.name} </span>
                 </div>
                 <div>
                   البلد:
                   <span>سوريا </span>
                 </div>
                 <div>
-                  المدينة : <span> {data?.city}</span>
+                  المدينة : <span> {data?.city||da?.city}</span>
                 </div>
               </div>
               <div className="aaaa">
@@ -218,7 +222,7 @@ export default function Details() {
                   className="ptn-particip"
                   onClick={() => {
                     if (
-                      data?.activeStatus !== 'منتهي' &&
+                     ( data?.activeStatus !== 'منتهي'||da?.activeStatus !== 'منتهي' )&&
                       !loadingParticipation
                     ) {
                       setShowParticipation(true);
@@ -233,13 +237,13 @@ export default function Details() {
                   onMouseEnter={() => setShowHint(true)}
                   onMouseLeave={() => setShowHint(false)}
                   disabled={
-                    data?.activeStatus === 'منتهي' || loadingParticipation
+                    (data?.activeStatus === 'منتهي'|| data?.activeStatus === 'منتهي') || loadingParticipation
                   }
                   style={{
                     backgroundColor:
-                      data?.activeStatus === 'منتهي' ? 'gray' : '',
+                      data?.activeStatus === 'منتهي'||  da?.activeStatus === 'منتهي' ? 'gray' : '',
                     cursor:
-                      data?.activeStatus === 'منتهي' || loadingParticipation
+                     ( data?.activeStatus === 'منتهي'||  da?.activeStatus === 'منتهي') || loadingParticipation
                         ? 'not-allowed'
                         : 'pointer',
                   }}
@@ -252,9 +256,9 @@ export default function Details() {
                 {showHint && (
                   <div className="hint-box">
                     <i className="	fas fa-exclamation"></i>
-                    {data?.activeStatus === 'قادم'
+                    {data?.activeStatus === 'قادم'||da?.activeStatus === 'قادم'
                       ? 'للمشاركة بالمزاد يتوجب عليك الانتظار الى أن يصبح جاري وسوف نقوم بارسال إشعار لك ان كنت مهتم'
-                      : data?.activeStatus === 'جاري'
+                      : data?.activeStatus === 'جاري'||da?.activeStatus === 'جاري'
                       ? '   للمشاركة بالمزاد يتوجب عليك  المشاركة بمبلغ  قدره  ليرة سورية وهو يمثل السعر الحالي +خطوة المزايدة '
                       : 'هذا المزاد منتهي، لا يمكنك المشاركة'}
                   </div>
@@ -334,7 +338,7 @@ export default function Details() {
           </div>
           <div className="create-auction-data2">
             {' '}
-            <Navdata state={data} />
+            <Navdata state={data||da} />
           </div>
         </div>
       </div>{' '}

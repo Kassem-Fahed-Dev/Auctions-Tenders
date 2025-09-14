@@ -44,6 +44,8 @@ localStorage.setItem('status6tn', 'فرز حسب');
 localStorage.setItem('status7tn', 'فرز حسب');
 localStorage.setItem('status8tn', 'فرز حسب');
 localStorage.setItem('status9tn', 'فرز حسب');
+ localStorage.setItem('current',0)
+  localStorage.setItem('current1',0)
 localStorage.setItem('status10tn', 'فرز حسب');
 const s=localStorage.getItem('allgroup')?.split(',')
 const s1=localStorage.getItem('allgroup1')?.split(',')
