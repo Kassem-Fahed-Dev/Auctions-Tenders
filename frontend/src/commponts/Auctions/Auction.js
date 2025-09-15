@@ -55,8 +55,8 @@ export default function Auction({
   };
   const [color, setColor] = useState('black');
   const differenceInDays = calculateDateDifference(
-    data?.startTime,
-    data?.endTime
+    data?.startTime|| data?.referenceId?.startTime,
+    data?.endTime|| data?.referenceId?.endTime
   );
   const extractDateTime = (dateString, dateString1) => {
     const date = new Date(dateString);
@@ -90,8 +90,8 @@ export default function Auction({
   };
 
   const { day, hours, minutes, ampm } = extractDateTime(
-    data?.createdAt,
-    data?.startTime
+    data?.createdAt||  data?.referenceId?.createdAt,
+    data?.startTime|| data?.referenceId?.startTime
   );
   // function Fav(fav){
   //   if(fav){
@@ -101,7 +101,7 @@ export default function Auction({
   //     setColor('black')
   //   }
   // }
-  const [col, setcol] = useState(data?.favorite == true ? 'red' : 'black');
+  const [col, setcol] = useState(data?.favorite == true||data?.referenceId?.favorite == true ? 'red' : 'black');
   const token = localStorage.getItem('jwt');
   function handel_Fav(e, da) {
     e.preventDefault();
@@ -116,7 +116,7 @@ export default function Auction({
     }
     const o = axiosInstance
       .post(
-        `/api/v1/favorites/auction/${da?._id}`,
+        `/api/v1/favorites/auction/${da?.referenceId?._id||da?._id}`,
         {},
         {
           withCredentials: true,
@@ -130,6 +130,7 @@ export default function Auction({
       )
       .then((res) => {
         console.log(res);
+        window.location.reload()
       })
       .catch((error) => {
         if (error.response) {
@@ -227,21 +228,21 @@ export default function Auction({
     <div className="oneAuction">
       <p
         className={
-          data?.activeStatus === 'جاري'
+          data?.activeStatus === 'جاري'|| data?.referenceId?.activeStatus === 'جاري'
             ? 'time'
-            : data?.activeStatus === 'قادم'
+            : data?.activeStatus === 'قادم'||data?.referenceId?.activeStatus === 'قادم'
             ? 'time2'
             : 'time1'
         }
       >
-        {data?.activeStatus}
+        {data?.activeStatus||data?.referenceId?.activeStatus}
       </p>
       <button
         className={`fas fa-heart ${col}`}
         onClick={(e) => handel_Fav(e, data)}
       ></button>
-      <img className="imageAuction" src={data.item?.photo[0]} alt="Error" />
-      <p className="nameCube">{data?.auctionTitle}</p>
+      <img className="imageAuction" src={data.item?.photo[0]||data?.referenceId?.item?.photo[0]} alt="Error" />
+      <p className="nameCube">{data?.auctionTitle||data?.referenceId?.auctionTitle}</p>
 
       <div className="userName">
         <i className="fas fa-user userAuction"></i>
@@ -249,7 +250,7 @@ export default function Auction({
       </div>
       <div className="product">
         <div className="product1">
-          <div> منتج {data?.numberOfItems}</div>
+          <div> منتج {data?.numberOfItems||data?.referenceId?.numberOfItems}</div>
           <i className="fas fa-table tableAuction"></i>
         </div>
         <div className="product1 product2">
@@ -273,18 +274,18 @@ export default function Auction({
 
         <div className="product1">
           <div>
-            <div>{data?.startTime?.slice(0, 10).replaceAll('-', '/')} </div>
-            <div>{data?.endTime?.slice(0, 10).replaceAll('-', '/')} </div>{' '}
+            <div>{data?.startTime?.slice(0, 10).replaceAll('-', '/')||data?.referenceId?.startTime?.slice(0, 10).replaceAll('-', '/')} </div>
+            <div>{data?.endTime?.slice(0, 10).replaceAll('-', '/')||data?.referenceId?.endTime?.slice(0, 10).replaceAll('-', '/')} </div>{' '}
           </div>
           <i className="far fa-calendar-alt clockAuction"></i>
         </div>
       </div>
       <hr></hr>
       <div className="many">
-        سعر الافتتاح : <span>{data?.startingPrice}</span>
+        سعر الافتتاح : <span>{data?.startingPrice||data?.referenceId?.startingPrice}</span>
       </div>
       <div className="cotainerptn">
-        <Link to={`/det`} state={{ data, heart: col,cu:currentPage }} className="ditales">
+        <Link to={`/det`} state={{ data:data?.referenceId||data, heart: col,cu:currentPage }} className="ditales">
           التفاصيل
         </Link>
         {showDelete && (

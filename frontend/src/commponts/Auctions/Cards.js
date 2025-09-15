@@ -309,7 +309,7 @@ export default function Cards({ page, item, id, showDelete,sort1 }) {
     <>
       <div className="alotofAuction">
         {page=='fav'||page=="favp"||page=="favh"?all.map((auc) => (
-          <Auction data={auc.referenceId
+          <Auction data={auc
 } showDelete={showDelete} />
         )):all.map((auc) => (
           <Auction data={auc} showDelete={showDelete} />

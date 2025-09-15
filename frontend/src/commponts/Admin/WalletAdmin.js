@@ -56,7 +56,7 @@ export default function WalletAdmin() {
     axiosInstance
       .patch(
         `${
-          discription == 'Deposit requested'
+          discription == 'Deposit requested'||discription =='Transfer'
             ? `/api/v1/payments/deposit/approve/${id}`
             : `/api/v1/payments/withdraw/complete/${id}`
         }`,
@@ -98,7 +98,7 @@ export default function WalletAdmin() {
     axiosInstance
       .patch(
         `${
-          discription == 'Deposit requested'
+          discription == 'Deposit requested'||discription =='Transfer'
             ? `/api/v1/payments/deposit/reject/${id}`
             : `/api/v1/payments/withdraw/fail/${id}`
         }`,

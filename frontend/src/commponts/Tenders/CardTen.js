@@ -366,7 +366,7 @@ export default function CardTen({page,item,id,showDelete,sort1}) {
       <div className="alotofAuction">
     
         {page=='fav'||page=="favp"||page=="favh"?all.map((auc) => (
-          <Tender data={auc.referenceId} showDelete={showDelete} />
+          <Tender data={auc} showDelete={showDelete} />
         )):all.map((auc) => (
           <Tender data={auc} showDelete={showDelete} />
         ))}

@@ -52,8 +52,8 @@ export default function Tender({
   };
   const [color, setColor] = useState('black');
   const differenceInDays = calculateDateDifference(
-    data?.startTime,
-    data?.endTime
+    data?.startTime|| data?.referenceId?.startTime,
+    data?.endTime||data?.referenceId?.endTime
   );
   const extractDateTime = (dateString, dateString1) => {
     const date = new Date(dateString);
@@ -87,8 +87,8 @@ export default function Tender({
   };
 
   const { day, hours, minutes, ampm } = extractDateTime(
-    data?.createdAt,
-    data?.startTime
+    data?.createdAt||data?.referenceId?.createdAt,
+    data?.startTime|| data?.referenceId?.startTime
   );
   // function Fav(fav){
   //   if(fav){
@@ -98,7 +98,7 @@ export default function Tender({
   //     setColor('black')
   //   }
   // }
-  const [col, setcol] = useState(data?.favorite == true ? 'red' : 'black');
+  const [col, setcol] = useState(data?.favorite == true||data?.referenceId?.favorite == true ? 'red' : 'black');
   const token = localStorage.getItem('jwt');
   function handel_Fav(e, da) {
     e.preventDefault();
@@ -113,7 +113,7 @@ export default function Tender({
     }
     const o = axiosInstance
       .post(
-        `/api/v1/favorites/tender/${da?._id}`,
+        `/api/v1/favorites/tender/${da?.referenceId?._id||da?._id}`,
         {},
         {
           withCredentials: true,
@@ -127,6 +127,7 @@ export default function Tender({
       )
       .then((res) => {
         console.log(res);
+        window.location.reload()
       })
       .catch((error) => {
         if (error.response) {
@@ -223,25 +224,25 @@ export default function Tender({
     <div className="oneAuction">
       <p
         className={
-          data?.activeStatus === 'جاري'
+          data?.activeStatus === 'جاري'|| data?.referenceId?.activeStatus === 'جاري'
             ? 'time'
-            : data?.activeStatus === 'قادم'
+            : data?.activeStatus === 'قادم'||data?.referenceId?.activeStatus === 'قادم'
             ? 'time2'
             : 'time1'
         }
       >
-        {data?.activeStatus}
+        {data?.activeStatus||data?.referenceId?.activeStatus}
       </p>
       <button
         className={`fas fa-heart ${col}`}
         onClick={(e) => handel_Fav(e, data)}
       ></button>
-      <img className="imageAuction" src={data?.item?.category?.image} alt="Error" />
-      <p className="nameCube">{data?.tenderTitle}</p>
+      <img className="imageAuction" src={data?.item?.category?.image||data?.referenceId?.item?.category?.image} alt="Error" />
+      <p className="nameCube">{data?.tenderTitle||data?.referenceId?.tenderTitle}</p>
 
       <div className="userName">
         <i className="fas fa-user userAuction"></i>
-        <div>{data?.user.name}:الناشر</div>
+        <div>{data?.user?.name}:الناشر</div>
       </div>
       <div className="product">
         <div className="product1 product2">
@@ -265,18 +266,18 @@ export default function Tender({
 
         <div className="product1">
           <div>
-            <div>{data?.startTime?.slice(0, 10).replaceAll('-', '/')} </div>
-            <div>{data?.endTime?.slice(0, 10).replaceAll('-', '/')} </div>{' '}
+            <div>{data?.startTime?.slice(0, 10).replaceAll('-', '/')||data?.referenceId?.startTime?.slice(0, 10).replaceAll('-', '/')} </div>
+            <div>{data?.endTime?.slice(0, 10).replaceAll('-', '/')||data?.referenceId?.endTime?.slice(0, 10).replaceAll('-', '/')} </div>{' '}
           </div>
           <i className="far fa-calendar-alt clockAuction"></i>
         </div>
       </div>
       <hr></hr>
       <div className="many">
-        السعر الابتدائي : <span>{data?.startingPrice}</span>
+        السعر الابتدائي : <span>{data?.startingPrice||data?.referenceId?.startingPrice}</span>
       </div>
       <div className="cotainerptn">
-        <Link to="/det-tender" state={{ data, heart: col ,cu:currentPage}} className="ditales">
+        <Link to="/det-tender" state={{ data:data.referenceId||data , heart: col ,cu:currentPage}} className="ditales">
           التفاصيل
         </Link>
 
