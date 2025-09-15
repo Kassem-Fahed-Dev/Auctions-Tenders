@@ -30,7 +30,7 @@ export default function IdAuctTen(){
         .then((res) => {
           setAll(res.data.data.data);
           console.log('create');
-          console.log(res.data.data.data);
+          console.log(res.data.data);
         })
         .catch((error) => {
           if (error.response) {
