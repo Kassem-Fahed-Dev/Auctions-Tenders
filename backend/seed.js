@@ -180,7 +180,9 @@ const auctionSeedData = [
       "city": "Damascus"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8ef",
+      "category": "68c66d7fe1880a43080807f8",
+       "photo":["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdfThvF_AiBSkjP-qj3K1lJpn-Z9WmPq8Vaw&s"
+        ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgtFxQbQSJ_eBfKk-ByEVaTyYG0IrYJVxVgecxGtrIHp-WmjSIirvbyqvdwnhjClHhtg0&usqp=CAU"],
       "name": "Toyota Corolla 2018",
       "description": "Used but in excellent condition",
       "status": "مستعمل",
@@ -203,7 +205,8 @@ const auctionSeedData = [
       "city": "Aleppo"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8f4",
+      "category": "68c66d7fe1880a43080807fd",
+      "photo":["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDwOC6_XLG0gr4PCKqb1CzYd1SzD6yb39CkA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBzBoa3MIjKmEUx_DWkdZRbe9sgTjN3l7dPe0r68b7C7yrOrm35TMCyk7x1bMhYuYT9Us&usqp=CAU"],
       "name": "MacBook Pro 2020",
       "description": "Laptop with 16GB RAM and 512GB SSD",
       "status": "مستعمل",
@@ -226,7 +229,8 @@ const auctionSeedData = [
       "city": "Homs"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8f9",
+      "category": "68c66d7fe1880a4308080802",
+      "photo":["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh-zHiebsAfLXk2gg0eZWeVLLn-tRW9DXskg&s"],
       "name": "Apartment in City Center",
       "description": "3 rooms, 2 bathrooms, 120 sqm",
       "status": "مستعمل",
@@ -249,7 +253,8 @@ const auctionSeedData = [
       "city": "Latakia"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8fe",
+      "category": "68c66d7fe1880a4308080807",
+      "photo":["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfaPUKvVfw7o3xc15e2RAYgCjevIS-oKtqTA&s"],
       "name": "Samsung Refrigerator",
       "description": "Double door, 400L",
       "status": "جديد",
@@ -272,7 +277,7 @@ const auctionSeedData = [
       "city": "Hama"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f903",
+      "category": "68c66d7fe1880a430808080c",
       "name": "X-Ray Machine",
       "description": "Portable digital X-Ray machine",
       "status": "جديد",
@@ -295,7 +300,7 @@ const auctionSeedData = [
       "city": "Tartus"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f908",
+      "category": "68c66d7fe1880a4308080811",
       "name": "iPhone 12 Pro",
       "description": "256GB, Blue",
       "status": "مستعمل",
@@ -318,7 +323,7 @@ const auctionSeedData = [
       "city": "Deir ez-Zor"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8ef",
+      "category": "68c66d7fe1880a43080807f8",
       "name": "Mercedes 280SL 1969",
       "description": "Classic vintage car",
       "status": "مستعمل",
@@ -341,7 +346,7 @@ const auctionSeedData = [
       "city": "Idlib"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8f4",
+      "category": "68c66d7fe1880a43080807fd",
       "name": "Dell XPS 15",
       "description": "Laptop with Intel i9 and 32GB RAM",
       "status": "جديد",
@@ -364,7 +369,7 @@ const auctionSeedData = [
       "city": "Aleppo"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8f9",
+      "category": "68c66d7fe1880a4308080802",
       "name": "Luxury Apartment",
       "description": "2 bedrooms, 2 bathrooms, 150 sqm",
       "status": "جديد",
@@ -387,7 +392,7 @@ const auctionSeedData = [
       "city": "Homs"
     },
     "item": {
-      "category": "68c66bbd8f9fe32ac8e3f8fe",
+      "category": "68c66d7fe1880a4308080807",
       "name": "LG Refrigerator",
       "description": "Double door, 350L",
       "status": "جديد",

@@ -2,8 +2,8 @@ import axios from 'axios';
 // import { logoutUser } from './auth'; // تأكد من تحديث مسار import حسب هيكلة مشروعك
 
 const axiosInstance = axios.create({
-  baseURL: 'https://auctions-tenders-38sx.onrender.com', // وضع عنوان API الخاص بك هنا
-   //baseURL: 'http://localhost:3001', // وضع عنوان API الخاص بك هنا
+  //baseURL: 'https://auctions-tenders-38sx.onrender.com', // وضع عنوان API الخاص بك هنا
+   baseURL: 'http://localhost:3001', // وضع عنوان API الخاص بك هنا
 });
 
 // إضافة interceptor للتعامل مع الأخطاء

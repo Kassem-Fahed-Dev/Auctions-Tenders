@@ -121,7 +121,7 @@ exports.createTenderWithItem = catchAsync(async (req, res, next) => {
     !tenderOwnerWallet ||
     tenderOwnerWallet.availableAmount < req.body.tender.startingPrice
   ) {
-    return next(new AppError(req.t('errors:insufficientBalance'), 400));
+    return next(new AppError("لايوجد كمية كافية في رصيدك لإنشاء هذه المناقصة", 400));
   }
 
   try {

@@ -381,182 +381,227 @@ const updateTenderStatuses = async () => {
       console.log(` ${newlyStartedTenders.length} tenders updated to جاري`);
     }
 
-    // 2. Process tenders that should end now
-    const tendersToEnd = await Tender.find({
-      endTime: { $lte: now },
-      activeStatus: { $ne: 'منتهي' },
-    }).populate('user');
+    // Updated tender logic section - replace the existing tender processing code
 
-    if (tendersToEnd.length > 0) {
-      console.log(`Found ${tendersToEnd.length} tenders to end...`);
+// 2. Process tenders that should end now
+const tendersToEnd = await Tender.find({
+  endTime: { $lte: now },
+  activeStatus: { $ne: 'منتهي' },
+}).populate('user');
 
-      for (const tender of tendersToEnd) {
-        try {
-          console.log(
-            `Processing notifications for tender: ${tender.tenderTitle}`,
-          );
+if (tendersToEnd.length > 0) {
+  console.log(`Found ${tendersToEnd.length} tenders to end...`);
 
-          const offers = await TenderOffer.find({
-            tender: tender._id,
-          }).populate('user');
-          console.log(
-            `Found ${offers.length} offers for tender ${tender.tenderTitle}`,
-          );
+  for (const tender of tendersToEnd) {
+    try {
+      console.log(`Processing notifications for tender: ${tender.tenderTitle}`);
 
-          if (offers.length > 0) {
-            // console.log('offers❤❤', offers.length);
-            // DETERMEN WINNER
-            const winner = offers.reduce(
-              (min, offer) => (offer.amount < min.amount ? offer : min),
-              offers[0],
-            );
-            console.log(
-              `Winner found: ${winner.user.name} with offer ${winner.amount}`,
-            );
+      const offers = await TenderOffer.find({
+        tender: tender._id,
+      }).populate('user');
+      
+      console.log(`Found ${offers.length} offers for tender ${tender.tenderTitle}`);
 
-            //  خصم المبلغ من محفظة صاحب المناقصة
-            const tenderOwnerWallet = await Wallet.findOneAndUpdate(
-              { partner: tender.user._id },
-              { $inc: { availableAmount: -winner.amount } }, // خصم المبلغ من الرصيد المتاح
-              { new: true, upsert: true },
-            );
-            //  إضافة المبلغ إلى الرصيد المحجوز لدى الفائز
-            const winnerWallet = await Wallet.findOneAndUpdate(
-              { partner: winner.user._id },
-              { $inc: { blockedAmount: winner.amount } }, // إضافة المبلغ إلى الرصيد المحجوز
-              { new: true, upsert: true },
-            );
+      if (offers.length > 0) {
+        // Find winner (lowest offer in tenders)
+        const winner = offers.reduce(
+          (min, offer) => (offer.amount < min.amount ? offer : min),
+          offers[0],
+        );
 
-            await WalletActivity.create({
-              partner: winner.user._id,
-              descriptionTransaction: 'Transfer',
-              amount: winner.amount,
-              status: 'pending',
-            });
+        console.log(`Winner found: ${winner.user.name} with offer ${winner.amount}`);
 
-            // **5. إعادة المبلغ المحجوز لغير الفائزين**
-            const allBiddersIds = new Set(
-              offers.map((offer) => offer.user._id.toString()),
-            );
-            const winnerId = winner.user._id.toString();
-            const otherBiddersIds = [...allBiddersIds].filter(
-              (bidderId) => bidderId !== winnerId,
-            );
+        // Notify winner
+        await notificationService
+          .createNotification({
+            userId: winner.user._id,
+            title: 'مبروك! لقد ربحت المناقصة',
+            message: `لقد ربحت المناقصة "${tender.tenderTitle}" بمبلغ ${winner.amount}`,
+            type: 'tender',
+            referenceId: tender._id,
+          })
+          .catch((err) => console.error('Notification error:', err));
 
-            const blockedAmountToReturn = 0.1 * tender.startingPrice;
-            await Wallet.updateMany(
-              {
-                partner: { $in: otherBiddersIds },
-                blockedAmount: { $gte: blockedAmountToReturn },
-              },
-              {
-                $inc: {
-                  availableAmount: blockedAmountToReturn,
-                  blockedAmount: -blockedAmountToReturn,
-                },
-              },
-            );
+        // Notify tender owner
+        await notificationService
+          .createNotification({
+            userId: tender.user._id,
+            title: 'انتهت مناقصتك',
+            message: `انتهت مناقصتك "${tender.tenderTitle}"، الفائز: ${winner.user.name}`,
+            type: 'tender',
+            referenceId: tender._id,
+          })
+          .catch((err) => console.error('Notification error:', err));
 
-            console.log(`Returned blocked amount to all non-winners.`);
+        let allOfferersIds = new Set(
+          offers.map((offer) => offer.user._id.toString()),
+        );
+        const winnerId = winner.user._id.toString();
+        const finalPrice = winner.amount;
 
-            // Notify owner
-            await notificationService
-              .createNotification({
-                userId: tender.user._id,
-                title: 'انتهت مناقصتك',
-                message: `انتهت مناقصتك "${tender.tenderTitle}"، يمكنك الآن مراجعة العروض واختيار الأنسب`,
-                type: 'tender',
-                referenceId: tender._id,
-              })
-              .catch((err) => console.error('Notification error:', err));
+        // إذا لم يكن للفائز محفظة، قم بإنشاء واحدة له
+        const winnerWallet = await Wallet.findOneAndUpdate(
+          { partner: winner.user._id },
+          {}, // لا توجد تحديثات مبدئية، فقط البحث أو الإنشاء
+          { upsert: true, new: true }, // upsert:true لإنشاء المحفظة إذا لم تكن موجودة. new:true لإعادة المحفظة المحدثة أو الجديدة
+        );
 
-            // Notify all bidders
-            allBiddersIds = new Set(
-              offers.map((offer) => offer.user._id.toString()),
-            );
-
-            for (const userId of allBiddersIds) {
-              await notificationService
-                .createNotification({
-                  userId: userId,
-                  title: 'انتهت المناقصة',
-                  message: `انتهت المناقصة "${tender.tenderTitle}"، سيتم إعلامك بالنتيجة بعد مراجعة العروض`,
-                  type: 'tender',
-                  referenceId: tender._id,
-                })
-                .catch((err) => console.error('Notification error:', err));
-            }
-
-            // Notify "favorites only" users
-            const favoritedUsers = await Favorite.find({
-              referenceId: tender._id,
-              type: 'tender',
-            }).populate('user');
-
-            const favoritedUserIds = new Set(
-              favoritedUsers.map((fav) => fav.user._id.toString()),
-            );
-
-            const favoritesOnlyUserIds = new Set(
-              [...favoritedUserIds].filter(
-                (userId) => !allBiddersIds.has(userId),
-              ),
-            );
-
-            for (const userId of favoritesOnlyUserIds) {
-              await notificationService
-                .createNotification({
-                  userId: userId,
-                  title: 'انتهت المناقصة',
-                  message: `انتهت المناقصة "${tender.tenderTitle}"`,
-                  type: 'tender',
-                  referenceId: tender._id,
-                })
-                .catch((err) => console.error('Notification error:', err));
-            }
-          } else {
-            console.log(`No offers found for tender ${tender.tenderTitle}`);
-            await notificationService
-              .createNotification({
-                userId: tender.user._id,
-                title: 'انتهت مناقصتك بدون عروض',
-                message: `انتهت مناقصتك "${tender.tenderTitle}" بدون أي عروض`,
-                type: 'tender',
-                referenceId: tender._id,
-              })
-              .catch((err) => console.error('Notification error:', err));
-
-            // Send notification to users who favorited but no offers were made
-            const favoritedUsers = await Favorite.find({
-              referenceId: tender._id,
-              type: 'tender',
-            }).populate('user');
-
-            for (const fav of favoritedUsers) {
-              await notificationService
-                .createNotification({
-                  userId: fav.user._id,
-                  title: 'انتهت المناقصة',
-                  message: `انتهت المناقصة "${tender.tenderTitle}"`,
-                  type: 'tender',
-                  referenceId: tender._id,
-                })
-                .catch((err) => console.error('Notification error:', err));
-            }
+        // خصم المبلغ النهائي من صاحب المناقصة (يدفع للفائز)
+        const tenderOwnerWallet = await Wallet.findOne({
+          partner: tender.user._id,
+        });
+        
+        if (tenderOwnerWallet) {
+          // this 10% of final amount it should be transfer to admin wallet
+          const blockedAmount = 0.1 * finalPrice;
+          
+          // cut the final price + 10% of final price from tender owner available amount
+          tenderOwnerWallet.availableAmount -= finalPrice + blockedAmount;
+          
+          // add 10% of final price to admin wallet
+          const admin = await User.findOne({
+            role: 'admin',
+          });
+          let adminWallet = await Wallet.findOne({
+            partner: admin._id,
+          });
+          if (!adminWallet) {
+            adminWallet = await Wallet.create({ partner: admin._id });
           }
-        } catch (error) {
-          console.error(` Error processing ended tender ${tender._id}:`, error);
+          adminWallet.availableAmount += blockedAmount;
+          await adminWallet.save();
+          await tenderOwnerWallet.save();
+          
+          console.log(`Deducted final offer amount ${finalPrice} from tender owner's wallet.`);
+        }
+
+        // اضافة المبلغ الماخوذ من حساب صاحب المناقصة الى حساب الفائز
+        winnerWallet.blockedAmount += finalPrice;
+        
+        // اضافة نشاط لحادثة التحويل من حساب لاخر
+        await WalletActivity.create({
+          partner: winner.user._id,
+          descriptionTransaction: 'Transfer',
+          amount: finalPrice, // positive
+          status: 'pending',
+        });
+        await winnerWallet.save();
+        
+        console.log(`Deposited final offer amount ${finalPrice} into winner's wallet.`);
+
+        // إعادة المبلغ المقتطع لغير الفائزين
+        const otherOfferersIds = [...allOfferersIds].filter(
+          (offererId) => offererId ,
+        );
+
+        // Fetch wallets for all non-winning offerers and return their blocked amount
+        const otherOfferersWallets = await Wallet.find({
+          partner: { $in: otherOfferersIds },
+        });
+
+        const blockedAmountToReturn = 0.1 * tender.startingPrice;
+        for (const wallet of otherOfferersWallets) {
+          if (wallet.blockedAmount >= blockedAmountToReturn) {
+            wallet.availableAmount += blockedAmountToReturn;
+            wallet.blockedAmount -= blockedAmountToReturn;
+            await wallet.save();
+            console.log(`Returned blocked amount to non-winner: ${wallet.partner}`);
+          }
+        }
+
+        // Notify others
+        allOfferersIds = new Set(offers.map((offer) => offer.user._id.toString()));
+        winnerId = winner.user._id.toString();
+        otherOfferersIds = [...allOfferersIds].filter(
+          (offererId) => offererId !== winnerId,
+        );
+
+        // Fetch users who favorited this specific tender
+        const favoritedUsers = await Favorite.find({
+          referenceId: tender._id,
+          type: 'tender',
+        }).populate('user');
+        
+        // Get IDs of favorited users
+        const favoritedUserIds = new Set(
+          favoritedUsers.map((fav) => fav.user._id.toString()),
+        );
+
+        // Remove offerers from favorited users to get "favorites only" list
+        const favoritesOnlyUserIds = new Set(
+          [...favoritedUserIds].filter(
+            (userId) => !allOfferersIds.has(userId),
+          ),
+        );
+
+        // Send "You did not win" notification to non-winning offerers
+        for (const userId of otherOfferersIds) {
+          await notificationService
+            .createNotification({
+              userId: userId,
+              title: 'انتهت المناقصة',
+              message: `انتهت المناقصة "${tender.tenderTitle}"، لم تفز هذه المرة`,
+              type: 'tender',
+              referenceId: tender._id,
+            })
+            .catch((err) => console.error('Notification error:', err));
+        }
+
+        // Send "Tender has ended" notification to "favorites only" users
+        for (const userId of favoritesOnlyUserIds) {
+          await notificationService
+            .createNotification({
+              userId: userId,
+              title: 'انتهت المناقصة',
+              message: `انتهت المناقصة "${tender.tenderTitle}"`,
+              type: 'tender',
+              referenceId: tender._id,
+            })
+            .catch((err) => console.error('Notification error:', err));
+        }
+      } else {
+        console.log(`No offers found for tender ${tender.tenderTitle}`);
+        await notificationService
+          .createNotification({
+            userId: tender.user._id,
+            title: 'انتهت مناقصتك بدون عروض',
+            message: `انتهت مناقصتك "${tender.tenderTitle}" بدون أي عروض`,
+            type: 'tender',
+            referenceId: tender._id,
+          })
+          .catch((err) => console.error('Notification error:', err));
+
+        // Send notification to users who favorited but no offers were made
+        const favoritedUsers = await Favorite.find({
+          referenceId: tender._id,
+          type: 'tender',
+        }).populate('user');
+
+        for (const fav of favoritedUsers) {
+          await notificationService
+            .createNotification({
+              userId: fav.user._id,
+              title: 'انتهت المناقصة',
+              message: `انتهت المناقصة "${tender.tenderTitle}"`,
+              type: 'tender',
+              referenceId: tender._id,
+            })
+            .catch((err) => console.error('Notification error:', err));
         }
       }
-
-      // update status
-      await Tender.updateMany(
-        { _id: { $in: tendersToEnd.map((t) => t._id) } },
-        { $set: { activeStatus: 'منتهي' } },
-      );
-
-      console.log(` ${tendersToEnd.length} tenders updated to منتهي`);
+    } catch (error) {
+      console.error(`Error processing ended tender ${tender._id}:`, error);
     }
+  }
+
+  // update status
+  await Tender.updateMany(
+    { _id: { $in: tendersToEnd.map((t) => t._id) } },
+    { $set: { activeStatus: 'منتهي' } },
+  );
+
+  console.log(`${tendersToEnd.length} tenders updated to منتهي`);
+}
 
     // 3. Mark future tenders
     const upcomingTenders = await Tender.updateMany(

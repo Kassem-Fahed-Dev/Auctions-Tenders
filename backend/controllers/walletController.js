@@ -193,7 +193,8 @@ exports.completeWithdrawal = catchAsync(async (req, res, next) => {
   if (
     !activity ||
     activity.status !== 'pending' ||
-    activity.descriptionTransaction !== 'Withdrawal requested'
+    activity.descriptionTransaction !== 'Withdrawal requested' &&
+      activity.descriptionTransaction !== 'Transfer'
   ) {
     return next(
       new AppError('Invalid or non-pending withdrawal activity', 400),
@@ -227,7 +228,8 @@ exports.failWithdrawal = catchAsync(async (req, res, next) => {
   if (
     !activity ||
     activity.status !== 'pending' ||
-    activity.descriptionTransaction !== 'Withdrawal requested'
+    activity.descriptionTransaction !== 'Withdrawal requested' &&
+      activity.descriptionTransaction !== 'Transfer'
   ) {
     return next(
       new AppError('Invalid or non-pending withdrawal activity', 400),

@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000','https://auctions-tenders-sy.vercel.app'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionSuccessStatus: 200,
